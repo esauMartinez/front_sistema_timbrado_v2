@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia';
 import { Operador } from '../interfaces/operador.model';
 import { Patio } from '../interfaces/patio.model';
+import { CodigoPostal } from '../interfaces/codigo_postal.model';
 
 interface PatioStore {
 	patios: Patio[];
 	patio: Patio;
+	codigos: CodigoPostal[];
 }
 
 export const usePatioStore = defineStore('patio', {
@@ -30,6 +32,7 @@ export const usePatioStore = defineStore('patio', {
 			estatus: true,
 			tipo: null,
 		},
+    codigos: []
 	}),
 	actions: {
 		setPatios(patios: Patio[]) {
@@ -38,5 +41,8 @@ export const usePatioStore = defineStore('patio', {
 		setPatio(patio: Patio) {
 			this.patio = patio;
 		},
+		setCodigos(codigos: CodigoPostal[]) {
+			this.codigos = codigos;
+		}
 	},
 });

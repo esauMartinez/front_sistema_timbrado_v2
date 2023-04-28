@@ -27,6 +27,7 @@ import {
 	faTruck,
 	faUserAstronaut,
 	faUsers,
+	faGlobe,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -43,6 +44,7 @@ library.add(faBriefcase);
 library.add(faMoon);
 library.add(faSun);
 library.add(faTrailer);
+library.add(faGlobe);
 
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
@@ -61,6 +63,7 @@ import ProgressBar from 'primevue/progressbar';
 import Tag from 'primevue/tag';
 import Panel from 'primevue/panel';
 import FileUpload from 'primevue/fileupload';
+import Listbox from 'primevue/listbox';
 
 // service toast
 import ToastService from 'primevue/toastservice';
@@ -86,6 +89,7 @@ app.component('ProgressBar', ProgressBar);
 app.component('Tag', Tag);
 app.component('Panel', Panel);
 app.component('FileUpload', FileUpload);
+app.component('Listbox', Listbox);
 
 app.use(ToastService);
 app.use(createPinia());

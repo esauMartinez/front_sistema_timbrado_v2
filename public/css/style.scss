@@ -1,6 +1,7 @@
 @use '/public/css/variables' as v;
 @use '/public/arya-green/theme.scss' as dark;
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import '@sweetalert2/theme-borderless/borderless.scss';
 
 * {
 	box-sizing: border-box;
@@ -15,13 +16,59 @@
 }
 
 .logo-and-name {
-	color: #ffffff
+	color: #ffffff;
+}
+
+.list-container {
+	position: relative;
+}
+
+.list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	background-color: white;
+	border: 1px solid #80808000;
+	border-radius: 3px;
+	box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+		0 1px 10px 0 rgba(0, 0, 0, 0.12);
+
+	li {
+		padding: 8px;
+	}
+
+	li:hover {
+		cursor: pointer;
+		background-color: #e9ecef;
+		color: #495057;
+	}
+}
+
+.swal2-container {
+  z-index: 3001 !important;
 }
 
 @mixin dark-mode {
 	@include dark.dark-mode;
 
 	background-color: v.$body-color-dark;
+
+	.list {
+		background: #1e1e1e;
+		color: rgba(255, 255, 255, 0.87);
+		border: 1px solid #383838;
+		border-radius: 3px;
+		box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+			0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+
+		li:hover {
+			color: rgba(255, 255, 255, 0.87);
+			background: rgba(255, 255, 255, 0.03);
+		}
+	}
 
 	.sidenav {
 		background-color: v.$side-nav-dark;

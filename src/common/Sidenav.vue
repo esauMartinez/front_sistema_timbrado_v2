@@ -50,7 +50,7 @@ const items: item[] = [
 	{
 		name: 'Patios',
 		link: '/Patios',
-		icon: 'trailer',
+		icon: 'globe',
 		isHidden:
 			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
 	},

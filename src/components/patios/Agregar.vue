@@ -21,7 +21,7 @@ onMounted(() => {
 		:style="{ width: '50vw' }"
 		v-on:after-hide="router.go(-1)"
 	>
-		<Formulario id="formulario" />
+		<Formulario @submit.prevent="postPatio(patio)" id="formulario" />
 		<template #footer>
 			<Button
 				label="Cancelar"

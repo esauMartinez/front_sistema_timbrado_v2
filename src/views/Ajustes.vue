@@ -15,7 +15,7 @@ import { instance } from '../helpers/axiosInstance';
 			</template>
 		</Card>
 
-		<Card>
+		<Card class="mt-3">
 			<template #content>
 				<Panel header="Logotipo de la empresa">
 					<FormularioLogotipo />

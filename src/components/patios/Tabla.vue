@@ -92,12 +92,12 @@ const filters = ref({
 				</Column>
 				<Column header="Acciones">
 					<template #body="{ data }">
-						<div class="d-flex justify-content-center">
+						<div class="d-flex justify-content-center" v-if="data.estatus">
 							<span class="p-buttonset">
 								<Button
 									icon="pi pi-pencil"
 									severity="warning"
-									@click="modificar(data.id)"
+									@click="modificar(data.id)"	
 								/>
 								<Button
 									icon="pi pi-trash"

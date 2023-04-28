@@ -5,10 +5,11 @@ import { useToast } from 'primevue/usetoast';
 import { router } from '../router';
 import { usePatioStore } from '../store/patio';
 import { Patio } from '../interfaces/patio.model';
+import axios from 'axios';
 
 export const usePatio = () => {
 	const patioStore = usePatioStore();
-	const { patio, patios } = storeToRefs(patioStore);
+	const { patio, patios, codigos } = storeToRefs(patioStore);
 	const toast = useToast();
 
 	const getPatios = async () => {
@@ -101,16 +102,33 @@ export const usePatio = () => {
 			estatus: true,
 			tipo: null,
 		});
+
+		patioStore.setCodigos([]);
+	};
+
+	const buscarCodigoPostal = async (codigo: string) => {
+		try {
+			if (codigo.length > 3) {
+				const { data } = await axios.get(
+					`http://localhost:3800/api/v1/postal_code/service/${codigo}`
+				);
+				patioStore.setCodigos(data);
+			}
+		} catch (err) {
+			error(err);
+		}
 	};
 
 	return {
 		patio,
 		patios,
+		codigos,
 		getPatios,
 		getPatio,
 		postPatio,
 		putPatio,
 		deletePatio,
 		resetPatioForm,
+		buscarCodigoPostal,
 	};
 };
