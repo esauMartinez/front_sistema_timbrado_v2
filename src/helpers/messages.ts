@@ -23,6 +23,7 @@ export const notFound = (payload) => {
 export const error = (payload) => {
 	switch (payload.response.status) {
 		case 401:
+			localStorage.removeItem('usuario');
 			unauthorized();
 			break;
 		default:
@@ -40,6 +41,11 @@ const unauthorized = () => {
 		icon: 'error',
 		title: 'Oops...',
 		text: 'No tienes permisos para acceder a este recurso',
+		allowEnterKey: false,
+		allowOutsideClick: false,
+		allowEscapeKey: false,
+	}).then(() => {
+		router.push('/');
 	});
 };
 

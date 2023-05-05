@@ -19,7 +19,7 @@ const { empresa, saveChanges } = useEmpresa();
 						<div class="col-lg-2">
 							<Button
 								type="submit"
-								label="Guardar datos"
+								label="Modificar datos"
 								form="formulario-datos-empresa"
 							/>
 						</div>

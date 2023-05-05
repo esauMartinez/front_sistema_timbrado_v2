@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import { useAuth } from '../composables/useAuth';
 import '../../public/css/sidenav.scss';
-const { getRol, logout, darkMode, setDarkMode, getLogotipo, getNombreUsuario } =
-	useAuth();
+import BotonSalir from './BotonSalir.vue';
+import BotonTema from './BotonTema.vue';
+import Logotipo from './Logotipo.vue';
+
+const { getRol, getLogotipo, getNombreUsuario } = useAuth();
 
 interface item {
 	name: string;
@@ -77,16 +80,9 @@ const items: item[] = [
 
 <template>
 	<div class="sidenav">
-		<div :class="{'logo-and-name': true,  }">
-			<Image
-				:src="'https://recawi.mx/timbrado_v2_ftp/' + getLogotipo().logotipo"
-				alt="Image"
-				v-if="getLogotipo().find"
-			/>
-			<div class="mt-4">
-				<h6 class="name-logo">{{ getNombreUsuario() }}</h6>
-			</div>
-		</div>
+		<!-- <BotonCerrarSidenav /> -->
+		<Logotipo />
+
 		<ul class="menu">
 			<li
 				v-for="item in items"
@@ -97,21 +93,10 @@ const items: item[] = [
 					{{ item.name }}
 				</router-link>
 			</li>
-			<li :class="{ hide: false, 'li-link': true }">
-				<a @click="logout()" class="logout-button">
-					<font-awesome-icon class="menu__icon" :icon="'right-from-bracket'" />
-					Salir
-				</a>
-			</li>
-			<li class="btn-dark-mode">
-				<font-awesome-icon class="menu__icon" :icon="'sun'" v-if="!darkMode" />
-				<font-awesome-icon class="menu__icon" :icon="'moon'" v-if="darkMode" />
-				<InputSwitch
-					v-model="darkMode"
-					class="switch-dark-mode"
-					@change="setDarkMode(darkMode)"
-				/>
-			</li>
+
+			<BotonSalir />
+
+			<BotonTema />
 		</ul>
 	</div>
 </template>

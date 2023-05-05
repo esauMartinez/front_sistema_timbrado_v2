@@ -1,0 +1,18 @@
+<script lang="ts" setup>
+import { useAuth } from '../composables/useAuth';
+
+const { getLogotipo, getNombreUsuario } = useAuth();
+</script>
+
+<template>
+	<div :class="{ 'logo-and-name': true }">
+		<Image
+			:src="'https://recawi.mx/timbrado_v2_ftp/' + getLogotipo().logotipo"
+			alt="Image"
+			v-if="getLogotipo().find"
+		/>
+		<div class="mt-4">
+			<h6 class="name-logo">{{ getNombreUsuario() }}</h6>
+		</div>
+	</div>
+</template>

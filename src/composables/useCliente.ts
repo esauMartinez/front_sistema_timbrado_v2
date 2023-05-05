@@ -17,6 +17,7 @@ export const useCliente = () => {
 			const { data } = await instance.get('/clientes');
 			clienteStore.setClientes(data);
 		} catch (err) {
+			console.log(err);
 			error(err);
 		}
 	};
