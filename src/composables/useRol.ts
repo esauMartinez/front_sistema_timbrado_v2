@@ -4,13 +4,13 @@ import { error } from '../helpers/messages';
 import { useRolStore } from '../store/rol';
 
 export const useRol = () => {
-	const useRol = useRolStore();
-	const { rol, roles } = storeToRefs(useRol);
+	const rolStore = useRolStore();
+	const { rol, roles } = storeToRefs(rolStore);
 
 	const getRoles = async () => {
 		try {
 			const { data } = await instance.get('/roles');
-			useRol.setRoles(data);
+			rolStore.setRoles(data);
 		} catch (err) {
 			error(err);
 		}

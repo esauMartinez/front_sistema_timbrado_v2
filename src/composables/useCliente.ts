@@ -7,15 +7,15 @@ import { Cliente } from '../interfaces/cliente.model';
 import { router } from '../router';
 
 export const useCliente = () => {
-	const useCliente = useClienteStore();
+	const clienteStore = useClienteStore();
 	const { cliente, clientes, usoCfdi, metodosPago, formasPago } =
-		storeToRefs(useCliente);
+		storeToRefs(clienteStore);
 	const toast = useToast();
 
 	const getClientes = async () => {
 		try {
 			const { data } = await instance.get('/clientes');
-			useCliente.setClientes(data);
+			clienteStore.setClientes(data);
 		} catch (err) {
 			error(err);
 		}
@@ -24,7 +24,7 @@ export const useCliente = () => {
 	const getCliente = async (id: number) => {
 		try {
 			const { data } = await instance.get(`/clientes/${id}`);
-			useCliente.setCliente(data);
+			clienteStore.setCliente(data);
 		} catch (err) {
 			error(err);
 		}
@@ -83,21 +83,21 @@ export const useCliente = () => {
 
 	const getUsoCfdi = async () => {
 		const { data } = await instance.get('/uso-cfdi');
-		useCliente.setUsoCFDI(data);
+		clienteStore.setUsoCFDI(data);
 	};
 
 	const getMetodosPago = async () => {
 		const { data } = await instance.get('/metodos-pago');
-		useCliente.setMetodosPago(data);
+		clienteStore.setMetodosPago(data);
 	};
 
 	const getFormasPago = async () => {
 		const { data } = await instance.get('/formas-pago');
-		useCliente.setFormasPago(data);
+		clienteStore.setFormasPago(data);
 	};
 
 	const resetClienteForm = () => {
-		useCliente.setCliente({
+		clienteStore.setCliente({
 			id: 0,
 			razon_social: '',
 			origen: '',

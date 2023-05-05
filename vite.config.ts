@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3100,
     proxy: {
       '/timbrado': {
-        target: 'http://172.28.255.194:3000/api/v2',
+        target: 'http://localhost:3000/api/v2',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/timbrado/, '')
       },

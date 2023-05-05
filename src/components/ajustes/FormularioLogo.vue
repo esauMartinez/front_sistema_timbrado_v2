@@ -1,32 +1,29 @@
 <script lang="ts" setup>
-import { useToast } from 'primevue/usetoast';
-import { instance } from '../../helpers/axiosInstance';
+import { ref } from 'vue';
+import { useEmpresa } from '../../composables/useEmpresa';
 
-const toast = useToast();
+const { uploadLogo } = useEmpresa();
 
+const uploading = ref(false);
 const upload = async (e) => {
-	try {
-		const formData = new FormData();
-		formData.append('logo', e.files[0]);
-		instance.defaults.headers.common['Content-Type'] = `multipart/form-data`;
-		const { data } = await instance.post('/empresas/upload/logo', formData);
-		toast.add({
-			severity: 'success',
-			summary: 'Logotipo',
-			detail: 'Logotipo subido correctamente',
-			life: 3000,
-		});
-	} catch (error) {
-		toast.add({
-			severity: 'error',
-			summary: 'Logotipo',
-			detail: 'Error al subir el logotipo',
-			life: 3000,
-		});
-	}
+	uploading.value = true;
+	await uploadLogo(e);
+	uploading.value = false;
 };
 </script>
+
 <template>
+	<div class="d-flex justify-content-center">
+		<ProgressSpinner
+			style="width: 50px; height: 50px"
+			strokeWidth="8"
+			fill="var(--surface-ground)"
+			animationDuration=".5s"
+			aria-label="Custom ProgressSpinner"
+			v-if="uploading"
+		/>
+	</div>
+
 	<FileUpload
 		name="demo[]"
 		url="https://www.primefaces.org/upload.php"
@@ -34,6 +31,7 @@ const upload = async (e) => {
 		:multiple="false"
 		accept="image/*"
 		:maxFileSize="1000000"
+		v-if="!uploading"
 	>
 		<template #empty>
 			<p>Drag and drop files to here to upload.</p>

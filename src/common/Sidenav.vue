@@ -77,24 +77,12 @@ const items: item[] = [
 
 <template>
 	<div class="sidenav">
-		<div class="logo-and-name">
-			<div>
-				<Avatar
-					:image="'https://recawi.mx/timbrado_v2_ftp/' + getLogotipo().logotipo"
-					size="xlarge"
-					class="p-overlay-badge"
-					shape="circle"
-					v-if="getLogotipo().find"
-				/>
-
-				<Avatar
-					:label="getLogotipo().razon_social"
-					size="xlarge"
-					shape="circle"
-					style="background-color: #4caf4f; color: #ffffff"
-					v-if="!getLogotipo().find"
-				/>
-			</div>
+		<div :class="{'logo-and-name': true,  }">
+			<Image
+				:src="'https://recawi.mx/timbrado_v2_ftp/' + getLogotipo().logotipo"
+				alt="Image"
+				v-if="getLogotipo().find"
+			/>
 			<div class="mt-4">
 				<h6 class="name-logo">{{ getNombreUsuario() }}</h6>
 			</div>

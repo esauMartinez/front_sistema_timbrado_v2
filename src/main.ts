@@ -64,6 +64,8 @@ import Tag from 'primevue/tag';
 import Panel from 'primevue/panel';
 import FileUpload from 'primevue/fileupload';
 import Listbox from 'primevue/listbox';
+import ProgressSpinner from 'primevue/progressspinner';
+import Image from 'primevue/image';
 
 // service toast
 import ToastService from 'primevue/toastservice';
@@ -90,6 +92,8 @@ app.component('Tag', Tag);
 app.component('Panel', Panel);
 app.component('FileUpload', FileUpload);
 app.component('Listbox', Listbox);
+app.component('ProgressSpinner', ProgressSpinner);
+app.component('Image', Image);
 
 app.use(ToastService);
 app.use(createPinia());

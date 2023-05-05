@@ -7,8 +7,8 @@ import { useAuthStore } from '../store/auth';
 import { Auth } from '../interfaces/auth.model';
 
 export const useAuth = () => {
-	const useAuth = useAuthStore();
-	const { auth, estatusUsuarioAutenticado, darkMode } = storeToRefs(useAuth);
+	const authStore = useAuthStore();
+	const { auth, estatusUsuarioAutenticado, darkMode } = storeToRefs(authStore);
 	const toast = useToast();
 
 	const authUser = async (auth: Auth) => {
@@ -17,7 +17,7 @@ export const useAuth = () => {
 				email: auth.email,
 				password: auth.password,
 			});
-			useAuth.setToken(data.data);
+			authStore.setToken(data.data);
 			renderizarTipo(data.data.role);
 		} catch (error) {
 			toast.add({
@@ -35,8 +35,8 @@ export const useAuth = () => {
 		} else {
 			router.push({ path: '/home' });
 		}
-		useAuth.setUsuarioAutenticado(true, false);
-		useAuth.resetLoginForm();
+		authStore.setUsuarioAutenticado(true, false);
+		authStore.resetLoginForm();
 		localStorage.setItem('rol', rol.nombre);
 	};
 
@@ -80,7 +80,7 @@ export const useAuth = () => {
 	};
 
 	const setDarkMode = (darkMode: boolean) => {
-		useAuth.setDarkMode(darkMode);
+		authStore.setDarkMode(darkMode);
 	};
 
 	const verificarDarkMode = (): boolean => {
@@ -100,7 +100,7 @@ export const useAuth = () => {
 
 	const setUsuarioAutenticado = (estatu: boolean) => {
 		const darkMode: boolean = JSON.parse(localStorage.getItem('dark-mode'));
-		useAuth.setUsuarioAutenticado(estatu, darkMode);
+		authStore.setUsuarioAutenticado(estatu, darkMode);
 	};
 
 	return {

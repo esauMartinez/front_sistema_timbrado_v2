@@ -7,14 +7,14 @@ import { Usuario } from '../interfaces/usuario.model';
 import { router } from '../router';
 
 export const useUsuario = () => {
-	const userStore = useUsuarioStore();
-	const { usuario, usuarios } = storeToRefs(userStore);
+	const usuarioStore = useUsuarioStore();
+	const { usuario, usuarios } = storeToRefs(usuarioStore);
 	const toast = useToast();
 
 	const getUsuarios = async () => {
 		try {
 			const { data } = await instance.get('/usuarios');
-			userStore.setUsuarios(data);
+			usuarioStore.setUsuarios(data);
 		} catch (err) {
 			error(err);
 		}
@@ -23,7 +23,7 @@ export const useUsuario = () => {
 	const getUsuario = async (id: number) => {
 		try {
 			const { data } = await instance.get(`/usuarios/${id}`);
-			userStore.setUsuario(data);
+			usuarioStore.setUsuario(data);
 		} catch (err) {
 			error(err);
 		}
@@ -81,7 +81,7 @@ export const useUsuario = () => {
 	};
 
 	const resetUsuarioForm = () => {
-		userStore.setUsuario({
+		usuarioStore.setUsuario({
 			id: null,
 			nombre: null,
 			paterno: null,
