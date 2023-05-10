@@ -4,13 +4,13 @@ import Tabla from '../components/tractores/Tabla.vue';
 
 <template>
 	<div class="container mt-5">
-		<Tabla />
+		<Card>
+			<template #content>
+				<Tabla :isModule="true" />
+			</template>
+		</Card>
 		<RouterView />
 	</div>
 </template>
 
 <style lang="scss" scoped></style>
-
-
-
-

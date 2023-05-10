@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { instance } from '../helpers/axiosInstance';
-import { verificarUsuarioAutenticado } from "../guards/verificarUsuarioAutenticado";
+import { verificarUsuarioAutenticado } from '../guards/verificarUsuarioAutenticado';
 
 const routes: RouteRecordRaw[] = [
 	{
@@ -125,13 +125,54 @@ const routes: RouteRecordRaw[] = [
 			},
 		],
 	},
+	{
+		path: '/servicios',
+		name: 'Servicios',
+		component: () => import('../views/Servicios.vue'),
+		children: [
+			{
+				path: '/agregar-servicio',
+				name: 'AgregarServicio',
+				component: () => import('../components/servicios/Agregar.vue'),
+			},
+			{
+				path: '/modificar-servicio/:id',
+				name: 'ModificarServicio',
+				component: () => import('../components/servicios/Modificar.vue'),
+			},
+		],
+	},
+	{
+		path: '/trips',
+		name: 'Trips',
+		component: () => import('../views/Trips.vue'),
+		children: [
+			{
+				path: '/agregar-trip',
+				name: 'AgregarTrip',
+				component: () => import('../components/trips/Agregar.vue'),
+				children: [
+					{
+						path: '/agregar-movimiento',
+						name: 'AgregarMovimiento',
+						component: () =>
+							import('../components/trips/datos/piernas/AgregarMovimiento.vue'),
+					},
+				],
+			},
+			{
+				path: '/modificar-trip/:id',
+				name: 'ModificarTrip',
+				component: () => import('../components/trips/Modificar.vue'),
+			},
+		],
+	},
 ];
 
 export const router = createRouter({
 	history: createWebHistory(),
 	routes,
 });
-
 
 router.beforeEach((to, from, next) => {
 	if (verificarUsuarioAutenticado() && to.name === 'Login') {

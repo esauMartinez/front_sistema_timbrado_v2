@@ -1,5 +1,5 @@
 @use '/public/css/variables' as v;
-@use '/public/arya-green/theme.scss' as dark;
+@use '/public/vela-green/theme.scss' as dark;
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import '@sweetalert2/theme-borderless/borderless.scss';
 
@@ -34,6 +34,7 @@
 	margin: 0;
 	padding: 0;
 	position: absolute;
+	z-index: 1001;
 	top: 0;
 	width: 100%;
 	background-color: white;

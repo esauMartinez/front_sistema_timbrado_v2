@@ -1,42 +1,36 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { router } from '../../router';
-import { usePatio } from '../../composables/usePatio';
-// import { formatDate } from '../../pipes/formatDate';
 import { severity } from '../../pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
+import { useTrip } from '../../composables/useTrip';
 
-const { patios, getPatios, putPatio, deletePatio } = usePatio();
+const { trips, getTrips } = useTrip();
 
 const loading = ref(true);
 
 onMounted(() => {
-	getPatios();
+	getTrips();
 	loading.value = false;
 });
 
 const modificar = (id: number) => {
-	router.push({ path: `/modificar-patio/${id}` });
+	router.push({ path: `/modificar-trip/${id}` });
 };
 
 const agregar = () => {
-	router.push({ path: `/agregar-patio` });
+	router.push({ path: `/agregar-trip` });
 };
 
 const filters = ref({
 	global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-	nombre: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-	codigo_postal: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-	estado: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-	pais: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-	tipo: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
 });
 </script>
 
 <template>
 	<DataTable
 		v-model:filters="filters"
-		:value="patios"
+		:value="trips"
 		showGridlines
 		stripedRows
 		paginator
@@ -45,11 +39,11 @@ const filters = ref({
 		:class="[{ 'p-datatable-sm': true }]"
 		dataKey="id"
 		:loading="false"
-		:globalFilterFields="['nombre', 'codigo_postal', 'estado', 'pais', 'tipo']"
+		:globalFilterFields="[]"
 	>
 		<template #header>
 			<div class="d-flex flex-wrap align-items-center justify-content-between">
-				<span class="text-xl text-900 font-bold">Usuarios</span>
+				<span class="text-xl text-900 font-bold">Trips</span>
 				<div>
 					<span class="p-input-icon-left me-3">
 						<i class="pi pi-search" />
@@ -59,16 +53,13 @@ const filters = ref({
 				</div>
 			</div>
 		</template>
-		<Column field="nombre" header="Nombre" sortable></Column>
-		<Column field="codigo_postal" header="Codigo postal" sortable />
-		<Column field="estado" header="Estado" sortable />
-		<Column field="pais" header="Pais" sortable />
-		<Column field="tipo" header="Tipo" sortable />
-		<Column>
-			<template #body="{ data }">
-				<InputSwitch v-model="data.estatus" @change="putPatio(data)" />
-			</template>
-		</Column>
+		<Column field="clave" header="Clave" sortable></Column>
+		<Column field="descripcion" header="" sortable />
+		<!-- <Column>
+					<template #body="{ data }">
+						<InputSwitch v-model="data.estatus" @change="putServicio(data)" />
+					</template>
+				</Column> -->
 		<Column header="Estatus">
 			<template #body="{ data }">
 				<Tag
@@ -86,11 +77,11 @@ const filters = ref({
 							severity="warning"
 							@click="modificar(data.id)"
 						/>
-						<Button
-							icon="pi pi-trash"
-							severity="danger"
-							@click="deletePatio(data.id)"
-						/>
+						<!-- <Button
+									icon="pi pi-trash"
+									severity="danger"
+									@click="deleteServicio(data.id)"
+								/> -->
 					</span>
 				</div>
 			</template>

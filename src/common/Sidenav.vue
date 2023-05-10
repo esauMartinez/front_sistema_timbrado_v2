@@ -5,7 +5,7 @@ import BotonSalir from './BotonSalir.vue';
 import BotonTema from './BotonTema.vue';
 import Logotipo from './Logotipo.vue';
 
-const { getRol, getLogotipo, getNombreUsuario } = useAuth();
+const { getRol } = useAuth();
 
 interface item {
 	name: string;
@@ -54,6 +54,20 @@ const items: item[] = [
 		name: 'Patios',
 		link: '/Patios',
 		icon: 'globe',
+		isHidden:
+			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
+	},
+	{
+		name: 'Servcicios',
+		link: '/Servicios',
+		icon: 'box-open',
+		isHidden:
+			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
+	},
+	{
+		name: 'Trips',
+		link: '/Trips',
+		icon: 'plane-departure',
 		isHidden:
 			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
 	},

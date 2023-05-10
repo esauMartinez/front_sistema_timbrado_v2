@@ -4,7 +4,11 @@ import Tabla from '../components/usuarios/Tabla.vue';
 
 <template>
 	<div class="container mt-5">
-		<Tabla />
+		<Card>
+			<template #content>
+				<Tabla />
+			</template>
+		</Card>
 		<RouterView />
 	</div>
 </template>

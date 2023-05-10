@@ -1,16 +1,14 @@
 <script lang="ts" setup>
-import Tabla from '../components/cajas/Tabla.vue';
+import Tabla from '../components/servicios/Tabla.vue';
 </script>
 
 <template>
 	<div class="container mt-5">
 		<Card>
 			<template #content>
-				<Tabla :isModule="true" />
+				<Tabla />
 			</template>
 		</Card>
 		<RouterView />
 	</div>
 </template>
-
-<style lang="scss" scoped></style>

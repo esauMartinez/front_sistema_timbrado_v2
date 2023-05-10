@@ -5,7 +5,7 @@ import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
 
 // theme
-import '/public/saga-green/theme.scss';
+import "primevue/resources/themes/lara-light-indigo/theme.css";   
 // core
 import 'primevue/resources/primevue.min.css';
 // icons
@@ -28,6 +28,9 @@ import {
 	faUserAstronaut,
 	faUsers,
 	faGlobe,
+	faPlaneDeparture,
+	faBoxOpen,
+	faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -45,6 +48,9 @@ library.add(faMoon);
 library.add(faSun);
 library.add(faTrailer);
 library.add(faGlobe);
+library.add(faPlaneDeparture);
+library.add(faBoxOpen);
+library.add(faPlus);
 
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';

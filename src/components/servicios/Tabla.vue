@@ -1,47 +1,41 @@
 <script lang="ts" setup>
-import { onMounted, ref, defineProps } from 'vue';
-import { useCliente } from '../../composables/useCliente';
+import { onMounted, ref } from 'vue';
 import { router } from '../../router';
 import { severity } from '../../pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
-import { useTrip } from '../../composables/useTrip';
+import { useServicio } from '../../composables/useServicio';
 
-const { clientes, getClientes, putCliente, deleteCliente } = useCliente();
-const { selectCliente } = useTrip();
+const { servicios, getServicios, putServicio, deleteServicio } = useServicio();
 
 const loading = ref(true);
 
-const props = defineProps({
-	isModule: Boolean,
-});
-
 onMounted(() => {
-	getClientes();
+	getServicios();
 	loading.value = false;
 });
 
 const modificar = (id: number) => {
-	router.push({ path: `/modificar-cliente/${id}` });
+	router.push({ path: `/modificar-servicio/${id}` });
 };
 
 const agregar = () => {
-	router.push({ path: `/agregar-cliente` });
+	router.push({ path: `/agregar-servicio` });
 };
 
 const filters = ref({
 	global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-	razon_social: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+	nombre: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
 	codigo_postal: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-	uso_cfdi: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
 	estado: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
 	pais: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+	tipo: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
 });
 </script>
 
 <template>
 	<DataTable
 		v-model:filters="filters"
-		:value="clientes"
+		:value="servicios"
 		showGridlines
 		stripedRows
 		paginator
@@ -50,39 +44,25 @@ const filters = ref({
 		:class="[{ 'p-datatable-sm': true }]"
 		dataKey="id"
 		:loading="false"
-		:globalFilterFields="[
-			'razon_social',
-			'codigo_postal',
-			'uso_cfdi',
-			'estado',
-			'pais',
-		]"
+		:globalFilterFields="['clave', 'descripcion']"
 	>
 		<template #header>
 			<div class="d-flex flex-wrap align-items-center justify-content-between">
-				<span class="text-xl text-900 font-bold">Clientes</span>
+				<span class="text-xl text-900 font-bold">Servicios</span>
 				<div>
 					<span class="p-input-icon-left me-3">
 						<i class="pi pi-search" />
 						<InputText v-model="filters['global'].value" placeholder="Buscar" />
 					</span>
-					<Button
-						icon="pi pi-plus"
-						severity="success"
-						@click="agregar"
-						v-if="isModule"
-					/>
+					<Button icon="pi pi-plus" severity="success" @click="agregar" />
 				</div>
 			</div>
 		</template>
-		<Column field="razon_social" header="Razon social" sortable></Column>
-		<Column field="codigo_postal" header="Codigo Postal" sortable />
-		<Column field="uso_cfdi" header="Uso de CFDI" sortable />
-		<Column field="estado" header="Estado" sortable />
-		<Column field="pais" header="Pais" sortable />
-		<Column v-if="isModule">
+		<Column field="clave" header="Clave" sortable></Column>
+		<Column field="descripcion" header="" sortable />
+		<Column>
 			<template #body="{ data }">
-				<InputSwitch v-model="data.estatus" @change="putCliente(data)" />
+				<InputSwitch v-model="data.estatus" @change="putServicio(data)" />
 			</template>
 		</Column>
 		<Column header="Estatus">
@@ -95,25 +75,17 @@ const filters = ref({
 		</Column>
 		<Column header="Acciones">
 			<template #body="{ data }">
-				<div class="d-flex justify-content-center">
+				<div class="d-flex justify-content-center" v-if="data.estatus">
 					<span class="p-buttonset">
 						<Button
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="isModule"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
-							@click="deleteCliente(data.id)"
-							v-if="isModule"
-						/>
-
-						<Button
-							icon="pi pi-plus"
-							v-if="!isModule && data.estatus"
-							@click="selectCliente(data)"
+							@click="deleteServicio(data.id)"
 						/>
 					</span>
 				</div>
