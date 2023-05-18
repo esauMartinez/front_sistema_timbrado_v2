@@ -10,9 +10,11 @@ const visible = ref(true);
 const route = useRoute();
 
 const modificar = async () => {
-	await putCliente(cliente.value);
-	router.go(-1);
-}
+	const response = await putCliente(cliente.value);
+	if (response) {
+		router.go(-1);
+	}
+};
 
 onMounted(async () => {
 	await getCliente(+route.params.id);

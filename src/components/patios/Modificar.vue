@@ -16,6 +16,7 @@ const modificar = async () => {
 
 onMounted(async () => {
 	await getPatio(+route.params.id);
+	console.log(route.params.type);
 });
 </script>
 
@@ -42,6 +43,7 @@ onMounted(async () => {
 				type="submit"
 				form="formulario"
 				severity="warning"
+				v-if="route.params.type === 'update'"
 			/>
 		</template>
 	</Dialog>

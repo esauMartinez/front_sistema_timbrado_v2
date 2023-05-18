@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, computed, ref } from 'vue';
 import { router } from '../../router';
 import Formulario from './Formulario.vue';
-import { useCliente } from "../../composables/useCliente";
-
-const visible = ref(true);
+import { useCliente } from '../../composables/useCliente';
 
 const { cliente, postCliente, resetClienteForm } = useCliente();
+const visible = ref(true);
 
 onMounted(() => {
 	resetClienteForm();
 });
 </script>
+
 <template>
 	<div>
 		<Dialog
@@ -20,9 +20,10 @@ onMounted(() => {
 			header="Agregar cliente"
 			:style="{ width: '50vw' }"
 			v-on:after-hide="router.go(-1)"
+			:closable="false"
 		>
-			<!-- {{ usuario }} -->
 			<Formulario @submit.prevent="postCliente(cliente)" id="formulario" />
+
 			<template #footer>
 				<Button
 					label="Cancelar"
@@ -42,3 +43,9 @@ onMounted(() => {
 		</Dialog>
 	</div>
 </template>
+
+<style scoped>
+.is-invalid {
+	border-color: #b02a37;
+}
+</style>

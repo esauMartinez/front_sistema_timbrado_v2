@@ -2,7 +2,7 @@ import { storeToRefs } from 'pinia';
 import { useClienteStore } from '../store/cliente';
 import { instance } from '../helpers/axiosInstance';
 import { useToast } from 'primevue/usetoast';
-import { error, question } from '../helpers/messages';
+import { handleError, question } from '../helpers/messages';
 import { Cliente } from '../interfaces/cliente.model';
 import { router } from '../router';
 
@@ -16,9 +16,8 @@ export const useCliente = () => {
 		try {
 			const { data } = await instance.get('/clientes');
 			clienteStore.setClientes(data);
-		} catch (err) {
-			console.log(err);
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -26,8 +25,8 @@ export const useCliente = () => {
 		try {
 			const { data } = await instance.get(`/clientes/${id}`);
 			clienteStore.setCliente(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -43,14 +42,14 @@ export const useCliente = () => {
 			getClientes();
 			router.go(-1);
 			return data;
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
 	const putCliente = async (payload: any) => {
 		try {
-			const { data } = await instance.put(`/clientes/${payload.id}`, payload);
+			await instance.put(`/clientes/${payload.id}`, payload);
 			toast.add({
 				severity: 'success',
 				summary: 'Cliente',
@@ -58,9 +57,10 @@ export const useCliente = () => {
 				life: 3000,
 			});
 			getClientes();
-			return data;
-		} catch (err) {
-			error(err);
+			return true;
+		} catch (error) {
+			handleError(error);
+			return false;
 		}
 	};
 
@@ -77,8 +77,8 @@ export const useCliente = () => {
 				});
 				getClientes();
 			}
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -100,22 +100,22 @@ export const useCliente = () => {
 	const resetClienteForm = () => {
 		clienteStore.setCliente({
 			id: 0,
-			razon_social: '',
-			origen: '',
-			codigo_postal: '',
-			colonia: '',
-			municipio: '',
-			estado: '',
-			pais: '',
-			calle: '',
-			numero_exterior: '',
-			numero_interior: '',
-			rfc: '',
-			tax_id: '',
-			email: '',
-			metodo_pago: '',
-			forma_pago: '',
-			uso_cfdi: '',
+			razon_social: null,
+			origen: 'nacional',
+			codigo_postal: null,
+			colonia: null,
+			municipio: null,
+			estado: null,
+			pais: null,
+			calle: null,
+			numero_exterior: null,
+			numero_interior: null,
+			rfc: null,
+			tax_id: null,
+			email: null,
+			metodo_pago: null,
+			forma_pago: null,
+			uso_cfdi: null,
 			estatus: true,
 		});
 	};

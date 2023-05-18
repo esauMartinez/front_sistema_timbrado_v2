@@ -2,11 +2,16 @@
 import { onMounted, ref } from 'vue';
 import { router } from '../../router';
 import { usePatio } from '../../composables/usePatio';
-// import { formatDate } from '../../pipes/formatDate';
 import { severity } from '../../pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
+import { useTrip } from '../../composables/useTrip';
 
 const { patios, getPatios, putPatio, deletePatio } = usePatio();
+const { agregarMovimiento } = useTrip();
+
+const props = defineProps({
+	isModule: Boolean,
+});
 
 const loading = ref(true);
 
@@ -16,7 +21,7 @@ onMounted(() => {
 });
 
 const modificar = (id: number) => {
-	router.push({ path: `/modificar-patio/${id}` });
+	router.push({ path: `/modificar-patio/${id}/update` });
 };
 
 const agregar = () => {
@@ -49,13 +54,18 @@ const filters = ref({
 	>
 		<template #header>
 			<div class="d-flex flex-wrap align-items-center justify-content-between">
-				<span class="text-xl text-900 font-bold">Usuarios</span>
+				<span class="text-xl text-900 font-bold">Patios</span>
 				<div>
 					<span class="p-input-icon-left me-3">
 						<i class="pi pi-search" />
 						<InputText v-model="filters['global'].value" placeholder="Buscar" />
 					</span>
-					<Button icon="pi pi-plus" severity="success" @click="agregar" />
+					<Button
+						icon="pi pi-plus"
+						severity="success"
+						@click="agregar"
+						v-if="isModule"
+					/>
 				</div>
 			</div>
 		</template>
@@ -64,7 +74,7 @@ const filters = ref({
 		<Column field="estado" header="Estado" sortable />
 		<Column field="pais" header="Pais" sortable />
 		<Column field="tipo" header="Tipo" sortable />
-		<Column>
+		<Column v-if="isModule">
 			<template #body="{ data }">
 				<InputSwitch v-model="data.estatus" @change="putPatio(data)" />
 			</template>
@@ -85,11 +95,18 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
+							v-if="isModule"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deletePatio(data.id)"
+							v-if="isModule"
+						/>
+						<Button
+							icon="pi pi-plus"
+							v-if="!isModule && data.estatus"
+							@click="agregarMovimiento(data)"
 						/>
 					</span>
 				</div>

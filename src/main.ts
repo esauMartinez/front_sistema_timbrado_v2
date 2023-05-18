@@ -5,7 +5,7 @@ import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
 
 // theme
-import "primevue/resources/themes/lara-light-indigo/theme.css";   
+import 'primevue/resources/themes/lara-light-indigo/theme.css';
 // core
 import 'primevue/resources/primevue.min.css';
 // icons
@@ -31,6 +31,8 @@ import {
 	faPlaneDeparture,
 	faBoxOpen,
 	faPlus,
+	faCircleInfo,
+	faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -51,6 +53,8 @@ library.add(faGlobe);
 library.add(faPlaneDeparture);
 library.add(faBoxOpen);
 library.add(faPlus);
+library.add(faCircleInfo);
+library.add(faTimes);
 
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
@@ -72,6 +76,8 @@ import FileUpload from 'primevue/fileupload';
 import Listbox from 'primevue/listbox';
 import ProgressSpinner from 'primevue/progressspinner';
 import Image from 'primevue/image';
+import Timeline from 'primevue/timeline';
+import Message from 'primevue/message';
 
 // service toast
 import ToastService from 'primevue/toastservice';
@@ -100,6 +106,8 @@ app.component('FileUpload', FileUpload);
 app.component('Listbox', Listbox);
 app.component('ProgressSpinner', ProgressSpinner);
 app.component('Image', Image);
+app.component('Timeline', Timeline);
+app.component('Message', Message);
 
 app.use(ToastService);
 app.use(createPinia());

@@ -1,6 +1,6 @@
 import { storeToRefs } from 'pinia';
 import { instance } from '../helpers/axiosInstance';
-import { error, question } from '../helpers/messages';
+import { handleError, question } from '../helpers/messages';
 import { useToast } from 'primevue/usetoast';
 import { router } from '../router';
 import { useServicioStore } from '../store/servicio';
@@ -15,8 +15,8 @@ export const useServicio = () => {
 		try {
 			const { data } = await instance.get('/servicios');
 			servicioStore.setServicios(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -24,8 +24,8 @@ export const useServicio = () => {
 		try {
 			const { data } = await instance.get(`/servicios/${id}`);
 			servicioStore.setServicio(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -41,8 +41,8 @@ export const useServicio = () => {
 			getServicios();
 			router.go(-1);
 			return data;
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -57,8 +57,8 @@ export const useServicio = () => {
 			});
 			getServicios();
 			return data;
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -75,8 +75,8 @@ export const useServicio = () => {
 				});
 				getServicios();
 			}
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 

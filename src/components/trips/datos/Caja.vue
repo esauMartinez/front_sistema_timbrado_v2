@@ -9,15 +9,6 @@ const visible = ref(false);
 
 <template>
 	<Panel header="Remolque">
-		<!-- <template #icons>
-			<button
-				type="button"
-				class="p-panel-header-icon p-link mr-2"
-				@click="visible = true"
-			>
-				<span class="pi pi-plus"></span>
-			</button>
-		</template> -->
 		<div class="row p-2">
 			<div class="col-lg-10">
 				<InputText

@@ -4,3 +4,11 @@ export const severity = (estatus) => {
 	}
 	return 'danger';
 };
+
+
+export const severityTrip = (estatus: string) => {
+	if (estatus.toLowerCase() === 'creado') {
+		return 'info';
+	}
+	return 'danger';
+}

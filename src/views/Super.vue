@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-	<div class="container mt-5">
+	<div class="container m-margin-top">
 		<h1>Super</h1>
 	</div>
 </template>

@@ -1,6 +1,6 @@
 import { storeToRefs } from 'pinia';
 import { instance } from '../helpers/axiosInstance';
-import { error } from '../helpers/messages';
+import { handleError } from '../helpers/messages';
 import { useRolStore } from '../store/rol';
 
 export const useRol = () => {
@@ -11,8 +11,8 @@ export const useRol = () => {
 		try {
 			const { data } = await instance.get('/roles');
 			rolStore.setRoles(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 

@@ -7,7 +7,7 @@ const { empresa, saveChanges } = useEmpresa();
 </script>
 
 <template>
-	<div class="container mt-5">
+	<div class="container m-margin-top">
 		<Card>
 			<template #content>
 				<Panel header="Datos de la empresa">

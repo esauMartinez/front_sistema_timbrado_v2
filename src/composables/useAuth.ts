@@ -5,6 +5,7 @@ import { useToast } from 'primevue/usetoast';
 import { Rol } from '../interfaces/rol.model';
 import { useAuthStore } from '../store/auth';
 import { Auth } from '../interfaces/auth.model';
+import { handleError } from '../helpers/messages';
 
 export const useAuth = () => {
 	const authStore = useAuthStore();
@@ -19,13 +20,14 @@ export const useAuth = () => {
 			});
 			authStore.setToken(data.data);
 			renderizarTipo(data.data.role);
-		} catch (error) {
-			toast.add({
-				severity: 'error',
-				summary: 'Usuario',
-				detail: error.response.data.data,
-				life: 3000,
-			});
+		} catch (err) {
+			handleError(err);
+			// toast.add({
+			// 	severity: 'error',
+			// 	summary: 'Usuario',
+			// 	detail: error.response.data.data,
+			// 	life: 3000,
+			// });
 		}
 	};
 
@@ -115,6 +117,6 @@ export const useAuth = () => {
 		getNombreUsuario,
 		getLogotipo,
 		setUsuarioAutenticado,
-		verificarDarkMode
+		verificarDarkMode,
 	};
 };

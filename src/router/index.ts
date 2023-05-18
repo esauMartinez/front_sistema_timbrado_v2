@@ -119,7 +119,7 @@ const routes: RouteRecordRaw[] = [
 				component: () => import('../components/patios/Agregar.vue'),
 			},
 			{
-				path: '/modificar-patio/:id',
+				path: '/modificar-patio/:id/:type',
 				name: 'ModificarPatio',
 				component: () => import('../components/patios/Modificar.vue'),
 			},
@@ -148,22 +148,22 @@ const routes: RouteRecordRaw[] = [
 		component: () => import('../views/Trips.vue'),
 		children: [
 			{
-				path: '/agregar-trip',
-				name: 'AgregarTrip',
-				component: () => import('../components/trips/Agregar.vue'),
+				path: '/modificar-trip/:id',
+				name: 'ModificarTrip',
+				component: () => import('../components/trips/Modificar.vue'),
 				children: [
 					{
-						path: '/agregar-movimiento',
+						path: '/agregar-movimiento/:id',
 						name: 'AgregarMovimiento',
 						component: () =>
 							import('../components/trips/datos/piernas/AgregarMovimiento.vue'),
 					},
+					{
+						path: '/informacion-patio/:id/:type',
+						name: 'InformacionPatio',
+						component: () => import('../components/patios/Modificar.vue'),
+					},
 				],
-			},
-			{
-				path: '/modificar-trip/:id',
-				name: 'ModificarTrip',
-				component: () => import('../components/trips/Modificar.vue'),
 			},
 		],
 	},

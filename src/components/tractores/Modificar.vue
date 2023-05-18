@@ -3,16 +3,18 @@ import { onMounted, ref } from 'vue';
 import { router } from '../../router';
 import Formulario from './Formulario.vue';
 import { useRoute } from 'vue-router';
-import { useTractor } from "../../composables/useTractor";
+import { useTractor } from '../../composables/useTractor';
 
 const visible = ref(true);
 const { unidad, putUnidad, getUnidad } = useTractor();
 const route = useRoute();
 
 const modificar = async () => {
-	await putUnidad(unidad.value);
-	router.go(-1);
-}
+	const response = await putUnidad(unidad.value);
+	if (response) {
+		router.go(-1);
+	}
+};
 
 onMounted(async () => {
 	await getUnidad(+route.params.id);

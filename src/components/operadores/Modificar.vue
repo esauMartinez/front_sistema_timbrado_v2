@@ -10,8 +10,10 @@ const { operador, putOperador, getOperador } = useOperador();
 const route = useRoute();
 
 const modificar = async () => {
-	await putOperador(operador.value);
-	router.go(-1);
+	const response = await putOperador(operador.value);
+	if (response) {
+		router.go(-1);
+	}
 }
 
 onMounted(async () => {

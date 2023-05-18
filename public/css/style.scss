@@ -1,7 +1,6 @@
 @use '/public/css/variables' as v;
-@use '/public/vela-green/theme.scss' as dark;
+@use '/public/md-dark-indigo/theme.scss' as dark;
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-@import '@sweetalert2/theme-borderless/borderless.scss';
 
 * {
 	box-sizing: border-box;
@@ -13,6 +12,10 @@
 .p-inputswitch {
 	width: 3rem !important;
 	height: 1.75rem !important;
+}
+
+.m-margin-top {
+	margin-top: 15px !important;
 }
 
 .logo-and-name {
@@ -55,7 +58,7 @@
 }
 
 .swal2-container {
-  z-index: 3001 !important;
+	z-index: 3001 !important;
 }
 
 @mixin dark-mode {
@@ -98,6 +101,11 @@
 				color: #000000;
 			}
 		}
+	}
+
+	.p-card {
+		background-color: v.$side-nav-dark !important;
+		color: #fff;
 	}
 }
 

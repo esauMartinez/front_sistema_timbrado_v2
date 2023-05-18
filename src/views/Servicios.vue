@@ -3,7 +3,7 @@ import Tabla from '../components/servicios/Tabla.vue';
 </script>
 
 <template>
-	<div class="container mt-5">
+	<div class="container m-margin-top">
 		<Card>
 			<template #content>
 				<Tabla />

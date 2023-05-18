@@ -1,16 +1,18 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { router } from '../../router';
-import { severity } from '../../pipes/severity';
+import { severityTrip } from '../../pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
 import { useTrip } from '../../composables/useTrip';
-
-const { trips, getTrips } = useTrip();
+import { useToast } from 'primevue/usetoast';
+import { formatDateWithTime } from '../../pipes/formatDate';
+const toast = useToast();
+const { trips, getTrips, postTrip } = useTrip();
 
 const loading = ref(true);
 
-onMounted(() => {
-	getTrips();
+onMounted(async () => {
+	await getTrips();
 	loading.value = false;
 });
 
@@ -18,13 +20,22 @@ const modificar = (id: number) => {
 	router.push({ path: `/modificar-trip/${id}` });
 };
 
-const agregar = () => {
-	router.push({ path: `/agregar-trip` });
-};
-
 const filters = ref({
 	global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
+
+const showTemplate = () => {
+	toast.add({
+		severity: 'info',
+		summary: 'Are you sure?',
+		detail: 'Proceed to confirm',
+		group: 'bc',
+	});
+};
+
+const onReject = () => {
+	toast.removeGroup('bc');
+};
 </script>
 
 <template>
@@ -39,7 +50,7 @@ const filters = ref({
 		:class="[{ 'p-datatable-sm': true }]"
 		dataKey="id"
 		:loading="false"
-		:globalFilterFields="[]"
+		:globalFilterFields="['numero_trip']"
 	>
 		<template #header>
 			<div class="d-flex flex-wrap align-items-center justify-content-between">
@@ -49,23 +60,33 @@ const filters = ref({
 						<i class="pi pi-search" />
 						<InputText v-model="filters['global'].value" placeholder="Buscar" />
 					</span>
-					<Button icon="pi pi-plus" severity="success" @click="agregar" />
+					<!-- <Button icon="pi pi-plus" severity="success" @click="agregar" /> -->
+					<Button @click="showTemplate" icon="pi pi-plus" />
 				</div>
 			</div>
 		</template>
-		<Column field="clave" header="Clave" sortable></Column>
-		<Column field="descripcion" header="" sortable />
-		<!-- <Column>
-					<template #body="{ data }">
-						<InputSwitch v-model="data.estatus" @change="putServicio(data)" />
-					</template>
-				</Column> -->
+		<Column field="numero_trip" header="Trip"></Column>
+		<Column header="Fecha de creacion">
+			<template #body="data">
+				{{ formatDateWithTime(data.data.createdAt) }}
+			</template>
+		</Column>
+		<Column field="tipo_viaje" header="Tipo de viaje"></Column>
+		<Column field="moneda" header="Moneda"></Column>
+		<Column field="cliente.razon_social" header="Cliente"></Column>
+		<Column header="Operador">
+			<template #body="{ data }">
+				<div v-if="data.operador !== null">
+					{{ data.operador.nombre }} {{ data.operador.paterno }}
+					{{ data.operador.materno }}
+				</div>
+			</template>
+		</Column>
+		<Column field="tractor.numero_economico" header="Tractor"></Column>
+		<Column field="caja.numero_economico" header="Caja"></Column>
 		<Column header="Estatus">
 			<template #body="{ data }">
-				<Tag
-					:severity="severity(data.estatus)"
-					:value="data.estatus ? 'Activo' : 'Inactivo'"
-				></Tag>
+				<Tag :severity="severityTrip(data.estatus)" :value="data.estatus"></Tag>
 			</template>
 		</Column>
 		<Column header="Acciones">
@@ -77,14 +98,26 @@ const filters = ref({
 							severity="warning"
 							@click="modificar(data.id)"
 						/>
-						<!-- <Button
-									icon="pi pi-trash"
-									severity="danger"
-									@click="deleteServicio(data.id)"
-								/> -->
 					</span>
 				</div>
 			</template>
 		</Column>
 	</DataTable>
+
+	<Toast position="bottom-center" group="bc">
+		<template #message="slotProps">
+			<div class="flex flex-column align-items-center" style="flex: 1">
+				<div class="text-center">
+					<i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+					<div class="font-bold text-xl my-3">
+						¿ Quieres crear unn nuevo trip ?
+					</div>
+				</div>
+				<div class="d-flex justify-content-center gap-2">
+					<Button severity="success" label="Si" @click="postTrip()"></Button>
+					<Button severity="secondary" label="No" @click="onReject()"></Button>
+				</div>
+			</div>
+		</template>
+	</Toast>
 </template>

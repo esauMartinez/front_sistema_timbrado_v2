@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { router } from '../../router';
 import Formulario from './Formulario.vue';
 import { useRoute } from 'vue-router';
-import { useTrip } from "../../composables/useTrip";
+import { useTrip } from '../../composables/useTrip';
 
 const { trip, getTrip, putTrip } = useTrip();
 
@@ -24,8 +24,8 @@ onMounted(async () => {
 	<Dialog
 		v-model:visible="visible"
 		modal
-		header="Modificar Trip"
-		:style="{ width: '50vw' }"
+		header="Trip"
+		:style="{ width: '80vw' }"
 		v-on:after-hide="router.go(-1)"
 	>
 		<Formulario @submit.prevent="modificar()" id="formulario" />
@@ -46,4 +46,5 @@ onMounted(async () => {
 			/>
 		</template>
 	</Dialog>
+	<router-view></router-view>
 </template>

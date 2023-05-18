@@ -20,7 +20,7 @@ export const useClienteStore = defineStore('cliente', {
 		cliente: {
 			id: null,
 			razon_social: null,
-			origen: null,
+			origen: 'nacional',
 			codigo_postal: null,
 			colonia: null,
 			municipio: null,

@@ -1,22 +1,23 @@
 import { storeToRefs } from 'pinia';
 import { useUnidadStore } from '../store/unidad';
 import { instance } from '../helpers/axiosInstance';
-import { error, question } from '../helpers/messages';
+import { handleError, question } from '../helpers/messages';
 import { Unidad } from '../interfaces/unidad.model';
 import { useToast } from 'primevue/usetoast';
 import { router } from '../router';
 
 export const useCaja = () => {
 	const unidadStore = useUnidadStore();
-	const { unidad, unidades, marcas, configuraciones } = storeToRefs(unidadStore);
+	const { unidad, unidades, marcas, configuraciones } =
+		storeToRefs(unidadStore);
 	const toast = useToast();
 
 	const getUnidades = async () => {
 		try {
 			const { data } = await instance.get('/cajas');
 			unidadStore.setUnidades(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -24,8 +25,8 @@ export const useCaja = () => {
 		try {
 			const { data } = await instance.get(`/cajas/${id}`);
 			unidadStore.setUnidad(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -41,8 +42,8 @@ export const useCaja = () => {
 			getUnidades();
 			router.go(-1);
 			return data;
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -56,9 +57,10 @@ export const useCaja = () => {
 				life: 3000,
 			});
 			getUnidades();
-			return data;
-		} catch (err) {
-			error(err);
+			return true;
+		} catch (error) {
+			handleError(error);
+			return false;
 		}
 	};
 
@@ -75,8 +77,8 @@ export const useCaja = () => {
 				});
 				getUnidades();
 			}
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -84,8 +86,8 @@ export const useCaja = () => {
 		try {
 			const { data } = await instance.get('/marcas/CAJA');
 			unidadStore.setMarcas(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -93,8 +95,8 @@ export const useCaja = () => {
 		try {
 			const { data } = await instance.get('/configuraciones/CAJA');
 			unidadStore.setConfiguracions(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 

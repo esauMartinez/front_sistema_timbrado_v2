@@ -1,7 +1,7 @@
 import { storeToRefs } from 'pinia';
 import { useEmpresaStore } from '../store/empresa';
 import { instance } from '../helpers/axiosInstance';
-import { error } from '../helpers/messages';
+import { handleError} from '../helpers/messages';
 import { Empresa } from '../interfaces/empresa.model';
 import { useToast } from 'primevue/usetoast';
 import Compressor from 'compressorjs';
@@ -15,8 +15,8 @@ export const useEmpresa = () => {
 		try {
 			const { data } = await instance.get(`/empresas/${id}`);
 			empresaStore.setEmpresa(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -32,6 +32,7 @@ export const useEmpresa = () => {
 					] = `multipart/form-data`;
 
 					await instance.post('/empresas/upload/logo', formData);
+
 					toast.add({
 						severity: 'success',
 						summary: 'Logotipo',

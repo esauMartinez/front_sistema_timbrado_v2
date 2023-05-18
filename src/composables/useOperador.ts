@@ -1,6 +1,6 @@
 import { storeToRefs } from "pinia";
 import { instance } from "../helpers/axiosInstance";
-import { error, question } from "../helpers/messages";
+import { handleError, question } from "../helpers/messages";
 import { useOperadorStore } from "../store/operador";
 import { useToast } from "primevue/usetoast";
 import { router } from "../router";
@@ -15,8 +15,8 @@ export const useOperador = () => {
 		try {
 			const { data } = await instance.get('/operadores');
 			operadorStore.setOperadores(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -24,8 +24,8 @@ export const useOperador = () => {
 		try {
 			const { data } = await instance.get(`/operadores/${id}`);
 			operadorStore.setOperador(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -41,14 +41,14 @@ export const useOperador = () => {
 			getOperadores();
 			router.go(-1);
 			return data;
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
 	const putOperador = async (payload: any) => {
 		try {
-			const { data } = await instance.put(`/operadores/${payload.id}`, payload);
+			await instance.put(`/operadores/${payload.id}`, payload);
 			toast.add({
 				severity: 'success',
 				summary: 'Operador',
@@ -56,9 +56,10 @@ export const useOperador = () => {
 				life: 3000,
 			});
 			getOperadores();
-			return data;
-		} catch (err) {
-			error(err);
+			return true;
+		} catch (error) {
+			handleError(error);
+			return false
 		}
 	};
 
@@ -75,8 +76,8 @@ export const useOperador = () => {
 				});
 				getOperadores();
 			}
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 

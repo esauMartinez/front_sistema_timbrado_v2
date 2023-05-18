@@ -3,16 +3,18 @@ import { onMounted, ref } from 'vue';
 import { router } from '../../router';
 import Formulario from './Formulario.vue';
 import { useRoute } from 'vue-router';
-import { useCaja } from "../../composables/useCaja";
+import { useCaja } from '../../composables/useCaja';
 
 const visible = ref(true);
 const { unidad, putUnidad, getUnidad } = useCaja();
 const route = useRoute();
 
 const modificar = async () => {
-	await putUnidad(unidad.value);
-	router.go(-1);
-}
+	const response = await putUnidad(unidad.value);
+	if (response) {
+		router.go(-1);
+	}
+};
 
 onMounted(async () => {
 	await getUnidad(+route.params.id);

@@ -1,6 +1,6 @@
 import { storeToRefs } from 'pinia';
 import { instance } from '../helpers/axiosInstance';
-import { error, question } from '../helpers/messages';
+import { handleError, question } from '../helpers/messages';
 import { useToast } from 'primevue/usetoast';
 import { useTripStore } from '../store/trip';
 import { Trip } from '../interfaces/Trip';
@@ -10,6 +10,7 @@ import { Cliente } from '../interfaces/cliente.model';
 import { Operador } from '../interfaces/operador.model';
 import { Caja } from '../interfaces/caja.model';
 import { Tractor } from '../interfaces/tractor.model';
+import { router } from '../router';
 
 export const useTrip = () => {
 	const tripStore = useTripStore();
@@ -30,26 +31,45 @@ export const useTrip = () => {
 		try {
 			const { data } = await instance.get('/trips');
 			tripStore.setTrips(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
 	const getTrip = async (id: number) => {
 		try {
 			const { data } = await instance.get(`/trips/${id}`);
-			tripStore.setTrip(data);
-		} catch (err) {
-			error(err);
+			tripStore.setTrip(
+				data,
+				data.cliente,
+				data.operador,
+				data.caja,
+				data.tractor
+			);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
-	const postTrip = async (payload: Trip) => {
-		console.log(trip.value);
+	const postTrip = async () => {
+		try {
+			await instance.post(`/trips`);
+			getTrips();
+			toast.removeGroup('bc');
+			toast.add({
+				severity: 'success',
+				summary: 'Trip',
+				detail: 'Trip creado correctamente',
+				life: 3000,
+			});
+		} catch (error) {
+			handleError(error);
+		}
 	};
 
 	const putTrip = async (payload: any) => {
 		try {
+			payload['movimientos'] = movimientos.value
 			const { data } = await instance.put(`/trips/${payload.id}`, payload);
 			toast.add({
 				severity: 'success',
@@ -59,8 +79,8 @@ export const useTrip = () => {
 			});
 			getTrips();
 			return data;
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -77,35 +97,37 @@ export const useTrip = () => {
 				});
 				getTrips();
 			}
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
-	const resetTripForm = () => {
-		tripStore.setTrip({
-			id: null,
-			estatus: null,
-			observaciones_cancelacion: null,
-			tipo: null,
-			numero_cotizacion: null,
-			moneda: null,
-			tipo_viaje: null,
-			numero_trip: null,
-			metodo_pago: null,
-			forma_pago: null,
-			uso_CFDI: null,
-			fecha_salida: null,
-			fecha_llegada: null,
-			kilometros: null,
-			cliente_id: null,
-			operador_id: null,
-			caja_id: null,
-			tractor_id: null,
-			origen_id: null,
-			destino_id: null,
-		});
-	};
+	// const resetTripForm = () => {
+	// 	tripStore.setTrip({
+	// 		id: null,
+	// 		estatus: null,
+	// 		observaciones_cancelacion: null,
+	// 		tipo: null,
+	// 		numero_cotizacion: null,
+	// 		moneda: null,
+	// 		tipo_viaje: null,
+	// 		numero_trip: null,
+	// 		metodo_pago: null,
+	// 		forma_pago: null,
+	// 		uso_CFDI: null,
+	// 		fecha_salida: null,
+	// 		fecha_llegada: null,
+	// 		kilometros: null,
+	// 		cliente_id: null,
+	// 		operador_id: null,
+	// 		caja_id: null,
+	// 		tractor_id: null,
+	// 		origen_id: null,
+	// 		destino_id: null,
+	// 	});
+
+	// 	movimientos.value = [];
+	// };
 
 	const selectCliente = (cliente: Cliente) => {
 		nombre_cliente.value = cliente.razon_social;
@@ -132,9 +154,26 @@ export const useTrip = () => {
 		patioStore.setPatios([]);
 	};
 
+	const agregarMovimiento = (patio: Patio) => {
+		tripStore.addMovimientoToTrip(patio);
+		router.go(-1);
+	};
+
+	const vaciarMovimientos = () => {
+		movimientos.value = [];
+	};
+
+	const eliminarMovimiento = (numero_movimiento: number) => {
+		movimientos.value = movimientos.value.filter(
+			(x) => x.id !== numero_movimiento
+		);
+	};
+
 	return {
 		trip,
 		trips,
+		movimiento,
+		movimientos,
 		nombre_cliente,
 		nombre_operador,
 		numero_economico_caja,
@@ -144,11 +183,14 @@ export const useTrip = () => {
 		postTrip,
 		putTrip,
 		deleteTrip,
-		resetTripForm,
+		// resetTripForm,
 		selectCliente,
 		selectOperador,
 		selectCaja,
 		selectTractor,
 		selectPatio,
+		agregarMovimiento,
+		vaciarMovimientos,
+		eliminarMovimiento,
 	};
 };

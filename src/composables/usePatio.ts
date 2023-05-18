@@ -1,6 +1,6 @@
 import { storeToRefs } from 'pinia';
 import { instance, instance_servicio_postal } from '../helpers/axiosInstance';
-import { error, question } from '../helpers/messages';
+import { handleError, question } from '../helpers/messages';
 import { useToast } from 'primevue/usetoast';
 import { router } from '../router';
 import { usePatioStore } from '../store/patio';
@@ -16,8 +16,8 @@ export const usePatio = () => {
 		try {
 			const { data } = await instance.get('/patios');
 			patioStore.setPatios(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -25,8 +25,8 @@ export const usePatio = () => {
 		try {
 			const { data } = await instance.get(`/patios/${id}`);
 			patioStore.setPatio(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -42,8 +42,8 @@ export const usePatio = () => {
 			getPatios();
 			router.go(-1);
 			return data;
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -58,8 +58,8 @@ export const usePatio = () => {
 			});
 			getPatios();
 			return data;
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -76,8 +76,8 @@ export const usePatio = () => {
 				});
 				getPatios();
 			}
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -114,8 +114,8 @@ export const usePatio = () => {
 				);
 				patioStore.setCodigos(data);
 			}
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -127,8 +127,8 @@ export const usePatio = () => {
 			} else {
 				patioStore.setPatios([]);
 			}
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 

@@ -1,7 +1,11 @@
 import { defineStore } from 'pinia';
 import { Trip } from '../interfaces/Trip';
 import { Patio } from '../interfaces/patio.model';
-import { Movimiento } from "../interfaces/movimiento.model";
+import { Movimiento } from '../interfaces/movimiento.model';
+import { Cliente } from '../interfaces/cliente.model';
+import { Operador } from '../interfaces/operador.model';
+import { Caja } from '../interfaces/caja.model';
+import { Tractor } from '../interfaces/tractor.model';
 
 interface TripStore {
 	trips: Trip[];
@@ -10,8 +14,8 @@ interface TripStore {
 	nombre_operador: string;
 	numero_economico_caja: string;
 	numero_economico_tractor: string;
-	movimientos: Movimiento[],
-	movimiento: Movimiento
+	movimientos: Movimiento[];
+	movimiento: Movimiento;
 }
 
 export const useTripStore = defineStore('trip', {
@@ -48,12 +52,24 @@ export const useTripStore = defineStore('trip', {
 			id: null,
 			origen_id: null,
 			destino_id: null,
-			trip_id: null
-		}
+			trip_id: null,
+		},
 	}),
 	actions: {
-		setTrip(trip: Trip) {
+		setTrip(
+			trip: Trip,
+			cliente: Cliente,
+			operador: Operador,
+			caja: Caja,
+			tractor: Tractor
+		) {
+			console.log(trip);
 			this.trip = trip;
+			this.nombre_cliente = cliente.razon_social;
+			this.nombre_operador =
+				operador.nombre + ' ' + operador.paterno + ' ' + operador.materno;
+			this.numero_economico_caja = caja.numero_economico;
+			this.numero_economico_tractor = tractor.numero_economico;
 		},
 		setTrips(trips: Trip[]) {
 			this.trips = trips;
@@ -63,6 +79,9 @@ export const useTripStore = defineStore('trip', {
 		},
 		setDestino(destino: Patio) {
 			this.destino = destino;
+		},
+		addMovimientoToTrip(patio: Patio) {
+			this.movimientos.push(patio);
 		},
 	},
 });

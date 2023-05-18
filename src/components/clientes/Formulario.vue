@@ -1,163 +1,244 @@
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
-import { useCliente } from "../../composables/useCliente";
+import { onMounted, ref } from 'vue';
+import { useCliente } from '../../composables/useCliente';
 
-const { cliente, usoCfdi, metodosPago, formasPago, getUsoCfdi, getMetodosPago, getFormasPago } = useCliente();
-
-const origen = ref([
-  { id: 1, clave: 'nacional', nombre: "Nacional" },
-  { id: 2, clave: 'extranjero', nombre: "Extranjero" },
-]);
+const {
+	cliente,
+	usoCfdi,
+	metodosPago,
+	formasPago,
+	getUsoCfdi,
+	getMetodosPago,
+	getFormasPago,
+} = useCliente();
 
 onMounted(() => {
-  getUsoCfdi();
-  getMetodosPago();
-  getFormasPago();
+	getUsoCfdi();
+	getMetodosPago();
+	getFormasPago();
+	selectOrigen('nacional');
 });
+
+const origenes = ref([
+	{ id: 1, clave: 'nacional', nombre: 'Nacional' },
+	{ id: 2, clave: 'extranjero', nombre: 'Extranjero' },
+]);
+
+const selectOrigen = (origen: string) => {
+	if (origen === 'nacional') {
+		cliente.value.tax_id = 'N/A';
+		cliente.value.rfc = '';
+	} else {
+		cliente.value.tax_id = '';
+		cliente.value.rfc = 'N/A';
+	}
+};
 </script>
 
 <template>
 	<form>
 		<div class="row p-2">
 			<div class="col-lg-12 mb-3">
+				<label>Razon social</label>
 				<InputText
+					id="razon_social"
+					name="razon_social"
 					class="w-100"
 					placeholder="Razon social"
-					name="nombre"
 					autocomplete="off"
-					required
-          v-model="cliente.razon_social"
+					v-model="cliente.razon_social"
 				/>
+				<small class="p-error" name="razon_social"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
-        <Dropdown
+				<label>Origen</label>
+				<Dropdown
+					id="origen"
+					name="origen"
 					class="w-100"
+					:options="origenes"
 					placeholder="Origen"
 					optionLabel="nombre"
-          :options="origen"
 					optionValue="clave"
-          v-model="cliente.origen"
+					@change="selectOrigen(cliente.origen)"
+					v-model="cliente.origen"
 				/>
+				<small class="p-error" name="origen"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>Codigo Postal</label>
 				<InputText
+					id="codigo_postal"
+					name="codigo_postal"
 					class="w-100"
 					placeholder="Codigo Postal"
-					required
-          v-model="cliente.codigo_postal"
+					v-model="cliente.codigo_postal"
 				/>
+				<small class="p-error" name="codigo_postal"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>Colonia</label>
 				<InputText
+					id="colonia"
+					name="colonia"
 					class="w-100"
 					placeholder="Colonia"
-					required
-          v-model="cliente.colonia"
+					v-model="cliente.colonia"
 				/>
+				<small class="p-error" name="colonia"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>Municipio</label>
 				<InputText
+					id="municipio"
+					name="municipio"
 					class="w-100"
 					placeholder="Municipio"
-					required
-          v-model="cliente.municipio"
+					v-model="cliente.municipio"
 				/>
+				<small class="p-error" name="municipio"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>Estado</label>
 				<InputText
+					id="estado"
+					name="estado"
 					class="w-100"
 					placeholder="Estado"
-					required
-          v-model="cliente.estado"
+					v-model="cliente.estado"
 				/>
+				<small class="p-error" name="estado"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>Pais</label>
 				<InputText
+					id="pais"
+					name="pais"
 					class="w-100"
 					placeholder="Pais"
-					required
-          v-model="cliente.pais"
+					v-model="cliente.pais"
 				/>
+				<small class="p-error" name="pais"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>Calle</label>
 				<InputText
+					id="calle"
+					name="calle"
 					class="w-100"
 					placeholder="Calle"
-					required
-          v-model="cliente.calle"
+					v-model="cliente.calle"
 				/>
+				<small class="p-error" name="calle"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>Numero Exterior</label>
 				<InputText
+					id="numero_exterior"
+					name="numero_exterior"
 					class="w-100"
 					placeholder="Numero Exterior"
-					required
-          v-model="cliente.numero_exterior"
+					v-model="cliente.numero_exterior"
 				/>
+				<small class="p-error" name="numero_exterior"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>Numero Interior</label>
 				<InputText
+					id="numero_interior"
+					name="numero_interior"
 					class="w-100"
 					placeholder="Numero Interior"
-					required
-          v-model="cliente.numero_interior"
+					v-model="cliente.numero_interior"
 				/>
+				<small class="p-error" name="numero_interior"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>RFC</label>
 				<InputText
+					id="rfc"
+					name="rfc"
 					class="w-100"
 					placeholder="RFC"
-					required
-          v-model="cliente.rfc"
+					v-model="cliente.rfc"
+					:disabled="
+						cliente.origen !== null && cliente.origen === 'extranjero'
+							? true
+							: false
+					"
 				/>
+				<small class="p-error" name="rfc"></small>
 			</div>
-			<div class="col-lg-12 mb-3" v-if="cliente.origen !== 'nacional'">
+			<div class="col-lg-12 mb-3">
+				<label>TAXID</label>
 				<InputText
+					id="tax_id"
+					name="tax_id"
 					class="w-100"
 					placeholder="TAX ID"
-					required
-          v-model="cliente.tax_id"
+					v-model="cliente.tax_id"
+					:disabled="
+						cliente.origen === null || cliente.origen === 'nacional'
+							? true
+							: false
+					"
 				/>
+				<small class="p-error" name="tax_id"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>Email</label>
 				<InputText
+					id="email"
+					name="email"
 					class="w-100"
 					placeholder="Email"
-					required
-          v-model="cliente.email"
+					v-model="cliente.email"
 				/>
+				<small class="p-error" name="email"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>Uso de CFDI</label>
 				<Dropdown
+					id="uso_cfdi"
+					name="uso_cfdi"
 					class="w-100"
 					placeholder="Uso de CFDI"
 					filter
 					optionLabel="descripcion"
-          :options="usoCfdi"
+					:options="usoCfdi"
 					optionValue="clave"
-          v-model="cliente.uso_cfdi"
+					v-model="cliente.uso_cfdi"
 				/>
+				<small class="p-error" name="uso_cfdi"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>Metodo de Pago</label>
 				<Dropdown
+					id="metodo_pago"
+					name="metodo_pago"
 					class="w-100"
 					placeholder="Metodo de Pago"
 					optionLabel="descripcion"
-          :options="metodosPago"
+					:options="metodosPago"
 					optionValue="clave"
-          v-model="cliente.metodo_pago"
+					v-model="cliente.metodo_pago"
 				/>
+				<small class="p-error" name="metodo_pago"></small>
 			</div>
 			<div class="col-lg-12 mb-3">
+				<label>Forma de Pago</label>
 				<Dropdown
+					id="forma_pago"
+					name="forma_pago"
 					class="w-100"
 					placeholder="Forma de Pago"
 					filter
 					optionLabel="descripcion"
-          :options="formasPago"
+					:options="formasPago"
 					optionValue="clave"
-          v-model="cliente.forma_pago"
+					v-model="cliente.forma_pago"
 				/>
+				<small class="p-error" name="forma_pago"></small>
 			</div>
 		</div>
 	</form>

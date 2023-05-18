@@ -2,10 +2,10 @@
 import Tabla from '../components/patios/Tabla.vue';
 </script>
 <template>
-	<div class="container mt-5">
+	<div class="container m-margin-top">
 		<Card>
 			<template #content>
-				<Tabla />
+				<Tabla :isModule="true" />
 			</template>
 		</Card>
 		<RouterView />
