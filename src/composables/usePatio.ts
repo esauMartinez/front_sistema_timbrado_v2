@@ -49,7 +49,7 @@ export const usePatio = () => {
 
 	const putPatio = async (payload: any) => {
 		try {
-			const { data } = await instance.put(`/patios/${payload.id}`, payload);
+			await instance.put(`/patios/${payload.id}`, payload);
 			toast.add({
 				severity: 'success',
 				summary: 'Unidad',
@@ -57,9 +57,10 @@ export const usePatio = () => {
 				life: 3000,
 			});
 			getPatios();
-			return data;
+			return true;
 		} catch (error) {
 			handleError(error);
+			return false;
 		}
 	};
 

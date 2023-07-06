@@ -11,6 +11,12 @@ const { getLogotipo, getNombreUsuario } = useAuth();
 			alt="Image"
 			v-if="getLogotipo().find"
 		/>
+
+		<Image
+			:src="'https://recawi.mx/timbrado_v2_ftp/default-image.png'"
+			alt="Image"
+			v-if="getLogotipo().find === false"
+		/>
 		<div class="mt-4">
 			<h6 class="name-logo">{{ getNombreUsuario() }}</h6>
 		</div>

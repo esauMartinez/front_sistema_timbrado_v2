@@ -1,27 +1,23 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { router } from '../../router';
-import Formulario from './Formulario.vue';
-import { useUsuario } from '../../composables/useUsuario';
+import Formulario from './FormularioEmpresa.vue';
+import { useEmpresa } from '../../composables/useEmpresa';
 
-const { usuario, postUsuario, resetUsuarioForm } = useUsuario();
+const { empresa, postEmpresa } = useEmpresa();
 
 const visible = ref(true);
-
-onMounted(() => {
-	resetUsuarioForm();
-});
 </script>
 
 <template>
 	<Dialog
 		v-model:visible="visible"
 		modal
-		header="Agregar usuario"
+		header="Agregar empresa"
 		:style="{ width: '50vw' }"
 		v-on:after-hide="router.go(-1)"
 	>
-		<Formulario @submit.prevent="postUsuario(usuario)" id="formulario" :isModule="true" />
+		<Formulario @submit.prevent="postEmpresa(empresa)" id="formulario" />
 		<template #footer>
 			<Button
 				label="Cancelar"

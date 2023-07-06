@@ -1,6 +1,6 @@
 import { storeToRefs } from 'pinia';
 import { instance } from '../helpers/axiosInstance';
-import { error, question } from '../helpers/messages';
+import { handleError, question } from '../helpers/messages';
 import { useUsuarioStore } from '../store/usuario';
 import { useToast } from 'primevue/usetoast';
 import { Usuario } from '../interfaces/usuario.model';
@@ -15,8 +15,8 @@ export const useUsuario = () => {
 		try {
 			const { data } = await instance.get('/usuarios');
 			usuarioStore.setUsuarios(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -24,8 +24,8 @@ export const useUsuario = () => {
 		try {
 			const { data } = await instance.get(`/usuarios/${id}`);
 			usuarioStore.setUsuario(data);
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -41,14 +41,14 @@ export const useUsuario = () => {
 			getUsuarios();
 			router.go(-1);
 			return data;
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
 	const putUsuario = async (payload: any) => {
 		try {
-			const { data } = await instance.put(`/usuarios/${payload.id}`, payload);
+			await instance.put(`/usuarios/${payload.id}`, payload);
 			toast.add({
 				severity: 'success',
 				summary: 'Usuario',
@@ -56,9 +56,9 @@ export const useUsuario = () => {
 				life: 3000,
 			});
 			getUsuarios();
-			return data;
-		} catch (err) {
-			error(err);
+			return true;
+		} catch (error) {
+			handleError(error);
 		}
 	};
 
@@ -75,8 +75,8 @@ export const useUsuario = () => {
 				});
 				getUsuarios();
 			}
-		} catch (err) {
-			error(err);
+		} catch (error) {
+			handleError(error);
 		}
 	};
 

@@ -16,23 +16,12 @@ onMounted(() => {
 	getUsoCfdi();
 	getMetodosPago();
 	getFormasPago();
-	selectOrigen('nacional');
 });
 
 const origenes = ref([
 	{ id: 1, clave: 'nacional', nombre: 'Nacional' },
 	{ id: 2, clave: 'extranjero', nombre: 'Extranjero' },
 ]);
-
-const selectOrigen = (origen: string) => {
-	if (origen === 'nacional') {
-		cliente.value.tax_id = 'N/A';
-		cliente.value.rfc = '';
-	} else {
-		cliente.value.tax_id = '';
-		cliente.value.rfc = 'N/A';
-	}
-};
 </script>
 
 <template>
@@ -60,7 +49,6 @@ const selectOrigen = (origen: string) => {
 					placeholder="Origen"
 					optionLabel="nombre"
 					optionValue="clave"
-					@change="selectOrigen(cliente.origen)"
 					v-model="cliente.origen"
 				/>
 				<small class="p-error" name="origen"></small>
@@ -153,7 +141,7 @@ const selectOrigen = (origen: string) => {
 				/>
 				<small class="p-error" name="numero_interior"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<div class="col-lg-12 mb-3" v-if="cliente.origen === 'nacional'">
 				<label>RFC</label>
 				<InputText
 					id="rfc"
@@ -161,15 +149,10 @@ const selectOrigen = (origen: string) => {
 					class="w-100"
 					placeholder="RFC"
 					v-model="cliente.rfc"
-					:disabled="
-						cliente.origen !== null && cliente.origen === 'extranjero'
-							? true
-							: false
-					"
 				/>
 				<small class="p-error" name="rfc"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<div class="col-lg-12 mb-3" v-if="cliente.origen === 'extranjero'">
 				<label>TAXID</label>
 				<InputText
 					id="tax_id"
@@ -177,11 +160,6 @@ const selectOrigen = (origen: string) => {
 					class="w-100"
 					placeholder="TAX ID"
 					v-model="cliente.tax_id"
-					:disabled="
-						cliente.origen === null || cliente.origen === 'nacional'
-							? true
-							: false
-					"
 				/>
 				<small class="p-error" name="tax_id"></small>
 			</div>

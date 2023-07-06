@@ -2,11 +2,13 @@ import { defineStore } from 'pinia';
 import { Empresa } from '../interfaces/empresa.model';
 
 interface EmpresaStore {
+	empresas: [];
 	empresa: Empresa;
 }
 
 export const useEmpresaStore = defineStore('empresa', {
 	state: (): EmpresaStore => ({
+		empresas: [],
 		empresa: {
 			id: null,
 			razon_social: null,
@@ -33,9 +35,12 @@ export const useEmpresaStore = defineStore('empresa', {
 			numero_interior: null,
 		},
 	}),
-  actions: {
-    setEmpresa(empresa: Empresa) {
-      this.empresa = empresa;
-    }
-  }
+	actions: {
+		setEmpresa(empresa: Empresa) {
+			this.empresa = empresa;
+		},
+		setEmpresas(empresas: Empresa[]) {
+			this.empresas = empresas;
+		},
+	},
 });

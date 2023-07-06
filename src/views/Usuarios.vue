@@ -6,7 +6,7 @@ import Tabla from '../components/usuarios/Tabla.vue';
 	<div class="container m-margin-top">
 		<Card>
 			<template #content>
-				<Tabla />
+				<Tabla :isModule="true" />
 			</template>
 		</Card>
 		<RouterView />

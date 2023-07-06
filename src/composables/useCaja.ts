@@ -49,7 +49,7 @@ export const useCaja = () => {
 
 	const putUnidad = async (payload: any) => {
 		try {
-			const { data } = await instance.put(`/cajas/${payload.id}`, payload);
+			await instance.put(`/cajas/${payload.id}`, payload);
 			toast.add({
 				severity: 'success',
 				summary: 'Unidad',

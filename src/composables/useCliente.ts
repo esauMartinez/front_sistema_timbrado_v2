@@ -101,7 +101,7 @@ export const useCliente = () => {
 		clienteStore.setCliente({
 			id: 0,
 			razon_social: null,
-			origen: 'nacional',
+			origen: null,
 			codigo_postal: null,
 			colonia: null,
 			municipio: null,

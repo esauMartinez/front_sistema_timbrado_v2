@@ -10,9 +10,11 @@ const { usuario, putUsuario, getUsuario } = useUsuario();
 const route = useRoute();
 
 const modificar = async () => {
-	await putUsuario(usuario.value);
-	router.go(-1);
-}
+	const response = await putUsuario(usuario.value);
+	if (response) {
+		router.go(-1);
+	}
+};
 
 onMounted(async () => {
 	await getUsuario(+route.params.id);
@@ -27,7 +29,7 @@ onMounted(async () => {
 		:style="{ width: '50vw' }"
 		v-on:after-hide="router.go(-1)"
 	>
-		<Formulario @submit.prevent="modificar()" id="formulario" />
+		<Formulario @submit.prevent="modificar()" id="formulario" :isModule="true" />
 		<template #footer>
 			<Button
 				label="Cancelar"

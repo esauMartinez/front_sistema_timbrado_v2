@@ -1,20 +1,41 @@
 import { storeToRefs } from 'pinia';
 import { useEmpresaStore } from '../store/empresa';
 import { instance } from '../helpers/axiosInstance';
-import { handleError} from '../helpers/messages';
+import { handleError } from '../helpers/messages';
 import { Empresa } from '../interfaces/empresa.model';
 import { useToast } from 'primevue/usetoast';
 import Compressor from 'compressorjs';
+import { useUsuarioStore } from "../store/usuario";
+import { router } from "../router";
 
 export const useEmpresa = () => {
 	const empresaStore = useEmpresaStore();
-	const { empresa } = storeToRefs(empresaStore);
+	const usuarioStore = useUsuarioStore();
+	const { empresa, empresas } = storeToRefs(empresaStore);
 	const toast = useToast();
+
+	const getEmpresas = async () => {
+		try {
+			const { data } = await instance.get(`/empresas`);
+			empresaStore.setEmpresas(data);
+		} catch (error) {
+			handleError(error);
+		}
+	};
 
 	const getEmpresa = async (id: number) => {
 		try {
 			const { data } = await instance.get(`/empresas/${id}`);
 			empresaStore.setEmpresa(data);
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
+	const postEmpresa = async (payload: Empresa) => {
+		try {
+			const { data } = await instance.post(`/empresas`, payload);
+			console.log(data);
 		} catch (error) {
 			handleError(error);
 		}
@@ -55,10 +76,23 @@ export const useEmpresa = () => {
 		console.log(empresa);
 	};
 
+	const getUsuariosEmpresa = async (id: number) => {
+		try {
+			const { data } = await instance.get(`/empresas/usuarios/${id}`);
+			usuarioStore.setUsuarios(data);
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
 	return {
 		empresa,
+		empresas,
 		getEmpresa,
+		getEmpresas,
+		postEmpresa,
 		saveChanges,
 		uploadLogo,
+		getUsuariosEmpresa
 	};
 };

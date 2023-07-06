@@ -6,6 +6,7 @@ import Cliente from './datos/Cliente.vue';
 import Operador from './datos/Operador.vue';
 import Caja from './datos/Caja.vue';
 import Tractor from './datos/Tractor.vue';
+import Servicios from "./datos/servicios/Servicios.vue";
 </script>
 
 <template>
@@ -29,6 +30,9 @@ import Tractor from './datos/Tractor.vue';
 			</div>
 			<div class="col-lg-12">
 				<Piernas class="mt-3" />
+			</div>
+			<div class="col-lg-12">
+				<Servicios class="mt-3" />
 			</div>
 		</div>
 	</form>

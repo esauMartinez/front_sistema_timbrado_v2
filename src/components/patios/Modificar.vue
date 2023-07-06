@@ -10,8 +10,10 @@ const { patio, putPatio, getPatio } = usePatio();
 const route = useRoute();
 
 const modificar = async () => {
-	await putPatio(patio.value);
-	router.go(-1);
+	const response = await putPatio(patio.value);
+	if (response) {
+		router.go(-1);
+	}
 };
 
 onMounted(async () => {

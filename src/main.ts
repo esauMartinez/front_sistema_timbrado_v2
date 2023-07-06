@@ -78,6 +78,7 @@ import ProgressSpinner from 'primevue/progressspinner';
 import Image from 'primevue/image';
 import Timeline from 'primevue/timeline';
 import Message from 'primevue/message';
+import InputNumber from 'primevue/inputnumber';
 
 // service toast
 import ToastService from 'primevue/toastservice';
@@ -108,6 +109,7 @@ app.component('ProgressSpinner', ProgressSpinner);
 app.component('Image', Image);
 app.component('Timeline', Timeline);
 app.component('Message', Message);
+app.component('InputNumber', InputNumber);
 
 app.use(ToastService);
 app.use(createPinia());

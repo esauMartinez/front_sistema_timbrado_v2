@@ -48,7 +48,7 @@ export const useServicio = () => {
 
 	const putServicio = async (payload: any) => {
 		try {
-			const { data } = await instance.put(`/servicios/${payload.id}`, payload);
+			await instance.put(`/servicios/${payload.id}`, payload);
 			toast.add({
 				severity: 'success',
 				summary: 'Servicio',
@@ -56,9 +56,10 @@ export const useServicio = () => {
 				life: 3000,
 			});
 			getServicios();
-			return data;
+			return true;
 		} catch (error) {
 			handleError(error);
+			return false;
 		}
 	};
 
@@ -85,7 +86,7 @@ export const useServicio = () => {
 			id: null,
 			clave: null,
 			descripcion: null,
-      estatus: true
+			estatus: true,
 		});
 	};
 

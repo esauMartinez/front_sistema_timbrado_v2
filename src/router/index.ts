@@ -12,6 +12,25 @@ const routes: RouteRecordRaw[] = [
 		path: '/super',
 		name: 'Super',
 		component: () => import('../views/Super.vue'),
+		children: [
+			{
+				path: '/agregar-empresa',
+				name: 'AgregarEmpresa',
+				component: () => import('../components/super/AgregarEmpresa.vue'),
+			},
+			{
+				path: '/usuarios-empresa/:empresa_id',
+				name: 'UsuariosEmpresa',
+				component: () => import('../components/super/UsuariosEmpresa.vue'),
+				children: [
+					{
+						path: '/agregar-usuario-super',
+						name: 'AgregarUsuarioSuper',
+						component: () => import('../components/super/AgregarUsuario.vue'),
+					},
+				],
+			},
+		],
 	},
 	{
 		path: '/ajustes',

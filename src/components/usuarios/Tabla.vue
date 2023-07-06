@@ -11,8 +11,14 @@ const { compararUsuarioId } = useAuth();
 
 const loading = ref(true);
 
+const props = defineProps({
+	isModule: Boolean,
+});
+
 onMounted(async () => {
-	await getUsuarios();
+	if (props.isModule) {
+		await getUsuarios();
+	}
 	loading.value = false;
 });
 
@@ -22,6 +28,11 @@ const modificar = (id: number) => {
 
 const agregar = () => {
 	router.push({ path: `/agregar-usuario` });
+};
+
+
+const agregarSuper = () => {
+	router.push({ path: `/agregar-usuario-super` });
 };
 
 const filters = ref({
@@ -54,7 +65,11 @@ const filters = ref({
 						<i class="pi pi-search" />
 						<InputText v-model="filters['global'].value" placeholder="Buscar" />
 					</span>
-					<Button icon="pi pi-plus" severity="success" @click="agregar" />
+					<Button
+						icon="pi pi-plus"
+						severity="success"
+						@click="isModule ? agregar() : agregarSuper()"
+					/>
 				</div>
 			</div>
 		</template>
@@ -71,7 +86,7 @@ const filters = ref({
 				{{ rolFormateado(data.role.nombre) }}
 			</template>
 		</Column>
-		<Column>
+		<Column v-if="isModule">
 			<template #body="{ data }">
 				<div
 					class="d-flex justify-content-center"
@@ -89,7 +104,7 @@ const filters = ref({
 				></Tag>
 			</template>
 		</Column>
-		<Column header="Acciones">
+		<Column header="Acciones" v-if="isModule">
 			<template #body="{ data }">
 				<div class="d-flex justify-content-center">
 					<span class="p-buttonset">
