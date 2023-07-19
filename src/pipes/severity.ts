@@ -5,10 +5,18 @@ export const severity = (estatus) => {
 	return 'danger';
 };
 
-
 export const severityTrip = (estatus: string) => {
-	if (estatus.toLowerCase() === 'creado') {
-		return 'info';
+	let severity = null;
+	switch (estatus) {
+		case 'CREADO':
+			severity = 'info';
+			break;
+		case 'PROGRAMADO':
+			severity = 'warning';
+			break;
+		case 'TRANSITO':
+			severity = 'success';
+			break;
 	}
-	return 'danger';
-}
+	return severity;
+};

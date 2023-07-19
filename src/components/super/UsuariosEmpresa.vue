@@ -10,7 +10,7 @@ const route = useRoute();
 const { getUsuariosEmpresa } = useEmpresa();
 
 onMounted(async () => {
-	await getUsuariosEmpresa(+route.params.empresa_id);
+	await getUsuariosEmpresa(+route.params.id);
 })
 
 </script>

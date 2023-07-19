@@ -54,27 +54,27 @@ export const errorServer = () => {
 	});
 };
 
+const last_erorrs = {
+	value: [],
+};
+
 export const errorValidations = (errores) => {
-	const form_reset =
-		document.getElementById('formulario').childNodes[0].childNodes;
+	if (last_erorrs.value.length !== 0) {
+		last_erorrs.value.forEach((element: any) => {
+			document.getElementsByName(element.path)[0].classList.remove('p-invalid');
+			document.getElementsByName(element.path)[1].innerHTML = '';
+		});
+	}
 
-	form_reset.forEach((element: any) => {
-		if (
-			element.childNodes[1]?.classList[0] === 'p-inputtext' ||
-			element.childNodes[1]?.classList[0] === 'p-dropdown' ||
-			element.childNodes[1]?.classList[0] === 'p-calendar' 
-		) {
-			element.childNodes[1]?.classList.remove('p-invalid');
-			element.childNodes[2].innerHTML = '';
-		}
-	});
-
-	errores.forEach((element) => {
-		document.getElementsByName(element.path)[0]?.classList.add('p-invalid');
+	for (let i = 0; i < errores.length; i++) {
+		const element = errores[i];
+		document.getElementsByName(element.path)[0].classList.add('p-invalid');
 		document.getElementsByName(
-			`${element.path}`
+			element.path
 		)[1].innerHTML = `<p class="mt-2 mb-0 d-flex align-items-center">&#9888 ${element.message}</p>`;
-	});
+	}
+
+	last_erorrs.value = errores;
 };
 
 export const handleError = (payload) => {
@@ -87,6 +87,9 @@ export const handleError = (payload) => {
 			break;
 		case 400:
 			errorValidations(payload.response.data.errors);
+			break;
+		case 402:
+			notFound(payload.response.data.data);
 			break;
 		case 500:
 			errorServer();

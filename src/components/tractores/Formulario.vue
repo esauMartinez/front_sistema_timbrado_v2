@@ -12,7 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<form>
+	<form class="formulario">
 		<div class="row p-2">
 			<div class="col-lg-12 mb-3">
 				<label>Numero economico</label>

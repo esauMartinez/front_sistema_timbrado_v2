@@ -12,7 +12,6 @@ const route = useRoute();
 
 const modificar = async () => {
 	await putTrip(trip.value);
-	router.go(-1);
 };
 
 onMounted(async () => {
@@ -25,7 +24,7 @@ onMounted(async () => {
 		v-model:visible="visible"
 		modal
 		header="Trip"
-		:style="{ width: '80vw' }"
+		:style="{ width: '70vw' }"
 		v-on:after-hide="router.go(-1)"
 	>
 		<Formulario @submit.prevent="modificar()" id="formulario" />

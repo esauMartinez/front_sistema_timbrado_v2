@@ -1,8 +1,15 @@
 <script lang="ts" setup>
 import { useTrip } from '../../../composables/useTrip';
 import { ref } from 'vue';
+import { router } from '../../../router';
 
-const { trip } = useTrip();
+const {
+	trip,
+	nombre_cliente,
+	nombre_operador,
+	numero_economico_caja,
+	numero_economico_tractor,
+} = useTrip();
 
 const tipos_de_viajes = ref([
 	{ clave: 'NACIONAL' },
@@ -297,21 +304,35 @@ const forma_pago = ref([
 	{ clave: '31', descripcion: 'Intermediario pagos' },
 	{ clave: '99', descripcion: 'Por definir' },
 ]);
+
+const agregar = (tipo: string) => {
+	if (tipo === 'cliente') {
+		router.push({ name: 'AgregarClienteTrip' });
+	} else if (tipo === 'operador') {
+		router.push({ name: 'AgregarOperadorTrip' });
+	} else if (tipo === 'caja') {
+		router.push({ name: 'AgregarCajaTrip' });
+	} else {
+		router.push({ name: 'AgregarTractorTrip' });
+	}
+};
 </script>
 
 <template>
-	<Panel header="Tipo de viaje">
+	<Panel header="Datos">
 		<div class="row p-2">
 			<div class="col-lg-6 mb-3">
 				<Dropdown
 					class="w-100"
-					placeholder="Tipo de vieje"
+					placeholder="Tipo de viaje"
 					optionLabel="clave"
 					filter
+					name="tipo_viaje"
 					:options="tipos_de_viajes"
 					optionValue="clave"
 					v-model="trip.tipo_viaje"
 				/>
+				<small class="p-error" name="tipo_viaje"></small>
 			</div>
 			<div class="col-lg-6 mb-3">
 				<Dropdown
@@ -319,10 +340,12 @@ const forma_pago = ref([
 					placeholder="Moneda"
 					optionLabel="descripcion"
 					filter
+					name="moneda"
 					:options="moneda"
 					optionValue="clave"
 					v-model="trip.moneda"
 				/>
+				<small class="p-error" name="moneda"></small>
 			</div>
 			<div class="col-lg-4 mb-3">
 				<Dropdown
@@ -330,10 +353,12 @@ const forma_pago = ref([
 					placeholder="Uso de CFDI"
 					optionLabel="descripcion"
 					filter
+					name="uso_CFDI"
 					:options="uso_cfdi"
 					optionValue="clave"
 					v-model="trip.uso_CFDI"
 				/>
+				<small class="p-error" name="uso_CFDI"></small>
 			</div>
 			<div class="col-lg-4 mb-3">
 				<Dropdown
@@ -341,10 +366,12 @@ const forma_pago = ref([
 					placeholder="Metodo de pago"
 					optionLabel="descripcion"
 					filter
+					name="metodo_pago"
 					:options="metodo_pago"
 					optionValue="clave"
 					v-model="trip.metodo_pago"
 				/>
+				<small class="p-error" name="metodo_pago"></small>
 			</div>
 			<div class="col-lg-4 mb-3">
 				<Dropdown
@@ -352,10 +379,68 @@ const forma_pago = ref([
 					placeholder="Forma de pago"
 					optionLabel="descripcion"
 					filter
+					name="forma_pago"
 					:options="forma_pago"
 					optionValue="clave"
 					v-model="trip.forma_pago"
 				/>
+				<small class="p-error" name="forma_pago"></small>
+			</div>
+			<div class="col-lg-5 mb-3">
+				<InputText
+					class="w-100"
+					autocomplete="off"
+					required
+					name="cliente_id"
+					disabled
+					v-model="nombre_cliente"
+				/>
+				<small class="p-error" name="cliente_id"></small>
+			</div>
+			<div class="col-lg-1">
+				<Button class="w-100" icon="pi pi-plus" @click="agregar('cliente')" />
+			</div>
+			<div class="col-lg-5 mb-3">
+				<InputText
+					class="w-100"
+					autocomplete="off"
+					required
+					name="operador_id"
+					disabled
+					v-model="nombre_operador"
+				/>
+				<small class="p-error" name="operador_id"></small>
+			</div>
+			<div class="col-lg-1">
+				<Button class="w-100" icon="pi pi-plus" @click="agregar('operador')" />
+			</div>
+			<div class="col-lg-5 mb-3">
+				<InputText
+					class="w-100"
+					autocomplete="off"
+					required
+					name="caja_id"
+					disabled
+					v-model="numero_economico_caja"
+				/>
+				<small class="p-error" name="caja_id"></small>
+			</div>
+			<div class="col-lg-1">
+				<Button class="w-100" icon="pi pi-plus" @click="agregar('caja')" />
+			</div>
+			<div class="col-lg-5 mb-3">
+				<InputText
+					class="w-100"
+					autocomplete="off"
+					required
+					name="tractor_id"
+					disabled
+					v-model="numero_economico_tractor"
+				/>
+				<small class="p-error" name="tractor_id"></small>
+			</div>
+			<div class="col-lg-1">
+				<Button class="w-100" icon="pi pi-plus" @click="agregar('tractor')" />
 			</div>
 		</div>
 	</Panel>

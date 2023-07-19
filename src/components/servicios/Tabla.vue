@@ -4,6 +4,7 @@ import { router } from '../../router';
 import { severity } from '../../pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
 import { useServicio } from '../../composables/useServicio';
+import { useTrip } from '../../composables/useTrip';
 
 const { servicios, getServicios, putServicio, deleteServicio } = useServicio();
 
@@ -12,6 +13,10 @@ const loading = ref(true);
 onMounted(() => {
 	getServicios();
 	loading.value = false;
+});
+
+const props = defineProps({
+	isModule: Boolean,
 });
 
 const modificar = (id: number) => {
@@ -54,13 +59,18 @@ const filters = ref({
 						<i class="pi pi-search" />
 						<InputText v-model="filters['global'].value" placeholder="Buscar" />
 					</span>
-					<Button icon="pi pi-plus" severity="success" @click="agregar" />
+					<Button
+						icon="pi pi-plus"
+						severity="success"
+						@click="agregar"
+						v-if="isModule"
+					/>
 				</div>
 			</div>
 		</template>
 		<Column field="clave" header="Clave" sortable></Column>
 		<Column field="descripcion" header="" sortable />
-		<Column>
+		<Column v-if="isModule">
 			<template #body="{ data }">
 				<InputSwitch v-model="data.estatus" @change="putServicio(data)" />
 			</template>
@@ -81,11 +91,13 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
+							v-if="isModule"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deleteServicio(data.id)"
+							v-if="isModule"
 						/>
 					</span>
 				</div>

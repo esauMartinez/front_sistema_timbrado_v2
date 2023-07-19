@@ -19,12 +19,12 @@ const routes: RouteRecordRaw[] = [
 				component: () => import('../components/super/AgregarEmpresa.vue'),
 			},
 			{
-				path: '/usuarios-empresa/:empresa_id',
+				path: '/usuarios-empresa/:id',
 				name: 'UsuariosEmpresa',
 				component: () => import('../components/super/UsuariosEmpresa.vue'),
 				children: [
 					{
-						path: '/agregar-usuario-super',
+						path: '/agregar-usuario-super/:id',
 						name: 'AgregarUsuarioSuper',
 						component: () => import('../components/super/AgregarUsuario.vue'),
 					},
@@ -172,6 +172,26 @@ const routes: RouteRecordRaw[] = [
 				component: () => import('../components/trips/Modificar.vue'),
 				children: [
 					{
+						path: '/agregar-cliente-trip/:id',
+						name: 'AgregarClienteTrip',
+						component: () => import('../components/trips/datos/Cliente.vue'),
+					},
+					{
+						path: '/agregar-operador-trip/:id',
+						name: 'AgregarOperadorTrip',
+						component: () => import('../components/trips/datos/Operador.vue'),
+					},
+					{
+						path: '/agregar-caja-trip/:id',
+						name: 'AgregarCajaTrip',
+						component: () => import('../components/trips/datos/Caja.vue'),
+					},
+					{
+						path: '/agregar-tractor-trip/:id',
+						name: 'AgregarTractorTrip',
+						component: () => import('../components/trips/datos/Tractor.vue'),
+					},
+					{
 						path: '/agregar-movimiento/:id',
 						name: 'AgregarMovimiento',
 						component: () =>
@@ -181,6 +201,12 @@ const routes: RouteRecordRaw[] = [
 						path: '/informacion-patio/:id/:type',
 						name: 'InformacionPatio',
 						component: () => import('../components/patios/Modificar.vue'),
+					},
+					{
+						path: '/agregar-servicio-trip/:id',
+						name: 'AgregarServicioTrip',
+						component: () =>
+							import('../components/trips/datos/servicios/AgregarServicio.vue'),
 					},
 				],
 			},

@@ -5,7 +5,7 @@ import { useEmpresa } from '../../composables/useEmpresa';
 const { empresa, getEmpresa } = useEmpresa();
 
 onMounted(async () => {
-	await getEmpresa(1);
+	await getEmpresa();
 });
 </script>
 

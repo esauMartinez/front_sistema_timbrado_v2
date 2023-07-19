@@ -5,8 +5,9 @@ import { handleError } from '../helpers/messages';
 import { Empresa } from '../interfaces/empresa.model';
 import { useToast } from 'primevue/usetoast';
 import Compressor from 'compressorjs';
-import { useUsuarioStore } from "../store/usuario";
-import { router } from "../router";
+import { useUsuarioStore } from '../store/usuario';
+import { Usuario } from '../interfaces/usuario.model';
+import { router } from '../router';
 
 export const useEmpresa = () => {
 	const empresaStore = useEmpresaStore();
@@ -23,9 +24,10 @@ export const useEmpresa = () => {
 		}
 	};
 
-	const getEmpresa = async (id: number) => {
+	const getEmpresa = async () => {
 		try {
-			const { data } = await instance.get(`/empresas/${id}`);
+			const { data } = await instance.get(`/empresa`);
+			console.log(data);
 			empresaStore.setEmpresa(data);
 		} catch (error) {
 			handleError(error);
@@ -79,7 +81,25 @@ export const useEmpresa = () => {
 	const getUsuariosEmpresa = async (id: number) => {
 		try {
 			const { data } = await instance.get(`/empresas/usuarios/${id}`);
+			empresa.value.id = id;
 			usuarioStore.setUsuarios(data);
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
+	const postUsuarioEmpresa = async (payload: Usuario) => {
+		try {
+			const { data } = await instance.post(`/empresas/alta/usuario`, payload);
+			toast.add({
+				severity: 'success',
+				summary: 'Usuario',
+				detail: 'Usuario creado correctamente',
+				life: 3000,
+			});
+			getUsuariosEmpresa(payload.empresa_id);
+			router.go(-1);
+			return data;
 		} catch (error) {
 			handleError(error);
 		}
@@ -93,6 +113,7 @@ export const useEmpresa = () => {
 		postEmpresa,
 		saveChanges,
 		uploadLogo,
-		getUsuariosEmpresa
+		getUsuariosEmpresa,
+		postUsuarioEmpresa,
 	};
 };

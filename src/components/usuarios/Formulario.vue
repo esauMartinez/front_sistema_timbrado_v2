@@ -25,6 +25,7 @@ onMounted(async () => {
 	roles.value.map((x) => (x.nombre = rolFormateado(x.nombre)));
 	if (props.isModule) {
 		await getClientes();
+		roles.value = roles.value.filter((x) => x.nombre !== 'SUPER ADMINISTRADOR');
 	} else {
 		roles.value = roles.value.filter(
 			(x) => x.nombre !== 'SUPER ADMINISTRADOR' && x.nombre !== 'CLIENTE'
@@ -34,7 +35,7 @@ onMounted(async () => {
 </script>
 
 <template>
-	<form>
+	<form class="formulario">
 		<div class="row p-2">
 			<div class="col-lg-12 mb-3">
 				<label>Nombre usuario</label>

@@ -6,6 +6,8 @@ import { Cliente } from '../interfaces/cliente.model';
 import { Operador } from '../interfaces/operador.model';
 import { Caja } from '../interfaces/caja.model';
 import { Tractor } from '../interfaces/tractor.model';
+import { Servicio } from '../interfaces/servicio';
+import { Concepto } from '../interfaces/concepto.model';
 
 interface TripStore {
 	trips: Trip[];
@@ -16,6 +18,8 @@ interface TripStore {
 	numero_economico_tractor: string;
 	movimientos: Movimiento[];
 	movimiento: Movimiento;
+	conceptos: Concepto[];
+	concepto: Concepto;
 }
 
 export const useTripStore = defineStore('trip', {
@@ -54,6 +58,17 @@ export const useTripStore = defineStore('trip', {
 			destino_id: null,
 			trip_id: null,
 		},
+		conceptos: [],
+		concepto: {
+			id: null,
+			nombre: null,
+			clave: null,
+			monto: 0,
+			iva: 0,
+			retencion: 0,
+			tipo: null,
+			trip_id: null,
+		},
 	}),
 	actions: {
 		setTrip(
@@ -61,15 +76,16 @@ export const useTripStore = defineStore('trip', {
 			cliente: Cliente,
 			operador: Operador,
 			caja: Caja,
-			tractor: Tractor
+			tractor: Tractor,
+			conceptos: Concepto[]
 		) {
-			console.log(trip);
 			this.trip = trip;
-			this.nombre_cliente = cliente.razon_social;
+			this.nombre_cliente = cliente?.razon_social;
 			this.nombre_operador =
-				operador.nombre + ' ' + operador.paterno + ' ' + operador.materno;
-			this.numero_economico_caja = caja.numero_economico;
-			this.numero_economico_tractor = tractor.numero_economico;
+				operador?.nombre + ' ' + operador?.paterno + ' ' + operador?.materno;
+			this.numero_economico_caja = caja?.numero_economico;
+			this.numero_economico_tractor = tractor?.numero_economico;
+			this.conceptos = conceptos;
 		},
 		setTrips(trips: Trip[]) {
 			this.trips = trips;
@@ -83,5 +99,8 @@ export const useTripStore = defineStore('trip', {
 		addMovimientoToTrip(patio: Patio) {
 			this.movimientos.push(patio);
 		},
+		setConcepto(concepto: Concepto) {
+			this.concepto = concepto;
+		},	
 	},
 });

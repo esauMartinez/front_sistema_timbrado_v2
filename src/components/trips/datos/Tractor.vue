@@ -1,43 +1,19 @@
 <script lang="ts" setup>
-import { useTrip } from '../../../composables/useTrip';
 import { ref } from 'vue';
 import Tabla from '../../tractores/Tabla.vue';
+import { router } from '../../../router';
 
-const { numero_economico_tractor } = useTrip();
-const visible = ref(false);
+const visible = ref(true);
 </script>
 
 <template>
 	<Panel header="Tractor">
-		<!-- <template #icons>
-			<button
-				type="button"
-				class="p-panel-header-icon p-link mr-2"
-				@click="visible = true"
-			>
-				<span class="pi pi-plus"></span>
-			</button>
-		</template> -->
-		<div class="row p-2">
-			<div class="col-lg-10">
-				<InputText
-					class="w-100"
-					autocomplete="off"
-					required
-					disabled
-					v-model="numero_economico_tractor"
-				/>
-			</div>
-			<div class="col-lg-2">
-				<Button class="w-100" icon="pi pi-plus" @click="visible = true" />
-			</div>
-		</div>
-
 		<Dialog
 			v-model:visible="visible"
 			header=" "
 			modal
 			:style="{ width: '95vw' }"
+			v-on:after-hide="router.go(-1)"
 		>
 			<Tabla :isModule="false" />
 		</Dialog>

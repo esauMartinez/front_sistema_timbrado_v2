@@ -5,8 +5,10 @@ import { useUsuario } from '../../composables/useUsuario';
 import { router } from '../../router';
 import { useAuth } from '../../composables/useAuth';
 import { severity } from '../../pipes/severity';
+import { useEmpresa } from '../../composables/useEmpresa';
 const { usuarios, getUsuarios, putUsuario, rolFormateado, deleteUsuario } =
 	useUsuario();
+const { empresa } = useEmpresa();
 const { compararUsuarioId } = useAuth();
 
 const loading = ref(true);
@@ -30,9 +32,8 @@ const agregar = () => {
 	router.push({ path: `/agregar-usuario` });
 };
 
-
 const agregarSuper = () => {
-	router.push({ path: `/agregar-usuario-super` });
+	router.push({ path: `/agregar-usuario-super/${empresa.value.id}` });
 };
 
 const filters = ref({
