@@ -1,13 +1,17 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { useCaja } from '../../composables/useCaja';
+import { useError } from '../../composables/useError';
 
 const { unidad, marcas, configuraciones, getMarcas, getConfiguraciones } =
 	useCaja();
 
+const { setErrores } = useError();
+
 onMounted(() => {
 	getMarcas();
 	getConfiguraciones();
+	setErrores([]);
 });
 </script>
 

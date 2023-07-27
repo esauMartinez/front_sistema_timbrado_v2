@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { instance } from '../helpers/axiosInstance';
 import { verificarUsuarioAutenticado } from '../guards/verificarUsuarioAutenticado';
 
 const routes: RouteRecordRaw[] = [
@@ -210,6 +209,11 @@ const routes: RouteRecordRaw[] = [
 					},
 				],
 			},
+			{
+				path: '/bitacora-trip/:id',
+				name: 'BitacoraTrip',
+				component: () => import('../components/trips/bitacora/Bitacora.vue'),
+			},
 		],
 	},
 ];
@@ -220,13 +224,9 @@ export const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	if (verificarUsuarioAutenticado() && to.name === 'Login') {
-		next('/home');
+	if (!verificarUsuarioAutenticado() && to.name !== 'Login') {
+		next('/');
 	} else {
-		if (!verificarUsuarioAutenticado() && to.name !== 'Login') {
-			next('/');
-		} else {
-			next();
-		}
+		next();
 	}
 });

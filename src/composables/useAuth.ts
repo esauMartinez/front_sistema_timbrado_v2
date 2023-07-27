@@ -1,16 +1,16 @@
 import { storeToRefs } from 'pinia';
 import { instance } from '../helpers/axiosInstance';
 import { router } from '../router';
-import { useToast } from 'primevue/usetoast';
 import { Rol } from '../interfaces/rol.model';
 import { useAuthStore } from '../store/auth';
 import { Auth } from '../interfaces/auth.model';
 import { handleError } from '../helpers/messages';
+import { useSocket } from './useSocket';
 
 export const useAuth = () => {
 	const authStore = useAuthStore();
 	const { auth, estatusUsuarioAutenticado, darkMode } = storeToRefs(authStore);
-	const toast = useToast();
+	const { connect, disconnect } = useSocket();
 
 	const authUser = async (auth: Auth) => {
 		try {
@@ -20,14 +20,11 @@ export const useAuth = () => {
 			});
 			authStore.setToken(data.data);
 			renderizarTipo(data.data.role);
+			if (data.data.empresa) {
+				connect(`empresa_${data.data.empresa.id}`, data.data.id);
+			}
 		} catch (err) {
 			handleError(err);
-			// toast.add({
-			// 	severity: 'error',
-			// 	summary: 'Usuario',
-			// 	detail: error.response.data.data,
-			// 	life: 3000,
-			// });
 		}
 	};
 
@@ -97,6 +94,7 @@ export const useAuth = () => {
 		localStorage.removeItem('usuario');
 		document.body.style.paddingLeft = '0px';
 		setUsuarioAutenticado(false);
+		disconnect();
 		router.push({ path: '/' });
 	};
 

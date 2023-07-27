@@ -321,7 +321,8 @@ const agregar = (tipo: string) => {
 <template>
 	<Panel header="Datos">
 		<div class="row p-2">
-			<div class="col-lg-6 mb-3">
+			<div class="col-lg-12 mb-3">
+				<label>Tipo de viaje</label>
 				<Dropdown
 					class="w-100"
 					placeholder="Tipo de viaje"
@@ -331,10 +332,12 @@ const agregar = (tipo: string) => {
 					:options="tipos_de_viajes"
 					optionValue="clave"
 					v-model="trip.tipo_viaje"
+					:disabled="trip.estatus !== 'CREADO'"
 				/>
 				<small class="p-error" name="tipo_viaje"></small>
 			</div>
-			<div class="col-lg-6 mb-3">
+			<div class="col-lg-12 mb-3">
+				<label>Moneda</label>
 				<Dropdown
 					class="w-100"
 					placeholder="Moneda"
@@ -344,10 +347,12 @@ const agregar = (tipo: string) => {
 					:options="moneda"
 					optionValue="clave"
 					v-model="trip.moneda"
+					:disabled="trip.estatus !== 'CREADO'"
 				/>
 				<small class="p-error" name="moneda"></small>
 			</div>
-			<div class="col-lg-4 mb-3">
+			<div class="col-lg-12 mb-3">
+				<label>Uso de CFDI</label>
 				<Dropdown
 					class="w-100"
 					placeholder="Uso de CFDI"
@@ -357,10 +362,12 @@ const agregar = (tipo: string) => {
 					:options="uso_cfdi"
 					optionValue="clave"
 					v-model="trip.uso_CFDI"
+					:disabled="trip.estatus !== 'CREADO'"
 				/>
 				<small class="p-error" name="uso_CFDI"></small>
 			</div>
-			<div class="col-lg-4 mb-3">
+			<div class="col-lg-12 mb-3">
+				<label>Metodo de pago</label>
 				<Dropdown
 					class="w-100"
 					placeholder="Metodo de pago"
@@ -370,10 +377,12 @@ const agregar = (tipo: string) => {
 					:options="metodo_pago"
 					optionValue="clave"
 					v-model="trip.metodo_pago"
+					:disabled="trip.estatus !== 'CREADO'"
 				/>
 				<small class="p-error" name="metodo_pago"></small>
 			</div>
-			<div class="col-lg-4 mb-3">
+			<div class="col-lg-12 mb-3">
+				<label>Forma de pago</label>
 				<Dropdown
 					class="w-100"
 					placeholder="Forma de pago"
@@ -383,64 +392,97 @@ const agregar = (tipo: string) => {
 					:options="forma_pago"
 					optionValue="clave"
 					v-model="trip.forma_pago"
+					:disabled="trip.estatus !== 'CREADO'"
 				/>
 				<small class="p-error" name="forma_pago"></small>
 			</div>
-			<div class="col-lg-5 mb-3">
-				<InputText
-					class="w-100"
-					autocomplete="off"
-					required
-					name="cliente_id"
-					disabled
-					v-model="nombre_cliente"
-				/>
+			<div
+				:class="{
+					'col-lg-12': trip.estatus !== 'CREADO',
+					'mb-3': true,
+				}"
+			>
+				<label>Cliente</label>
+				<div class="p-inputgroup flex-1">
+					<InputText
+						placeholder="Cliente"
+						name="cliente_id"
+						v-model="nombre_cliente"
+						disabled
+					/>
+					<Button
+						icon="pi pi-plus"
+						@click="agregar('cliente')"
+						v-if="trip.estatus === 'CREADO'"
+					/>
+				</div>
 				<small class="p-error" name="cliente_id"></small>
 			</div>
-			<div class="col-lg-1">
-				<Button class="w-100" icon="pi pi-plus" @click="agregar('cliente')" />
-			</div>
-			<div class="col-lg-5 mb-3">
-				<InputText
-					class="w-100"
-					autocomplete="off"
-					required
-					name="operador_id"
-					disabled
-					v-model="nombre_operador"
-				/>
+			<div
+				:class="{
+					'col-lg-12': trip.estatus !== 'CREADO',
+					'mb-3': true,
+				}"
+			>
+				<label>Operador</label>
+				<div class="p-inputgroup flex-1">
+					<InputText
+						placeholder="Operador"
+						name="operador_id"
+						v-model="nombre_operador"
+						disabled
+					/>
+					<Button
+						icon="pi pi-plus"
+						@click="agregar('operador')"
+						v-if="trip.estatus === 'CREADO'"
+					/>
+				</div>
 				<small class="p-error" name="operador_id"></small>
 			</div>
-			<div class="col-lg-1">
-				<Button class="w-100" icon="pi pi-plus" @click="agregar('operador')" />
-			</div>
-			<div class="col-lg-5 mb-3">
-				<InputText
-					class="w-100"
-					autocomplete="off"
-					required
-					name="caja_id"
-					disabled
-					v-model="numero_economico_caja"
-				/>
+			<div
+				:class="{
+					'col-lg-12': trip.estatus !== 'CREADO',
+					'mb-3': true,
+				}"
+			>
+				<label>Caja</label>
+				<div class="p-inputgroup flex-1">
+					<InputText
+						placeholder="Caja"
+						name="caja_id"
+						v-model="numero_economico_caja"
+						disabled
+					/>
+					<Button
+						icon="pi pi-plus"
+						@click="agregar('caja')"
+						v-if="trip.estatus === 'CREADO'"
+					/>
+				</div>
 				<small class="p-error" name="caja_id"></small>
 			</div>
-			<div class="col-lg-1">
-				<Button class="w-100" icon="pi pi-plus" @click="agregar('caja')" />
-			</div>
-			<div class="col-lg-5 mb-3">
-				<InputText
-					class="w-100"
-					autocomplete="off"
-					required
-					name="tractor_id"
-					disabled
-					v-model="numero_economico_tractor"
-				/>
+			<div
+				:class="{
+					'col-lg-12': trip.estatus !== 'CREADO',
+					'mb-3': true,
+				}"
+			>
+				<label>Tractor</label>
+				<div class="p-inputgroup flex-1">
+					<InputText
+						placeholder="Tractor"
+						name="tractor_id"
+						v-model="numero_economico_tractor"
+						disabled
+					/>
+					<Button
+						icon="pi pi-plus"
+						@click="agregar('tractor')"
+						v-if="trip.estatus === 'CREADO'"
+					/>
+				</div>
 				<small class="p-error" name="tractor_id"></small>
-			</div>
-			<div class="col-lg-1">
-				<Button class="w-100" icon="pi pi-plus" @click="agregar('tractor')" />
 			</div>
 		</div>
 	</Panel>

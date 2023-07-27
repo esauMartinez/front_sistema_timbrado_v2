@@ -1,13 +1,17 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { useTractor } from '../../composables/useTractor';
+import { useError } from '../../composables/useError';
 
 const { unidad, marcas, configuraciones, getMarcas, getConfiguraciones } =
 	useTractor();
 
+const { setErrores } = useError();
+
 onMounted(() => {
 	getMarcas();
 	getConfiguraciones();
+	setErrores([]);
 });
 </script>
 

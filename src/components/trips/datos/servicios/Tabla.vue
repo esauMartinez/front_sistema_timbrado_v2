@@ -4,7 +4,7 @@ import { onMounted, ref } from 'vue';
 import { router } from '../../../../router';
 import { useTrip } from '../../../../composables/useTrip';
 
-const { conceptos, eliminarConceptoTrip } = useTrip();
+const { trip, conceptos, eliminarConceptoTrip } = useTrip();
 
 const filters = ref({
 	global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -25,7 +25,7 @@ const agregarServicio = () => {
 		:class="[{ 'p-datatable-sm': true }]"
 		dataKey="id"
 	>
-		<template #header>
+		<template #header v-if="trip.estatus === 'CREADO'">
 			<div class="d-flex flex-wrap align-items-center justify-content-end">
 				<div>
 					<Button
@@ -41,7 +41,7 @@ const agregarServicio = () => {
 		<Column field="monto" header="Monto"></Column>
 		<Column field="iva" header="IVA"></Column>
 		<Column field="retencion" header="Retencion"></Column>
-		<Column>
+		<Column v-if="trip.estatus === 'CREADO'">
 			<template #body="{ data }">
 				<div class="d-flex justify-content-center">
 					<Button

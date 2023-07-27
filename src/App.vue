@@ -2,13 +2,25 @@
 import { onMounted } from 'vue';
 import Sidenav from './common/Sidenav.vue';
 import { useAuth } from './composables/useAuth';
-import { verificarUsuarioAutenticado} from "./guards/verificarUsuarioAutenticado";
+import { verificarUsuarioAutenticado } from './guards/verificarUsuarioAutenticado';
+import { state, useSocket } from './composables/useSocket';
 
-const { estatusUsuarioAutenticado, setDarkMode, setUsuarioAutenticado, verificarDarkMode } = useAuth();
+const {
+	estatusUsuarioAutenticado,
+	setDarkMode,
+	setUsuarioAutenticado,
+	verificarDarkMode,
+} = useAuth();
+
+const { connect } = useSocket();
 
 onMounted(() => {
 	setDarkMode(verificarDarkMode());
-	setUsuarioAutenticado(verificarUsuarioAutenticado())
+	setUsuarioAutenticado(verificarUsuarioAutenticado());
+	const data = JSON.parse(localStorage.getItem('usuario'));
+	if (data !== null) {
+		connect(`empresa_${data.empresa.id}`, data.id);
+	}
 });
 </script>
 

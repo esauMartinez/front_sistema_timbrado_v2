@@ -1,7 +1,14 @@
 <script lang="ts" setup>
+import { onMounted } from 'vue';
+import { useError } from '../../composables/useError';
 import { useServicio } from '../../composables/useServicio';
 
 const { servicio } = useServicio();
+const { setErrores } = useError();
+
+onMounted(() => {
+	setErrores([]);
+});
 </script>
 
 <template>

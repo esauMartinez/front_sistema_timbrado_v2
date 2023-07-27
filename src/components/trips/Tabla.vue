@@ -22,6 +22,10 @@ const modificar = (id: number) => {
 
 const filters = ref({
 	global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+	razon_social: { value: null, matchMode: FilterMatchMode.CONTAINS },
+	operador: { value: null, matchMode: FilterMatchMode.CONTAINS },
+	paterno: { value: null, matchMode: FilterMatchMode.CONTAINS },
+	materno: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
 
 const showTemplate = () => {
@@ -36,6 +40,16 @@ const showTemplate = () => {
 const onReject = () => {
 	toast.removeGroup('bc');
 };
+
+const bitacora = (id: number) => {
+	router.push({ path: `/bitacora-trip/${id}` });
+};
+
+const rowStyle = ({ usuario_toma_id }) => {
+	if (usuario_toma_id !== null) {
+		return { background: '#979191' };
+	}
+};
 </script>
 
 <template>
@@ -46,11 +60,18 @@ const onReject = () => {
 		stripedRows
 		paginator
 		:rows="10"
+		:rowStyle="rowStyle"
 		:rowsPerPageOptions="[10, 50, 100]"
 		:class="[{ 'p-datatable-sm': true }]"
 		dataKey="id"
 		:loading="false"
-		:globalFilterFields="['numero_trip']"
+		:globalFilterFields="[
+			'numero_trip',
+			'cliente.razon_social',
+			'operador.nombre',
+			'operador.paterno',
+			'operador.materno',
+		]"
 	>
 		<template #header>
 			<div class="d-flex flex-wrap align-items-center justify-content-between">
@@ -60,7 +81,6 @@ const onReject = () => {
 						<i class="pi pi-search" />
 						<InputText v-model="filters['global'].value" placeholder="Buscar" />
 					</span>
-					<!-- <Button icon="pi pi-plus" severity="success" @click="agregar" /> -->
 					<Button @click="showTemplate" icon="pi pi-plus" />
 				</div>
 			</div>
@@ -89,14 +109,26 @@ const onReject = () => {
 				<Tag :severity="severityTrip(data.estatus)" :value="data.estatus"></Tag>
 			</template>
 		</Column>
+		<Column header="Bitacora">
+			<template #body="{ data }">
+				<div class="d-flex justify-content-center">
+					<Button
+						icon="pi pi-book"
+						severity="info"
+						@click="bitacora(data.id)"
+					/>
+				</div>
+			</template>
+		</Column>
 		<Column header="Acciones">
 			<template #body="{ data }">
-				<div class="d-flex justify-content-center" v-if="data.estatus">
+				<div class="d-flex justify-content-center">
 					<span class="p-buttonset">
 						<Button
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
+							v-if="data.usuario_toma_id === null"
 						/>
 					</span>
 				</div>

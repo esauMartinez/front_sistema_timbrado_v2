@@ -25,6 +25,7 @@
     "primeicons": "^6.0.1",
     "primevue": "^3.26.1",
     "sass": "^1.58.3",
+    "socket.io-client": "^4.7.1",
     "sweetalert2": "^11.7.5",
     "toastr": "^2.1.4",
     "vee-validate": "^4.8.4",

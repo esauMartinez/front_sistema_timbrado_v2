@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { useCliente } from '../../composables/useCliente';
+import { useError } from '../../composables/useError';
+
+const { setErrores } = useError();
 
 const {
 	cliente,
@@ -16,6 +19,7 @@ onMounted(() => {
 	getUsoCfdi();
 	getMetodosPago();
 	getFormasPago();
+	setErrores([]);
 });
 
 const origenes = ref([

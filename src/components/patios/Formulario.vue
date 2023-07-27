@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { usePatio } from '../../composables/usePatio';
 import { CodigoPostal } from '../../interfaces/codigo_postal.model';
+import { useError } from "../../composables/useError";
 
 const { patio, codigos, buscarCodigoPostal } = usePatio();
+const { setErrores } = useError()
 
 const tipo_patio = ref([{ tipo: 'nacional' }, { tipo: 'extranjero' }]);
 
@@ -34,6 +36,10 @@ const paises = ref<Pais[]>([
 const selectPais = (pais: string) => {
 	patio.value.c_pais = pais;
 };
+
+onMounted(() => {
+	setErrores([])
+})
 </script>
 
 <template>

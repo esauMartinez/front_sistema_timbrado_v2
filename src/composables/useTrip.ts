@@ -3,7 +3,6 @@ import { instance } from '../helpers/axiosInstance';
 import { handleError, question } from '../helpers/messages';
 import { useToast } from 'primevue/usetoast';
 import { useTripStore } from '../store/trip';
-import { Trip } from '../interfaces/Trip';
 import { Patio } from '../interfaces/patio.model';
 import { usePatioStore } from '../store/patio';
 import { Cliente } from '../interfaces/cliente.model';
@@ -11,9 +10,9 @@ import { Operador } from '../interfaces/operador.model';
 import { Caja } from '../interfaces/caja.model';
 import { Tractor } from '../interfaces/tractor.model';
 import { router } from '../router';
-import { Servicio } from '../interfaces/servicio';
 import { Concepto } from '../interfaces/concepto.model';
 import { useServicioStore } from '../store/servicio';
+import { useSocket } from './useSocket';
 
 export const useTrip = () => {
 	const tripStore = useTripStore();
@@ -46,14 +45,14 @@ export const useTrip = () => {
 	const getTrip = async (id: number) => {
 		try {
 			const { data } = await instance.get(`/trips/${id}`);
-			console.log(data);
 			tripStore.setTrip(
 				data,
 				data.cliente,
 				data.operador,
 				data.caja,
 				data.tractor,
-				data.conceptos
+				data.conceptos,
+				data.movimientos
 			);
 		} catch (error) {
 			handleError(error);
@@ -63,14 +62,7 @@ export const useTrip = () => {
 	const postTrip = async () => {
 		try {
 			await instance.post(`/trips`);
-			getTrips();
 			toast.removeGroup('bc');
-			toast.add({
-				severity: 'success',
-				summary: 'Trip',
-				detail: 'Trip creado correctamente',
-				life: 3000,
-			});
 		} catch (error) {
 			handleError(error);
 		}
@@ -80,13 +72,7 @@ export const useTrip = () => {
 		try {
 			payload['movimientos'] = movimientos.value;
 			const { data } = await instance.put(`/trips/${payload.id}`, payload);
-			toast.add({
-				severity: 'success',
-				summary: 'Trip',
-				detail: 'Trip actualizado correctamente',
-				life: 3000,
-			});
-			getTrips();
+			router.go(-1);
 			return data;
 		} catch (error) {
 			handleError(error);
@@ -109,10 +95,6 @@ export const useTrip = () => {
 		} catch (error) {
 			handleError(error);
 		}
-	};
-
-	const resetTripForm = () => {
-		movimientos.value = [];
 	};
 
 	const selectCliente = (cliente: Cliente) => {
@@ -144,19 +126,64 @@ export const useTrip = () => {
 		patioStore.setPatios([]);
 	};
 
-	const agregarMovimiento = (patio: Patio) => {
-		tripStore.addMovimientoToTrip(patio);
-		router.go(-1);
+	const agregarMovimiento = async (patio: Patio) => {
+		try {
+			const movimiento = {
+				patio_id: patio.id,
+				trip_id: trip.value.id,
+			};
+			const { data } = await instance.post(
+				`/guardar-movimiento-trip`,
+				movimiento
+			);
+			toast.add({
+				severity: 'success',
+				summary: 'Trip',
+				detail: data.data,
+				life: 3000,
+			});
+			router.go(-1);
+			getTrip(trip.value.id);
+		} catch (error) {
+			handleError(error);
+		}
 	};
 
-	const vaciarMovimientos = () => {
-		movimientos.value = [];
+	const vaciarMovimientos = async (id: number) => {
+		try {
+			const response = await question();
+			if (response.isConfirmed) {
+				const { data } = await instance.delete(
+					`/eliminar-movimientos-trip/${id}`
+				);
+				toast.add({
+					severity: 'success',
+					summary: 'Usuario',
+					detail: data.data,
+					life: 3000,
+				});
+				getTrip(trip.value.id);
+			}
+		} catch (error) {
+			handleError(error);
+		}
 	};
 
-	const eliminarMovimiento = (numero_movimiento: number) => {
-		movimientos.value = movimientos.value.filter(
-			(x) => x.id !== numero_movimiento
-		);
+	const eliminarMovimiento = async (numero_movimiento: number) => {
+		try {
+			const { data } = await instance.delete(
+				`/eliminar-movimiento-trip/${numero_movimiento}`
+			);
+			toast.add({
+				severity: 'success',
+				summary: 'Trip',
+				detail: data.data,
+				life: 3000,
+			});
+			getTrip(trip.value.id);
+		} catch (error) {
+			handleError(error);
+		}
 	};
 
 	const agregarConcepto = async (concepto: Concepto) => {
@@ -215,8 +242,9 @@ export const useTrip = () => {
 			retencion: 0,
 			tipo: null,
 			trip_id: null,
-		})
-	}
+		});
+	};
+
 
 	return {
 		trip,

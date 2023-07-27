@@ -77,15 +77,23 @@ export const useTripStore = defineStore('trip', {
 			operador: Operador,
 			caja: Caja,
 			tractor: Tractor,
-			conceptos: Concepto[]
+			conceptos: Concepto[],
+			movimientos
 		) {
 			this.trip = trip;
 			this.nombre_cliente = cliente?.razon_social;
 			this.nombre_operador =
-				operador?.nombre + ' ' + operador?.paterno + ' ' + operador?.materno;
+				operador?.nombre === undefined
+					? null
+					: operador?.nombre +
+					  ' ' +
+					  operador?.paterno +
+					  ' ' +
+					  operador?.materno;
 			this.numero_economico_caja = caja?.numero_economico;
 			this.numero_economico_tractor = tractor?.numero_economico;
 			this.conceptos = conceptos;
+			this.movimientos = movimientos;
 		},
 		setTrips(trips: Trip[]) {
 			this.trips = trips;
@@ -101,6 +109,6 @@ export const useTripStore = defineStore('trip', {
 		},
 		setConcepto(concepto: Concepto) {
 			this.concepto = concepto;
-		},	
+		},
 	},
 });

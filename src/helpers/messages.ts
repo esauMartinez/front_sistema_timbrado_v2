@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import { router } from '../router';
+import { useError } from "../composables/useError";
 
 export const success = (payload) => {
 	Swal.fire({
@@ -54,27 +55,25 @@ export const errorServer = () => {
 	});
 };
 
-const last_erorrs = {
-	value: [],
-};
+export const errorValidations = (lista_errores) => {
 
-export const errorValidations = (errores) => {
-	if (last_erorrs.value.length !== 0) {
-		last_erorrs.value.forEach((element: any) => {
+	const { errores, setErrores } = useError()
+	if (errores.value.length !== 0) {
+		errores.value.forEach((element: any) => {
 			document.getElementsByName(element.path)[0].classList.remove('p-invalid');
 			document.getElementsByName(element.path)[1].innerHTML = '';
 		});
 	}
 
-	for (let i = 0; i < errores.length; i++) {
-		const element = errores[i];
+	for (let i = 0; i < lista_errores.length; i++) {
+		const element = lista_errores[i];
 		document.getElementsByName(element.path)[0].classList.add('p-invalid');
 		document.getElementsByName(
 			element.path
 		)[1].innerHTML = `<p class="mt-2 mb-0 d-flex align-items-center">&#9888 ${element.message}</p>`;
 	}
 
-	last_erorrs.value = errores;
+	setErrores(lista_errores);
 };
 
 export const handleError = (payload) => {

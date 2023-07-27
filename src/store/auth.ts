@@ -11,8 +11,8 @@ interface AuthStore {
 export const useAuthStore = defineStore('auth', {
 	state: (): AuthStore => ({
 		auth: {
-			email: 'martinez117esau@gmail.com',
-			password: 'mace930111',
+			email: 'aurelio@gmail.com',
+			password: 'aurelio',
 		},
 		estatusUsuarioAutenticado: false,
 		darkMode: false,

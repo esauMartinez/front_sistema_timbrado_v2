@@ -1,7 +1,15 @@
 <script lang="ts" setup>
+import { onMounted } from 'vue'
 import { useOperador } from '../../composables/useOperador';
+import { useError } from '../../composables/useError';
 
-const { resetOperadorForm, operador } = useOperador();
+const { operador } = useOperador();
+const { setErrores } = useError();
+
+
+onMounted(() => {
+	setErrores([]);
+});
 </script>
 
 <template>

@@ -3,10 +3,12 @@ import { useUsuario } from '../../composables/useUsuario';
 import { useRol } from '../../composables/useRol';
 import { onMounted } from 'vue';
 import { useCliente } from '../../composables/useCliente';
+import { useError } from '../../composables/useError';
 
 const { roles, getRoles } = useRol();
 const { usuario, rolFormateado } = useUsuario();
 const { clientes, getClientes } = useCliente();
+const { setErrores } = useError();
 
 const props = defineProps({
 	isModule: Boolean,
@@ -31,6 +33,7 @@ onMounted(async () => {
 			(x) => x.nombre !== 'SUPER ADMINISTRADOR' && x.nombre !== 'CLIENTE'
 		);
 	}
+	setErrores([]);
 });
 </script>
 
