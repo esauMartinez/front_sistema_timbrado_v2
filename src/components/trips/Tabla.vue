@@ -106,17 +106,22 @@ const rowStyle = ({ usuario_toma_id }) => {
 		<Column field="caja.numero_economico" header="Caja"></Column>
 		<Column header="Estatus">
 			<template #body="{ data }">
-				<Tag :severity="severityTrip(data.estatus)" :value="data.estatus"></Tag>
+				<Tag
+					:severity="severityTrip(data.estatus)"
+					:value="data.estatus"
+					class="w-100"
+				></Tag>
 			</template>
 		</Column>
 		<Column header="Bitacora">
 			<template #body="{ data }">
 				<div class="d-flex justify-content-center">
-					<Button
+					<!-- <Button
 						icon="pi pi-book"
 						severity="info"
 						@click="bitacora(data.id)"
-					/>
+					/> -->
+					<button @click="bitacora(data.id)" class="opciones bitacora">Bitacora</button>
 				</div>
 			</template>
 		</Column>
@@ -124,12 +129,13 @@ const rowStyle = ({ usuario_toma_id }) => {
 			<template #body="{ data }">
 				<div class="d-flex justify-content-center">
 					<span class="p-buttonset">
-						<Button
+						<!-- <Button
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
 							v-if="data.usuario_toma_id === null"
-						/>
+						/> -->
+						<button @click="modificar(data.id)" class="opciones text-dark modificar" style="backgroundColor: surface-500">Modificar</button>
 					</span>
 				</div>
 			</template>

@@ -87,7 +87,7 @@ const filters = ref({
 				{{ rolFormateado(data.role.nombre) }}
 			</template>
 		</Column>
-		<Column v-if="isModule">
+		<!-- <Column v-if="isModule">
 			<template #body="{ data }">
 				<div
 					class="d-flex justify-content-center"
@@ -96,7 +96,7 @@ const filters = ref({
 					<InputSwitch v-model="data.activo" @change="putUsuario(data)" />
 				</div>
 			</template>
-		</Column>
+		</Column> -->
 		<Column header="Estatus">
 			<template #body="{ data }">
 				<Tag
@@ -105,7 +105,7 @@ const filters = ref({
 				></Tag>
 			</template>
 		</Column>
-		<Column header="Acciones" v-if="isModule">
+		<!-- <Column header="Acciones" v-if="isModule">
 			<template #body="{ data }">
 				<div class="d-flex justify-content-center">
 					<span class="p-buttonset">
@@ -122,6 +122,6 @@ const filters = ref({
 					</span>
 				</div>
 			</template>
-		</Column>
+		</Column> -->
 	</DataTable>
 </template>

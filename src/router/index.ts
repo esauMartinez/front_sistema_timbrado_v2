@@ -216,6 +216,11 @@ const routes: RouteRecordRaw[] = [
 			},
 		],
 	},
+	{
+		path: '/cotizaciones',
+		name: 'Cotizaciones',
+		component: () => import('../views/Cotizacion.vue'),
+	},
 ];
 
 export const router = createRouter({

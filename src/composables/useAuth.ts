@@ -31,6 +31,8 @@ export const useAuth = () => {
 	const renderizarTipo = async (rol: Rol) => {
 		if (rol.nombre === 'USER_SUPER_ADMIN') {
 			router.push({ path: '/super' });
+		} else if (rol.nombre === 'USER_CLIENT') {
+			router.push({ path: '/cotizaciones' });
 		} else {
 			router.push({ path: '/home' });
 		}

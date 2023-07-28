@@ -3,6 +3,8 @@ import { createApp } from 'vue';
 import { router } from './router';
 import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
+import VueSidebarMenu from 'vue-sidebar-menu';
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css';
 
 // theme
 import 'primevue/resources/themes/lara-light-indigo/theme.css';
@@ -113,5 +115,6 @@ app.component('InputNumber', InputNumber);
 
 app.use(ToastService);
 app.use(createPinia());
+app.use(VueSidebarMenu);
 app.use(router);
 app.mount('#app');

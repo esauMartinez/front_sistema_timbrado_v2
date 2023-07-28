@@ -1,118 +1,161 @@
 <script lang="ts" setup>
 import { useAuth } from '../composables/useAuth';
 import '../../public/css/sidenav.scss';
-import BotonSalir from './BotonSalir.vue';
-import BotonTema from './BotonTema.vue';
+import { onMounted, ref } from 'vue';
 import Logotipo from './Logotipo.vue';
 
-const { getRol } = useAuth();
+const { getRol, logout, darkMode, setDarkMode } = useAuth();
 
-interface item {
-	name: string;
-	link: string;
-	icon: string;
-	isHidden: boolean;
-}
-
-const items: item[] = [
+const menu = [
 	{
-		name: 'Inicio',
-		link: '/home',
-		icon: 'house',
-		isHidden:
+		header: null,
+		title: 'Inicio',
+		href: '/home',
+		icon: 'fa fa-house',
+		hidden:
 			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
 	},
 	{
-		name: 'Clientes',
-		link: '/clientes',
-		icon: 'briefcase',
-		isHidden:
+		header: null,
+		title: 'Clientes',
+		href: '/clientes',
+		icon: 'fa fa-briefcase',
+		hidden:
 			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
 	},
 	{
-		name: 'Operadores',
-		link: '/operadores',
-		icon: 'user-astronaut',
-		isHidden:
+		header: null,
+		title: 'Operadores',
+		href: '/operadores',
+		icon: 'fa fa-user-astronaut',
+		hidden:
 			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
 	},
 	{
-		name: 'Tractores',
-		link: '/tractores',
-		icon: 'truck',
-		isHidden:
+		header: null,
+		title: 'Tractores',
+		href: '/tractores',
+		icon: 'fa fa-truck',
+		hidden:
 			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
 	},
 	{
-		name: 'Cajas',
-		link: '/Cajas',
-		icon: 'trailer',
-		isHidden:
+		header: null,
+		title: 'Cajas',
+		href: '/Cajas',
+		icon: 'fa fa-trailer',
+		hidden:
 			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
 	},
 	{
-		name: 'Patios',
-		link: '/Patios',
-		icon: 'globe',
-		isHidden:
+		header: null,
+		title: 'Patios',
+		href: '/Patios',
+		icon: 'fa fa-globe',
+		hidden:
 			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
 	},
 	{
-		name: 'Servcicios',
-		link: '/Servicios',
-		icon: 'box-open',
-		isHidden:
+		header: null,
+		title: 'Servcicios',
+		href: '/Servicios',
+		icon: 'fa fa-box-open',
+		hidden:
 			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
 	},
 	{
-		name: 'Trips',
-		link: '/Trips',
-		icon: 'plane-departure',
-		isHidden:
+		header: null,
+		title: 'Trips',
+		href: '/Trips',
+		icon: 'fa fa-plane-departure',
+		hidden:
 			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
 	},
 	{
-		name: 'Usuarios',
-		link: '/usuarios',
-		icon: 'users',
-		isHidden: getRol() === 'USER_ADMIN' ? false : true,
+		header: null,
+		title: 'Usuarios',
+		href: '/usuarios',
+		icon: 'fa fa-users',
+		hidden: getRol() === 'USER_ADMIN' ? false : true,
 	},
 	{
-		name: 'Empresas',
-		link: '/super',
-		icon: 'shield-halved',
-		isHidden: getRol() === 'USER_SUPER_ADMIN' ? false : true,
+		header: null,
+		title: 'Empresas',
+		href: '/super',
+		icon: 'fa fa-shield-halved',
+		hidden: getRol() === 'USER_SUPER_ADMIN' ? false : true,
 	},
 	{
-		name: 'Ajustes',
-		link: '/ajustes',
-		icon: 'shield-halved',
-		isHidden: getRol() === 'USER_ADMIN' ? false : true,
+		header: null,
+		title: 'Ajustes',
+		href: '/ajustes',
+		icon: 'fa fa-gear',
+		hidden: getRol() === 'USER_ADMIN' ? false : true,
+	},
+	{
+		header: null,
+		title: 'Tema',
+		href: null,
+		icon: 'fa fa-sun',
+		hidden: false,
+	},
+	{
+		header: null,
+		title: 'Salir',
+		href: null,
+		icon: 'fa fa-right-from-bracket',
+		hidden: false,
 	},
 ];
+
+const theme_sidenav = ref('white-theme');
+
+const onItemClick = (e, item) => {
+	if (item.title === 'Salir') {
+		logout();
+	} else if (item.title === 'Tema') {
+		darkMode.value = !darkMode.value;
+		setDarkMode(darkMode.value);
+		if (darkMode.value) {
+			theme_sidenav.value = null;
+			menu[menu.length - 2].icon = 'fa fa-moon';
+		} else {
+			menu[menu.length - 2].icon = 'fa fa-sun';
+			theme_sidenav.value = 'white-theme';
+		}
+	}
+};
+
+const collapsedLogo = ref(false);
+
+const onToggleCollapse = (collapsed) => {
+	if (collapsed) {
+		collapsedLogo.value = true;
+		document.body.style.paddingLeft = '65px';
+	} else {
+		collapsedLogo.value = false;
+		document.body.style.paddingLeft = '300px';
+	}
+};
+
+onMounted(() => {
+	if (darkMode.value) {
+		theme_sidenav.value = null;
+	}
+});
 </script>
 
 <template>
-	<div class="sidenav">
-		<!-- <BotonCerrarSidenav /> -->
-		<Logotipo />
-
-		<ul class="menu">
-			<li
-				v-for="item in items"
-				:class="{ hide: item.isHidden, 'li-link': true }"
-			>
-				<router-link :to="{ path: item.link }">
-					<font-awesome-icon class="menu__icon" :icon="item.icon" />
-					{{ item.name }}
-				</router-link>
-			</li>
-
-			<BotonSalir />
-
-			<BotonTema />
-		</ul>
-	</div>
+	<sidebar-menu
+		:menu="menu"
+		@update:collapsed="onToggleCollapse"
+		@item-click="onItemClick"
+		:theme="theme_sidenav"
+	>
+		<template v-slot:header>
+			<Logotipo v-if="!collapsedLogo" />
+		</template>
+	</sidebar-menu>
 </template>
 
 <style lang="scss" scoped></style>
