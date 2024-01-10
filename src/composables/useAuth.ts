@@ -41,8 +41,15 @@ export const useAuth = () => {
 		localStorage.setItem('rol', rol.nombre);
 	};
 
-	const getRol = (): string => {
-		return localStorage.getItem('rol');
+	const getPermiso = (permiso, opcion): boolean => {
+		const {
+			role: { permisos },
+		} = JSON.parse(localStorage.getItem('usuario'));
+
+		const verificar_permiso = permisos.find(
+			(x) => x.nombre === permiso && x[opcion] === true
+		);
+		return verificar_permiso === undefined ? true : false;
 	};
 
 	const getNombreUsuario = () => {
@@ -92,11 +99,14 @@ export const useAuth = () => {
 	};
 
 	const logout = (): void => {
+		const rol = localStorage.getItem('rol');
 		localStorage.removeItem('rol');
 		localStorage.removeItem('usuario');
 		document.body.style.paddingLeft = '0px';
 		setUsuarioAutenticado(false);
-		disconnect();
+		if (rol !== 'USER_SUPER_ADMIN') {
+			disconnect();
+		}
 		router.push({ path: '/' });
 	};
 
@@ -110,7 +120,7 @@ export const useAuth = () => {
 		estatusUsuarioAutenticado,
 		darkMode,
 		authUser,
-		getRol,
+		getPermiso,
 		logout,
 		compararUsuarioId,
 		setDarkMode,

@@ -14,29 +14,12 @@ onMounted(() => {
 </script>
 
 <template>
-	<Dialog
-		v-model:visible="visible"
-		modal
-		header="Agregar caja"
-		:style="{ width: '50vw' }"
-		v-on:after-hide="router.go(-1)"
-	>
+	<Dialog v-model:visible="visible" modal header="Agregar caja" :style="{ width: '50vw' }"
+		v-on:after-hide="router.go(-1)">
 		<Formulario @submit.prevent="postUnidad(unidad)" id="formulario" />
 		<template #footer>
-			<Button
-				label="Cancelar"
-				icon="pi pi-times"
-				@click="visible = false"
-				outlined
-				severity="danger"
-			/>
-			<Button
-				label="Guardar"
-				icon="pi pi-check"
-				type="submit"
-				form="formulario"
-				severity="success"
-			/>
+			<Button label="Cancelar" icon="pi pi-times" @click="visible = false" outlined severity="danger" />
+			<Button label="Guardar" icon="pi pi-check" type="submit" form="formulario" severity="success" />
 		</template>
 	</Dialog>
 </template>

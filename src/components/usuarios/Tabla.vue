@@ -6,10 +6,11 @@ import { router } from '../../router';
 import { useAuth } from '../../composables/useAuth';
 import { severity } from '../../pipes/severity';
 import { useEmpresa } from '../../composables/useEmpresa';
-const { usuarios, getUsuarios, putUsuario, rolFormateado, deleteUsuario } =
+
+const { usuarios, getUsuarios, putUsuario, deleteUsuario } =
 	useUsuario();
 const { empresa } = useEmpresa();
-const { compararUsuarioId } = useAuth();
+const { compararUsuarioId, getPermiso } = useAuth();
 
 const loading = ref(true);
 
@@ -70,6 +71,7 @@ const filters = ref({
 						icon="pi pi-plus"
 						severity="success"
 						@click="isModule ? agregar() : agregarSuper()"
+						v-if="!getPermiso('USUARIOS', 'crear')"
 					/>
 				</div>
 			</div>
@@ -82,12 +84,8 @@ const filters = ref({
 			</template>
 		</Column>
 		<Column field="email" header="Correo electrónico" sortable />
-		<Column field="role.nombre" header="Tipo de usuario" sortable>
-			<template #body="{ data }">
-				{{ rolFormateado(data.role.nombre) }}
-			</template>
-		</Column>
-		<!-- <Column v-if="isModule">
+		<Column field="role.nombre" header="Rol"></Column>
+		<Column v-if="isModule">
 			<template #body="{ data }">
 				<div
 					class="d-flex justify-content-center"
@@ -96,7 +94,7 @@ const filters = ref({
 					<InputSwitch v-model="data.activo" @change="putUsuario(data)" />
 				</div>
 			</template>
-		</Column> -->
+		</Column>
 		<Column header="Estatus">
 			<template #body="{ data }">
 				<Tag
@@ -105,7 +103,7 @@ const filters = ref({
 				></Tag>
 			</template>
 		</Column>
-		<!-- <Column header="Acciones" v-if="isModule">
+		<Column header="Acciones" v-if="isModule">
 			<template #body="{ data }">
 				<div class="d-flex justify-content-center">
 					<span class="p-buttonset">
@@ -113,15 +111,17 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
+							v-if="!getPermiso('USUARIOS', 'modificar')"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deleteUsuario(data.id)"
+							v-if="!getPermiso('USUARIOS', 'eliminar')"
 						/>
 					</span>
 				</div>
 			</template>
-		</Column> -->
+		</Column>
 	</DataTable>
 </template>

@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 import { router } from '../router';
-import { useError } from "../composables/useError";
+import { useError } from '../composables/useError';
 
 export const success = (payload) => {
 	Swal.fire({
@@ -56,8 +56,7 @@ export const errorServer = () => {
 };
 
 export const errorValidations = (lista_errores) => {
-
-	const { errores, setErrores } = useError()
+	const { errores, setErrores } = useError();
 	if (errores.value.length !== 0) {
 		errores.value.forEach((element: any) => {
 			document.getElementsByName(element.path)[0].classList.remove('p-invalid');

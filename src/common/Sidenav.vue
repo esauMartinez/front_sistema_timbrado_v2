@@ -4,7 +4,7 @@ import '../../public/css/sidenav.scss';
 import { onMounted, ref } from 'vue';
 import Logotipo from './Logotipo.vue';
 
-const { getRol, logout, darkMode, setDarkMode } = useAuth();
+const { getPermiso, logout, darkMode, setDarkMode } = useAuth();
 
 const menu = [
 	{
@@ -12,85 +12,90 @@ const menu = [
 		title: 'Inicio',
 		href: '/home',
 		icon: 'fa fa-house',
-		hidden:
-			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
 	},
 	{
-		header: null,
-		title: 'Clientes',
-		href: '/clientes',
-		icon: 'fa fa-briefcase',
+		title: 'Catalogos',
+		icon: 'fa fa-bars',
 		hidden:
-			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
-	},
-	{
-		header: null,
-		title: 'Operadores',
-		href: '/operadores',
-		icon: 'fa fa-user-astronaut',
-		hidden:
-			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
-	},
-	{
-		header: null,
-		title: 'Tractores',
-		href: '/tractores',
-		icon: 'fa fa-truck',
-		hidden:
-			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
-	},
-	{
-		header: null,
-		title: 'Cajas',
-		href: '/Cajas',
-		icon: 'fa fa-trailer',
-		hidden:
-			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
-	},
-	{
-		header: null,
-		title: 'Patios',
-		href: '/Patios',
-		icon: 'fa fa-globe',
-		hidden:
-			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
-	},
-	{
-		header: null,
-		title: 'Servcicios',
-		href: '/Servicios',
-		icon: 'fa fa-box-open',
-		hidden:
-			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
+			getPermiso('CLIENTES', 'ver') &&
+			getPermiso('OPERADORES', 'ver') &&
+			getPermiso('TRACTORES', 'ver') &&
+			getPermiso('CAJAS', 'ver') &&
+			getPermiso('PATIOS', 'ver') &&
+			getPermiso('SERVICIOS', 'ver'),
+		child: [
+			{
+				href: '/clientes',
+				title: 'Clientes',
+				icon: 'fa fa-briefcase',
+				hidden: getPermiso('CLIENTES', 'ver'),
+			},
+			{
+				title: 'Operadores',
+				href: '/operadores',
+				icon: 'fa fa-user-astronaut',
+				hidden: getPermiso('OPERADORES', 'ver'),
+			},
+			{
+				title: 'Tractores',
+				href: '/tractores',
+				icon: 'fa fa-truck',
+				hidden: getPermiso('TRACTORES', 'ver'),
+			},
+			{
+				title: 'Cajas',
+				href: '/Cajas',
+				icon: 'fa fa-trailer',
+				hidden: getPermiso('CAJAS', 'ver'),
+			},
+			{
+				title: 'Patios',
+				href: '/Patios',
+				icon: 'fa fa-globe',
+				hidden: getPermiso('PATIOS', 'ver'),
+			},
+			{
+				title: 'Servcicios',
+				href: '/Servicios',
+				icon: 'fa fa-box-open',
+				hidden: getPermiso('SERVICIOS', 'ver'),
+			},
+		],
 	},
 	{
 		header: null,
 		title: 'Trips',
 		href: '/Trips',
 		icon: 'fa fa-plane-departure',
-		hidden:
-			getRol() === 'USER_ADMIN' || getRol() === 'USER_EMPLOYEE' ? false : true,
+		hidden: getPermiso('TRIPS', 'ver'),
 	},
 	{
 		header: null,
 		title: 'Usuarios',
 		href: '/usuarios',
 		icon: 'fa fa-users',
-		hidden: getRol() === 'USER_ADMIN' ? false : true,
+		hidden: getPermiso('USUARIOS', 'ver'),
 	},
 	{
 		header: null,
 		title: 'Empresas',
 		href: '/super',
 		icon: 'fa fa-shield-halved',
-		hidden: getRol() === 'USER_SUPER_ADMIN' ? false : true,
+		hidden: getPermiso('EMPRESAS', 'ver'),
+	},
+	{
+		header: null,
+		title: 'Roles',
+		href: '/roles',
+		icon: 'fa fa-address-book',
+		hidden: getPermiso('ROLES', 'ver'),
 	},
 	{
 		header: null,
 		title: 'Ajustes',
 		href: '/ajustes',
 		icon: 'fa fa-gear',
-		hidden: getRol() === 'USER_ADMIN' ? false : true,
+		hidden: getPermiso('AJUSTES', 'ver'),
 	},
 	{
 		header: null,
@@ -103,7 +108,7 @@ const menu = [
 		header: null,
 		title: 'Salir',
 		href: null,
-		icon: 'fa fa-right-from-bracket',
+		icon: 'fa fa-power-off',
 		hidden: false,
 	},
 ];

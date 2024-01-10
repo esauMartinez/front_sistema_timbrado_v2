@@ -14,6 +14,7 @@ export const useUsuario = () => {
 	const getUsuarios = async () => {
 		try {
 			const { data } = await instance.get('/usuarios');
+			console.log(data)
 			usuarioStore.setUsuarios(data);
 		} catch (error) {
 			handleError(error);
@@ -96,26 +97,11 @@ export const useUsuario = () => {
 		});
 	};
 
-	const rolFormateado = (rol: string) => {
-		let nombre_rol: string = null;
-		if (rol === 'USER_ADMIN') {
-			nombre_rol = 'ADMINISTRADOR';
-		} else if (rol === 'USER_SUPER_ADMIN') {
-			nombre_rol = 'SUPER ADMINISTRADOR';
-		} else if (rol === 'USER_CLIENT') {
-			nombre_rol = 'CLIENTE';
-		} else if (rol === 'USER_EMPLOYEE') {
-			nombre_rol = 'EMPLEADO';
-		}
-		return nombre_rol;
-	};
-
 	return {
 		usuario,
 		usuarios,
 		getUsuarios,
 		getUsuario,
-		rolFormateado,
 		postUsuario,
 		putUsuario,
 		deleteUsuario,

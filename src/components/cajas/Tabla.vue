@@ -5,7 +5,10 @@ import { formatDate } from '../../pipes/formatDate';
 import { severity } from '../../pipes/severity';
 import { useCaja } from '../../composables/useCaja';
 import { FilterMatchMode } from 'primevue/api';
-import { useTrip } from '../../composables/useTrip'
+import { useTrip } from '../../composables/useTrip';
+import { useAuth } from '../../composables/useAuth';
+
+const { getPermiso } = useAuth();
 
 const { unidades, getUnidades, putUnidad, deleteUnidad } = useCaja();
 const { selectCaja } = useTrip();
@@ -68,7 +71,7 @@ const filters = ref({
 						icon="pi pi-plus"
 						severity="success"
 						@click="agregar"
-						v-if="isModule"
+						v-if="isModule && !getPermiso('CAJAS', 'crear')"
 					/>
 				</div>
 			</div>
@@ -118,13 +121,13 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="isModule"
+							v-if="isModule && !getPermiso('CAJAS', 'modificar')"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deleteUnidad(data.id)"
-							v-if="isModule"
+							v-if="isModule && !getPermiso('CAJAS', 'eliminar')"
 						/>
 						<Button
 							icon="pi pi-plus"

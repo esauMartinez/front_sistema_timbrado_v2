@@ -5,7 +5,9 @@ import { router } from '../../router';
 import { severity } from '../../pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
 import { useTrip } from '../../composables/useTrip';
+import { useAuth } from '../../composables/useAuth';
 
+const { getPermiso } = useAuth();
 const { clientes, getClientes, putCliente, deleteCliente } = useCliente();
 const { selectCliente } = useTrip();
 
@@ -70,7 +72,7 @@ const filters = ref({
 						icon="pi pi-plus"
 						severity="success"
 						@click="agregar"
-						v-if="isModule"
+						v-if="isModule && !getPermiso('CLIENTES', 'crear')"
 					/>
 				</div>
 			</div>
@@ -80,11 +82,11 @@ const filters = ref({
 		<Column field="uso_cfdi" header="Uso de CFDI" sortable />
 		<Column field="estado" header="Estado" sortable />
 		<Column field="pais" header="Pais" sortable />
-		<Column v-if="isModule">
+		<!-- <Column v-if="isModule">
 			<template #body="{ data }">
 				<InputSwitch v-model="data.estatus" @change="putCliente(data)" />
 			</template>
-		</Column>
+		</Column> -->
 		<Column header="Estatus">
 			<template #body="{ data }">
 				<Tag
@@ -101,15 +103,14 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="isModule"
+							v-if="isModule && !getPermiso('CLIENTES', 'modificar')"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deleteCliente(data.id)"
-							v-if="isModule"
+							v-if="isModule && !getPermiso('CLIENTES', 'eliminar')"
 						/>
-
 						<Button
 							icon="pi pi-plus"
 							v-if="!isModule && data.estatus"

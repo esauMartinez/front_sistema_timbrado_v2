@@ -81,6 +81,9 @@ import Image from 'primevue/image';
 import Timeline from 'primevue/timeline';
 import Message from 'primevue/message';
 import InputNumber from 'primevue/inputnumber';
+import TabMenu from 'primevue/tabmenu';
+import Tree from 'primevue/tree';
+import AutoComplete from 'primevue/autocomplete';
 
 // service toast
 import ToastService from 'primevue/toastservice';
@@ -112,6 +115,9 @@ app.component('Image', Image);
 app.component('Timeline', Timeline);
 app.component('Message', Message);
 app.component('InputNumber', InputNumber);
+app.component('TabMenu', TabMenu);
+app.component('Tree', Tree);
+app.component('AutoComplete', AutoComplete);
 
 app.use(ToastService);
 app.use(createPinia());

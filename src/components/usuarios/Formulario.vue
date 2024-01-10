@@ -24,7 +24,7 @@ const verificarTipoUsuario = (tipo: number) => {
 
 onMounted(async () => {
 	await getRoles();
-	roles.value.map((x) => (x.nombre = rolFormateado(x.nombre)));
+	// roles.value.map((x) => (x.nombre = rolFormateado(x.nombre)));
 	if (props.isModule) {
 		await getClientes();
 		roles.value = roles.value.filter((x) => x.nombre !== 'SUPER ADMINISTRADOR');

@@ -5,6 +5,9 @@ import { usePatio } from '../../composables/usePatio';
 import { severity } from '../../pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
 import { useTrip } from '../../composables/useTrip';
+import { useAuth } from '../../composables/useAuth';
+
+const { getPermiso } = useAuth();
 
 const { patios, getPatios, putPatio, deletePatio } = usePatio();
 const { agregarMovimiento } = useTrip();
@@ -64,7 +67,7 @@ const filters = ref({
 						icon="pi pi-plus"
 						severity="success"
 						@click="agregar"
-						v-if="isModule"
+						v-if="isModule && !getPermiso('PATIOS', 'crear')"
 					/>
 				</div>
 			</div>
@@ -95,13 +98,13 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="isModule"
+							v-if="isModule && !getPermiso('PATIOS', 'modificar')"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deletePatio(data.id)"
-							v-if="isModule"
+							v-if="isModule && !getPermiso('PATIOS', 'eliminar')"
 						/>
 						<Button
 							icon="pi pi-plus"

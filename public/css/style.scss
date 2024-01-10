@@ -28,32 +28,12 @@
 	}
 }
 
+.p-autocomplete input {
+	width: 100% !important;
+}
+
 .list-container {
 	position: relative;
-}
-
-.opciones {
-	cursor: pointer;
-	border: 0;
-	padding: 0.1rem 0.4rem;
-	border-radius: 4px;
-}
-
-.modificar {
-	background-color: rgba(255, 245, 157, 0.92);
-}
-
-.modificar:hover {
-	background-color: rgba(255, 245, 157, 0.63);
-}
-
-.bitacora {
-	background-color: #6b6b6b;
-	color: #fff;
-}
-
-.bitacora:hover {
-	background-color: #b9b9b9b2;
 }
 
 .list {

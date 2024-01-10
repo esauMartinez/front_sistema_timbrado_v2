@@ -21,7 +21,7 @@ onMounted(async () => {
 });
 
 const cerrarVentanaTrip = async () => {
-	await soltarTrip(trip.value.id);
+	// await soltarTrip(trip.value.id);
 	router.go(-1);
 };
 </script>
@@ -31,11 +31,10 @@ const cerrarVentanaTrip = async () => {
 		v-model:visible="visible"
 		modal
 		header="Trip"
-		:style="{ width: '50vw' }"
+		:style="{ width: '80vw' }"
 		v-on:after-hide="cerrarVentanaTrip()"
 	>
 		<Formulario @submit.prevent="modificar()" id="formulario" />
-		<pre>{{ trip.estatus }}</pre>
 		<template #footer>
 			<Button
 				label="Cerrar ventana"

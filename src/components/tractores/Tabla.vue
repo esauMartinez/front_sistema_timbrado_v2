@@ -6,6 +6,9 @@ import { severity } from '../../pipes/severity';
 import { useTractor } from '../../composables/useTractor';
 import { FilterMatchMode } from 'primevue/api';
 import { useTrip } from '../../composables/useTrip';
+import { useAuth } from '../../composables/useAuth';
+
+const { getPermiso } = useAuth();
 
 const { unidades, getUnidades, putUnidad, deleteUnidad } = useTractor();
 const { selectTractor } = useTrip();
@@ -69,7 +72,7 @@ const filters = ref({
 						icon="pi pi-plus"
 						severity="success"
 						@click="agregar"
-						v-if="isModule"
+						v-if="isModule && !getPermiso('TRACTORES', 'crear')"
 					/>
 				</div>
 			</div>
@@ -119,13 +122,13 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="isModule"
+							v-if="isModule && !getPermiso('TRACTORES', 'modificar')"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deleteUnidad(data.id)"
-							v-if="isModule"
+							v-if="isModule && !getPermiso('TRACTORES', 'eliminar')"
 						/>
 						<Button
 							icon="pi pi-plus"

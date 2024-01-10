@@ -6,6 +6,9 @@ import { FilterMatchMode } from 'primevue/api';
 import { useTrip } from '../../composables/useTrip';
 import { useToast } from 'primevue/usetoast';
 import { formatDateWithTime } from '../../pipes/formatDate';
+import { useAuth } from '../../composables/useAuth';
+
+const { getPermiso } = useAuth();
 const toast = useToast();
 const { trips, getTrips, postTrip } = useTrip();
 
@@ -81,7 +84,11 @@ const rowStyle = ({ usuario_toma_id }) => {
 						<i class="pi pi-search" />
 						<InputText v-model="filters['global'].value" placeholder="Buscar" />
 					</span>
-					<Button @click="showTemplate" icon="pi pi-plus" />
+					<Button
+						@click="showTemplate"
+						icon="pi pi-plus"
+						v-if="!getPermiso('TRIPS', 'crear')"
+					/>
 				</div>
 			</div>
 		</template>
@@ -116,12 +123,11 @@ const rowStyle = ({ usuario_toma_id }) => {
 		<Column header="Bitacora">
 			<template #body="{ data }">
 				<div class="d-flex justify-content-center">
-					<!-- <Button
+					<Button
 						icon="pi pi-book"
 						severity="info"
 						@click="bitacora(data.id)"
-					/> -->
-					<button @click="bitacora(data.id)" class="opciones bitacora">Bitacora</button>
+					/>
 				</div>
 			</template>
 		</Column>
@@ -129,13 +135,14 @@ const rowStyle = ({ usuario_toma_id }) => {
 			<template #body="{ data }">
 				<div class="d-flex justify-content-center">
 					<span class="p-buttonset">
-						<!-- <Button
+						<Button
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="data.usuario_toma_id === null"
-						/> -->
-						<button @click="modificar(data.id)" class="opciones text-dark modificar" style="backgroundColor: surface-500">Modificar</button>
+							v-if="
+								data.usuario_toma_id === null && !getPermiso('TRIPS', 'modificar')
+							"
+						/>
 					</span>
 				</div>
 			</template>

@@ -6,7 +6,9 @@ import { formatDate } from '../../pipes/formatDate';
 import { severity } from '../../pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
 import { useTrip } from '../../composables/useTrip';
+import { useAuth } from '../../composables/useAuth';
 
+const { getPermiso } = useAuth();
 const { operadores, getOperadores, putOperador, deleteOperador } =
 	useOperador();
 const { selectOperador } = useTrip();
@@ -75,7 +77,7 @@ const filters = ref({
 						icon="pi pi-plus"
 						severity="success"
 						@click="agregar"
-						v-if="isModule"
+						v-if="isModule && !getPermiso('OPERADORES', 'crear')"
 					/>
 				</div>
 			</div>
@@ -118,13 +120,13 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="isModule"
+							v-if="isModule && !getPermiso('OPERADORES', 'modificar')"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deleteOperador(data.id)"
-							v-if="isModule"
+							v-if="isModule && !getPermiso('OPERADORES', 'eliminar')"
 						/>
 						<Button
 							icon="pi pi-plus"

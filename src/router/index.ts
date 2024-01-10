@@ -207,12 +207,35 @@ const routes: RouteRecordRaw[] = [
 						component: () =>
 							import('../components/trips/datos/servicios/AgregarServicio.vue'),
 					},
+					{
+						path: '/agregar-mercancia-trip/:id',
+						name: 'AgregarMercanciaTrip',
+						component: () =>
+							import('../components/trips/datos/mercancias/Agregar.vue'),
+					},
 				],
 			},
 			{
 				path: '/bitacora-trip/:id',
 				name: 'BitacoraTrip',
 				component: () => import('../components/trips/bitacora/Bitacora.vue'),
+			},
+		],
+	},
+	{
+		path: '/roles',
+		name: 'Roles',
+		component: () => import('../views/Roles.vue'),
+		children: [
+			{
+				path: '/agregar-rol',
+				name: 'AgregarRol',
+				component: () => import('../components/roles/Agregar.vue'),
+			},
+			{
+				path: '/modificar-rol/:id',
+				name: 'ModificarRol',
+				component: () => import('../components/roles/Modificar.vue'),
 			},
 		],
 	},
