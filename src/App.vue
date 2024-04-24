@@ -3,7 +3,7 @@ import { onMounted } from 'vue';
 import Sidenav from './common/Sidenav.vue';
 import { useAuth } from './composables/useAuth';
 import { verificarUsuarioAutenticado } from './guards/verificarUsuarioAutenticado';
-import { state, useSocket } from './composables/useSocket';
+// import { state, useSocket } from './composables/useSocket';
 
 const {
 	estatusUsuarioAutenticado,
@@ -12,7 +12,7 @@ const {
 	verificarDarkMode,
 } = useAuth();
 
-const { connect } = useSocket();
+// const { connect } = useSocket();
 
 onMounted(() => {
 	setDarkMode(verificarDarkMode());
@@ -27,7 +27,7 @@ onMounted(() => {
 
 <template>
 	<Sidenav v-if="estatusUsuarioAutenticado" />
-	<Toast position="bottom-left" />
+	<Toast position="bottom-right" />
 	<router-view></router-view>
 </template>
 

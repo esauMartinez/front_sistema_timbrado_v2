@@ -35,8 +35,8 @@ export const useCaja = () => {
 			const { data } = await instance.post(`/cajas`, payload);
 			toast.add({
 				severity: 'success',
-				summary: 'Unidad',
-				detail: 'Unidad creada correctamente',
+				summary: 'Caja',
+				detail: 'Caja creada correctamente',
 				life: 3000,
 			});
 			getUnidades();
@@ -52,8 +52,8 @@ export const useCaja = () => {
 			await instance.put(`/cajas/${payload.id}`, payload);
 			toast.add({
 				severity: 'success',
-				summary: 'Unidad',
-				detail: 'Unidad actualizada correctamente',
+				summary: 'Caja',
+				detail: 'Caja actualizada correctamente',
 				life: 3000,
 			});
 			getUnidades();
@@ -71,8 +71,8 @@ export const useCaja = () => {
 				await instance.delete(`/cajas/${id}`);
 				toast.add({
 					severity: 'success',
-					summary: 'Unidad',
-					detail: 'Unidad eliminada correctamente',
+					summary: 'Caja',
+					detail: 'Caja eliminada correctamente',
 					life: 3000,
 				});
 				getUnidades();

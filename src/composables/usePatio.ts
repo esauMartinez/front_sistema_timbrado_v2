@@ -35,8 +35,8 @@ export const usePatio = () => {
 			const { data } = await instance.post(`/patios`, payload);
 			toast.add({
 				severity: 'success',
-				summary: 'Unidad',
-				detail: 'Unidad creada correctamente',
+				summary: 'Patio',
+				detail: 'Patio creado correctamente',
 				life: 3000,
 			});
 			getPatios();
@@ -52,8 +52,8 @@ export const usePatio = () => {
 			await instance.put(`/patios/${payload.id}`, payload);
 			toast.add({
 				severity: 'success',
-				summary: 'Unidad',
-				detail: 'Unidad actualizada correctamente',
+				summary: 'Patio',
+				detail: 'Patio actualizado correctamente',
 				life: 3000,
 			});
 			getPatios();
@@ -71,8 +71,8 @@ export const usePatio = () => {
 				await instance.delete(`/patios/${id}`);
 				toast.add({
 					severity: 'success',
-					summary: 'Unidad',
-					detail: 'Unidad eliminada correctamente',
+					summary: 'Patio',
+					detail: 'Patio eliminado correctamente',
 					life: 3000,
 				});
 				getPatios();

@@ -48,11 +48,11 @@ const bitacora = (id: number) => {
 	router.push({ path: `/bitacora-trip/${id}` });
 };
 
-const rowStyle = ({ usuario_toma_id }) => {
-	if (usuario_toma_id !== null) {
-		return { background: '#979191' };
-	}
-};
+// const rowStyle = ({ usuario_toma_id }) => {
+// 	if (usuario_toma_id !== null) {
+// 		return { background: '#979191' };
+// 	}
+// };
 </script>
 
 <template>
@@ -63,7 +63,6 @@ const rowStyle = ({ usuario_toma_id }) => {
 		stripedRows
 		paginator
 		:rows="10"
-		:rowStyle="rowStyle"
 		:rowsPerPageOptions="[10, 50, 100]"
 		:class="[{ 'p-datatable-sm': true }]"
 		dataKey="id"
@@ -92,7 +91,11 @@ const rowStyle = ({ usuario_toma_id }) => {
 				</div>
 			</div>
 		</template>
-		<Column field="numero_trip" header="Trip"></Column>
+		<Column header="Trip">
+			<template #body="data">
+				TRIP-{{ data.data.numero_trip }}
+			</template>
+		</Column>
 		<Column header="Fecha de creacion">
 			<template #body="data">
 				{{ formatDateWithTime(data.data.createdAt) }}
@@ -131,19 +134,19 @@ const rowStyle = ({ usuario_toma_id }) => {
 				</div>
 			</template>
 		</Column>
-		<Column header="Acciones">
+		<Column header="">
 			<template #body="{ data }">
 				<div class="d-flex justify-content-center">
-					<span class="p-buttonset">
-						<Button
-							icon="pi pi-pencil"
-							severity="warning"
-							@click="modificar(data.id)"
-							v-if="
-								data.usuario_toma_id === null && !getPermiso('TRIPS', 'modificar')
-							"
-						/>
-					</span>
+					<Button
+						icon="pi pi-pencil"
+						severity="warning"
+						@click="modificar(data.id)"
+						v-if="
+							data.usuario_toma_id === null && !getPermiso('TRIPS', 'modificar')
+						"
+					/>
+					<!-- <span class="p-buttonset">
+					</span> -->
 				</div>
 			</template>
 		</Column>

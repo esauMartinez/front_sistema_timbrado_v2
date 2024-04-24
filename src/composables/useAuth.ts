@@ -104,9 +104,9 @@ export const useAuth = () => {
 		localStorage.removeItem('usuario');
 		document.body.style.paddingLeft = '0px';
 		setUsuarioAutenticado(false);
-		if (rol !== 'USER_SUPER_ADMIN') {
-			disconnect();
-		}
+		// if (rol !== 'USER_SUPER_ADMIN') {
+		// 	disconnect();
+		// }
 		router.push({ path: '/' });
 	};
 

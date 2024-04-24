@@ -32,11 +32,6 @@ const origenes = ref([
 	<form class="formulario">
 		<div class="row p-2">
 			<div class="col-lg-12 mb-3">
-				<label>Estatus</label>
-				<br>
-				<InputSwitch v-model="cliente.estatus" />
-			</div>
-			<div class="col-lg-12 mb-3">
 				<label>Razon social</label>
 				<InputText
 					id="razon_social"
@@ -226,6 +221,17 @@ const origenes = ref([
 					v-model="cliente.forma_pago"
 				/>
 				<small class="p-error" name="forma_pago"></small>
+			</div>
+			<div class="col-lg-12">
+				<label>Regimen fiscal</label>
+				<InputText
+					id="regimen_fiscal"
+					name="regimen_fiscal"
+					class="w-100"
+					placeholder="Regimen fiscal"
+					v-model="cliente.regimen_fiscal"
+				/>
+				<small class="p-error" name="regimen_fiscal"></small>
 			</div>
 		</div>
 	</form>

@@ -1,11 +1,18 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../../../router';
-import Tabla from '../../../servicios/Tabla.vue';
-import { useTrip } from '../../../../composables/useTrip';
-import { useServicio } from '../../../../composables/useServicio';
+import { useServicio } from '../../../composables/useServicio';
+import { useTrip } from '../../../composables/useTrip';
+import { router } from '../../../router';
+import { useTimbrado } from '../../../composables/useTimbrado';
 
-const { concepto, agregarIva, agregarRetencion, agregarConcepto, resetFormConcepto } = useTrip();
+const {
+	concepto,
+	agregarIva,
+	agregarRetencion,
+	agregarConcepto,
+	resetFormConcepto,
+	numero_trip,
+} = useTimbrado();
 const { servicios, getServicios } = useServicio();
 
 const visible = ref(true);

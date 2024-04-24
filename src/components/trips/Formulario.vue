@@ -19,15 +19,15 @@ onMounted(() => {
 			<div class="col-lg-12">
 				<TipoDeViaje />
 			</div>
+			<!-- <div class="col-lg-12">
+				<Servicios class="mt-3" />
+			</div> -->
 			<div class="col-lg-12">
 				<Piernas class="mt-3" />
 			</div>
-			<div class="col-lg-12">
-				<Servicios class="mt-3" />
-			</div>
-			<div class="col-lg-12">
+			<!-- <div class="col-lg-12">
 				<Tabla class="mt-3" />
-			</div>
+			</div> -->
 		</div>
 	</form>
 </template>

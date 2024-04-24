@@ -35,8 +35,8 @@ export const useTractor = () => {
 			const { data } = await instance.post(`/tractores`, payload);
 			toast.add({
 				severity: 'success',
-				summary: 'Unidad',
-				detail: 'Unidad creada correctamente',
+				summary: 'Tractor',
+				detail: 'Tractor creado correctamente',
 				life: 3000,
 			});
 			getUnidades();
@@ -52,8 +52,8 @@ export const useTractor = () => {
 			const { data } = await instance.put(`/tractores/${payload.id}`, payload);
 			toast.add({
 				severity: 'success',
-				summary: 'Unidad',
-				detail: 'Unidad actualizada correctamente',
+				summary: 'Tractor',
+				detail: 'Tractor actualizado correctamente',
 				life: 3000,
 			});
 			getUnidades();
@@ -71,8 +71,8 @@ export const useTractor = () => {
 				await instance.delete(`/tractores/${id}`);
 				toast.add({
 					severity: 'success',
-					summary: 'Unidad',
-					detail: 'Unidad eliminada correctamente',
+					summary: 'Tractor',
+					detail: 'Tractor eliminado correctamente',
 					life: 3000,
 				});
 				getUnidades();

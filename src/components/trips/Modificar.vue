@@ -4,10 +4,8 @@ import { router } from '../../router';
 import Formulario from './Formulario.vue';
 import { useRoute } from 'vue-router';
 import { useTrip } from '../../composables/useTrip';
-import { useSocket } from '../../composables/useSocket';
 
 const { trip, getTrip, putTrip } = useTrip();
-const { soltarTrip } = useSocket();
 
 const visible = ref(true);
 const route = useRoute();
@@ -21,7 +19,6 @@ onMounted(async () => {
 });
 
 const cerrarVentanaTrip = async () => {
-	// await soltarTrip(trip.value.id);
 	router.go(-1);
 };
 </script>
@@ -31,7 +28,7 @@ const cerrarVentanaTrip = async () => {
 		v-model:visible="visible"
 		modal
 		header="Trip"
-		:style="{ width: '80vw' }"
+		:style="{ width: '40vw' }"
 		v-on:after-hide="cerrarVentanaTrip()"
 	>
 		<Formulario @submit.prevent="modificar()" id="formulario" />

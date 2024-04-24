@@ -45,10 +45,6 @@ export const useSocket = () => {
 		});
 	};
 
-	const soltarTrip = (id: number) => {
-		state.socket.emit('soltar trip', id);
-	};
-
 	const disconnect = () => {
 		state.socket.close();
 		state.connected = false;
@@ -56,7 +52,6 @@ export const useSocket = () => {
 
 	return {
 		connect,
-		disconnect,
-		soltarTrip,
+		disconnect
 	};
 };

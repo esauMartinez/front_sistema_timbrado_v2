@@ -12,11 +12,16 @@ export interface Trip {
 	uso_CFDI: string;
 	fecha_salida: Date;
 	fecha_llegada: Date;
-	kilometros: string;
 	cliente_id: number;
 	operador_id: number;
 	caja_id: number;
 	tractor_id: number;
 	origen_id: number;
 	destino_id: number;
+	ventana_carga: Date;
+	ventana_entrega: Date;
+	kilometros: string;
+	combustible: string;
+	viaticos: string;
+	casetas: string;
 }

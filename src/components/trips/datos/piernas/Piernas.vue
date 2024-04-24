@@ -14,7 +14,7 @@ const infoPatio = (id) => {
 </script>
 
 <template>
-	<Panel :header="'Movimientos'">
+	<Panel>
 		<div class="row">
 			<div
 				class="col-lg-6 offset-lg-3 d-flex justify-content-end"
@@ -32,11 +32,11 @@ const infoPatio = (id) => {
 					@click="vaciarMovimientos(trip.id)"
 				/>
 			</div>
-			<div class="col-lg-6 offset-lg-3 mt-5" style="overflow: auto">
+			<div class="col-lg-12 mt-5" style="overflow: auto">
 				<Timeline :value="movimientos" align="alternate">
 					<template #content="slotProps">
 						{{ slotProps.item.patio.nombre }}
-						<div>
+						<!-- <div>
 							<Button
 								size="small"
 								@click="infoPatio(slotProps.item.patio.id)"
@@ -52,7 +52,7 @@ const infoPatio = (id) => {
 							>
 								<font-awesome-icon :icon="['fas', 'times']" />
 							</Button>
-						</div>
+						</div> -->
 					</template>
 				</Timeline>
 			</div>

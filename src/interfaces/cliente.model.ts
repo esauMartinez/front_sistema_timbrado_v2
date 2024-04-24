@@ -17,6 +17,7 @@ export interface Cliente {
   forma_pago?: string;
   uso_cfdi?: string;
   estatus?: boolean;
+  regimen_fiscal?: string;
 }
 
 export interface FormasPago {

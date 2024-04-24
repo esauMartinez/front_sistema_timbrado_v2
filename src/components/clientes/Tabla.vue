@@ -82,11 +82,11 @@ const filters = ref({
 		<Column field="uso_cfdi" header="Uso de CFDI" sortable />
 		<Column field="estado" header="Estado" sortable />
 		<Column field="pais" header="Pais" sortable />
-		<!-- <Column v-if="isModule">
+		<Column v-if="isModule">
 			<template #body="{ data }">
 				<InputSwitch v-model="data.estatus" @change="putCliente(data)" />
 			</template>
-		</Column> -->
+		</Column>
 		<Column header="Estatus">
 			<template #body="{ data }">
 				<Tag

@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import { FilterMatchMode } from 'primevue/api';
-import { onMounted, ref } from 'vue';
-import { router } from '../../../../router';
-import { useTrip } from '../../../../composables/useTrip';
-
-const { trip, conceptos, eliminarConceptoTrip } = useTrip();
+import { ref } from 'vue';
+import { router } from '../../../router';
+import { useTimbrado } from '../../../composables/useTimbrado';
+const { conceptos, eliminarConcepto } = useTimbrado();
 
 const filters = ref({
 	global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -12,7 +11,7 @@ const filters = ref({
 });
 
 const agregarServicio = () => {
-	router.push({ name: 'AgregarServicioTrip' });
+	router.push({ name: 'TimbreAgregarServicio' });
 };
 </script>
 
@@ -25,7 +24,7 @@ const agregarServicio = () => {
 		:class="[{ 'p-datatable-sm': true }]"
 		dataKey="id"
 	>
-		<template #header v-if="trip.estatus === 'CREADO'">
+		<template #header>
 			<div class="d-flex flex-wrap align-items-center justify-content-end">
 				<div>
 					<Button
@@ -41,13 +40,13 @@ const agregarServicio = () => {
 		<Column field="monto" header="Monto"></Column>
 		<Column field="iva" header="IVA"></Column>
 		<Column field="retencion" header="Retencion"></Column>
-		<Column v-if="trip.estatus === 'CREADO'">
+		<Column>
 			<template #body="{ data }">
 				<div class="d-flex justify-content-center">
 					<Button
 						icon="pi pi-trash"
 						severity="danger"
-						@click="eliminarConceptoTrip(data.id)"
+						@click="eliminarConcepto(data.id)"
 					/>
 				</div>
 			</template>

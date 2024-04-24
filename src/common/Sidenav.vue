@@ -71,6 +71,13 @@ const menu = [
 	},
 	{
 		header: null,
+		title: 'Trimbrado',
+		href: '/Timbrado',
+		icon: 'fa fa-bell',
+		hidden: getPermiso('TRIPS', 'ver'),
+	},
+	{
+		header: null,
 		title: 'Usuarios',
 		href: '/usuarios',
 		icon: 'fa fa-users',

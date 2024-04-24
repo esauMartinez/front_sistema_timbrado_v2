@@ -201,12 +201,7 @@ const routes: RouteRecordRaw[] = [
 						name: 'InformacionPatio',
 						component: () => import('../components/patios/Modificar.vue'),
 					},
-					{
-						path: '/agregar-servicio-trip/:id',
-						name: 'AgregarServicioTrip',
-						component: () =>
-							import('../components/trips/datos/servicios/AgregarServicio.vue'),
-					},
+
 					{
 						path: '/agregar-mercancia-trip/:id',
 						name: 'AgregarMercanciaTrip',
@@ -219,6 +214,26 @@ const routes: RouteRecordRaw[] = [
 				path: '/bitacora-trip/:id',
 				name: 'BitacoraTrip',
 				component: () => import('../components/trips/bitacora/Bitacora.vue'),
+			},
+		],
+	},
+	{
+		path: '/timbrado',
+		name: 'Timbrado',
+		component: () => import('../views/Timbrado.vue'),
+		children: [
+			{
+				path: '/timbrar-trip/:id',
+				name: 'TimbrarTrip',
+				component: () => import('../components/timbres/Modificar.vue'),
+				children: [
+					{
+						path: '/timbre-agregar-servicio-trip/:id',
+						name: 'TimbreAgregarServicio',
+						component: () =>
+							import('../components/timbres/servicios/AgregarServicio.vue'),
+					},
+				],
 			},
 		],
 	},

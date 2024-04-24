@@ -84,6 +84,9 @@ import InputNumber from 'primevue/inputnumber';
 import TabMenu from 'primevue/tabmenu';
 import Tree from 'primevue/tree';
 import AutoComplete from 'primevue/autocomplete';
+import Accordion from 'primevue/accordion';
+import AccordionTab from 'primevue/accordiontab';
+import Divider from 'primevue/divider';
 
 // service toast
 import ToastService from 'primevue/toastservice';
@@ -118,6 +121,9 @@ app.component('InputNumber', InputNumber);
 app.component('TabMenu', TabMenu);
 app.component('Tree', Tree);
 app.component('AutoComplete', AutoComplete);
+app.component('Accordion', Accordion);
+app.component('AccordionTab', AccordionTab);
+app.component('Divider', Divider);
 
 app.use(ToastService);
 app.use(createPinia());
