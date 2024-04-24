@@ -125,7 +125,8 @@ const theme_sidenav = ref('white-theme');
 const onItemClick = (e, item) => {
 	if (item.title === 'Salir') {
 		logout();
-	} else if (item.title === 'Tema') {
+	} 
+	else if (item.title === 'Tema') {
 		darkMode.value = !darkMode.value;
 		setDarkMode(darkMode.value);
 		if (darkMode.value) {

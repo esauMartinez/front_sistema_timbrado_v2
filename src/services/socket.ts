@@ -6,7 +6,7 @@ class SocketClass {
 	socket: Socket;
 
 	connect(namespace) {
-		this.socket = io(`http://localhost:3000/${namespace}`);
+		this.socket = io(`http://localhost:3200/${namespace}`);
 
 		this.socket.on('connect', () => {
 			state.connected = true;

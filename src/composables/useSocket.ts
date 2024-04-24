@@ -15,7 +15,7 @@ export const useSocket = () => {
 	const toast = useToast();
 
 	const connect = (namespace, usuario) => {
-		state.socket = io(`http://localhost:3000/${namespace}`);
+		state.socket = io(`http://localhost:3200/${namespace}`);
 
 		state.socket.on('connect', () => {
 			state.connected = true;

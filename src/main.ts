@@ -93,7 +93,9 @@ import ToastService from 'primevue/toastservice';
 
 const app = createApp(App);
 
-app.use(PrimeVue);
+app.use(PrimeVue, {
+	unstyled: true
+});
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.component('Button', Button);
 app.component('Dialog', Dialog);
