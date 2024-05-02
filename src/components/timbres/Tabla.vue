@@ -26,55 +26,58 @@ const timbre = (id) => {
 </script>
 
 <template>
-	<div>
-		<DataTable
-			v-model:filters="filters"
-			:value="trips"
-			showGridlines
-			stripedRows
-			paginator
-			:rows="10"
-			:rowsPerPageOptions="[10, 50, 100]"
-			:class="[{ 'p-datatable-sm': true }]"
-			dataKey="id"
-			:loading="false"
-			:globalFilterFields="[
-				'numero_trip',
-				'cliente.razon_social',
-				'operador.nombre',
-				'operador.paterno',
-				'operador.materno',
-			]"
-		>
-			<Column header="Trip">
-				<template #body="data"> TRIP-{{ data.data.numero_trip }} </template>
-			</Column>
-			<Column header="Fecha de creacion">
-				<template #body="data">
-					{{ formatDateWithTime(data.data.createdAt) }}
-				</template>
-			</Column>
-			<Column field="cliente.razon_social" header="Cliente"></Column>
-			<Column header="Estatus">
-				<template #body="{ data }">
-					<Tag
-						:severity="severityTrip(data.estatus)"
-						:value="data.estatus"
-						class="w-100"
-					></Tag>
-				</template>
-			</Column>
-			<Column header="">
-				<template #body="{ data }">
-					<div class="d-flex justify-content-center">
-						<Button
-							icon="pi pi-bell"
-							severity="success"
-							@click="timbre(data.id)"
-						/>
-					</div>
-				</template>
-			</Column>
-		</DataTable>
-	</div>
+	<DataTable
+		v-model:filters="filters"
+		:value="trips"
+		showGridlines
+		stripedRows
+		paginator
+		:rows="10"
+		:rowsPerPageOptions="[10, 50, 100]"
+		:class="[{ 'p-datatable-sm': true }]"
+		dataKey="id"
+		:loading="false"
+		:globalFilterFields="[
+			'numero_trip',
+			'cliente.razon_social',
+			'operador.nombre',
+			'operador.paterno',
+			'operador.materno',
+		]"
+	>
+		<Column header="Trip">
+			<template #body="data"> TRIP-{{ data.data.numero_trip }} </template>
+		</Column>
+		<Column header="Fecha de creacion">
+			<template #body="data">
+				{{ formatDateWithTime(data.data.createdAt) }}
+			</template>
+		</Column>
+		<Column field="cliente.razon_social" header="Cliente"></Column>
+		<Column header="Estatus">
+			<template #body="{ data }">
+				<Tag
+					:severity="severityTrip(data.estatus)"
+					:value="data.estatus"
+					class="w-100"
+				></Tag>
+			</template>
+		</Column>
+		<Column header="Estatus">
+			<template #body="{ data }">
+				{{ data.tipo_viaje }}
+			</template>
+		</Column>
+		<Column header="Acciones">
+			<template #body="{ data }">
+				<div class="flex justify-content-center">
+					<Button
+						icon="pi pi-bell"
+						severity="success"
+						@click="timbre(data.id)"
+					/>
+				</div>
+			</template>
+		</Column>
+	</DataTable>
 </template>

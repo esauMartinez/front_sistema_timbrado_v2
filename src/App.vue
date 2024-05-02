@@ -27,7 +27,7 @@ onMounted(() => {
 
 <template>
 	<Sidenav v-if="estatusUsuarioAutenticado" />
-	<Toast position="bottom-right" />
+	<Toast position="top-right" />
 	<router-view></router-view>
 </template>
 

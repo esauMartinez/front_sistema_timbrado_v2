@@ -3,7 +3,7 @@ import Tabla from "../components/timbres/Tabla.vue";
 </script>
 
 <template>
-  <div class="container-fluid m-margin-top">
+  <div class="m-margin-top">
     <Card>
 			<template #content>
         <Tabla />

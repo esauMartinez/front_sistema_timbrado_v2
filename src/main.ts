@@ -5,9 +5,11 @@ import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
 import VueSidebarMenu from 'vue-sidebar-menu';
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css';
+import 'primeflex/primeflex.min.css';
+
 
 // theme
-import 'primevue/resources/themes/lara-light-indigo/theme.css';
+import 'primevue/resources/themes/aura-light-green/theme.css';
 // core
 import 'primevue/resources/primevue.min.css';
 // icons
@@ -35,9 +37,10 @@ import {
 	faPlus,
 	faCircleInfo,
 	faTimes,
+	faFileCode,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 library.add(faChevronRight);
 library.add(faUsers);
@@ -57,6 +60,7 @@ library.add(faBoxOpen);
 library.add(faPlus);
 library.add(faCircleInfo);
 library.add(faTimes);
+library.add(faFileCode);
 
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
@@ -87,6 +91,10 @@ import AutoComplete from 'primevue/autocomplete';
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
 import Divider from 'primevue/divider';
+import IconField from 'primevue/iconfield';
+import InputIcon from 'primevue/inputicon';
+import SplitButton from 'primevue/splitbutton';
+import ButtonGroup from 'primevue/buttongroup';
 
 // service toast
 import ToastService from 'primevue/toastservice';
@@ -94,7 +102,7 @@ import ToastService from 'primevue/toastservice';
 const app = createApp(App);
 
 app.use(PrimeVue, {
-	unstyled: true
+	unstyled: false,
 });
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.component('Button', Button);
@@ -126,6 +134,10 @@ app.component('AutoComplete', AutoComplete);
 app.component('Accordion', Accordion);
 app.component('AccordionTab', AccordionTab);
 app.component('Divider', Divider);
+app.component('IconField', IconField);
+app.component('InputIcon', InputIcon);
+app.component('SplitButton', SplitButton);
+app.component('ButtonGroup', ButtonGroup);
 
 app.use(ToastService);
 app.use(createPinia());

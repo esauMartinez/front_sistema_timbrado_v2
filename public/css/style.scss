@@ -1,13 +1,12 @@
 @use '/public/css/variables' as v;
 @use '/public/dark-theme/theme.scss' as dark;
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+// $primary-color: #257c5c;
+@import 'vue-sidebar-menu/src/scss/vue-sidebar-menu.scss';
 
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	font-family: 'Roboto', sans-serif;
-}
+// * {
+// 	font-family: 'Roboto', sans-serif;
+// }
 
 .p-inputswitch {
 	width: 3rem !important;
@@ -110,6 +109,19 @@
 	.p-card {
 		background-color: v.$side-nav-dark !important;
 		color: #fff;
+	}
+
+	.v-sidebar-menu {
+		background-color: #1f2937;
+	}
+
+	.v-sidebar-menu .vsm--dropdown,
+	.v-sidebar-menu .vsm--toggle-btn {
+		background-color: #171e29;
+	}
+
+	.p-toast-detail {
+		color: white;
 	}
 }
 

@@ -76,25 +76,22 @@ const bitacora = (id: number) => {
 		]"
 	>
 		<template #header>
-			<div class="d-flex flex-wrap align-items-center justify-content-between">
-				<span class="text-xl text-900 font-bold">Trips</span>
-				<div>
-					<span class="p-input-icon-left me-3">
+			<div class="flex justify-content-between">
+				<IconField iconPosition="left">
+					<InputIcon>
 						<i class="pi pi-search" />
-						<InputText v-model="filters['global'].value" placeholder="Buscar" />
-					</span>
-					<Button
-						@click="showTemplate"
-						icon="pi pi-plus"
-						v-if="!getPermiso('TRIPS', 'crear')"
-					/>
-				</div>
+					</InputIcon>
+					<InputText v-model="filters['global'].value" placeholder="Buscar" />
+				</IconField>
+				<Button
+					@click="showTemplate"
+					icon="pi pi-plus"
+					v-if="!getPermiso('TRIPS', 'crear')"
+				/>
 			</div>
 		</template>
 		<Column header="Trip">
-			<template #body="data">
-				TRIP-{{ data.data.numero_trip }}
-			</template>
+			<template #body="data"> TRIP-{{ data.data.numero_trip }} </template>
 		</Column>
 		<Column header="Fecha de creacion">
 			<template #body="data">
@@ -123,36 +120,31 @@ const bitacora = (id: number) => {
 				></Tag>
 			</template>
 		</Column>
-		<Column header="Bitacora">
+		<Column header="Acciones">
 			<template #body="{ data }">
-				<div class="d-flex justify-content-center">
-					<Button
-						icon="pi pi-book"
-						severity="info"
-						@click="bitacora(data.id)"
-					/>
-				</div>
-			</template>
-		</Column>
-		<Column header="">
-			<template #body="{ data }">
-				<div class="d-flex justify-content-center">
-					<Button
-						icon="pi pi-pencil"
-						severity="warning"
-						@click="modificar(data.id)"
-						v-if="
-							data.usuario_toma_id === null && !getPermiso('TRIPS', 'modificar')
-						"
-					/>
-					<!-- <span class="p-buttonset">
-					</span> -->
+				<div class="flex justify-content-center">
+					<ButtonGroup>
+						<Button
+							icon="pi pi-book"
+							severity="info"
+							@click="bitacora(data.id)"
+						/>
+						<Button
+							icon="pi pi-pencil"
+							severity="warning"
+							@click="modificar(data.id)"
+							v-if="
+								data.usuario_toma_id === null &&
+								!getPermiso('TRIPS', 'modificar')
+							"
+						/>
+					</ButtonGroup>
 				</div>
 			</template>
 		</Column>
 	</DataTable>
 
-	<Toast position="bottom-center" group="bc">
+	<Toast position="center" group="bc">
 		<template #message="slotProps">
 			<div class="flex flex-column align-items-center" style="flex: 1">
 				<div class="text-center">
@@ -161,9 +153,9 @@ const bitacora = (id: number) => {
 						¿ Quieres crear unn nuevo trip ?
 					</div>
 				</div>
-				<div class="d-flex justify-content-center gap-2">
+				<div class="flex justify-content-center">
 					<Button severity="success" label="Si" @click="postTrip()"></Button>
-					<Button severity="secondary" label="No" @click="onReject()"></Button>
+					<Button severity="secondary" class="ml-3" label="No" @click="onReject()"></Button>
 				</div>
 			</div>
 		</template>

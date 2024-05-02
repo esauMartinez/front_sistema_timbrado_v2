@@ -10,9 +10,6 @@ import { Operador } from '../interfaces/operador.model';
 import { Caja } from '../interfaces/caja.model';
 import { Tractor } from '../interfaces/tractor.model';
 import { router } from '../router';
-import { Concepto } from '../interfaces/concepto.model';
-import { useServicioStore } from '../store/servicio';
-import { Mercancia } from '../interfaces/mercancia.model';
 
 export const useTrip = () => {
 	const tripStore = useTripStore();
@@ -199,43 +196,6 @@ export const useTrip = () => {
 		}
 	};
 
-	const obtenerMercacias = async (payload: string) => {
-		if (payload !== '') {
-			try {
-				const { data } = await instance.get(`/sat-mercancias/${payload}`);
-				tripStore.setMercanciasSat(data);
-				console.log(data);
-			} catch (error) {
-				handleError(error);
-			}
-		}
-	};
-
-	const obtenerUnidadesPeso = async (payload: string) => {
-		if (payload !== '') {
-			try {
-				const { data } = await instance.get(`/sat-unidades-peso/${payload}`);
-				tripStore.setUnidadesPesoSat(data);
-				console.log(data);
-			} catch (error) {
-				handleError(error);
-			}
-		}
-	};
-
-	const obtenerMaterialesPeligrosos = async (payload: string) => {
-		if (payload !== '') {
-			try {
-				const { data } = await instance.get(
-					`/sat-materiales-peligrosos/${payload}`
-				);
-				console.log(data);
-			} catch (error) {
-				handleError(error);
-			}
-		}
-	};
-
 	return {
 		trip,
 		trips,
@@ -258,9 +218,5 @@ export const useTrip = () => {
 		agregarMovimiento,
 		vaciarMovimientos,
 		eliminarMovimiento,
-		obtenerMercacias,
-		obtenerUnidadesPeso,
-		obtenerMaterialesPeligrosos,
-		// resetTripForm,
 	};
 };

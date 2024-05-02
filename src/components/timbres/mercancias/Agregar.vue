@@ -1,12 +1,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import Formulario from './Formulario.vue'
-import { router } from "../../../../router";
-import { useTrip } from "../../../../composables/useTrip";
+import Formulario from './Formulario.vue';
+import { router } from '../../../router';
+import { useTimbrado } from '../../../composables/useTimbrado';
 
-const { mercancia, agregarMercancia } = useTrip();
+const { mercancia, postMercancia } = useTimbrado();
 const visible = ref(true);
-
 </script>
 
 <template>
@@ -17,7 +16,10 @@ const visible = ref(true);
 		:style="{ width: '50vw' }"
 		v-on:after-hide="router.go(-1)"
 	>
-		<Formulario @submit.prevent="agregarMercancia(mercancia)" id="formulario-mercancia" />
+		<Formulario
+			@submit.prevent="postMercancia(mercancia)"
+			id="formulario-mercancia"
+		/>
 		<template #footer>
 			<Button
 				label="Cancelar"
@@ -36,4 +38,3 @@ const visible = ref(true);
 		</template>
 	</Dialog>
 </template>
-

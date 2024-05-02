@@ -5,7 +5,7 @@ import Formulario from './Formulario.vue';
 import { useRoute } from 'vue-router';
 import { useTimbrado } from '../../composables/useTimbrado';
 
-const { getDatosTimbre } = useTimbrado();
+const { trip, getDatosTimbre, timbrar } = useTimbrado();
 
 const visible = ref(true);
 const route = useRoute();
@@ -24,6 +24,23 @@ onMounted(async () => {
 		v-on:after-hide="router.go(-1)"
 	>
 		<Formulario />
-		<template #footer> </template>
+		<template #footer>
+			<Button
+				label="XML"
+				icon="fa fa-file-code"
+				severity="info"
+			/>
+			<Button
+				label="PDF"
+				icon="pi pi-file-pdf"
+				severity="danger"
+			/>
+			<Button
+				label="Timbrar"
+				icon="pi pi-bell"
+				severity="success"
+				@click="timbrar(trip.id)"
+			/>
+		</template>
 	</Dialog>
 </template>

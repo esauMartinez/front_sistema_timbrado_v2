@@ -38,64 +38,63 @@ onMounted(async () => {
 </script>
 
 <template>
-	<form class="formulario">
-		<div class="row p-2">
-			<div class="col-lg-12 mb-3">
+	<form class="formulario p-2">
+			<div class="mb-3">
 				<label>Nombre usuario</label>
 				<InputText
 					name="nombre"
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="Nombre"
 					v-model="usuario.nombre"
 					autocomplete="off"
 				/>
 				<small class="p-error" name="nombre"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<div class="mb-3">
 				<label>Apellido paterno</label>
 				<InputText
 					name="paterno"
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="Apellido paterno"
 					v-model="usuario.paterno"
 				/>
 				<small class="p-error" name="paterno"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<div class="mb-3">
 				<label>Apellido materno</label>
 				<InputText
 					name="materno"
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="Apellido materno"
 					v-model="usuario.materno"
 				/>
 				<small class="p-error" name="materno"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<div class="mb-3">
 				<label>Email</label>
 				<InputText
 					name="email"
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="Email"
 					v-model="usuario.email"
 				/>
 				<small class="p-error" name="email"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<div class="mb-3">
 				<label>Password</label>
 				<InputText
 					name="password"
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="Password"
 					v-model="usuario.password"
 				/>
 				<small class="p-error" name="password"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<div class="mb-3">
 				<label>Rol de usuario</label>
 				<Dropdown
 					name="rol_id"
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="Selecciona un rol"
 					:options="roles"
 					filter
@@ -106,7 +105,7 @@ onMounted(async () => {
 				/>
 				<small class="p-error" name="rol_id"></small>
 			</div>
-			<div class="col-lg-12 mb-3" v-if="usuario.isCliente">
+			<div class="mb-3" v-if="usuario.isCliente">
 				<label>Cliente</label>
 				<Dropdown
 					name="cliente_id"
@@ -120,6 +119,5 @@ onMounted(async () => {
 				/>
 				<small class="p-error" name="cliente_id"></small>
 			</div>
-		</div>
 	</form>
 </template>

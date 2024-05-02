@@ -45,27 +45,27 @@ const filters = ref({
 		:globalFilterFields="['nombre']"
 	>
 		<template #header>
-			<div class="d-flex flex-wrap align-items-center justify-content-between">
-				<span class="text-xl text-900 font-bold">Servicios</span>
-				<div>
-					<span class="p-input-icon-left me-3">
+			<div class="flex justify-content-between">
+				<IconField iconPosition="left">
+					<InputIcon>
 						<i class="pi pi-search" />
-						<InputText v-model="filters['global'].value" placeholder="Buscar" />
-					</span>
-					<Button
-						icon="pi pi-plus"
-						severity="success"
-						@click="agregar"
-						v-if="!getPermiso('ROLES', 'crear')"
-					/>
-				</div>
+					</InputIcon>
+					<InputText v-model="filters['global'].value" placeholder="Buscar" />
+				</IconField>
+				<Button
+					icon="pi pi-plus"
+					severity="success"
+					@click="agregar"
+					v-if="!getPermiso('ROLES', 'crear')"
+				/>
 			</div>
 		</template>
+
 		<Column field="nombre" header="Nombre" sortable></Column>
 		<Column header="Acciones">
 			<template #body="{ data }">
-				<div class="d-flex justify-content-center">
-					<span class="p-buttonset">
+				<div class="flex justify-content-center">
+					<ButtonGroup>
 						<Button
 							icon="pi pi-pencil"
 							severity="warning"
@@ -78,7 +78,7 @@ const filters = ref({
 							@click="deleteRol(data.id)"
 							v-if="!getPermiso('ROLES', 'eliminar')"
 						/>
-					</span>
+					</ButtonGroup>
 				</div>
 			</template>
 		</Column>

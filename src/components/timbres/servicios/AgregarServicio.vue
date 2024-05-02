@@ -9,9 +9,8 @@ const {
 	concepto,
 	agregarIva,
 	agregarRetencion,
-	agregarConcepto,
+	postConcepto,
 	resetFormConcepto,
-	numero_trip,
 } = useTimbrado();
 const { servicios, getServicios } = useServicio();
 
@@ -31,16 +30,16 @@ onMounted(async () => {
 		v-on:after-hide="router.go(-1)"
 	>
 		<form
-			@submit.prevent="agregarConcepto(concepto)"
+			@submit.prevent="postConcepto(concepto)"
 			id="formulario-servicio"
 			class="mt-1 formulario"
 		>
-			<div class="row">
-				<div class="col-lg-12 mb-3">
+			<div class="grid">
+				<div class="col-12 mb-3">
 					<label>Concepto</label>
 					<Dropdown
 						name="nombre"
-						class="w-100"
+						class="w-full focus:border-primary mt-2"
 						:options="servicios"
 						placeholder="Selecciona un rol"
 						filter
@@ -50,35 +49,31 @@ onMounted(async () => {
 					/>
 					<small class="p-error" name="nombre"></small>
 				</div>
-				<div class="col-lg-12 mb-3">
+				<div class="col-8 mb-3">
 					<label>Monto</label>
 					<InputNumber
 						name="monto"
-						class="w-100"
+						class="w-full focus:border-primary mt-2"
 						v-model="concepto.monto"
 						placeholder="Monto"
 					/>
 					<small class="p-error" name="monto"></small>
 				</div>
-				<div class="col-lg-6 mt-3">
+				<div class="col-2 mt-4">
 					<Button
 						label="IVA"
-						class="w-100"
-						:icon="
-							concepto.iva !== 0 && concepto.iva !== null ? 'pi pi-check' : ''
-						"
+						class="w-full mt-1"
+						severity="info"
+						:outlined="concepto.iva == 0 && true"
 						@click="agregarIva()"
 					/>
 				</div>
-				<div class="col-lg-6 mt-3">
+				<div class="col-2 mt-4">
 					<Button
 						label="Retencion"
-						class="w-100"
-						:icon="
-							concepto.retencion !== 0 && concepto.retencion !== null
-								? 'pi pi-check'
-								: ''
-						"
+						class="w-full mt-1"
+						severity="danger"
+						:outlined="concepto.retencion == 0 && true"
 						@click="agregarRetencion()"
 					/>
 				</div>

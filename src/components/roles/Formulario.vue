@@ -9,7 +9,7 @@ const { rol } = useRol();
 		<InputText
 			v-model="rol.nombre"
 			placeholder="Nombre rol"
-			class="w-100"
+			class="w-full"
 			required
 		/>
 	</form>

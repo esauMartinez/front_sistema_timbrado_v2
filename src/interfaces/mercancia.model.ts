@@ -1,3 +1,5 @@
+import { MercanciasSat } from "./sat.model";
+
 export interface Mercancia {
 	id: number;
 	producto: string;
@@ -8,9 +10,13 @@ export interface Mercancia {
 	peso: number;
 	fraccion_arancelaria: string;
 	pedimento: string;
-	tipo: string;
-	clave: string;
-	clave_material_peligroso: string;
 	embalaje: string;
 	material_peligroso: string;
+	clave_material_peligroso: string;
+	tipo_materia: string;
+	descripcion_materia: string;
+	tipo_documento: string;
+	rfc_importacion: string;
+	identificador_documento_aduanero: string;
+	trip_id: number;
 }

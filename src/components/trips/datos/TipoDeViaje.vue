@@ -222,89 +222,6 @@ const moneda = ref([
 	{ clave: 'ZWL', descripcion: 'Zimbabwe Dólar' },
 ]);
 
-const uso_cfdi = ref([
-	{ clave: 'G01', descripcion: 'Adquisición de mercancías.' },
-	{ clave: 'G02', descripcion: 'Devoluciones, descuentos o bonificaciones.' },
-	{ clave: 'G03', descripcion: 'Gastos en general.' },
-	{ clave: 'I01', descripcion: 'Construcciones.' },
-	{
-		clave: 'I02',
-		descripcion: 'Mobiliario y equipo de oficina por inversiones.',
-	},
-	{ clave: 'I03', descripcion: 'Equipo de transporte.' },
-	{ clave: 'I04', descripcion: 'Equipo de computo y accesorios.' },
-	{
-		clave: 'I05',
-		descripcion: 'Dados, troqueles, moldes, matrices y herramental.',
-	},
-	{ clave: 'I06', descripcion: 'Comunicaciones telefónicas.' },
-	{ clave: 'I07', descripcion: 'Comunicaciones satelitales.' },
-	{ clave: 'I08', descripcion: 'Otra maquinaria y equipo.' },
-	{
-		clave: 'D01',
-		descripcion: 'Honorarios médicos, dentales y gastos hospitalarios.',
-	},
-	{
-		clave: 'D02',
-		descripcion: 'Gastos médicos por incapacidad o discapacidad.',
-	},
-	{ clave: 'D03', descripcion: 'Gastos funerales.' },
-	{ clave: 'D04', descripcion: 'Donativos.' },
-	{
-		clave: 'D05',
-		descripcion:
-			'Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).',
-	},
-	{ clave: 'D06', descripcion: 'Aportaciones voluntarias al SAR.' },
-	{ clave: 'D07', descripcion: 'Primas por seguros de gastos médicos.' },
-	{
-		clave: 'D08',
-		descripcion: 'Gastos de transportación escolar obligatoria.',
-	},
-	{
-		clave: 'D09',
-		descripcion:
-			'Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.',
-	},
-	{
-		clave: 'D10',
-		descripcion: 'Pagos por servicios educativos (colegiaturas).',
-	},
-	{ clave: 'S01', descripcion: 'Sin efectos fiscales.' },
-	{ clave: 'CP01', descripcion: 'Pagos.' },
-	{ clave: 'CN01', descripcion: 'Nómina.' },
-]);
-
-const metodo_pago = ref([
-	{ clave: 'PUE', descripcion: 'Pago en una sola exhibición' },
-	{ clave: 'PPD', descripcion: 'Pago en parcialidades o diferido' },
-]);
-
-const forma_pago = ref([
-	{ clave: '01', descripcion: 'Efectivo' },
-	{ clave: '02', descripcion: 'Cheque nominativo' },
-	{ clave: '03', descripcion: 'Transferencia electrónica de fondos' },
-	{ clave: '04', descripcion: 'Tarjeta de crédito' },
-	{ clave: '05', descripcion: 'Monedero electrónico' },
-	{ clave: '06', descripcion: 'Dinero electrónico' },
-	{ clave: '08', descripcion: 'Vales de despensa' },
-	{ clave: '12', descripcion: 'Dación en pago' },
-	{ clave: '13', descripcion: 'Pago por subrogación' },
-	{ clave: '14', descripcion: 'Pago por consignación' },
-	{ clave: '15', descripcion: 'Condonación' },
-	{ clave: '17', descripcion: 'Compensación' },
-	{ clave: '23', descripcion: 'Novación' },
-	{ clave: '24', descripcion: 'Confusión' },
-	{ clave: '25', descripcion: 'Remisión de deuda' },
-	{ clave: '26', descripcion: 'Prescripción o caducidad' },
-	{ clave: '27', descripcion: 'A satisfacción del acreedor' },
-	{ clave: '28', descripcion: 'Tarjeta de débito' },
-	{ clave: '29', descripcion: 'Tarjeta de servicios' },
-	{ clave: '30', descripcion: 'Aplicación de anticipos' },
-	{ clave: '31', descripcion: 'Intermediario pagos' },
-	{ clave: '99', descripcion: 'Por definir' },
-]);
-
 const agregar = (tipo: string) => {
 	if (tipo === 'cliente') {
 		router.push({ name: 'AgregarClienteTrip' });
@@ -320,11 +237,11 @@ const agregar = (tipo: string) => {
 
 <template>
 	<Panel>
-		<div class="row p-2">
-			<div class="col-lg-12 mb-3">
+		<div class="p-2">
+			<div class="mb-3">
 				<label>Tipo de viaje</label>
 				<Dropdown
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="Tipo de viaje"
 					optionLabel="clave"
 					filter
@@ -336,10 +253,10 @@ const agregar = (tipo: string) => {
 				/>
 				<small class="p-error" name="tipo_viaje"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<div class="mb-3">
 				<label>Moneda</label>
 				<Dropdown
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="Moneda"
 					optionLabel="descripcion"
 					filter
@@ -351,10 +268,10 @@ const agregar = (tipo: string) => {
 				/>
 				<small class="p-error" name="moneda"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<!-- <div class="mb-3">
 				<label>Uso de CFDI</label>
 				<Dropdown
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="Uso de CFDI"
 					optionLabel="descripcion"
 					filter
@@ -366,10 +283,10 @@ const agregar = (tipo: string) => {
 				/>
 				<small class="p-error" name="uso_CFDI"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<div class="mb-3">
 				<label>Metodo de pago</label>
 				<Dropdown
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="Metodo de pago"
 					optionLabel="descripcion"
 					filter
@@ -381,10 +298,10 @@ const agregar = (tipo: string) => {
 				/>
 				<small class="p-error" name="metodo_pago"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<div class="mb-3">
 				<label>Forma de pago</label>
 				<Dropdown
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="Forma de pago"
 					optionLabel="descripcion"
 					filter
@@ -395,13 +312,8 @@ const agregar = (tipo: string) => {
 					:disabled="trip.estatus !== 'CREADO'"
 				/>
 				<small class="p-error" name="forma_pago"></small>
-			</div>
-			<div
-				:class="{
-					'col-lg-12': true,
-					'mb-3': true,
-				}"
-			>
+			</div> -->
+			<div class="mb-3">
 				<label>Cliente</label>
 				<div class="p-inputgroup flex-1">
 					<InputText
@@ -484,12 +396,12 @@ const agregar = (tipo: string) => {
 				</div>
 				<small class="p-error" name="tractor_id"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<div class="mb-3">
 				<label>Ventana de carga</label>
 				<Calendar
 					name="ventana_carga"
 					v-model="trip.ventana_carga"
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					showIcon
 					:showOnFocus="false"
 					:disabled="trip.estatus !== 'CREADO'"
@@ -499,12 +411,12 @@ const agregar = (tipo: string) => {
 				/>
 				<small class="p-error" name="ventana_carga"></small>
 			</div>
-			<div class="col-lg-12 mb-3">
+			<div class="mb-3">
 				<label>Ventana de entrega</label>
 				<Calendar
 					name="ventana_entrega"
 					v-model="trip.ventana_entrega"
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					showIcon
 					:showOnFocus="false"
 					:disabled="trip.estatus !== 'CREADO'"
@@ -515,48 +427,48 @@ const agregar = (tipo: string) => {
 				<small class="p-error" name="ventana_entrega"></small>
 			</div>
 
-			<div class="col-lg-3 mb-3">
+			<div class="mb-3">
 				<label>Kilometros</label>
 				<InputText
 					name="kilometros"
 					v-model="trip.kilometros"
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="Kilometros"
 					autocomplete="off"
 					:disabled="trip.estatus !== 'CREADO'"
 				/>
 				<!-- <small class="p-error" name="kilometros"></small> -->
 			</div>
-			<div class="col-lg-3 mb-3">
+			<div class="mb-3">
 				<label>Combustible</label>
 				<InputText
 					name="combustible"
 					v-model="trip.combustible"
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="combustible"
 					autocomplete="off"
 					:disabled="trip.estatus !== 'CREADO'"
 				/>
 				<!-- <small class="p-error" name="combustible"></small> -->
 			</div>
-			<div class="col-lg-3 mb-3">
+			<div class="mb-3">
 				<label>Viaticos</label>
 				<InputText
 					name="viaticos"
 					v-model="trip.viaticos"
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="viaticos"
 					autocomplete="off"
 					:disabled="trip.estatus !== 'CREADO'"
 				/>
 				<!-- <small class="p-error" name="viaticos"></small> -->
 			</div>
-			<div class="col-lg-3 mb-3">
+			<div class="mb-3">
 				<label>Casetas</label>
 				<InputText
 					name="casetas"
 					v-model="trip.casetas"
-					class="w-100"
+					class="w-full focus:border-primary mt-2"
 					placeholder="casetas"
 					autocomplete="off"
 					:disabled="trip.estatus !== 'CREADO'"

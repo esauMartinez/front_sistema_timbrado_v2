@@ -25,7 +25,7 @@ const agregarServicio = () => {
 		dataKey="id"
 	>
 		<template #header>
-			<div class="d-flex flex-wrap align-items-center justify-content-end">
+			<div class="flex flex-wrap align-items-center justify-content-end">
 				<div>
 					<Button
 						icon="pi pi-plus"
@@ -42,7 +42,7 @@ const agregarServicio = () => {
 		<Column field="retencion" header="Retencion"></Column>
 		<Column>
 			<template #body="{ data }">
-				<div class="d-flex justify-content-center">
+				<div class="flex justify-content-center">
 					<Button
 						icon="pi pi-trash"
 						severity="danger"

@@ -31,8 +31,9 @@ export const usePatioStore = defineStore('patio', {
 			localidad: null,
 			estatus: true,
 			tipo: null,
+			rfc: null,
 		},
-    codigos: []
+		codigos: [],
 	}),
 	actions: {
 		setPatios(patios: Patio[]) {
@@ -43,6 +44,6 @@ export const usePatioStore = defineStore('patio', {
 		},
 		setCodigos(codigos: CodigoPostal[]) {
 			this.codigos = codigos;
-		}
+		},
 	},
 });

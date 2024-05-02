@@ -3,7 +3,7 @@ import Tabla from '../components/servicios/Tabla.vue';
 </script>
 
 <template>
-	<div class="container m-margin-top">
+	<div class="col-8 col-offset-2 m-margin-top">
 		<Card>
 			<template #content>
 				<Tabla :isModule="true" />

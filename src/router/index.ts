@@ -201,13 +201,6 @@ const routes: RouteRecordRaw[] = [
 						name: 'InformacionPatio',
 						component: () => import('../components/patios/Modificar.vue'),
 					},
-
-					{
-						path: '/agregar-mercancia-trip/:id',
-						name: 'AgregarMercanciaTrip',
-						component: () =>
-							import('../components/trips/datos/mercancias/Agregar.vue'),
-					},
 				],
 			},
 			{
@@ -232,6 +225,12 @@ const routes: RouteRecordRaw[] = [
 						name: 'TimbreAgregarServicio',
 						component: () =>
 							import('../components/timbres/servicios/AgregarServicio.vue'),
+					},
+					{
+						path: '/agregar-mercancia-trip/:id',
+						name: 'AgregarMercanciaTrip',
+						component: () =>
+							import('../components/timbres/mercancias/Agregar.vue'),
 					},
 				],
 			},

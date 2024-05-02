@@ -1,15 +1,12 @@
 import { defineStore } from 'pinia';
-import { Trip } from '../interfaces/Trip';
+import { Trip } from '../interfaces/trip';
 import { Patio } from '../interfaces/patio.model';
 import { Movimiento } from '../interfaces/movimiento.model';
 import { Cliente } from '../interfaces/cliente.model';
 import { Operador } from '../interfaces/operador.model';
 import { Caja } from '../interfaces/caja.model';
 import { Tractor } from '../interfaces/tractor.model';
-import { Servicio } from '../interfaces/servicio';
-import { Concepto } from '../interfaces/concepto.model';
 import { Mercancia } from '../interfaces/mercancia.model';
-import { MercanciasSat, UnidadPeso } from '../interfaces/sat.model';
 
 interface TripStore {
 	trips: Trip[];
@@ -20,11 +17,6 @@ interface TripStore {
 	numero_economico_tractor: string;
 	movimientos: Movimiento[];
 	movimiento: Movimiento;
-	conceptos: Concepto[];
-	mercancia: Mercancia;
-	mercancias: Mercancia[];
-	mercanciasSat: MercanciasSat[];
-	unidadesPeso: UnidadPeso[];
 }
 
 export const useTripStore = defineStore('trip', {
@@ -56,6 +48,7 @@ export const useTripStore = defineStore('trip', {
 			combustible: null,
 			viaticos: null,
 			casetas: null,
+			regimen_aduanero: null,
 		},
 		nombre_cliente: null,
 		nombre_operador: null,
@@ -68,26 +61,6 @@ export const useTripStore = defineStore('trip', {
 			patio_id: null,
 			trip_id: null,
 		},
-		conceptos: [],
-		mercancias: [],
-		mercancia: {
-			id: null,
-			producto: null,
-			clave_producto: null,
-			unidad_medida: null,
-			clave_unidad: null,
-			cantidad: 0,
-			peso: 0,
-			fraccion_arancelaria: null,
-			pedimento: null,
-			tipo: null,
-			clave: null,
-			clave_material_peligroso: null,
-			embalaje: null,
-			material_peligroso: null,
-		},
-		mercanciasSat: [],
-		unidadesPeso: [],
 	}),
 	actions: {
 		setTrip(trip: Trip) {
@@ -119,12 +92,7 @@ export const useTripStore = defineStore('trip', {
 		setMercancias(mercancias: Mercancia[]) {
 			this.mercancias = mercancias;
 		},
-		setMercanciasSat(mercanciasSat: MercanciasSat[]) {
-			this.mercanciasSat = mercanciasSat;
-		},
-		setUnidadesPesoSat(unidadesPeso: UnidadPeso[]) {
-			this.unidadesPeso = unidadesPeso;
-		},
+
 		setTrips(trips: Trip[]) {
 			this.trips = trips;
 		},
@@ -137,6 +105,5 @@ export const useTripStore = defineStore('trip', {
 		addMovimientoToTrip(patio: Patio) {
 			this.movimientos.push(patio);
 		},
-    
 	},
 });

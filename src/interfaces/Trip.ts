@@ -24,4 +24,5 @@ export interface Trip {
 	combustible: string;
 	viaticos: string;
 	casetas: string;
+	regimen_aduanero: string;
 }

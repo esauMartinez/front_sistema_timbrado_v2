@@ -2,9 +2,7 @@
 import { onMounted } from 'vue';
 import Piernas from './datos/piernas/Piernas.vue';
 import TipoDeViaje from './datos/TipoDeViaje.vue';
-import Servicios from './datos/servicios/Servicios.vue';
 import { useError } from '../../composables/useError';
-import Tabla from "./datos/mercancias/Tabla.vue";
 
 const { setErrores } = useError();
 

@@ -17,7 +17,7 @@ const { getLogotipo, getNombreUsuario } = useAuth();
 			alt="Image"
 			v-if="getLogotipo().find === false"
 		/>
-		<div class="mt-4">
+		<div>
 			<h6 class="name-logo">{{ getNombreUsuario() }}</h6>
 		</div>
 	</div>

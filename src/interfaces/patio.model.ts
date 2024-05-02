@@ -17,4 +17,5 @@ export interface Patio {
 	localidad: string;
 	estatus: boolean;
 	tipo: string;
+	rfc: string;
 }

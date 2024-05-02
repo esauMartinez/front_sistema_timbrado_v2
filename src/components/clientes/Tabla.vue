@@ -6,10 +6,12 @@ import { severity } from '../../pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
 import { useTrip } from '../../composables/useTrip';
 import { useAuth } from '../../composables/useAuth';
+import { useToast } from 'primevue/usetoast';
 
 const { getPermiso } = useAuth();
 const { clientes, getClientes, putCliente, deleteCliente } = useCliente();
 const { selectCliente } = useTrip();
+const toast = useToast();
 
 const loading = ref(true);
 
@@ -38,15 +40,30 @@ const filters = ref({
 	estado: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
 	pais: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
 });
+
+const items = [
+	{
+		label: 'Eliminar',
+		command: (data) => {
+			console.log(data);
+			toast.add({
+				severity: 'warn',
+				summary: 'Delete',
+				detail: data,
+				life: 3000,
+			});
+		},
+	},
+];
 </script>
 
 <template>
 	<DataTable
 		v-model:filters="filters"
 		:value="clientes"
+		paginator
 		showGridlines
 		stripedRows
-		paginator
 		:rows="10"
 		:rowsPerPageOptions="[10, 50, 100]"
 		:class="[{ 'p-datatable-sm': true }]"
@@ -61,22 +78,24 @@ const filters = ref({
 		]"
 	>
 		<template #header>
-			<div class="d-flex flex-wrap align-items-center justify-content-between">
-				<span class="text-xl text-900 font-bold">Clientes</span>
-				<div>
-					<span class="p-input-icon-left me-3">
+			<div class="flex justify-content-between">
+				<IconField iconPosition="left">
+					<InputIcon>
 						<i class="pi pi-search" />
-						<InputText v-model="filters['global'].value" placeholder="Buscar" />
-					</span>
-					<Button
-						icon="pi pi-plus"
-						severity="success"
-						@click="agregar"
-						v-if="isModule && !getPermiso('CLIENTES', 'crear')"
-					/>
-				</div>
+					</InputIcon>
+					<InputText v-model="filters['global'].value" placeholder="Buscar" />
+				</IconField>
+				<Button
+					type="button"
+					icon="pi pi-plus"
+					label="Nuevo"
+					outlined
+					@click="agregar"
+					v-if="isModule && !getPermiso('CLIENTES', 'crear')"
+				/>
 			</div>
 		</template>
+
 		<Column field="razon_social" header="Razon social" sortable></Column>
 		<Column field="codigo_postal" header="Codigo Postal" sortable />
 		<Column field="uso_cfdi" header="Uso de CFDI" sortable />
@@ -97,8 +116,8 @@ const filters = ref({
 		</Column>
 		<Column header="Acciones">
 			<template #body="{ data }">
-				<div class="d-flex justify-content-center">
-					<span class="p-buttonset">
+				<div class="flex justify-content-center">
+					<ButtonGroup>
 						<Button
 							icon="pi pi-pencil"
 							severity="warning"
@@ -116,7 +135,7 @@ const filters = ref({
 							v-if="!isModule && data.estatus"
 							@click="selectCliente(data)"
 						/>
-					</span>
+					</ButtonGroup>
 				</div>
 			</template>
 		</Column>

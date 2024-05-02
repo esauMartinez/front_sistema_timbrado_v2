@@ -5,13 +5,7 @@ const { empresa } = useTimbrado();
 </script>
 
 <template>
-	<Panel header="Emisor">
-		<p class="m-0">RFC: {{ empresa.rfc }}</p>
-		<Divider />
-		<p class="m-0">Nombre: {{ empresa.razon_social }}</p>
-		<Divider />
-		<p class="m-0">Regimen fiscal: {{ empresa.clave_regimen_fiscal }}</p>
-		<Divider />
+	<Panel header="Domicilio">
 		<p class="m-0">Calle: {{ empresa.calle }}</p>
 		<Divider />
 		<p class="m-0">Colonia: {{ empresa.colonia }}</p>
