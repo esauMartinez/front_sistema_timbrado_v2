@@ -9,23 +9,45 @@ const { postRol, selectedKey, nodes, resetRolForm } = useRol();
 const visible = ref(true);
 
 onMounted(() => {
-	resetRolForm()
-})
+	resetRolForm();
+});
 </script>
 
 <template>
-	<Dialog v-model:visible="visible" modal header="Agregar Rol" :style="{ width: '50vw' }" v-on:after-hide="router.go(-1)">
+	<Dialog
+		v-model:visible="visible"
+		modal
+		header="Agregar Rol"
+		:style="{ width: '50vw' }"
+		v-on:after-hide="router.go(-1)"
+	>
 		<div class="row">
 			<div class="col-lg-12 mt-1 div-formulario">
-				<Formulario @submit.prevent="postRol(selectedKey, nodes)" id="formulario" />
+				<Formulario
+					@submit.prevent="postRol(selectedKey, nodes)"
+					id="formulario"
+				/>
 			</div>
 			<div class="col-lg-12 mt-1">
 				<ArbolDePermisos />
 			</div>
 		</div>
 		<template #footer>
-			<Button label="Cancelar" icon="pi pi-times" @click="visible = false" outlined severity="danger" />
-			<Button label="Guardar" icon="pi pi-check" type="submit" form="formulario" severity="success" />
+			<ButtonGroup>
+				<Button
+					label="Cancelar"
+					icon="pi pi-times"
+					@click="visible = false"
+					severity="danger"
+				/>
+				<Button
+					label="Guardar"
+					icon="pi pi-check"
+					type="submit"
+					form="formulario"
+					severity="success"
+				/>
+			</ButtonGroup>
 		</template>
 	</Dialog>
 </template>

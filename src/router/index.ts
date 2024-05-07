@@ -101,6 +101,13 @@ const routes: RouteRecordRaw[] = [
 				path: '/agregar-tractor',
 				name: 'AgregarTractor',
 				component: () => import('../components/tractores/Agregar.vue'),
+				children: [
+					{
+						path: '/agregar-marca-tractor/:tipo',
+						name: 'AgregarMarcaTractor',
+						component: () => import('../components/marcas/Agregar.vue'),
+					},
+				],
 			},
 			{
 				path: '/modificar-tractor/:id',
@@ -118,6 +125,13 @@ const routes: RouteRecordRaw[] = [
 				path: '/agregar-caja',
 				name: 'AgregarCaja',
 				component: () => import('../components/cajas/Agregar.vue'),
+				children: [
+					{
+						path: '/agregar-marca-caja/:tipo',
+						name: 'AgregarMarcaCaja',
+						component: () => import('../components/marcas/Agregar.vue'),
+					},
+				],
 			},
 			{
 				path: '/modificar-caja/:id',
@@ -201,6 +215,11 @@ const routes: RouteRecordRaw[] = [
 						name: 'InformacionPatio',
 						component: () => import('../components/patios/Modificar.vue'),
 					},
+					{
+						path: '/pdf-trip/pdf/:id',
+						name: 'PDFTrip',
+						component: () => import('../components/PDF.vue'),
+					},
 				],
 			},
 			{
@@ -218,19 +237,24 @@ const routes: RouteRecordRaw[] = [
 			{
 				path: '/timbrar-trip/:id',
 				name: 'TimbrarTrip',
-				component: () => import('../components/timbres/Modificar.vue'),
+				component: () => import('../components/timbrado/Modificar.vue'),
 				children: [
 					{
 						path: '/timbre-agregar-servicio-trip/:id',
 						name: 'TimbreAgregarServicio',
 						component: () =>
-							import('../components/timbres/servicios/AgregarServicio.vue'),
+							import('../components/timbrado/servicios/AgregarServicio.vue'),
 					},
 					{
 						path: '/agregar-mercancia-trip/:id',
 						name: 'AgregarMercanciaTrip',
 						component: () =>
-							import('../components/timbres/mercancias/Agregar.vue'),
+							import('../components/timbrado/mercancias/Agregar.vue'),
+					},
+					{
+						path: '/pdf-timbre/pdf/:id',
+						name: 'PDFTimbre',
+						component: () => import('../components/PDF.vue'),
 					},
 				],
 			},

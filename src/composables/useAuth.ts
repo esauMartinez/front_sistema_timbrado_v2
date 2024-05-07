@@ -10,7 +10,7 @@ import { useSocket } from './useSocket';
 export const useAuth = () => {
 	const authStore = useAuthStore();
 	const { auth, estatusUsuarioAutenticado, darkMode } = storeToRefs(authStore);
-	const { connect, disconnect } = useSocket();
+	// const { connect, disconnect } = useSocket();
 
 	const authUser = async (auth: Auth) => {
 		try {
@@ -20,9 +20,9 @@ export const useAuth = () => {
 			});
 			authStore.setToken(data.data);
 			renderizarTipo(data.data.role);
-			if (data.data.empresa) {
-				connect(`empresa_${data.data.empresa.id}`, data.data.id);
-			}
+			// if (data.data.empresa) {
+			// 	connect(`empresa_${data.data.empresa.id}`, data.data.id);
+			// }
 		} catch (err) {
 			handleError(err);
 		}

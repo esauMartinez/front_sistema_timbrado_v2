@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Tabla from "../components/timbres/Tabla.vue";
+import Tabla from "../components/timbrado/Tabla.vue";
 </script>
 
 <template>

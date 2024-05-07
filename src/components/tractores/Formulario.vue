@@ -2,14 +2,14 @@
 import { onMounted, ref } from 'vue';
 import { useTractor } from '../../composables/useTractor';
 import { useError } from '../../composables/useError';
+import { useMarca } from '../../composables/useMarca';
 
-const { unidad, marcas, configuraciones, getMarcas, getConfiguraciones } =
-	useTractor();
-
+const { unidad, configuraciones, getConfiguraciones } = useTractor();
+const { marcas, getMarcas } = useMarca();
 const { setErrores } = useError();
 
 onMounted(() => {
-	getMarcas();
+	getMarcas('TRACTOR');
 	getConfiguraciones();
 	setErrores([]);
 });
@@ -77,14 +77,11 @@ onMounted(() => {
 		</div>
 		<div class="mb-3">
 			<label>Modelo</label>
-			<Calendar
+			<InputText
 				id="modelo"
 				name="modelo"
 				class="w-full focus:border-primary mt-2"
 				placeholder="Modelo"
-				view="year"
-				dateFormat="yy"
-				showIcon
 				v-model="unidad.modelo"
 			/>
 			<small class="p-error" name="modelo"></small>
@@ -110,25 +107,49 @@ onMounted(() => {
 				placeholder="Configuracion"
 				optionLabel="nombre"
 				:options="configuraciones"
-				optionValue="id"
+				optionValue="clave"
 				v-model="unidad.configuracion"
-			/>
+			>
+				<template #option="slotProps">
+					{{ slotProps.option.clave }} - {{ slotProps.option.nombre }}
+				</template>
+			</Dropdown>
 			<small class="p-error" name="configuracion"></small>
 		</div>
+
 		<div class="mb-3">
-			<label>Marca</label>
-			<Dropdown
-				id="marca_id"
-				name="marca_id"
+			<label>Peso</label>
+			<InputText
+				id="peso"
+				name="peso"
 				class="w-full focus:border-primary mt-2"
-				placeholder="Marca"
-				optionLabel="nombre"
-				filter
-				:options="marcas"
-				optionValue="id"
-				v-model="unidad.marca_id"
+				placeholder="Peso"
+				v-model="unidad.peso"
 			/>
-			<small class="p-error" name="marca_id"></small>
+			<small class="p-error" name="peso"></small>
 		</div>
+		<div class="grid">
+			<div class="col-11 mb-3">
+				<label>Marca</label>
+				<Dropdown
+					id="marca_id"
+					name="marca_id"
+					class="w-full focus:border-primary mt-2"
+					placeholder="Marca"
+					optionLabel="nombre"
+					filter
+					:options="marcas"
+					optionValue="id"
+					v-model="unidad.marca_id"
+				/>
+				<small class="p-error" name="marca_id"></small>
+			</div>
+			<div class="col-1 mt-4">
+				<router-link to="/agregar-marca-tractor/tractor">
+					<Button class="mt-1 w-full" icon="pi pi-plus" />
+				</router-link>
+			</div>
+		</div>
+		<router-view></router-view>
 	</form>
 </template>

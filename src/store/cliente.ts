@@ -3,6 +3,7 @@ import {
 	Cliente,
 	FormasPago,
 	MetodosPago,
+	RegimenFiscal,
 	UsoCfdi,
 } from '../interfaces/cliente.model';
 
@@ -12,6 +13,7 @@ interface ClienteStore {
 	usoCfdi: UsoCfdi[];
 	metodosPago: MetodosPago[];
 	formasPago: FormasPago[];
+	regimenFiscal: RegimenFiscal[];
 }
 
 export const useClienteStore = defineStore('cliente', {
@@ -35,11 +37,12 @@ export const useClienteStore = defineStore('cliente', {
 			metodo_pago: null,
 			forma_pago: null,
 			uso_cfdi: null,
-      estatus: true,
+			estatus: true,
 		},
 		usoCfdi: [],
 		metodosPago: [],
 		formasPago: [],
+		regimenFiscal: [],
 	}),
 	actions: {
 		setClientes(clientes: Cliente[]) {
@@ -56,6 +59,9 @@ export const useClienteStore = defineStore('cliente', {
 		},
 		setFormasPago(formasPago: FormasPago[]) {
 			this.formasPago = formasPago;
+		},
+		setRegimenFiscal(regimenFiscal: RegimenFiscal[]) {
+			this.regimenFiscal = regimenFiscal;
 		},
 	},
 });

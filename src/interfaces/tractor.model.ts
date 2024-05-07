@@ -11,5 +11,6 @@ export interface Tractor {
   configuracion: string;
   marca_id: number;
   clase_id: number;
+  peso: string;
 }
 

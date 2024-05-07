@@ -8,7 +8,7 @@ import { router } from '../router';
 
 export const useTractor = () => {
 	const unidadStore = useUnidadStore();
-	const { unidad, unidades, marcas, configuraciones } =
+	const { unidad, unidades, marca, marcas, configuraciones } =
 		storeToRefs(unidadStore);
 	const toast = useToast();
 
@@ -82,14 +82,7 @@ export const useTractor = () => {
 		}
 	};
 
-	const getMarcas = async () => {
-		try {
-			const { data } = await instance.get('/marcas/TRACTOR');
-			unidadStore.setMarcas(data);
-		} catch (error) {
-			handleError(error);
-		}
-	};
+	
 
 	const getConfiguraciones = async () => {
 		try {
@@ -114,12 +107,14 @@ export const useTractor = () => {
 			configuracion: null,
 			marca_id: null,
 			clase_id: null,
+			peso: null,
 		});
 	};
 
 	return {
 		unidad,
 		unidades,
+		marca,
 		marcas,
 		configuraciones,
 		getUnidades,
@@ -128,7 +123,6 @@ export const useTractor = () => {
 		putUnidad,
 		deleteUnidad,
 		resetUnidadForm,
-		getMarcas,
 		getConfiguraciones,
 	};
 };

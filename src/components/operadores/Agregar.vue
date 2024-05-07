@@ -23,20 +23,21 @@ onMounted(() => {
 	>
 		<Formulario @submit.prevent="postOperador(operador)" id="formulario" />
 		<template #footer>
-			<Button
-				label="Cancelar"
-				icon="pi pi-times"
-				@click="visible = false"
-				outlined
-				severity="danger"
-			/>
-			<Button
-				label="Guardar"
-				icon="pi pi-check"
-				type="submit"
-				form="formulario"
-				severity="success"
-			/>
+			<ButtonGroup>
+				<Button
+					label="Cancelar"
+					icon="pi pi-times"
+					@click="visible = false"
+					severity="danger"
+				/>
+				<Button
+					label="Guardar"
+					icon="pi pi-check"
+					type="submit"
+					form="formulario"
+					severity="success"
+				/>
+			</ButtonGroup>
 		</template>
 	</Dialog>
 </template>

@@ -21,22 +21,27 @@ onMounted(() => {
 		:style="{ width: '50vw' }"
 		v-on:after-hide="router.go(-1)"
 	>
-		<Formulario @submit.prevent="postUsuario(usuario)" id="formulario" :isModule="true" />
+		<Formulario
+			@submit.prevent="postUsuario(usuario)"
+			id="formulario"
+			:isModule="true"
+		/>
 		<template #footer>
-			<Button
-				label="Cancelar"
-				icon="pi pi-times"
-				@click="visible = false"
-				outlined
-				severity="danger"
-			/>
-			<Button
-				label="Guardar"
-				icon="pi pi-check"
-				type="submit"
-				form="formulario"
-				severity="success"
-			/>
+			<ButtonGroup>
+				<Button
+					label="Cancelar"
+					icon="pi pi-times"
+					@click="visible = false"
+					severity="danger"
+				/>
+				<Button
+					label="Guardar"
+					icon="pi pi-check"
+					type="submit"
+					form="formulario"
+					severity="success"
+				/>
+			</ButtonGroup>
 		</template>
 	</Dialog>
 </template>

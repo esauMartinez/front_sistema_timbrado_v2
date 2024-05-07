@@ -68,7 +68,9 @@ const filters = ref({
 				</IconField>
 				<Button
 					icon="pi pi-plus"
+					label="Nuevo"
 					severity="success"
+					outlined
 					@click="isModule ? agregar() : agregarSuper()"
 					v-if="!getPermiso('USUARIOS', 'crear')"
 				/>

@@ -1,11 +1,15 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Formulario from './Formulario.vue';
 import { router } from '../../../router';
 import { useTimbrado } from '../../../composables/useTimbrado';
 
-const { mercancia, postMercancia } = useTimbrado();
+const { mercancia, postMercancia, resetFormMercancia } = useTimbrado();
 const visible = ref(true);
+
+onMounted(() => {
+	resetFormMercancia();
+});
 </script>
 
 <template>

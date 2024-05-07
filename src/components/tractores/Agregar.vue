@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { router } from '../../router';
 import Formulario from './Formulario.vue';
-import { useTractor } from "../../composables/useTractor";
+import { useTractor } from '../../composables/useTractor';
 
 const { unidad, postUnidad, resetUnidadForm } = useTractor();
 
@@ -23,20 +23,21 @@ onMounted(() => {
 	>
 		<Formulario @submit.prevent="postUnidad(unidad)" id="formulario" />
 		<template #footer>
-			<Button
-				label="Cancelar"
-				icon="pi pi-times"
-				@click="visible = false"
-				outlined
-				severity="danger"
-			/>
-			<Button
-				label="Guardar"
-				icon="pi pi-check"
-				type="submit"
-				form="formulario"
-				severity="success"
-			/>
+			<ButtonGroup>
+				<Button
+					label="Cancelar"
+					icon="pi pi-times"
+					@click="visible = false"
+					severity="danger"
+				/>
+				<Button
+					label="Guardar"
+					icon="pi pi-check"
+					type="submit"
+					form="formulario"
+					severity="success"
+				/>
+			</ButtonGroup>
 		</template>
 	</Dialog>
 </template>

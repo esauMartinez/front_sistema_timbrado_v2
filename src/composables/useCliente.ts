@@ -8,7 +8,7 @@ import { router } from '../router';
 
 export const useCliente = () => {
 	const clienteStore = useClienteStore();
-	const { cliente, clientes, usoCfdi, metodosPago, formasPago } =
+	const { cliente, clientes, usoCfdi, metodosPago, formasPago, regimenFiscal } =
 		storeToRefs(clienteStore);
 	const toast = useToast();
 
@@ -97,6 +97,11 @@ export const useCliente = () => {
 		clienteStore.setFormasPago(data);
 	};
 
+	const getRegimenFiscal = async () => {
+		const { data } = await instance.get('/regimen-fiscal');
+		clienteStore.setRegimenFiscal(data);
+	};
+
 	const resetClienteForm = () => {
 		clienteStore.setCliente({
 			id: 0,
@@ -126,6 +131,7 @@ export const useCliente = () => {
 		usoCfdi,
 		metodosPago,
 		formasPago,
+		regimenFiscal,
 		getClientes,
 		getCliente,
 		postCliente,
@@ -134,6 +140,7 @@ export const useCliente = () => {
 		getUsoCfdi,
 		getMetodosPago,
 		getFormasPago,
+		getRegimenFiscal,
 		resetClienteForm,
 	};
 };

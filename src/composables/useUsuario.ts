@@ -14,7 +14,6 @@ export const useUsuario = () => {
 	const getUsuarios = async () => {
 		try {
 			const { data } = await instance.get('/usuarios');
-			console.log(data)
 			usuarioStore.setUsuarios(data);
 		} catch (error) {
 			handleError(error);

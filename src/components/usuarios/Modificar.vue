@@ -29,22 +29,27 @@ onMounted(async () => {
 		:style="{ width: '50vw' }"
 		v-on:after-hide="router.go(-1)"
 	>
-		<Formulario @submit.prevent="modificar()" id="formulario" :isModule="true" />
+		<Formulario
+			@submit.prevent="modificar()"
+			id="formulario"
+			:isModule="true"
+		/>
 		<template #footer>
-			<Button
-				label="Cancelar"
-				icon="pi pi-times"
-				@click="visible = false"
-				outlined
-				severity="danger"
-			/>
-			<Button
-				label="Modificar"
-				icon="pi pi-pencil"
-				type="submit"
-				form="formulario"
-				severity="warning"
-			/>
+			<ButtonGroup>
+				<Button
+					label="Cancelar"
+					icon="pi pi-times"
+					@click="visible = false"
+					severity="danger"
+				/>
+				<Button
+					label="Modificar"
+					icon="pi pi-pencil"
+					type="submit"
+					form="formulario"
+					severity="warning"
+				/>
+			</ButtonGroup>
 		</template>
 	</Dialog>
 </template>

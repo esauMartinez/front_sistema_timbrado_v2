@@ -86,6 +86,8 @@ const bitacora = (id: number) => {
 				<Button
 					@click="showTemplate"
 					icon="pi pi-plus"
+					label="Nuevo"
+					outlined
 					v-if="!getPermiso('TRIPS', 'crear')"
 				/>
 			</div>
@@ -155,7 +157,12 @@ const bitacora = (id: number) => {
 				</div>
 				<div class="flex justify-content-center">
 					<Button severity="success" label="Si" @click="postTrip()"></Button>
-					<Button severity="secondary" class="ml-3" label="No" @click="onReject()"></Button>
+					<Button
+						severity="secondary"
+						class="ml-3"
+						label="No"
+						@click="onReject()"
+					></Button>
 				</div>
 			</div>
 		</template>

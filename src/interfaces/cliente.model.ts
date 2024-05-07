@@ -37,3 +37,9 @@ export interface UsoCfdi {
   clave?: string;
   descripcion?: string;
 }
+
+export interface RegimenFiscal {
+  id?: number;
+  clave?: string;
+  descripcion?: string;
+}

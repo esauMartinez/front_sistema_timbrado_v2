@@ -1,5 +1,5 @@
 import { storeToRefs } from 'pinia';
-import { instance, instance_servicio_postal } from '../helpers/axiosInstance';
+import { instance } from '../helpers/axiosInstance';
 import { handleError, question } from '../helpers/messages';
 import { useToast } from 'primevue/usetoast';
 import { router } from '../router';
@@ -102,6 +102,7 @@ export const usePatio = () => {
 			localidad: null,
 			estatus: true,
 			tipo: null,
+			rfc: null,
 		});
 
 		patioStore.setCodigos([]);
@@ -110,9 +111,7 @@ export const usePatio = () => {
 	const buscarCodigoPostal = async (codigo: string) => {
 		try {
 			if (codigo.length > 3) {
-				const { data } = await instance_servicio_postal.get(
-					`/service/${codigo}`
-				);
+				const { data } = await instance.get(`/codigo_postal/${codigo}`);
 				patioStore.setCodigos(data);
 			}
 		} catch (error) {

@@ -85,6 +85,7 @@ export const useServicio = () => {
 		servicioStore.setServicio({
 			id: null,
 			clave: null,
+			clave_unidad: null,
 			descripcion: null,
 			estatus: true,
 		});

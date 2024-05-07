@@ -2,14 +2,14 @@
 import { onMounted, ref } from 'vue';
 import { useCaja } from '../../composables/useCaja';
 import { useError } from '../../composables/useError';
+import { useMarca } from '../../composables/useMarca';
 
-const { unidad, marcas, configuraciones, getMarcas, getConfiguraciones } =
-	useCaja();
-
+const { unidad, configuraciones, getConfiguraciones } = useCaja();
+const { marcas, getMarcas } = useMarca();
 const { setErrores } = useError();
 
 onMounted(() => {
-	getMarcas();
+	getMarcas('CAJA');
 	getConfiguraciones();
 	setErrores([]);
 });
@@ -101,6 +101,17 @@ onMounted(() => {
 			<small class="p-error" name="aseguradora"></small>
 		</div>
 		<div class="mb-3">
+			<label>Linea</label>
+			<InputText
+				id="linea"
+				name="linea"
+				class="w-full focus:border-primary mt-2"
+				placeholder="Linea"
+				v-model="unidad.linea"
+			/>
+			<small class="p-error" name="linea"></small>
+		</div>
+		<div class="mb-3">
 			<label>Configuracion</label>
 			<Dropdown
 				id="configuracion"
@@ -110,25 +121,41 @@ onMounted(() => {
 				placeholder="Configuracion"
 				optionLabel="nombre"
 				:options="configuraciones"
-				optionValue="id"
+				optionValue="clave"
 				v-model="unidad.configuracion"
-			/>
+			>
+				<template #option="slotProps">
+					{{ slotProps.option.clave }}-{{ slotProps.option.nombre }}
+				</template>
+			</Dropdown>
 			<small class="p-error" name="configuracion"></small>
 		</div>
-		<div class="mb-3">
-			<label>Marca</label>
-			<Dropdown
-				id="marca_id"
-				name="marca_id"
-				class="w-full focus:border-primary mt-2"
-				placeholder="Marca"
-				optionLabel="nombre"
-				filter
-				:options="marcas"
-				optionValue="id"
-				v-model="unidad.marca_id"
-			/>
-			<small class="p-error" name="marca_id"></small>
+		<div class="grid">
+			<div class="col-11 mb-3">
+				<label>Marca</label>
+				<Dropdown
+					id="marca_id"
+					name="marca_id"
+					class="w-full focus:border-primary mt-2"
+					placeholder="Marca"
+					optionLabel="nombre"
+					filter
+					:options="marcas"
+					optionValue="id"
+					v-model="unidad.marca_id"
+				>
+					<template #option="slotProps">
+						{{ slotProps.option.nombre }}
+					</template>
+				</Dropdown>
+				<small class="p-error" name="marca_id"></small>
+			</div>
+			<div class="col-1 mt-4">
+				<router-link to="/agregar-marca-caja/caja">
+					<Button class="mt-1 w-full" icon="pi pi-plus" />
+				</router-link>
+			</div>
 		</div>
+		<router-view></router-view>
 	</form>
 </template>

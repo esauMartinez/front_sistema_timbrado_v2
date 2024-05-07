@@ -25,4 +25,7 @@ export interface Trip {
 	viaticos: string;
 	casetas: string;
 	regimen_aduanero: string;
+	referencia: string;
+	observaciones: string;
+	createdAt: Date;
 }

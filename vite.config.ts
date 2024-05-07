@@ -11,12 +11,7 @@ export default defineConfig({
 				target: 'http://localhost:3200/api/v2',
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/timbrado/, ''),
-			},
-			'/servicio_postal': {
-				target: 'http://localhost:3800/api/v1/postal_code',
-				changeOrigin: true,
-				rewrite: (path) => path.replace(/^\/servicio_postal/, ''),
-			},
+			},	
 		},
 	},
 });

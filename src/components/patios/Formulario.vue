@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue';
 import { usePatio } from '../../composables/usePatio';
 import { CodigoPostal } from '../../interfaces/codigo_postal.model';
 import { useError } from '../../composables/useError';
+import { AutoCompleteChangeEvent } from "primevue/autocomplete";
 
 const { patio, codigos, buscarCodigoPostal } = usePatio();
 const { setErrores } = useError();
@@ -37,6 +38,10 @@ const selectPais = (pais: string) => {
 	patio.value.c_pais = pais;
 };
 
+const verificarCP = (e: AutoCompleteChangeEvent) => {
+	patio.value.c_estado = e.value.abreviatura_estado;
+};
+
 onMounted(() => {
 	setErrores([]);
 });
@@ -69,136 +74,145 @@ onMounted(() => {
 			/>
 			<small class="p-error" name="tipo"></small>
 		</div>
-		<div class="col-lg-10 mb-3">
-			<label>Codigo postal</label>
-			<InputText
-				name="codigo_postal"
-				class="w-full focus:border-primary mt-2"
-				placeholder="Codigo postal"
-				autocomplete="off"
-				v-model="patio.codigo_postal"
-				@keyup="buscarCodigoPostal(patio.codigo_postal)"
-			/>
-			<small class="p-error" name="codigo_postal"></small>
-			<div class="list-container" v-if="codigos.length !== 0">
-				<ul class="list">
-					<li v-for="item in codigos" @click="selectCode(item)">
-						{{ item.d_asenta }}
-					</li>
-				</ul>
+		<div class="grid">
+			<div class="col-9 mb-3">
+				<label>Codigo postal</label>
+				<AutoComplete
+					v-model="patio.codigo_postal"
+					:suggestions="codigos"
+					optionLabel="d_asenta"
+					placeholder="Codigo postal"
+					name="codigo_postal"
+					@change="verificarCP"
+					@complete="buscarCodigoPostal(patio.codigo_postal)"
+					class="w-full focus:border-primary mt-2"
+				>
+					<template #option="slotProps">
+						{{ slotProps.option.d_asenta }}
+					</template>
+				</AutoComplete>
+				<small class="p-error" name="codigo_postal"></small>
+			</div>
+			<div class="col-3 mb-3">
+				<label>Localidad</label>
+				<InputText
+					id="localidad"
+					name="localidad"
+					class="w-full focus:border-primary mt-2"
+					placeholder="Localidad"
+					autocomplete="off"
+					disabled
+					v-model="patio.localidad"
+				/>
+				<small class="p-error" name="localidad"></small>
 			</div>
 		</div>
-		<div class="col-lg-2 mb-3">
-			<label>Localidad</label>
-			<InputText
-				id="localidad"
-				name="localidad"
-				class="w-full focus:border-primary mt-2"
-				placeholder="Localidad"
-				autocomplete="off"
-				disabled
-				v-model="patio.localidad"
-			/>
-			<small class="p-error" name="localidad"></small>
+		<div class="grid">
+			<div class="col-9 mb-3">
+				<label>Colonia</label>
+				<InputText
+					id="colonia"
+					name="colonia"
+					class="w-full focus:border-primary mt-2"
+					placeholder="Colonia"
+					autocomplete="off"
+					v-model="patio.colonia"
+				/>
+				<small class="p-error" name="colonia"></small>
+			</div>
+			<div class="col-3 mb-3">
+				<label>Codigo</label>
+				<InputText
+					name="c_colonia"
+					class="w-full focus:border-primary mt-2"
+					placeholder="Codigo colonia"
+					autocomplete="off"
+					disabled
+					v-model="patio.c_colonia"
+				/>
+				<small class="p-error" name="c_colonia"></small>
+			</div>
 		</div>
-		<div class="col-lg-10 mb-3">
-			<label>Colonia</label>
-			<InputText
-				id="colonia"
-				name="colonia"
-				class="w-full focus:border-primary mt-2"
-				placeholder="Colonia"
-				autocomplete="off"
-				v-model="patio.colonia"
-			/>
-			<small class="p-error" name="colonia"></small>
+		<div class="grid">
+			<div class="col-9 mb-3">
+				<label>Municipio</label>
+				<InputText
+					id="municipio"
+					name="municipio"
+					class="w-full focus:border-primary mt-2"
+					placeholder="Municipio"
+					autocomplete="off"
+					v-model="patio.municipio"
+				/>
+				<small class="p-error" name="municipio"></small>
+			</div>
+			<div class="col-3 mb-3">
+				<label>Codigo</label>
+				<InputText
+					name="c_municipio"
+					class="w-full focus:border-primary mt-2"
+					placeholder="Codigo municipio"
+					autocomplete="off"
+					disabled
+					v-model="patio.c_municipio"
+				/>
+				<small class="p-error" name="c_municipio"></small>
+			</div>
 		</div>
-		<div class="col-lg-2 mb-3">
-			<label>Codigo</label>
-			<InputText
-				name="c_colonia"
-				class="w-full focus:border-primary mt-2"
-				placeholder="Codigo colonia"
-				autocomplete="off"
-				disabled
-				v-model="patio.c_colonia"
-			/>
-			<small class="p-error" name="c_colonia"></small>
+		<div class="grid">
+			<div class="col-9 mb-3">
+				<label>Estado</label>
+				<InputText
+					id="estado"
+					name="estado"
+					class="w-full focus:border-primary mt-2"
+					placeholder="Estado"
+					autocomplete="off"
+					v-model="patio.estado"
+				/>
+				<small class="p-error" name="estado"></small>
+			</div>
+			<div class="col-3 mb-3">
+				<label>Codigo</label>
+				<InputText
+					name="c_estado"
+					class="w-full focus:border-primary mt-2"
+					placeholder="Codigo estado"
+					autocomplete="off"
+					disabled
+					v-model="patio.c_estado"
+				/>
+				<small class="p-error" name="c_estado"></small>
+			</div>
 		</div>
-		<div class="col-lg-10 mb-3">
-			<label>Municipio</label>
-			<InputText
-				id="municipio"
-				name="municipio"
-				class="w-full focus:border-primary mt-2"
-				placeholder="Municipio"
-				autocomplete="off"
-				v-model="patio.municipio"
-			/>
-			<small class="p-error" name="municipio"></small>
-		</div>
-		<div class="col-lg-2 mb-3">
-			<label>Codigo</label>
-			<InputText
-				name="c_municipio"
-				class="w-full focus:border-primary mt-2"
-				placeholder="Codigo municipio"
-				autocomplete="off"
-				disabled
-				v-model="patio.c_municipio"
-			/>
-			<small class="p-error" name="c_municipio"></small>
-		</div>
-		<div class="col-lg-10 mb-3">
-			<label>Estado</label>
-			<InputText
-				id="estado"
-				name="estado"
-				class="w-full focus:border-primary mt-2"
-				placeholder="Estado"
-				autocomplete="off"
-				v-model="patio.estado"
-			/>
-			<small class="p-error" name="estado"></small>
-		</div>
-		<div class="col-lg-2 mb-3">
-			<label>Codigo</label>
-			<InputText
-				name="c_estado"
-				class="w-full focus:border-primary mt-2"
-				placeholder="Codigo estado"
-				autocomplete="off"
-				disabled
-				v-model="patio.c_estado"
-			/>
-			<small class="p-error" name="c_estado"></small>
-		</div>
-		<div class="col-lg-10 mb-3">
-			<label>Pais</label>
-			<Dropdown
-				name="pais"
-				class="w-full focus:border-primary mt-2"
-				placeholder="Pais"
-				optionLabel="nombre"
-				filter
-				:options="paises"
-				optionValue="clave"
-				@change="selectPais(patio.pais)"
-				v-model="patio.pais"
-			/>
-			<small class="p-error" name="pais"></small>
-		</div>
-		<div class="col-lg-2 mb-3">
-			<label>Codigo</label>
-			<InputText
-				name="c_pais"
-				class="w-full focus:border-primary mt-2"
-				placeholder="Codigo pais"
-				autocomplete="off"
-				disabled
-				v-model="patio.c_pais"
-			/>
-			<small class="p-error" name="c_pais"></small>
+		<div class="grid">
+			<div class="col-9 mb-3">
+				<label>Pais</label>
+				<Dropdown
+					name="pais"
+					class="w-full focus:border-primary mt-2"
+					placeholder="Pais"
+					optionLabel="nombre"
+					filter
+					:options="paises"
+					optionValue="clave"
+					@change="selectPais(patio.pais)"
+					v-model="patio.pais"
+				/>
+				<small class="p-error" name="pais"></small>
+			</div>
+			<div class="col-3 mb-3">
+				<label>Codigo</label>
+				<InputText
+					name="c_pais"
+					class="w-full focus:border-primary mt-2"
+					placeholder="Codigo pais"
+					autocomplete="off"
+					disabled
+					v-model="patio.c_pais"
+				/>
+				<small class="p-error" name="c_pais"></small>
+			</div>
 		</div>
 		<div class="mb-3">
 			<label>Calle</label>
@@ -212,6 +226,7 @@ onMounted(() => {
 			<small class="p-error" name="calle"></small>
 		</div>
 		<div class="mb-3">
+			<label>Numero exterior</label>
 			<InputText
 				class="w-full focus:border-primary mt-2"
 				placeholder="Numero exterior"
@@ -219,6 +234,7 @@ onMounted(() => {
 			/>
 		</div>
 		<div class="mb-3">
+			<label>Numero interior</label>
 			<InputText
 				class="w-full focus:border-primary mt-2"
 				placeholder="Numero interior"

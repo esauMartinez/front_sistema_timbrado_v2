@@ -31,20 +31,21 @@ onMounted(async () => {
 	>
 		<Formulario @submit.prevent="modificar()" id="formulario" />
 		<template #footer>
-			<Button
-				label="Cancelar"
-				icon="pi pi-times"
-				@click="visible = false"
-				outlined
-				severity="danger"
-			/>
-			<Button
-				label="Modificar"
-				icon="pi pi-pencil"
-				type="submit"
-				form="formulario"
-				severity="warning"
-			/>
+			<ButtonGroup>
+				<Button
+					label="Cancelar"
+					icon="pi pi-times"
+					@click="visible = false"
+					severity="danger"
+				/>
+				<Button
+					label="Modificar"
+					icon="pi pi-pencil"
+					type="submit"
+					form="formulario"
+					severity="warning"
+				/>
+			</ButtonGroup>
 		</template>
 	</Dialog>
 </template>

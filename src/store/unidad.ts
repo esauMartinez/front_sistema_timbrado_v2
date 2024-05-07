@@ -7,6 +7,7 @@ interface UnidadStore {
 	unidades: Unidad[];
 	unidad: Unidad;
 	marcas: Marca[];
+	marca: Marca;
 	configuraciones: Configuracion[];
 }
 
@@ -26,11 +27,22 @@ export const useUnidadStore = defineStore('unidades', {
 			configuracion: null,
 			marca_id: null,
 			clase_id: null,
+			peso: null,
+			linea: null,
 		},
 		marcas: [],
+		marca: {
+			id: null,
+			nombre: null,
+			tipo: null,
+			empresa_id: null,
+		},
 		configuraciones: [],
 	}),
 	actions: {
+		setMarca(marca: Marca) {
+			this.marca = marca;
+		},
 		setUnidad(unidad: Unidad) {
 			this.unidad = unidad;
 		},

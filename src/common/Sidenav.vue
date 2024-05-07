@@ -74,7 +74,7 @@ const menu = [
 		title: 'Trimbrado',
 		href: '/Timbrado',
 		icon: 'fa fa-bell',
-		hidden: getPermiso('TRIPS', 'ver'),
+		hidden: getPermiso('TIMBRADO', 'ver'),
 	},
 	{
 		header: null,
@@ -125,8 +125,7 @@ const theme_sidenav = ref('white-theme');
 const onItemClick = (e, item) => {
 	if (item.title === 'Salir') {
 		logout();
-	} 
-	else if (item.title === 'Tema') {
+	} else if (item.title === 'Tema') {
 		darkMode.value = !darkMode.value;
 		setDarkMode(darkMode.value);
 		if (darkMode.value) {
@@ -147,7 +146,7 @@ const onToggleCollapse = (collapsed) => {
 		document.body.style.paddingLeft = '65px';
 	} else {
 		collapsedLogo.value = false;
-		document.body.style.paddingLeft = '300px';
+		document.body.style.paddingLeft = '290px';
 	}
 };
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useOperador } from '../../composables/useOperador';
 import { useError } from '../../composables/useError';
 
@@ -9,6 +9,48 @@ const { setErrores } = useError();
 onMounted(() => {
 	setErrores([]);
 });
+const estados = ref([
+	{ item: 'AGUASCALIENTES' },
+	{ item: 'BAJA CALIFORNIA' },
+	{ item: 'BAJA CALIFORNIA SUR' },
+	{ item: 'CAMPECHE' },
+	{ item: 'COAHUILA' },
+	{ item: 'COLIMA' },
+	{ item: 'CHIAPAS' },
+	{ item: 'CHIHUAHUA' },
+	{ item: 'CIUDAD DE MEXICO' },
+	{ item: 'DURANGO' },
+	{ item: 'GUANAJUATO' },
+	{ item: 'GUERRERO' },
+	{ item: 'HIDALGO' },
+	{ item: 'JALISCO' },
+	{ item: 'MEXICO' },
+	{ item: 'MICHOACAN' },
+	{ item: 'MORELOS' },
+	{ item: 'NAYARIT' },
+	{ item: 'NUEVO LEON' },
+	{ item: 'OAXACA' },
+	{ item: 'PUEBLA' },
+	{ item: 'QUERETARO' },
+	{ item: 'QUINTANA ROO' },
+	{ item: 'SAN LUIS POTOSI' },
+	{ item: 'SINALOA' },
+	{ item: 'SONORA' },
+	{ item: 'TABASCO' },
+	{ item: 'TAMAULIPAS' },
+	{ item: 'TLAXCALA' },
+	{ item: 'VERACRUZ' },
+	{ item: 'YUCATAN' },
+	{ item: 'ZACATECAS' },
+	{ item: 'ESTADO DE MEXICO' },
+	{ item: 'DISTRITO FEDERAL' },
+]);
+
+const paises = ref([
+	{ item: 'MEXICO' },
+	{ item: 'ESTADOS UNIDOS' },
+	{ item: 'CANADA' },
+]);
 </script>
 
 <template>
@@ -55,8 +97,6 @@ onMounted(() => {
 				class="w-full focus:border-primary mt-2"
 				placeholder="Fecha de nacimiento"
 				v-model="operador.fecha_nacimiento"
-				:numberOfMonths="2"
-				touchUI
 				showIcon
 			/>
 			<small class="p-error" name="fecha_nacimiento"></small>
@@ -130,22 +170,28 @@ onMounted(() => {
 		</div>
 		<div class="mb-3">
 			<label>Estado</label>
-			<InputText
+			<Dropdown
 				id="estado"
 				name="estado"
 				class="w-full focus:border-primary mt-2"
+				:options="estados"
 				placeholder="Estado"
+				optionLabel="item"
+				optionValue="item"
 				v-model="operador.estado"
 			/>
 			<small class="p-error" name="estado"></small>
 		</div>
 		<div class="mb-3">
 			<label>Pais</label>
-			<InputText
+			<Dropdown
 				id="pais"
 				name="pais"
 				class="w-full focus:border-primary mt-2"
+				:options="paises"
 				placeholder="Pais"
+				optionLabel="item"
+				optionValue="item"
 				v-model="operador.pais"
 			/>
 			<small class="p-error" name="pais"></small>

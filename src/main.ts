@@ -7,7 +7,6 @@ import VueSidebarMenu from 'vue-sidebar-menu';
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css';
 import 'primeflex/primeflex.min.css';
 
-
 // theme
 import 'primevue/resources/themes/aura-light-green/theme.css';
 // core
@@ -95,6 +94,8 @@ import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import SplitButton from 'primevue/splitbutton';
 import ButtonGroup from 'primevue/buttongroup';
+import Textarea from 'primevue/textarea';
+import Chart from 'primevue/chart';
 
 // service toast
 import ToastService from 'primevue/toastservice';
@@ -138,6 +139,8 @@ app.component('IconField', IconField);
 app.component('InputIcon', InputIcon);
 app.component('SplitButton', SplitButton);
 app.component('ButtonGroup', ButtonGroup);
+app.component('Textarea', Textarea);
+app.component('Chart', Chart);
 
 app.use(ToastService);
 app.use(createPinia());

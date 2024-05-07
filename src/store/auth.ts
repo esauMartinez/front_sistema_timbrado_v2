@@ -11,8 +11,8 @@ interface AuthStore {
 export const useAuthStore = defineStore('auth', {
 	state: (): AuthStore => ({
 		auth: {
-			email: 'aurelio@gmail.com',
-			password: 'aurelio',
+			email: '',
+			password: '',
 		},
 		estatusUsuarioAutenticado: false,
 		darkMode: false,
@@ -31,7 +31,7 @@ export const useAuthStore = defineStore('auth', {
 			this.estatusUsuarioAutenticado = estatusUsuarioAutenticado;
 			this.darkMode = darkMode;
 			if (this.estatusUsuarioAutenticado) {
-				document.body.style.paddingLeft = '300px';
+				document.body.style.paddingLeft = '290px';
 			} else {
 				this.setDarkMode(false);
 			}

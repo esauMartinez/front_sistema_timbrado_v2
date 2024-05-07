@@ -322,11 +322,38 @@ export const useRolStore = defineStore('roles', {
 			},
 			{
 				key: '9',
-				label: 'Usuario Cliente',
-				data: 'USER_CLIENT',
-				icon: 'fa fa-warehouse',
-				children: [],
+				label: 'Timbrado',
+				data: 'TIMBRADO',
+				icon: 'fa fa-bell',
+				children: [
+					{
+						key: '9-0',
+						label: 'Ver',
+						data: 'VER',
+						icon: 'fa fa-eye',
+					},
+					{
+						key: '9-1',
+						label: 'Timbrar',
+						data: 'CREAR',
+						icon: 'fa fa-plus',
+					},
+					{
+						key: '9-2',
+						label: 'Modificar',
+						data: 'MODIFICAR',
+						icon: 'fa fa-pencil',
+					},
+				],
 			},
+
+			// {
+			// 	key: '9',
+			// 	label: 'Usuario Cliente',
+			// 	data: 'USER_CLIENT',
+			// 	icon: 'fa fa-warehouse',
+			// 	children: [],
+			// },
 		],
 	}),
 	actions: {
@@ -335,6 +362,6 @@ export const useRolStore = defineStore('roles', {
 		},
 		setRol(rol: Rol) {
 			this.rol = rol;
-		}
+		},
 	},
 });

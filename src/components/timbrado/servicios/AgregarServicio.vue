@@ -45,7 +45,6 @@ onMounted(async () => {
 						filter
 						v-model="concepto.clave"
 						optionLabel="descripcion"
-						optionValue="clave"
 					/>
 					<small class="p-error" name="nombre"></small>
 				</div>

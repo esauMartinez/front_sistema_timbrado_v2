@@ -25,6 +25,16 @@ onMounted(() => {
 			<small class="p-error" name="clave"></small>
 		</div>
 		<div class="mb-3">
+			<label>Clave unidad</label>
+			<InputText
+				name="clave_unidad"
+				class="w-full focus:border-primary mt-2"
+				placeholder="Clave unidad"
+				v-model="servicio.clave_unidad"
+			/>
+			<small class="p-error" name="clave_unidad"></small>
+		</div>
+		<div class="mb-3">
 			<label>Descripcion del servicio</label>
 			<InputText
 				name="descripcion"

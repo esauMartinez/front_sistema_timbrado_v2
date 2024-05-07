@@ -5,8 +5,11 @@ import { FilterMatchMode } from 'primevue/api';
 import { formatDateWithTime } from '../../pipes/formatDate';
 import { severityTrip } from '../../pipes/severity';
 import { router } from '../../router';
+import { useAuth } from '../../composables/useAuth';
+import { useTimbrado } from '../../composables/useTimbrado';
 
 const { trips, getTrips } = useTrip();
+const { getPermiso } = useAuth();
 
 onMounted(() => {
 	getTrips();
@@ -70,11 +73,15 @@ const timbre = (id) => {
 		</Column>
 		<Column header="Acciones">
 			<template #body="{ data }">
-				<div class="flex justify-content-center">
+				<div
+					class="flex justify-content-center"
+					v-if="data.estatus !== 'CREADO'"
+				>
 					<Button
 						icon="pi pi-bell"
 						severity="success"
 						@click="timbre(data.id)"
+						v-if="!getPermiso('TIMBRADO', 'modificar')"
 					/>
 				</div>
 			</template>

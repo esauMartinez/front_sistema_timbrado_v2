@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { router } from '../../router';
 import Formulario from './Formulario.vue';
 import { useRoute } from 'vue-router';
-import { useOperador } from "../../composables/useOperador";
+import { useOperador } from '../../composables/useOperador';
 
 const visible = ref(true);
 const { operador, putOperador, getOperador } = useOperador();
@@ -14,7 +14,7 @@ const modificar = async () => {
 	if (response) {
 		router.go(-1);
 	}
-}
+};
 
 onMounted(async () => {
 	await getOperador(+route.params.id);
@@ -31,21 +31,21 @@ onMounted(async () => {
 	>
 		<Formulario @submit.prevent="modificar()" id="formulario" />
 		<template #footer>
-			<Button
-				label="Cancelar"
-				icon="pi pi-times"
-				@click="visible = false"
-				outlined
-				severity="danger"
-			/>
-			<Button
-				label="Modificar"
-				icon="pi pi-pencil"
-				type="submit"
-				form="formulario"
-				severity="warning"
-			/>
+			<ButtonGroup>
+				<Button
+					label="Cancelar"
+					icon="pi pi-times"
+					@click="visible = false"
+					severity="danger"
+				/>
+				<Button
+					label="Modificar"
+					icon="pi pi-pencil"
+					type="submit"
+					form="formulario"
+					severity="warning"
+				/>
+			</ButtonGroup>
 		</template>
 	</Dialog>
 </template>
-

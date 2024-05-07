@@ -18,7 +18,6 @@ const modificar = async () => {
 
 onMounted(async () => {
 	await getPatio(+route.params.id);
-	console.log(route.params.type);
 });
 </script>
 
@@ -32,21 +31,22 @@ onMounted(async () => {
 	>
 		<Formulario @submit.prevent="modificar()" id="formulario" />
 		<template #footer>
-			<Button
-				label="Cancelar"
-				icon="pi pi-times"
-				@click="visible = false"
-				outlined
-				severity="danger"
-			/>
-			<Button
-				label="Modificar"
-				icon="pi pi-pencil"
-				type="submit"
-				form="formulario"
-				severity="warning"
-				v-if="route.params.type === 'update'"
-			/>
+			<ButtonGroup>
+				<Button
+					label="Cancelar"
+					icon="pi pi-times"
+					@click="visible = false"
+					severity="danger"
+				/>
+				<Button
+					label="Modificar"
+					icon="pi pi-pencil"
+					type="submit"
+					form="formulario"
+					severity="warning"
+					v-if="route.params.type === 'update'"
+				/>
+			</ButtonGroup>
 		</template>
 	</Dialog>
 </template>

@@ -33,6 +33,7 @@ export const useEmpresaStore = defineStore('empresa', {
 			pais: null,
 			numero_exterior: null,
 			numero_interior: null,
+			tipo_empresa: null,
 		},
 	}),
 	actions: {

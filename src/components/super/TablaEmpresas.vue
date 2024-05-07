@@ -44,15 +44,20 @@ const filters = ref({
 		:globalFilterFields="['razon_social', 'rfc']"
 	>
 		<template #header>
-			<div class="d-flex flex-wrap align-items-center justify-content-between">
-				<span class="text-xl text-900 font-bold">Empresas</span>
-				<div>
-					<span class="p-input-icon-left me-3">
+			<div class="flex justify-content-between">
+				<IconField iconPosition="left">
+					<InputIcon>
 						<i class="pi pi-search" />
-						<InputText v-model="filters['global'].value" placeholder="Buscar" />
-					</span>
-					<Button icon="pi pi-plus" severity="success" @click="agregar" />
-				</div>
+					</InputIcon>
+					<InputText v-model="filters['global'].value" placeholder="Buscar" />
+				</IconField>
+				<Button
+					type="button"
+					icon="pi pi-plus"
+					label="Nuevo"
+					outlined
+					@click="agregar"
+				/>
 			</div>
 		</template>
 		<Column field="uuid_sw" header="UUID" sortable></Column>
@@ -84,7 +89,7 @@ const filters = ref({
 					<span class="p-buttonset">
 						<Button
 							icon="pi pi-eye"
-							severity="success"
+							severity="info"
 							label="Usuarios"
 							@click="verUsuariosEmpresa(data.id)"
 						/>

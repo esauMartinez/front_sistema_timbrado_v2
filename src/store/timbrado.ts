@@ -7,6 +7,8 @@ import { MercanciasSat, Peligroso, UnidadPeso } from '../interfaces/sat.model';
 import { Operador } from '../interfaces/operador.model';
 import { Tractor } from '../interfaces/tractor.model';
 import { Caja } from '../interfaces/caja.model';
+import { Balance, Timbre } from '../interfaces/timbre.model';
+import { Patio } from '../interfaces/patio.model';
 
 interface TimbreStore {
 	cliente: Cliente;
@@ -17,10 +19,14 @@ interface TimbreStore {
 	conceptos: Concepto[];
 	mercancia: Mercancia;
 	mercancias: Mercancia[];
-	concepto: Concepto;	
+	concepto: Concepto;
 	mercanciasSat: MercanciasSat[];
 	unidadesPeso: UnidadPeso[];
 	peligrosos: Peligroso[];
+	timbres: Timbre[];
+	movimientos: Patio[];
+	balance: Balance;
+	pdf: string;
 }
 
 export const useTimbradoStore = defineStore('timbrado', {
@@ -69,6 +75,7 @@ export const useTimbradoStore = defineStore('timbrado', {
 			pais: null,
 			numero_exterior: null,
 			numero_interior: null,
+			tipo_empresa: null,
 		},
 		operador: {
 			id: null,
@@ -104,6 +111,7 @@ export const useTimbradoStore = defineStore('timbrado', {
 			configuracion: null,
 			marca_id: null,
 			clase_id: null,
+			peso: null,
 		},
 		caja: {
 			id: null,
@@ -124,6 +132,7 @@ export const useTimbradoStore = defineStore('timbrado', {
 			id: null,
 			nombre: null,
 			clave: null,
+			clave_unidad: null,
 			monto: 0,
 			iva: 0,
 			retencion: 0,
@@ -154,6 +163,18 @@ export const useTimbradoStore = defineStore('timbrado', {
 		mercanciasSat: [],
 		unidadesPeso: [],
 		peligrosos: [],
+		movimientos: [],
+		timbres: [],
+		balance: {
+			expirationDate: null,
+			idUser: null,
+			idUserBalance: null,
+			isUnlimited: null,
+			stampsAssigned: null,
+			stampsBalance: null,
+			stampsUsed: null,
+		},
+		pdf: null,
 	}),
 	actions: {
 		setDatosTimbre(timbre: TimbreStore) {
@@ -164,12 +185,17 @@ export const useTimbradoStore = defineStore('timbrado', {
 			this.empresa = timbre.empresa;
 			this.conceptos = timbre.conceptos;
 			this.mercancias = timbre.mercancias;
+			this.timbres = timbre.timbres;
+			this.movimientos = timbre.movimientos;
 		},
 		setConceptos(conceptos: Concepto[]) {
 			this.conceptos = conceptos;
 		},
 		setConcepto(concepto: Concepto) {
 			this.concepto = concepto;
+		},
+		setMercancia(mercancia: Mercancia) {
+			this.mercancia = mercancia;
 		},
 		setMercanciasSat(mercanciasSat: MercanciasSat[]) {
 			this.mercanciasSat = mercanciasSat;
@@ -179,6 +205,12 @@ export const useTimbradoStore = defineStore('timbrado', {
 		},
 		setPeligrosos(peligrosos: Peligroso) {
 			this.peligrosos = peligrosos;
+		},
+		setPDF(pdf: string) {
+			this.pdf = pdf;
+		},
+		setBalance(balance: Balance) {
+			this.balance = balance;
 		},
 	},
 });

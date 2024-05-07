@@ -54,8 +54,8 @@ const producto = ref<MercanciasSat>({
 });
 
 const verificarTipoProducto = (e: AutoCompleteChangeEvent) => {
-	console.log(e.value);
 	producto.value = e.value;
+	mercancia.value.material_peligroso = e.value.material_peligroso;
 };
 </script>
 

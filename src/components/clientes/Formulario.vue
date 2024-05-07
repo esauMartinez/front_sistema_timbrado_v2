@@ -10,21 +10,67 @@ const {
 	usoCfdi,
 	metodosPago,
 	formasPago,
+	regimenFiscal,
 	getUsoCfdi,
 	getMetodosPago,
 	getFormasPago,
+	getRegimenFiscal,
 } = useCliente();
 
 onMounted(() => {
 	getUsoCfdi();
 	getMetodosPago();
 	getFormasPago();
+	getRegimenFiscal();
 	setErrores([]);
 });
 
 const origenes = ref([
 	{ id: 1, clave: 'nacional', nombre: 'Nacional' },
 	{ id: 2, clave: 'extranjero', nombre: 'Extranjero' },
+]);
+
+const estados = ref([
+	{ item: 'AGUASCALIENTES' },
+	{ item: 'BAJA CALIFORNIA' },
+	{ item: 'BAJA CALIFORNIA SUR' },
+	{ item: 'CAMPECHE' },
+	{ item: 'COAHUILA' },
+	{ item: 'COLIMA' },
+	{ item: 'CHIAPAS' },
+	{ item: 'CHIHUAHUA' },
+	{ item: 'CIUDAD DE MEXICO' },
+	{ item: 'DURANGO' },
+	{ item: 'GUANAJUATO' },
+	{ item: 'GUERRERO' },
+	{ item: 'HIDALGO' },
+	{ item: 'JALISCO' },
+	{ item: 'MEXICO' },
+	{ item: 'MICHOACAN' },
+	{ item: 'MORELOS' },
+	{ item: 'NAYARIT' },
+	{ item: 'NUEVO LEON' },
+	{ item: 'OAXACA' },
+	{ item: 'PUEBLA' },
+	{ item: 'QUERETARO' },
+	{ item: 'QUINTANA ROO' },
+	{ item: 'SAN LUIS POTOSI' },
+	{ item: 'SINALOA' },
+	{ item: 'SONORA' },
+	{ item: 'TABASCO' },
+	{ item: 'TAMAULIPAS' },
+	{ item: 'TLAXCALA' },
+	{ item: 'VERACRUZ' },
+	{ item: 'YUCATAN' },
+	{ item: 'ZACATECAS' },
+	{ item: 'ESTADO DE MEXICO' },
+	{ item: 'DISTRITO FEDERAL' },
+]);
+
+const paises = ref([
+	{ item: 'MEXICO' },
+	{ item: 'ESTADOS UNIDOS' },
+	{ item: 'CANADA' },
 ]);
 </script>
 
@@ -91,22 +137,28 @@ const origenes = ref([
 		</div>
 		<div class="mb-3">
 			<label>Estado</label>
-			<InputText
+			<Dropdown
 				id="estado"
 				name="estado"
 				class="w-full focus:border-primary mt-2"
+				:options="estados"
 				placeholder="Estado"
+				optionLabel="item"
+				optionValue="item"
 				v-model="cliente.estado"
 			/>
 			<small class="p-error" name="estado"></small>
 		</div>
 		<div class="mb-3">
 			<label>Pais</label>
-			<InputText
+			<Dropdown
 				id="pais"
 				name="pais"
 				class="w-full focus:border-primary mt-2"
+				:options="paises"
 				placeholder="Pais"
+				optionLabel="item"
+				optionValue="item"
 				v-model="cliente.pais"
 			/>
 			<small class="p-error" name="pais"></small>
@@ -144,7 +196,7 @@ const origenes = ref([
 			/>
 			<small class="p-error" name="numero_interior"></small>
 		</div>
-		<div class="mb-3" v-if="cliente.origen === 'nacional'">
+		<div class="mb-3">
 			<label>RFC</label>
 			<InputText
 				id="rfc"
@@ -155,7 +207,7 @@ const origenes = ref([
 			/>
 			<small class="p-error" name="rfc"></small>
 		</div>
-		<div class="mb-3" v-if="cliente.origen === 'extranjero'">
+		<div class="mb-3">
 			<label>TAXID</label>
 			<InputText
 				id="tax_id"
@@ -185,11 +237,16 @@ const origenes = ref([
 				class="w-full focus:border-primary mt-2"
 				placeholder="Uso de CFDI"
 				filter
-				optionLabel="descripcion"
+				optionLabel="clave"
 				:options="usoCfdi"
 				optionValue="clave"
 				v-model="cliente.uso_cfdi"
-			/>
+			>
+				<template #option="slotProps">
+					{{ slotProps.option.clave }} -
+					{{ slotProps.option.descripcion }}
+				</template>
+			</Dropdown>
 			<small class="p-error" name="uso_cfdi"></small>
 		</div>
 		<div class="mb-3">
@@ -199,11 +256,16 @@ const origenes = ref([
 				name="metodo_pago"
 				class="w-full focus:border-primary mt-2"
 				placeholder="Metodo de Pago"
-				optionLabel="descripcion"
+				optionLabel="clave"
 				:options="metodosPago"
 				optionValue="clave"
 				v-model="cliente.metodo_pago"
-			/>
+			>
+				<template #option="slotProps">
+					{{ slotProps.option.clave }} -
+					{{ slotProps.option.descripcion }}
+				</template>
+			</Dropdown>
 			<small class="p-error" name="metodo_pago"></small>
 		</div>
 		<div class="mb-3">
@@ -214,22 +276,37 @@ const origenes = ref([
 				class="w-full focus:border-primary mt-2"
 				placeholder="Forma de Pago"
 				filter
-				optionLabel="descripcion"
+				optionLabel="clave"
 				:options="formasPago"
 				optionValue="clave"
 				v-model="cliente.forma_pago"
-			/>
+			>
+				<template #option="slotProps">
+					{{ slotProps.option.clave }} -
+					{{ slotProps.option.descripcion }}
+				</template>
+			</Dropdown>
 			<small class="p-error" name="forma_pago"></small>
 		</div>
 		<div class="col-lg-12">
 			<label>Regimen fiscal</label>
-			<InputText
+
+			<Dropdown
 				id="regimen_fiscal"
 				name="regimen_fiscal"
 				class="w-full focus:border-primary mt-2"
 				placeholder="Regimen fiscal"
+				filter
+				optionLabel="clave"
+				:options="regimenFiscal"
+				optionValue="clave"
 				v-model="cliente.regimen_fiscal"
-			/>
+			>
+				<template #option="slotProps">
+					{{ slotProps.option.clave }} -
+					{{ slotProps.option.descripcion }}
+				</template>
+			</Dropdown>
 			<small class="p-error" name="regimen_fiscal"></small>
 		</div>
 	</form>

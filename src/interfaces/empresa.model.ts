@@ -22,4 +22,5 @@ export interface Empresa {
 	pais: string;
 	numero_exterior: string;
 	numero_interior: string;
+	tipo_empresa: string;
 }

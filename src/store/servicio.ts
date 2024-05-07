@@ -13,7 +13,8 @@ export const useServicioStore = defineStore('servicio', {
 			id: null,
 			clave: null,
 			descripcion: null,
-      estatus: true
+      estatus: true,
+			clave_unidad: null
 		},
 	}),
 	actions: {

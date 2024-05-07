@@ -55,6 +55,21 @@ export const errorServer = () => {
 	});
 };
 
+interface ErrorTimbre {
+	data: string;
+	message: string;
+	messageDetail: string;
+	status: string;
+}
+
+export const errorTimbre = (error: ErrorTimbre) => {
+	Swal.fire({
+		icon: 'error',
+		title: error.messageDetail,
+		text: error.message,
+	});
+};
+
 export const errorValidations = (lista_errores) => {
 	const { errores, setErrores } = useError();
 	if (errores.value.length !== 0) {
@@ -76,6 +91,7 @@ export const errorValidations = (lista_errores) => {
 };
 
 export const handleError = (payload) => {
+	console.log(payload.response.status);
 	switch (payload.response.status) {
 		case 401:
 			unauthorized();
@@ -88,6 +104,9 @@ export const handleError = (payload) => {
 			break;
 		case 402:
 			notFound(payload.response.data.data);
+			break;
+		case 403:
+			errorTimbre(payload.response.data);
 			break;
 		case 500:
 			errorServer();
