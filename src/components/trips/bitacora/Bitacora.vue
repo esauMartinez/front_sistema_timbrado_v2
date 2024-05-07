@@ -54,7 +54,7 @@ onMounted(() => {
 		<Timeline :value="bitacora" align="right">
 			<template #content="slotProps">
 				{{ slotProps.item.evento }}
-				<p :class="{ 'text-danger': slotProps.item.usuario === null }">
+				<p :class="{ 'text-red-500': slotProps.item.usuario === null }">
 					{{
 						slotProps.item.usuario === null
 							? 'No hay registro de usuario'

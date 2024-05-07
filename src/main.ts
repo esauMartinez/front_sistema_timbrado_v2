@@ -37,6 +37,7 @@ import {
 	faCircleInfo,
 	faTimes,
 	faFileCode,
+	faTruckFast,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -60,6 +61,7 @@ library.add(faPlus);
 library.add(faCircleInfo);
 library.add(faTimes);
 library.add(faFileCode);
+library.add(faTruckFast);
 
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';

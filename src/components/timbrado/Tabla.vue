@@ -6,7 +6,6 @@ import { formatDateWithTime } from '../../pipes/formatDate';
 import { severityTrip } from '../../pipes/severity';
 import { router } from '../../router';
 import { useAuth } from '../../composables/useAuth';
-import { useTimbrado } from '../../composables/useTimbrado';
 
 const { trips, getTrips } = useTrip();
 const { getPermiso } = useAuth();
@@ -18,9 +17,8 @@ onMounted(() => {
 const filters = ref({
 	global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 	razon_social: { value: null, matchMode: FilterMatchMode.CONTAINS },
-	operador: { value: null, matchMode: FilterMatchMode.CONTAINS },
-	paterno: { value: null, matchMode: FilterMatchMode.CONTAINS },
-	materno: { value: null, matchMode: FilterMatchMode.CONTAINS },
+	tipo_viaje: { value: null, matchMode: FilterMatchMode.CONTAINS },
+	estatus: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
 
 const timbre = (id) => {
@@ -43,11 +41,20 @@ const timbre = (id) => {
 		:globalFilterFields="[
 			'numero_trip',
 			'cliente.razon_social',
-			'operador.nombre',
-			'operador.paterno',
-			'operador.materno',
+			'tipo_viaje',
+			'estatus',
 		]"
 	>
+		<template #header>
+			<div class="flex justify-content-between">
+				<IconField iconPosition="left">
+					<InputIcon>
+						<i class="pi pi-search" />
+					</InputIcon>
+					<InputText v-model="filters['global'].value" placeholder="Buscar" />
+				</IconField>
+			</div>
+		</template>
 		<Column header="Trip">
 			<template #body="data"> TRIP-{{ data.data.numero_trip }} </template>
 		</Column>
@@ -57,18 +64,14 @@ const timbre = (id) => {
 			</template>
 		</Column>
 		<Column field="cliente.razon_social" header="Cliente"></Column>
-		<Column header="Estatus">
+		<Column header="Tipo de viaje">
 			<template #body="{ data }">
-				<Tag
-					:severity="severityTrip(data.estatus)"
-					:value="data.estatus"
-					class="w-100"
-				></Tag>
+				{{ data.tipo_viaje }}
 			</template>
 		</Column>
 		<Column header="Estatus">
 			<template #body="{ data }">
-				{{ data.tipo_viaje }}
+				<Tag :severity="severityTrip(data.estatus)" :value="data.estatus"></Tag>
 			</template>
 		</Column>
 		<Column header="Acciones">

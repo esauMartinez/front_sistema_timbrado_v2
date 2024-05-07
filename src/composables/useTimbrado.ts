@@ -1,5 +1,5 @@
 import { storeToRefs } from 'pinia';
-import { handleError } from '../helpers/messages';
+import { handleError, question } from '../helpers/messages';
 import { instance } from '../helpers/axiosInstance';
 import { useTimbradoStore } from '../store/timbrado';
 import { useServicioStore } from '../store/servicio';
@@ -32,6 +32,7 @@ export const useTimbrado = () => {
 		unidadesPeso,
 		peligrosos,
 		balance,
+		isTimbrando,
 	} = storeToRefs(timbradoStore);
 	const toast = useToast();
 
@@ -154,7 +155,6 @@ export const useTimbrado = () => {
 	};
 
 	const obtenerMercacias = async (payload: string) => {
-		console.log(payload);
 		if (payload !== '') {
 			try {
 				const { data } = await instance.get(`/sat-mercancias/${payload}`);
@@ -191,14 +191,19 @@ export const useTimbrado = () => {
 
 	const timbrar = async (trip_id: number) => {
 		try {
-			const { data } = await instance.get(`/timbrar/${trip_id}`);
-			toast.add({
-				severity: 'success',
-				summary: 'Trip',
-				detail: data.data,
-				life: 3000,
-			});
-			getDatosTimbre(trip.value.id);
+			const response = await question('Se timbrara el trip', 'Si');
+			if (response.isConfirmed) {
+				isTimbrando.value = true;
+				const { data } = await instance.get(`/timbrar/${trip_id}`);
+				toast.add({
+					severity: 'success',
+					summary: 'Timbrado',
+					detail: data.data,
+					life: 3000,
+				});
+				isTimbrando.value = false;
+				getDatosTimbre(trip.value.id);
+			}
 		} catch (error) {
 			handleError(error);
 		}
@@ -283,6 +288,7 @@ export const useTimbrado = () => {
 		mercancia,
 		timbres,
 		balance,
+		isTimbrando,
 		mercanciasSat,
 		unidadesPeso,
 		peligrosos,

@@ -33,6 +33,7 @@ const agregar = (tipo: string) => {
 		router.push({ name: 'AgregarTractorTrip' });
 	}
 };
+
 </script>
 
 <template>

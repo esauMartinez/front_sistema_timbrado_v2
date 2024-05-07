@@ -7,7 +7,7 @@ import { useTimbrado } from '../../composables/useTimbrado';
 import { usePDF } from '../../composables/usePDF';
 import { useAuth } from '../../composables/useAuth';
 
-const { trip, getDatosTimbre, timbrar, xmlTimbre } = useTimbrado();
+const { trip, getDatosTimbre, timbrar, isTimbrando, xmlTimbre } = useTimbrado();
 const { getPermiso } = useAuth();
 const { pdfTimbre } = usePDF();
 const route = useRoute();
@@ -56,5 +56,16 @@ onMounted(async () => {
 				/>
 			</ButtonGroup>
 		</template>
+	</Dialog>
+	<Dialog
+		v-model:visible="isTimbrando"
+		modal
+		:closable="false"
+		:style="{ width: '25rem' }"
+	>
+		<div class="flex justify-content-center flex-column align-items-center">
+			<ProgressSpinner class="mb-2" />
+			<h2 class="mt-5">Timbrando...</h2>
+		</div>
 	</Dialog>
 </template>

@@ -66,7 +66,7 @@ const menu = [
 		header: null,
 		title: 'Trips',
 		href: '/Trips',
-		icon: 'fa fa-plane-departure',
+		icon: 'fa fa-suitcase',
 		hidden: getPermiso('TRIPS', 'ver'),
 	},
 	{

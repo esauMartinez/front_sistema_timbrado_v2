@@ -34,16 +34,19 @@ const unauthorized = () => {
 	});
 };
 
-export const question = () => {
+export const question = (
+	text: string = 'No podras revertir esto!',
+	confirmButtonText: string = 'Si, eliminar!'
+) => {
 	return Swal.fire({
 		title: 'Estas seguro?',
-		text: 'No podras revertir esto!',
+		text,
 		icon: 'warning',
 		showCancelButton: true,
 		confirmButtonColor: '#3085d6',
 		cancelButtonColor: '#d33',
-		confirmButtonText: 'Si, eliminar!',
-		cancelButtonText: 'Cancelar',
+		confirmButtonText,
+		cancelButtonText: 'No',
 	});
 };
 

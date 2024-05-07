@@ -27,6 +27,7 @@ interface TimbreStore {
 	movimientos: Patio[];
 	balance: Balance;
 	pdf: string;
+	isTimbrando: boolean;
 }
 
 export const useTimbradoStore = defineStore('timbrado', {
@@ -175,6 +176,7 @@ export const useTimbradoStore = defineStore('timbrado', {
 			stampsUsed: null,
 		},
 		pdf: null,
+		isTimbrando: false,
 	}),
 	actions: {
 		setDatosTimbre(timbre: TimbreStore) {

@@ -13,6 +13,8 @@ const { pdfTrip } = usePDF();
 
 const visible = ref(true);
 const route = useRoute();
+const icon = ref('check');
+const textButton = ref(null);
 
 const modificar = async () => {
 	await putTrip(trip.value);
@@ -21,10 +23,28 @@ const modificar = async () => {
 onMounted(async () => {
 	await getTrip(+route.params.id);
 	await getDatosTimbre(+route.params.id);
+	tipoBoton();
 });
 
 const cerrarVentanaTrip = async () => {
 	router.go(-1);
+};
+
+const tipoBoton = () => {
+	switch (trip.value.estatus) {
+		case 'CREADO':
+			textButton.value = 'Programar';
+			icon.value = 'warehouse';
+			break;
+		case 'PROGRAMADO':
+			textButton.value = 'Transito';
+			icon.value = 'truck-fast';
+			break;
+		case 'TRANSITO':
+			textButton.value = 'Terminar';
+			icon.value = 'flag';
+			break;
+	}
 };
 </script>
 
@@ -53,8 +73,8 @@ const cerrarVentanaTrip = async () => {
 					v-if="trip.estatus !== 'CREADO'"
 				></Button>
 				<Button
-					icon="pi pi-check"
-					label="Guardar"
+					:icon="`fa fa-${icon}`"
+					:label="textButton"
 					type="submit"
 					form="formulario"
 					severity="success"

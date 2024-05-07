@@ -29,6 +29,7 @@ const filters = ref({
 	operador: { value: null, matchMode: FilterMatchMode.CONTAINS },
 	paterno: { value: null, matchMode: FilterMatchMode.CONTAINS },
 	materno: { value: null, matchMode: FilterMatchMode.CONTAINS },
+	estatus: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
 
 const showTemplate = () => {
@@ -73,6 +74,7 @@ const bitacora = (id: number) => {
 			'operador.nombre',
 			'operador.paterno',
 			'operador.materno',
+			'estatus',
 		]"
 	>
 		<template #header>
@@ -118,7 +120,6 @@ const bitacora = (id: number) => {
 				<Tag
 					:severity="severityTrip(data.estatus)"
 					:value="data.estatus"
-					class="w-100"
 				></Tag>
 			</template>
 		</Column>
@@ -131,6 +132,7 @@ const bitacora = (id: number) => {
 							severity="info"
 							@click="bitacora(data.id)"
 						/>
+						<!-- {{ data.estatus }} -->
 						<Button
 							icon="pi pi-pencil"
 							severity="warning"
@@ -152,13 +154,13 @@ const bitacora = (id: number) => {
 				<div class="text-center">
 					<i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
 					<div class="font-bold text-xl my-3">
-						¿ Quieres crear unn nuevo trip ?
+						¿ Deseas generar un nuevo trip ?
 					</div>
 				</div>
 				<div class="flex justify-content-center">
 					<Button severity="success" label="Si" @click="postTrip()"></Button>
 					<Button
-						severity="secondary"
+						severity="danger"
 						class="ml-3"
 						label="No"
 						@click="onReject()"
