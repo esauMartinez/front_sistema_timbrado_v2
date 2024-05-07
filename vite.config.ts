@@ -8,7 +8,7 @@ export default defineConfig({
 		port: 3100,
 		proxy: {
 			'/timbrado': {
-				target: 'http://localhost:3200/api/v2',
+				target: 'https://api-timbrado-pruebas-91ba3cef374b.herokuapp.com/api/v2',
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/timbrado/, ''),
 			},	
