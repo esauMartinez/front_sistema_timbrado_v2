@@ -1,10 +1,8 @@
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import { ref } from 'vue';
 import { router } from '../router';
 import { useTimbradoStore } from '../store/timbrado';
 import { storeToRefs } from 'pinia';
-import { text } from '@fortawesome/fontawesome-svg-core';
 import { useTripStore } from '../store/trip';
 import moment from 'moment';
 
@@ -68,7 +66,7 @@ export const usePDF = () => {
 	};
 
 	const pdfTimbre = (trip_id: Number) => {
-		pdfMake.vfs = pdfFonts.pdfMake.vfs;
+		(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 		const timbre = timbres.value[0];
 		const origen = movimientos.value[0];
 		const destino = movimientos.value[movimientos.value.length - 1];
@@ -961,7 +959,7 @@ export const usePDF = () => {
 	};
 
 	const pdfTrip = (trip_id: Number) => {
-		pdfMake.vfs = pdfFonts.pdfMake.vfs;
+		(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 		const timbre = timbres.value[0];
 		const origen = movimientos.value[0];
 		const destino = movimientos.value[movimientos.value.length - 1];
