@@ -346,6 +346,26 @@ export const useRolStore = defineStore('roles', {
 					},
 				],
 			},
+			{
+				key: '10',
+				label: 'Ajustes',
+				data: 'AJUSTES',
+				icon: 'fa fa-gear',
+				children: [
+					{
+						key: '10-0',
+						label: 'Ver',
+						data: 'VER',
+						icon: 'fa fa-eye',
+					},
+					{
+						key: '10-2',
+						label: 'Modificar',
+						data: 'MODIFICAR',
+						icon: 'fa fa-pencil',
+					},
+				],
+			},
 
 			// {
 			// 	key: '9',

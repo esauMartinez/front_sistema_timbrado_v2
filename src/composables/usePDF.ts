@@ -1184,46 +1184,46 @@ export const usePDF = () => {
 					columnGap: 20,
 				},
 				'-----------------------------------------------------------------------------------------------------------------------------------------------------------',
-				{
-					table: {
-						widths: [50, 50, 50, 70, 20, '*'],
-						headerRows: 2,
-						body: [
-							[
-								{
-									text: 'REMITENTE DICE QUE CONTIENE',
-									colSpan: 3,
-									alignment: 'center',
-									fontSize: 10,
-								},
-								{},
-								{},
-								{},
-								{},
-								{
-									text: 'Producto Descripcion: segun relacion anexa',
-									colSpan: 1,
-									alignment: 'center',
-									fontSize: 10,
-								},
-							],
-							[
-								{ text: 'Cantidad', fontSize: 9 },
-								{ text: 'Embalaje', fontSize: 9 },
-								{ text: 'Metros³', fontSize: 9 },
-								{ text: "Kg's est. 15,000", fontSize: 9, alignment: 'center' },
+				// {
+				// 	table: {
+				// 		widths: [50, 50, 50, 70, 20, '*'],
+				// 		headerRows: 2,
+				// 		body: [
+				// 			[
+				// 				{
+				// 					text: 'REMITENTE DICE QUE CONTIENE',
+				// 					colSpan: 3,
+				// 					alignment: 'center',
+				// 					fontSize: 10,
+				// 				},
+				// 				{},
+				// 				{},
+				// 				{},
+				// 				{},
+				// 				{
+				// 					text: 'Producto Descripcion: segun relacion anexa',
+				// 					colSpan: 1,
+				// 					alignment: 'center',
+				// 					fontSize: 10,
+				// 				},
+				// 			],
+				// 			[
+				// 				{ text: 'Cantidad', fontSize: 9 },
+				// 				{ text: 'Embalaje', fontSize: 9 },
+				// 				{ text: 'Metros³', fontSize: 9 },
+				// 				{ text: "Kg's est. 15,000", fontSize: 9, alignment: 'center' },
 
-								{ text: 'UM', fontSize: 9 },
-								{
-									text: 'se declara valor de la mercancia: valor no declarado',
-									alignment: 'center',
-									fontSize: 9,
-								},
-							],
-						],
-					},
-				},
-				'\n',
+				// 				{ text: 'UM', fontSize: 9 },
+				// 				{
+				// 					text: 'se declara valor de la mercancia: valor no declarado',
+				// 					alignment: 'center',
+				// 					fontSize: 9,
+				// 				},
+				// 			],
+				// 		],
+				// 	},
+				// },
+				// '\n',
 				{
 					table: {
 						widths: [505],

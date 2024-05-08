@@ -54,7 +54,7 @@ export const useAuth = () => {
 
 	const getNombreUsuario = () => {
 		const data = JSON.parse(localStorage.getItem('usuario'));
-		return data.nombre + ' ' + ' ' + data.paterno + ' ' + data.materno;
+		return `${data.nombre} ${data.paterno}`;
 	};
 
 	const getLogotipo = () => {

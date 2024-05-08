@@ -10,10 +10,12 @@ import { Mercancia } from '../interfaces/mercancia.model';
 import { useTripStore } from '../store/trip';
 import { Trip } from '../interfaces/trip';
 import { Patio } from '../interfaces/patio.model';
+import { usePDF } from './usePDF';
 
 export const useTimbrado = () => {
 	const timbradoStore = useTimbradoStore();
 	const servicioStore = useServicioStore();
+	const { pdfTimbre } = usePDF();
 	const tripStore = useTripStore();
 	const { trip } = storeToRefs(tripStore);
 	const { servicios } = storeToRefs(servicioStore);
@@ -201,8 +203,11 @@ export const useTimbrado = () => {
 					detail: data.data,
 					life: 3000,
 				});
-				isTimbrando.value = false;
 				getDatosTimbre(trip.value.id);
+				setTimeout(() => {
+					isTimbrando.value = false;
+					pdfTimbre(trip.value.id);
+				}, 2000);
 			}
 		} catch (error) {
 			handleError(error);

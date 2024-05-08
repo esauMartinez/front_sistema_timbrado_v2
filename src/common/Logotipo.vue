@@ -18,7 +18,7 @@ const { getLogotipo, getNombreUsuario } = useAuth();
 			v-if="getLogotipo().find === false"
 		/>
 		<div>
-			<h6 class="name-logo">{{ getNombreUsuario() }}</h6>
+			<h2 class="name-logo">{{ getNombreUsuario() }}</h2>
 		</div>
 	</div>
 </template>

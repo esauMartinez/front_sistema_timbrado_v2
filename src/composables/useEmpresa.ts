@@ -27,7 +27,6 @@ export const useEmpresa = () => {
 	const getEmpresa = async () => {
 		try {
 			const { data } = await instance.get(`/empresa`);
-			console.log(data);
 			empresaStore.setEmpresa(data);
 		} catch (error) {
 			handleError(error);
@@ -74,8 +73,19 @@ export const useEmpresa = () => {
 		}
 	};
 
-	const saveChanges = (empresa: Empresa) => {
-		console.log(empresa);
+	const putEmpresa = async (empresa: Empresa) => {
+		try {
+			const { data } = await instance.put(`/empresa`, empresa);
+			toast.add({
+				severity: 'success',
+				summary: 'Logotipo',
+				detail: data.data,
+				life: 3000,
+			});
+			getEmpresa();
+		} catch (error) {
+			handleError(error);
+		}
 	};
 
 	const getUsuariosEmpresa = async (id: number) => {
@@ -111,7 +121,7 @@ export const useEmpresa = () => {
 		getEmpresa,
 		getEmpresas,
 		postEmpresa,
-		saveChanges,
+		putEmpresa,
 		uploadLogo,
 		getUsuariosEmpresa,
 		postUsuarioEmpresa,

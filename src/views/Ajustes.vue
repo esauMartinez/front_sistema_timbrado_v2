@@ -3,7 +3,7 @@ import FormularioDatosEmpresa from '../components/ajustes/FormularioDatosEmpresa
 import FormularioLogotipo from '../components/ajustes/FormularioLogo.vue';
 import { useEmpresa } from '../composables/useEmpresa';
 
-const { empresa, saveChanges } = useEmpresa();
+const { empresa, putEmpresa } = useEmpresa();
 </script>
 
 <template>
@@ -12,18 +12,9 @@ const { empresa, saveChanges } = useEmpresa();
 			<template #content>
 				<Panel header="Datos de la empresa">
 					<FormularioDatosEmpresa
-						@submit.prevent="saveChanges(empresa)"
+						@submit.prevent="putEmpresa(empresa)"
 						id="formulario-datos-empresa"
 					/>
-					<div class="row p-2">
-						<div class="col-lg-2">
-							<Button
-								type="submit"
-								label="Modificar datos"
-								form="formulario-datos-empresa"
-							/>
-						</div>
-					</div>
 				</Panel>
 			</template>
 		</Card>
