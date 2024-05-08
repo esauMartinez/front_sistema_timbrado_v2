@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import FormularioCertificados from '../components/ajustes/FormularioCertificados.vue';
 import FormularioDatosEmpresa from '../components/ajustes/FormularioDatosEmpresa.vue';
 import FormularioLogotipo from '../components/ajustes/FormularioLogo.vue';
 import { useEmpresa } from '../composables/useEmpresa';
@@ -15,6 +16,14 @@ const { empresa, putEmpresa } = useEmpresa();
 						@submit.prevent="putEmpresa(empresa)"
 						id="formulario-datos-empresa"
 					/>
+				</Panel>
+			</template>
+		</Card>
+
+		<Card>
+			<template #content>
+				<Panel header="Certificados">
+					<FormularioCertificados />
 				</Panel>
 			</template>
 		</Card>
