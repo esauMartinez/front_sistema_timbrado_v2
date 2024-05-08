@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import { usePatio } from '../../composables/usePatio';
 import { CodigoPostal } from '../../interfaces/codigo_postal.model';
 import { useError } from '../../composables/useError';
-import { AutoCompleteChangeEvent } from "primevue/autocomplete";
+import { AutoCompleteChangeEvent } from 'primevue/autocomplete';
 
 const { patio, codigos, buscarCodigoPostal } = usePatio();
 const { setErrores } = useError();
@@ -11,7 +11,6 @@ const { setErrores } = useError();
 const tipo_patio = ref([{ tipo: 'nacional' }, { tipo: 'extranjero' }]);
 
 const selectCode = (codigo: CodigoPostal) => {
-	codigos.value = [];
 	patio.value.c_colonia = codigo.id_asenta_cpcons;
 	patio.value.c_municipio = codigo.c_mnpio;
 	patio.value.c_estado = codigo.c_estado;
@@ -21,6 +20,22 @@ const selectCode = (codigo: CodigoPostal) => {
 	patio.value.municipio = codigo.D_mnpio;
 	patio.value.estado = codigo.d_estado;
 	patio.value.localidad = codigo.c_cve_ciudad;
+};
+
+const selectPais = (pais: string) => {
+	patio.value.c_pais = pais;
+};
+
+const verificarCP = (e: AutoCompleteChangeEvent) => {
+	console.log(e.value);
+	patio.value.c_colonia = e.value.id_asenta_cpcons;
+	patio.value.c_municipio = e.value.c_mnpio;
+	patio.value.c_estado = e.value.abreviatura_estado;
+	
+	patio.value.colonia = e.value.d_asenta;
+	patio.value.municipio = e.value.D_mnpio;
+	patio.value.estado = e.value.d_estado;
+	patio.value.localidad = e.value.c_cve_ciudad;
 };
 
 interface Pais {
@@ -33,14 +48,6 @@ const paises = ref<Pais[]>([
 	{ nombre: 'ESTADOS UNIDOS', clave: 'USA' },
 	{ nombre: 'CANADA', clave: 'CAN' },
 ]);
-
-const selectPais = (pais: string) => {
-	patio.value.c_pais = pais;
-};
-
-const verificarCP = (e: AutoCompleteChangeEvent) => {
-	patio.value.c_estado = e.value.abreviatura_estado;
-};
 
 onMounted(() => {
 	setErrores([]);
