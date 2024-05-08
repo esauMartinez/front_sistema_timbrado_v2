@@ -210,6 +210,7 @@ export const useTimbrado = () => {
 				}, 2000);
 			}
 		} catch (error) {
+			isTimbrando.value = false;
 			handleError(error);
 		}
 	};
