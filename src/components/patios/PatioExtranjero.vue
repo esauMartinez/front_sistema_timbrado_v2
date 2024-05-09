@@ -59,7 +59,7 @@ const estados = ref([
 ]);
 
 const verificarEstado = (e: AutoCompleteChangeEvent) => {
-	const estado = estados.value.find((x) => x.nombre === e.value.nombre);
+	const estado = estados.value.find((x) => x.nombre === e.value);
 	patio.value.c_estado = estado.desc;
 };
 </script>

@@ -86,7 +86,7 @@ onMounted(() => {
 				<small class="p-error" name="c_pais"></small>
 			</div>
 		</div>
-		
+
 		<PatioNacional v-if="patio.tipo === 'nacional'" />
 
 		<PatioExtranjero v-if="patio.tipo == 'extranjero'" />
