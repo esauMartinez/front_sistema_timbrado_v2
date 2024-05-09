@@ -6,12 +6,14 @@ import { formatDateWithTime } from '../../pipes/formatDate';
 import { severityTrip } from '../../pipes/severity';
 import { router } from '../../router';
 import { useAuth } from '../../composables/useAuth';
+import { useTimbrado } from '../../composables/useTimbrado';
 
-const { trips, getTrips } = useTrip();
+const { trips } = useTrip();
+const { getTripsTimbrado } = useTimbrado();
 const { getPermiso } = useAuth();
 
 onMounted(() => {
-	getTrips();
+	getTripsTimbrado();
 });
 
 const filters = ref({

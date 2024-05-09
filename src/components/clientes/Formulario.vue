@@ -137,6 +137,14 @@ const paises = ref([
 		</div>
 		<div class="mb-3">
 			<label>Estado</label>
+			<InputText
+				id="estado"
+				name="estado"
+				class="w-full focus:border-primary mt-2"
+				placeholder="Estado"
+				v-model="cliente.estado"
+				v-if="cliente.origen === 'extranjero'"
+			/>
 			<Dropdown
 				id="estado"
 				name="estado"
@@ -146,6 +154,7 @@ const paises = ref([
 				optionLabel="item"
 				optionValue="item"
 				v-model="cliente.estado"
+				v-if="cliente.origen === 'nacional'"
 			/>
 			<small class="p-error" name="estado"></small>
 		</div>

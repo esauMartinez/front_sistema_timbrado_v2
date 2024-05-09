@@ -8,6 +8,8 @@ import Compressor from 'compressorjs';
 import { useUsuarioStore } from '../store/usuario';
 import { Usuario } from '../interfaces/usuario.model';
 import { router } from '../router';
+import { FileUploadSelectEvent } from 'primevue/fileupload';
+import { ref } from 'vue';
 
 export const useEmpresa = () => {
 	const empresaStore = useEmpresaStore();
@@ -115,14 +117,48 @@ export const useEmpresa = () => {
 		}
 	};
 
+	let formCertificados = new FormData();
+	let passwordCertificado = ref(null);
+
+	const certificado = (e: FileUploadSelectEvent) => {
+		formCertificados.append('cer', e.files[0]);
+	};
+
+	const key = (e: FileUploadSelectEvent) => {
+		formCertificados.append('key', e.files[0]);
+	};
+
+	const postCertificados = async () => {
+		try {
+			formCertificados.append('password', passwordCertificado.value);
+			const { data } = await instance.post(
+				`/cargar/certificados`,
+				formCertificados
+			);
+			toast.add({
+				severity: 'success',
+				summary: 'Usuario',
+				detail: data.data,
+				life: 3000,
+			});
+			return data;
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
 	return {
 		empresa,
 		empresas,
+		certificado,
+		key,
+		passwordCertificado,
 		getEmpresa,
 		getEmpresas,
 		postEmpresa,
 		putEmpresa,
 		uploadLogo,
+		postCertificados,
 		getUsuariosEmpresa,
 		postUsuarioEmpresa,
 	};

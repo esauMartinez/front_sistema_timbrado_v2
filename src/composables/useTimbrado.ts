@@ -38,6 +38,15 @@ export const useTimbrado = () => {
 	} = storeToRefs(timbradoStore);
 	const toast = useToast();
 
+	const getTripsTimbrado = async () => {
+		try {
+			const { data } = await instance.get(`/trips/todos/timbrado`);
+			tripStore.setTrips(data);
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
 	const getDatosTimbre = async (id: number) => {
 		try {
 			const { data } = await instance.get(`/getDatosTimbre/${id}`);
@@ -295,6 +304,7 @@ export const useTimbrado = () => {
 		timbres,
 		balance,
 		isTimbrando,
+		getTripsTimbrado,
 		mercanciasSat,
 		unidadesPeso,
 		peligrosos,

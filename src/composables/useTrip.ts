@@ -17,6 +17,9 @@ export const useTrip = () => {
 	const {
 		trip,
 		trips,
+		estatusTrip,
+		from,
+		to,
 		movimiento,
 		movimientos,
 		nombre_cliente,
@@ -27,10 +30,13 @@ export const useTrip = () => {
 
 	const toast = useToast();
 
-	const getTrips = async () => {
+	const getTrips = async (estatus: string) => {
 		try {
-			const { data } = await instance.get('/trips');
+			const { data } = await instance.get(
+				`/trips/${estatus}/${from.value}/${to.value}`
+			);
 			tripStore.setTrips(data);
+			estatusTrip.value = estatus;
 		} catch (error) {
 			handleError(error);
 		}
@@ -66,7 +72,13 @@ export const useTrip = () => {
 		try {
 			await instance.post(`/trips`);
 			toast.removeGroup('bc');
-			getTrips();
+			toast.add({
+				severity: 'success',
+				summary: 'Trip',
+				detail: 'Trip generado correctamente',
+				life: 3000,
+			});
+			getTrips('CREADO');
 		} catch (error) {
 			handleError(error);
 		}
@@ -77,7 +89,7 @@ export const useTrip = () => {
 			payload['movimientos'] = movimientos.value;
 			const { data } = await instance.put(`/trips/${payload.id}`, payload);
 			router.go(-1);
-			getTrips();
+			getTrips(estatusTrip.value);
 			return data;
 		} catch (error) {
 			handleError(error);
@@ -95,7 +107,7 @@ export const useTrip = () => {
 					detail: 'Trip eliminado correctamente',
 					life: 3000,
 				});
-				getTrips();
+				getTrips(estatusTrip.value);
 			}
 		} catch (error) {
 			handleError(error);
@@ -199,6 +211,9 @@ export const useTrip = () => {
 	return {
 		trip,
 		trips,
+		estatusTrip,
+		from,
+		to,
 		movimiento,
 		movimientos,
 		nombre_cliente,

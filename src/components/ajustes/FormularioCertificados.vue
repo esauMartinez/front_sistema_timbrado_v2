@@ -1,25 +1,9 @@
 <script lang="ts" setup>
-import { FileUploadSelectEvent } from 'primevue/fileupload';
 import { ref } from 'vue';
-import { instance } from '../../helpers/axiosInstance';
+import { useEmpresa } from '../../composables/useEmpresa';
 
-let formData = new FormData();
+const { certificado, key, postCertificados, passwordCertificado } = useEmpresa();
 const password = ref(null);
-
-const certificado = (e: FileUploadSelectEvent) => {
-	formData.append('cer', e.files[0]);
-};
-
-const key = (e: FileUploadSelectEvent) => {
-	formData.append('key', e.files[0]);
-};
-
-const postCertificados = async () => {
-	formData.append('password', password.value);
-	const { data } = await instance.post(`/cargar/certificados`, formData);
-	console.log(data);
-	formData = new FormData();
-};
 </script>
 
 <template>
@@ -48,7 +32,7 @@ const postCertificados = async () => {
 				/>
 			</div>
 			<div class="col-12">
-				<InputText required="true" v-model="password" class="w-full" />
+				<InputText required="true" v-model="passwordCertificado" class="w-full" />
 			</div>
 			<div class="col-2 col-offset-10">
 				<Button type="submit" label="Guardar certificados" />

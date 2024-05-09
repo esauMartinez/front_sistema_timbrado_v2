@@ -7,6 +7,7 @@ import { Operador } from '../interfaces/operador.model';
 import { Caja } from '../interfaces/caja.model';
 import { Tractor } from '../interfaces/tractor.model';
 import { Mercancia } from '../interfaces/mercancia.model';
+import moment from 'moment';
 
 interface TripStore {
 	trips: Trip[];
@@ -17,6 +18,9 @@ interface TripStore {
 	numero_economico_tractor: string;
 	movimientos: Movimiento[];
 	movimiento: Movimiento;
+	estatusTrip: string;
+	from: string;
+	to: string;
 }
 
 export const useTripStore = defineStore('trip', {
@@ -64,6 +68,9 @@ export const useTripStore = defineStore('trip', {
 			patio_id: null,
 			trip_id: null,
 		},
+		estatusTrip: 'TRANSITO',
+		from: moment().subtract(1, 'month').format('YYYY-MM-DDT00:00:00'),
+		to: moment().format('YYYY-MM-DDT23:59:59'),
 	}),
 	actions: {
 		setTrip(trip: Trip) {

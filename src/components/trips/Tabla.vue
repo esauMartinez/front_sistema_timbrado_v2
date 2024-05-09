@@ -7,15 +7,16 @@ import { useTrip } from '../../composables/useTrip';
 import { useToast } from 'primevue/usetoast';
 import { formatDateWithTime } from '../../pipes/formatDate';
 import { useAuth } from '../../composables/useAuth';
+import { CalendarMonthChangeEvent } from 'primevue/calendar';
+import moment from 'moment';
 
 const { getPermiso } = useAuth();
 const toast = useToast();
-const { trips, getTrips, postTrip } = useTrip();
-
+const { trips, estatusTrip, from, to, getTrips, postTrip } = useTrip();
 const loading = ref(true);
 
 onMounted(async () => {
-	await getTrips();
+	await getTrips(estatusTrip.value);
 	loading.value = false;
 });
 
@@ -47,6 +48,12 @@ const onReject = () => {
 
 const bitacora = (id: number) => {
 	router.push({ path: `/bitacora-trip/${id}` });
+};
+
+const dates = ref(null);
+const test = (e: CalendarMonthChangeEvent) => {
+	from.value = moment(e[0]).format('YYYY-MM-DDT00:00:00');
+	to.value = moment(e[1]).format('YYYY-MM-DDT23:59:59');
 };
 
 // const rowStyle = ({ usuario_toma_id }) => {
@@ -85,11 +92,24 @@ const bitacora = (id: number) => {
 					</InputIcon>
 					<InputText v-model="filters['global'].value" placeholder="Buscar" />
 				</IconField>
+				<ButtonGroup>
+					<Calendar
+						v-model="dates"
+						selectionMode="range"
+						showIcon
+						:manualInput="false"
+						class="mr-3"
+						@update:model-value="test"
+					/>
+					<Button @click="getTrips('CREADO')" label="Creado" />
+					<Button @click="getTrips('PROGRAMADO')" label="Programados" />
+					<Button @click="getTrips('TRANSITO')" label="Transito" />
+					<Button @click="getTrips('TERMINADO')" label="Terminado" />
+				</ButtonGroup>
 				<Button
 					@click="showTemplate"
 					icon="pi pi-plus"
 					label="Nuevo"
-					outlined
 					v-if="!getPermiso('TRIPS', 'crear')"
 				/>
 			</div>
@@ -117,10 +137,7 @@ const bitacora = (id: number) => {
 		<Column field="caja.numero_economico" header="Caja"></Column>
 		<Column header="Estatus">
 			<template #body="{ data }">
-				<Tag
-					:severity="severityTrip(data.estatus)"
-					:value="data.estatus"
-				></Tag>
+				<Tag :severity="severityTrip(data.estatus)" :value="data.estatus"></Tag>
 			</template>
 		</Column>
 		<Column header="Acciones">
@@ -132,7 +149,6 @@ const bitacora = (id: number) => {
 							severity="info"
 							@click="bitacora(data.id)"
 						/>
-						<!-- {{ data.estatus }} -->
 						<Button
 							icon="pi pi-pencil"
 							severity="warning"
