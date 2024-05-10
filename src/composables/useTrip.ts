@@ -56,8 +56,8 @@ export const useTrip = () => {
 					mercancias,
 				},
 			} = await instance.get(`/trips/${id}`);
-			const origen = movimientos[0].patio;
-			const destino = movimientos[movimientos.length - 1].patio;
+			const origen = movimientos[0]?.patio;
+			const destino = movimientos[movimientos.length - 1]?.patio;
 			tripStore.setTrip(trip);
 			tripStore.setEmpresa(empresa);
 			tripStore.setPatios([origen, destino]);
