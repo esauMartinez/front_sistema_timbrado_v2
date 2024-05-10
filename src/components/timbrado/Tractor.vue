@@ -6,11 +6,11 @@ const { tractor } = useTimbrado();
 
 <template>
 	<Panel header="Tractor">
-		<p class="m-0">Modelo: {{ tractor.modelo }}</p>
+		<p class="m-0">Modelo: {{ tractor?.modelo }}</p>
 		<Divider />
-		<p class="m-0">Matricula: {{ tractor.matricula }}</p>
+		<p class="m-0">Matricula: {{ tractor?.matricula }}</p>
 		<Divider />
-		<p class="m-0">Configuracion vehicular: {{ tractor.configuracion }}</p>
+		<p class="m-0">Configuracion vehicular: {{ tractor?.configuracion }}</p>
 	</Panel>
 </template>
 

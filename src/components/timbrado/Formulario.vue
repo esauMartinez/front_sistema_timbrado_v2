@@ -17,9 +17,6 @@ import Domicilio from "./Domicilio.vue";
 		<div class="col-12">
 			<Datos />
 		</div>
-		<!-- <div class="col-12">
-			<Domicilio />
-		</div> -->
 		<div class="col-6">
 			<Emisor />
 		</div>
@@ -48,6 +45,4 @@ import Domicilio from "./Domicilio.vue";
 			<TablaMercancias />
 		</div>
 	</div>
-
-	<router-view></router-view>
 </template>

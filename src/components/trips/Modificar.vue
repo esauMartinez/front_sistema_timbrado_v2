@@ -4,12 +4,8 @@ import { router } from '../../router';
 import Formulario from './Formulario.vue';
 import { useRoute } from 'vue-router';
 import { useTrip } from '../../composables/useTrip';
-import { usePDF } from '../../composables/usePDF';
-import { useTimbrado } from '../../composables/useTimbrado';
 
 const { trip, getTrip, putTrip } = useTrip();
-const { timbres, getDatosTimbre } = useTimbrado();
-const { pdfTrip } = usePDF();
 
 const visible = ref(true);
 const route = useRoute();
@@ -22,12 +18,11 @@ const modificar = async () => {
 
 onMounted(async () => {
 	await getTrip(+route.params.id);
-	await getDatosTimbre(+route.params.id);
 	tipoBoton();
 });
 
-const cerrarVentanaTrip = async () => {
-	router.go(-1);
+const verPdf = async (id: number) => {
+	router.push({ path: `/pdf-trip/pdf/${id}` });
 };
 
 const tipoBoton = () => {
@@ -54,7 +49,7 @@ const tipoBoton = () => {
 		modal
 		header="Trip"
 		:style="{ width: '50vw' }"
-		v-on:after-hide="cerrarVentanaTrip()"
+		v-on:after-hide="router.go(-1)"
 	>
 		<Formulario @submit.prevent="modificar()" id="formulario" />
 		<template #footer>
@@ -69,7 +64,7 @@ const tipoBoton = () => {
 					icon="pi pi-file-pdf"
 					label="PDF"
 					severity="info"
-					@click="pdfTrip(trip.id)"
+					@click="verPdf(trip.id)"
 					v-if="trip.estatus !== 'CREADO'"
 				></Button>
 				<Button

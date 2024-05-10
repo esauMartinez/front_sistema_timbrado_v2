@@ -21,14 +21,14 @@ const regimen_aduanero = ref([
 
 <template>
 	<Panel header="Tipo de viaje">
-		<p class="m-0">Tipo de viaje: {{ trip.tipo_viaje }}</p>
+		<p class="m-0">Tipo de viaje: {{ trip?.tipo_viaje }}</p>
 		<Divider />
 		<p class="m-0">
-			Ventana de carga: {{ formatDateWithTime(trip.ventana_carga) }}
+			Ventana de carga: {{ formatDateWithTime(trip?.ventana_carga) }}
 		</p>
 		<Divider />
 		<p class="m-0">
-			Ventana de entrega: {{ formatDateWithTime(trip.ventana_entrega) }}
+			Ventana de entrega: {{ formatDateWithTime(trip?.ventana_entrega) }}
 		</p>
 		<Divider />
 		<label>Regimen aduanero</label>

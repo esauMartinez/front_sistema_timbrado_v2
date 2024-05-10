@@ -4,18 +4,20 @@ import { router } from '../../router';
 import Formulario from './Formulario.vue';
 import { useRoute } from 'vue-router';
 import { useTimbrado } from '../../composables/useTimbrado';
-import { usePDF } from '../../composables/usePDF';
 import { useAuth } from '../../composables/useAuth';
 
 const { trip, getDatosTimbre, timbrar, isTimbrando, xmlTimbre } = useTimbrado();
 const { getPermiso } = useAuth();
-const { pdfTimbre } = usePDF();
 const route = useRoute();
 const visible = ref(true);
 
 onMounted(async () => {
 	await getDatosTimbre(+route.params.id);
 });
+
+const verPdf = async (id: number) => {
+	router.push({ path: `/pdf-timbre/pdf/${id}` });
+};
 </script>
 
 <template>
@@ -45,7 +47,7 @@ onMounted(async () => {
 					label="PDF"
 					icon="pi pi-file-pdf"
 					severity="info"
-					@click="pdfTimbre(trip.id)"
+					@click="verPdf(trip.id)"
 				/>
 				<Button
 					label="Timbrar"
@@ -69,4 +71,5 @@ onMounted(async () => {
 			<h2 class="mt-5">Timbrando...</h2>
 		</div>
 	</Dialog>
+	<RouterView />
 </template>

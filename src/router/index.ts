@@ -218,7 +218,7 @@ const routes: RouteRecordRaw[] = [
 					{
 						path: '/pdf-trip/pdf/:id',
 						name: 'PDFTrip',
-						component: () => import('../components/PDF.vue'),
+						component: () => import('../components/PDFTrip.vue'),
 					},
 				],
 			},
@@ -254,7 +254,7 @@ const routes: RouteRecordRaw[] = [
 					{
 						path: '/pdf-timbre/pdf/:id',
 						name: 'PDFTimbre',
-						component: () => import('../components/PDF.vue'),
+						component: () => import('../components/PDFTimbre.vue'),
 					},
 				],
 			},

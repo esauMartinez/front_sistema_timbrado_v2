@@ -9,13 +9,13 @@ import { router } from '../router';
 import { Mercancia } from '../interfaces/mercancia.model';
 import { useTripStore } from '../store/trip';
 import { Patio } from '../interfaces/patio.model';
-import { usePDF } from './usePDF';
-import { Trip } from "../interfaces/trip";
+import { usePDFTimbre } from './usePDFTimbre';
+import { Trip } from '../interfaces/trip';
 
 export const useTimbrado = () => {
 	const timbradoStore = useTimbradoStore();
 	const servicioStore = useServicioStore();
-	const { pdfTimbre } = usePDF();
+	const { pdfTimbre } = usePDFTimbre();
 	const tripStore = useTripStore();
 	const { trip } = storeToRefs(tripStore);
 	const { servicios } = storeToRefs(servicioStore);

@@ -84,7 +84,7 @@ const agregar = (tipo: string) => {
 					autocomplete="off"
 					:disabled="trip.estatus !== 'CREADO'"
 				/>
-				<!-- <small class="p-error" name="kilometros"></small> -->
+				<small class="p-error" name="referencia"></small>
 			</div>
 			<div class="mb-3">
 				<label>Observaciones</label>

@@ -47,16 +47,20 @@ export const useTrip = () => {
 			const {
 				data: trip,
 				data: {
+					empresa,
 					cliente,
 					operador,
 					caja,
 					tractor,
-					conceptos,
 					movimientos,
 					mercancias,
 				},
 			} = await instance.get(`/trips/${id}`);
+			const origen = movimientos[0].patio;
+			const destino = movimientos[movimientos.length - 1].patio;
 			tripStore.setTrip(trip);
+			tripStore.setEmpresa(empresa);
+			tripStore.setPatios([origen, destino]);
 			tripStore.setCliente(cliente);
 			tripStore.setOperador(operador);
 			tripStore.setCaja(caja);
@@ -88,8 +92,9 @@ export const useTrip = () => {
 		try {
 			payload['movimientos'] = movimientos.value;
 			const { data } = await instance.put(`/trips/${payload.id}`, payload);
-			router.go(-1);
 			getTrips(estatusTrip.value);
+			console.log('se modifico el trip');
+			router.go(-1);
 			return data;
 		} catch (error) {
 			handleError(error);
