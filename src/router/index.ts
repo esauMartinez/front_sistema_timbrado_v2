@@ -282,6 +282,11 @@ const routes: RouteRecordRaw[] = [
 		name: 'Cotizaciones',
 		component: () => import('../views/Cotizacion.vue'),
 	},
+	{
+		path: '/:pathMatch(.*)*',
+		name: 'NotFound',
+		component: () => import('../views/Home.vue'),
+	},
 ];
 
 export const router = createRouter({
