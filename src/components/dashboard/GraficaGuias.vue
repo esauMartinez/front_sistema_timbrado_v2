@@ -71,8 +71,6 @@ const setChartOptions = () => {
 };
 
 onMounted(async () => {
-	await getTrips();
-	console.log(trips.value.length);
 	chartData.value = setChartData();
 	chartOptions.value = setChartOptions();
 });

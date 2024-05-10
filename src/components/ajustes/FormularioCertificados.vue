@@ -17,7 +17,7 @@ const password = ref(null);
 					chooseLabel="Certificado(.cer)"
 					customUpload
 					accept=".cer"
-					@select="certificado($event)"
+					@select="certificado"
 				/>
 			</div>
 			<div class="col-6">
@@ -28,7 +28,7 @@ const password = ref(null);
 					chooseLabel="Key(.key)"
 					customUpload
 					accept=".key"
-					@select="key($event)"
+					@select="key"
 				/>
 			</div>
 			<div class="col-12">

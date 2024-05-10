@@ -6,7 +6,7 @@ import { useCliente } from '../../composables/useCliente';
 import { useError } from '../../composables/useError';
 
 const { roles, getRoles } = useRol();
-const { usuario, rolFormateado } = useUsuario();
+const { usuario } = useUsuario();
 const { clientes, getClientes } = useCliente();
 const { setErrores } = useError();
 

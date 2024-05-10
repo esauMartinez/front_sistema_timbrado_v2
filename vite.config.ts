@@ -11,7 +11,7 @@ export default defineConfig({
 		// 		target: 'https://api-timbrado-pruebas-91ba3cef374b.herokuapp.com/api/v2',
 		// 		changeOrigin: true,
 		// 		rewrite: (path) => path.replace(/^\/timbrado/, ''),
-		// 	},	
+		// 	},
 		// },
 	},
 });

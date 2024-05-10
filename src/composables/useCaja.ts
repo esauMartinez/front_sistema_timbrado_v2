@@ -107,6 +107,7 @@ export const useCaja = () => {
 			marca_id: null,
 			clase_id: null,
 			peso: null,
+			linea: null,
 		});
 	};
 

@@ -82,8 +82,6 @@ export const useTractor = () => {
 		}
 	};
 
-	
-
 	const getConfiguraciones = async () => {
 		try {
 			const { data } = await instance.get('/configuraciones/TRACTOR');
@@ -108,6 +106,7 @@ export const useTractor = () => {
 			marca_id: null,
 			clase_id: null,
 			peso: null,
+			linea: null,
 		});
 	};
 

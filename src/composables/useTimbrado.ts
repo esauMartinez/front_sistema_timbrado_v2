@@ -8,9 +8,9 @@ import { useToast } from 'primevue/usetoast';
 import { router } from '../router';
 import { Mercancia } from '../interfaces/mercancia.model';
 import { useTripStore } from '../store/trip';
-import { Trip } from '../interfaces/trip';
 import { Patio } from '../interfaces/patio.model';
 import { usePDF } from './usePDF';
+import { Trip } from "../interfaces/trip";
 
 export const useTimbrado = () => {
 	const timbradoStore = useTimbradoStore();

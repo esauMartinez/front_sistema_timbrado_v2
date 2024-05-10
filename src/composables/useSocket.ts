@@ -29,7 +29,7 @@ export const useSocket = () => {
 				detail: data,
 				life: 5000,
 			});
-			getTrips();
+			// getTrips();
 		});
 
 		state.socket.on('take trip', (data) => {
@@ -41,7 +41,7 @@ export const useSocket = () => {
 					life: 5000,
 				});
 			}
-			getTrips();
+			// getTrips();
 		});
 	};
 
