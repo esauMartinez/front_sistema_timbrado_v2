@@ -10,7 +10,7 @@ const { trip, getTrip, putTrip } = useTrip();
 const visible = ref(true);
 const route = useRoute();
 const icon = ref('check');
-const textButton = ref(null);
+const textButton = ref('');
 
 const modificar = async () => {
 	await putTrip(trip.value);

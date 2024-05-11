@@ -211,7 +211,7 @@ const agregar = (tipo: string) => {
 			</div>
 			<div class="mb-3">
 				<label>Kilometros</label>
-				<InputText
+				<InputNumber
 					name="kilometros"
 					v-model="trip.kilometros"
 					class="w-full focus:border-primary mt-2"
@@ -219,11 +219,11 @@ const agregar = (tipo: string) => {
 					autocomplete="off"
 					:disabled="trip.estatus !== 'CREADO'"
 				/>
-				<!-- <small class="p-error" name="kilometros"></small> -->
+				<small class="p-error" name="kilometros"></small>
 			</div>
 			<div class="mb-3">
-				<label>Combustible</label>
-				<InputText
+				<label>Combustible(lts)</label>
+				<InputNumber
 					name="combustible"
 					v-model="trip.combustible"
 					class="w-full focus:border-primary mt-2"
@@ -234,8 +234,8 @@ const agregar = (tipo: string) => {
 				<!-- <small class="p-error" name="combustible"></small> -->
 			</div>
 			<div class="mb-3">
-				<label>Viaticos</label>
-				<InputText
+				<label>Viaticos($)</label>
+				<InputNumber
 					name="viaticos"
 					v-model="trip.viaticos"
 					class="w-full focus:border-primary mt-2"
@@ -246,8 +246,8 @@ const agregar = (tipo: string) => {
 				<!-- <small class="p-error" name="viaticos"></small> -->
 			</div>
 			<div class="mb-3">
-				<label>Casetas</label>
-				<InputText
+				<label>Casetas($)</label>
+				<InputNumber
 					name="casetas"
 					v-model="trip.casetas"
 					class="w-full focus:border-primary mt-2"

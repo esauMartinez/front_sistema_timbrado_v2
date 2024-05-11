@@ -33,6 +33,7 @@ export const useAuthStore = defineStore('auth', {
 			if (this.estatusUsuarioAutenticado) {
 				document.body.style.paddingLeft = '290px';
 			} else {
+				document.body.style.paddingLeft = '0px';
 				this.setDarkMode(false);
 			}
 		},

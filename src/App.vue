@@ -2,33 +2,22 @@
 import { onMounted } from 'vue';
 import Sidenav from './common/Sidenav.vue';
 import { useAuth } from './composables/useAuth';
-import { verificarUsuarioAutenticado } from './guards/verificarUsuarioAutenticado';
+
+const { estatusUsuarioAutenticado } = useAuth();
+
+// const data = JSON.parse(localStorage.getItem('usuario'));
+// const rol = localStorage.getItem('rol');
+// if (data !== null && rol !== 'USER_SUPER_ADMIN') {
+// 	connect(`empresa_${data.empresa.id}`, data.id);
+// }
+
 // import { state, useSocket } from './composables/useSocket';
-
-const {
-	estatusUsuarioAutenticado,
-	setDarkMode,
-	setUsuarioAutenticado,
-	verificarDarkMode,
-} = useAuth();
-
 // const { connect } = useSocket();
-
-onMounted(() => {
-	setDarkMode(verificarDarkMode());
-	setUsuarioAutenticado(verificarUsuarioAutenticado());
-	const data = JSON.parse(localStorage.getItem('usuario'));
-	const rol = localStorage.getItem('rol');
-	// if (data !== null && rol !== 'USER_SUPER_ADMIN') {
-	// 	connect(`empresa_${data.empresa.id}`, data.id);
-	// }
-});
 </script>
 
 <template>
 	<Sidenav v-if="estatusUsuarioAutenticado" />
-	<Toast position="top-right" />
 	<router-view></router-view>
-</template>
 
-<style scoped></style>
+	<Toast position="top-right" />
+</template>

@@ -7,18 +7,12 @@ import { useTrip } from '../../composables/useTrip';
 import { useToast } from 'primevue/usetoast';
 import { formatDateWithTime } from '../../pipes/formatDate';
 import { useAuth } from '../../composables/useAuth';
-import { CalendarMonthChangeEvent } from 'primevue/calendar';
 import moment from 'moment';
 
 const { getPermiso } = useAuth();
 const toast = useToast();
 const { trips, estatusTrip, from, to, getTrips, postTrip } = useTrip();
 const loading = ref(true);
-
-onMounted(async () => {
-	await getTrips(estatusTrip.value);
-	loading.value = false;
-});
 
 const modificar = (id: number) => {
 	router.push({ path: `/modificar-trip/${id}` });
@@ -50,11 +44,11 @@ const bitacora = (id: number) => {
 	router.push({ path: `/bitacora-trip/${id}` });
 };
 
-const dates = ref(null);
-const test = (e: CalendarMonthChangeEvent) => {
-	from.value = moment(e[0]).format('YYYY-MM-DDT00:00:00');
-	to.value = moment(e[1]).format('YYYY-MM-DDT23:59:59');
-};
+
+onMounted(async () => {
+	await getTrips(estatusTrip.value);
+	loading.value = false;
+});
 
 // const rowStyle = ({ usuario_toma_id }) => {
 // 	if (usuario_toma_id !== null) {
@@ -93,14 +87,8 @@ const test = (e: CalendarMonthChangeEvent) => {
 					<InputText v-model="filters['global'].value" placeholder="Buscar" />
 				</IconField>
 				<ButtonGroup>
-					<Calendar
-						v-model="dates"
-						selectionMode="range"
-						showIcon
-						:manualInput="false"
-						class="mr-3"
-						@update:model-value="test"
-					/>
+					<Calendar v-model="from" :manualInput="false" />
+					<Calendar v-model="to" :manualInput="false" class="mr-3" />
 					<Button @click="getTrips('CREADO')" label="Creado" />
 					<Button @click="getTrips('PROGRAMADO')" label="Programados" />
 					<Button @click="getTrips('TRANSITO')" label="Transito" />

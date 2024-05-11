@@ -20,10 +20,10 @@ export interface Trip {
 	destino_id: number;
 	ventana_carga: Date;
 	ventana_entrega: Date;
-	kilometros: string;
-	combustible: string;
-	viaticos: string;
-	casetas: string;
+	kilometros: number;
+	combustible: number;
+	viaticos: number;
+	casetas: number;
 	regimen_aduanero: string;
 	referencia: string;
 	observaciones: string;

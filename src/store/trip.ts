@@ -7,7 +7,6 @@ import { Caja } from '../interfaces/caja.model';
 import { Tractor } from '../interfaces/tractor.model';
 import { Mercancia } from '../interfaces/mercancia.model';
 import { Trip } from '../interfaces/trip';
-import moment from 'moment';
 import { Empresa } from '../interfaces/empresa.model';
 import { Concepto } from '../interfaces/concepto.model';
 
@@ -29,8 +28,6 @@ interface TripStore {
 	movimientos: Movimiento[];
 	movimiento: Movimiento;
 	estatusTrip: string;
-	from: string;
-	to: string;
 	pdf: string;
 }
 
@@ -59,10 +56,10 @@ export const useTripStore = defineStore('trip', {
 			destino_id: null,
 			ventana_carga: null,
 			ventana_entrega: null,
-			kilometros: null,
-			combustible: null,
-			viaticos: null,
-			casetas: null,
+			kilometros: 0,
+			combustible: 0,
+			viaticos: 0,
+			casetas: 0,
 			regimen_aduanero: null,
 			referencia: null,
 			observaciones: null,
@@ -179,8 +176,6 @@ export const useTripStore = defineStore('trip', {
 			trip_id: null,
 		},
 		estatusTrip: 'TRANSITO',
-		from: moment().subtract(1, 'month').format('YYYY-MM-DDT00:00:00'),
-		to: moment().format('YYYY-MM-DDT23:59:59'),
 		pdf: null,
 	}),
 	actions: {

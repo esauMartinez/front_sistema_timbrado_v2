@@ -10,6 +10,8 @@ import { Operador } from '../interfaces/operador.model';
 import { Caja } from '../interfaces/caja.model';
 import { Tractor } from '../interfaces/tractor.model';
 import { router } from '../router';
+import { ref } from 'vue';
+import moment from 'moment';
 
 export const useTrip = () => {
 	const tripStore = useTripStore();
@@ -18,8 +20,6 @@ export const useTrip = () => {
 		trip,
 		trips,
 		estatusTrip,
-		from,
-		to,
 		movimiento,
 		movimientos,
 		nombre_cliente,
@@ -29,11 +29,16 @@ export const useTrip = () => {
 	} = storeToRefs(tripStore);
 
 	const toast = useToast();
+	const initialDate = moment().subtract(1, 'month').format();
+	const from = ref(new Date(initialDate));
+	const to = ref(new Date());
 
 	const getTrips = async (estatus: string) => {
 		try {
+			const formatFromDate = moment(from.value).format('YYYY-MM-DDThh:mm:ss');
+			const formatToDate = moment(to.value).format('YYYY-MM-DDThh:mm:ss');
 			const { data } = await instance.get(
-				`/trips/${estatus}/${from.value}/${to.value}`
+				`/trips/${estatus}/${formatFromDate}/${formatToDate}`
 			);
 			tripStore.setTrips(data);
 			estatusTrip.value = estatus;

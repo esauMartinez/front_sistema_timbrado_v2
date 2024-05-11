@@ -25,7 +25,7 @@ const unauthorized = () => {
 	Swal.fire({
 		icon: 'error',
 		title: 'Oops...',
-		text: 'No tienes permisos para acceder a este recurso',
+		text: 'No tienes permisos para acceder a este recurso o tu sesion a expirado',
 		allowEnterKey: false,
 		allowOutsideClick: false,
 		allowEscapeKey: false,

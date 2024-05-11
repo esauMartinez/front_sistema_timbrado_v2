@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { verificarUsuarioAutenticado } from '../guards/verificarUsuarioAutenticado';
+import { useAuthStore } from '../store/auth';
+import { storeToRefs } from 'pinia';
+import { useAuth } from '../composables/useAuth';
+import { verificarDarkMode } from '../guards/verificarDarkMode';
 
 const routes: RouteRecordRaw[] = [
 	{
@@ -295,9 +299,21 @@ export const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+	const authStore = useAuthStore();
+	const { estatusUsuarioAutenticado } = storeToRefs(authStore);
+	const { setUsuarioAutenticado, setDarkMode } = useAuth();
+
 	if (!verificarUsuarioAutenticado() && to.name !== 'Login') {
 		next('/');
+		estatusUsuarioAutenticado.value = false;
 	} else {
-		next();
+		if (to.name === 'Login' && verificarUsuarioAutenticado()) {
+			next('/home');
+		} else {
+			next();
+		}
 	}
+
+	setUsuarioAutenticado(verificarUsuarioAutenticado());
+	setDarkMode(verificarDarkMode());
 });

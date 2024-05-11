@@ -89,17 +89,11 @@ export const useAuth = () => {
 
 	const setDarkMode = (darkMode: boolean) => {
 		authStore.setDarkMode(darkMode);
-	};
+	}
 
-	const verificarDarkMode = (): boolean => {
-		const darkModeStorage: boolean = JSON.parse(
-			localStorage.getItem('dark-mode')
-		);
-		return darkModeStorage;
-	};
 
 	const logout = (): void => {
-		const rol = localStorage.getItem('rol');
+		// const rol = localStorage.getItem('rol');
 		localStorage.removeItem('rol');
 		localStorage.removeItem('usuario');
 		document.body.style.paddingLeft = '0px';
@@ -127,6 +121,5 @@ export const useAuth = () => {
 		getNombreUsuario,
 		getLogotipo,
 		setUsuarioAutenticado,
-		verificarDarkMode,
 	};
 };
