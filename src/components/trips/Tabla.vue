@@ -7,7 +7,6 @@ import { useTrip } from '../../composables/useTrip';
 import { useToast } from 'primevue/usetoast';
 import { formatDateWithTime } from '../../pipes/formatDate';
 import { useAuth } from '../../composables/useAuth';
-import moment from 'moment';
 
 const { getPermiso } = useAuth();
 const toast = useToast();
@@ -44,7 +43,6 @@ const bitacora = (id: number) => {
 	router.push({ path: `/bitacora-trip/${id}` });
 };
 
-
 onMounted(async () => {
 	await getTrips(estatusTrip.value);
 	loading.value = false;
@@ -55,6 +53,16 @@ onMounted(async () => {
 // 		return { background: '#979191' };
 // 	}
 // };
+
+const size = ref({ label: 'Small', value: 'small' });
+const estatus = ref({label: 'Transito', value: 'TRANSITO'})
+const estatusOptions = ref([
+	{ label: 'Creado', value: 'CREADO' },
+	{ label: 'Programado', value: 'PROGRAMADO' },
+	{ label: 'Transito', value: 'TRANSITO' },
+	{ label: 'Terminado', value: 'TERMINADO' },
+	{ label: 'Ttodos', value: 'TODOS' },
+]);
 </script>
 
 <template>
@@ -65,6 +73,7 @@ onMounted(async () => {
 		stripedRows
 		paginator
 		:rows="10"
+		:size="size.value"
 		:rowsPerPageOptions="[10, 50, 100]"
 		:class="[{ 'p-datatable-sm': true }]"
 		dataKey="id"
@@ -86,14 +95,17 @@ onMounted(async () => {
 					</InputIcon>
 					<InputText v-model="filters['global'].value" placeholder="Buscar" />
 				</IconField>
-				<ButtonGroup>
-					<Calendar v-model="from" :manualInput="false" />
+				<div>
+					<Calendar v-model="from" :manualInput="false" class="mr-1" />
 					<Calendar v-model="to" :manualInput="false" class="mr-3" />
-					<Button @click="getTrips('CREADO')" label="Creado" />
-					<Button @click="getTrips('PROGRAMADO')" label="Programados" />
-					<Button @click="getTrips('TRANSITO')" label="Transito" />
-					<Button @click="getTrips('TERMINADO')" label="Terminado" />
-				</ButtonGroup>
+				</div>
+				<SelectButton
+					v-model="estatus"
+					:options="estatusOptions"
+					optionLabel="label"
+					dataKey="label"
+					@click="getTrips(estatus.value)"
+				/>
 				<Button
 					@click="showTemplate"
 					icon="pi pi-plus"

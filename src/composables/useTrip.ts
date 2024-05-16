@@ -29,14 +29,14 @@ export const useTrip = () => {
 	} = storeToRefs(tripStore);
 
 	const toast = useToast();
-	const initialDate = moment().subtract(1, 'month').format();
+	const initialDate = moment().subtract(1, 'week').format();
 	const from = ref(new Date(initialDate));
 	const to = ref(new Date());
 
 	const getTrips = async (estatus: string) => {
 		try {
-			const formatFromDate = moment(from.value).format('YYYY-MM-DDThh:mm:ss');
-			const formatToDate = moment(to.value).format('YYYY-MM-DDThh:mm:ss');
+			const formatFromDate = moment(from.value).format('YYYY-MM-DDT00:00:00');
+			const formatToDate = moment(to.value).format('YYYY-MM-DDT23:59:59');
 			const { data } = await instance.get(
 				`/trips/${estatus}/${formatFromDate}/${formatToDate}`
 			);

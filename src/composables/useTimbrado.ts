@@ -216,6 +216,7 @@ export const useTimbrado = () => {
 				setTimeout(() => {
 					isTimbrando.value = false;
 					pdfTimbre(trip.value.id);
+					getTripsTimbrado();
 				}, 2000);
 			}
 		} catch (error) {

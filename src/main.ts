@@ -98,6 +98,7 @@ import SplitButton from 'primevue/splitbutton';
 import ButtonGroup from 'primevue/buttongroup';
 import Textarea from 'primevue/textarea';
 import Chart from 'primevue/chart';
+import SelectButton from 'primevue/selectbutton';
 
 // service toast
 import ToastService from 'primevue/toastservice';
@@ -143,6 +144,7 @@ app.component('SplitButton', SplitButton);
 app.component('ButtonGroup', ButtonGroup);
 app.component('Textarea', Textarea);
 app.component('Chart', Chart);
+app.component('SelectButton', SelectButton);
 
 app.use(ToastService);
 app.use(createPinia());

@@ -7,13 +7,13 @@ import { severityTrip } from '../../pipes/severity';
 import { router } from '../../router';
 import { useAuth } from '../../composables/useAuth';
 import { useTimbrado } from '../../composables/useTimbrado';
+import { Timbre } from '../../interfaces/timbre.model';
 
-const { trips } = useTrip();
-const { getTripsTimbrado } = useTimbrado();
+const { trips, estatusTrip, from, to, getTrips } = useTrip();
 const { getPermiso } = useAuth();
 
-onMounted(() => {
-	getTripsTimbrado();
+onMounted(async () => {
+	await getTrips('TODOS');
 });
 
 const filters = ref({
@@ -23,18 +23,28 @@ const filters = ref({
 	estatus: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
 
+const expandedRows = ref({});
+
 const timbre = (id) => {
 	router.push({ path: `/timbrar-trip/${id}` });
 };
+
+const severityEstatus = (data: Timbre) => {
+	return data.estatus === 'CANCELADO' ? 'danger' : 'success';
+};
+
+const size = ref({ label: 'Small', value: 'small' });
 </script>
 
 <template>
 	<DataTable
 		v-model:filters="filters"
+		v-model:expandedRows="expandedRows"
 		:value="trips"
 		showGridlines
 		stripedRows
 		paginator
+		:size="size.value"
 		:rows="10"
 		:rowsPerPageOptions="[10, 50, 100]"
 		:class="[{ 'p-datatable-sm': true }]"
@@ -55,8 +65,22 @@ const timbre = (id) => {
 					</InputIcon>
 					<InputText v-model="filters['global'].value" placeholder="Buscar" />
 				</IconField>
+				<ButtonGroup>
+					<Calendar
+						v-model="from"
+						:manualInput="false"
+						class="mr-2"
+						:update="getTrips('TODOS')"
+					/>
+					<Calendar
+						v-model="to"
+						:manualInput="false"
+						:update="getTrips('TODOS')"
+					/>
+				</ButtonGroup>
 			</div>
 		</template>
+		<Column expander style="width: 5rem" />
 		<Column header="Trip">
 			<template #body="data"> TRIP-{{ data.data.numero_trip }} </template>
 		</Column>
@@ -71,12 +95,20 @@ const timbre = (id) => {
 				{{ data.tipo_viaje }}
 			</template>
 		</Column>
-		<Column header="Estatus">
+		<Column header="Etatus timbre" headerStyle="width:10rem">
+			<template #body="{ data }">
+				<Tag
+					:severity="data.isTimbrado ? 'success' : 'danger'"
+					:value="data.isTimbrado ? 'Trip timbrado' : 'Trip sin timbre'"
+				></Tag>
+			</template>
+		</Column>
+		<Column header="Estatus trip" headerStyle="width:4rem">
 			<template #body="{ data }">
 				<Tag :severity="severityTrip(data.estatus)" :value="data.estatus"></Tag>
 			</template>
 		</Column>
-		<Column header="Acciones">
+		<Column header="Acciones" headerStyle="width:4rem">
 			<template #body="{ data }">
 				<div
 					class="flex justify-content-center"
@@ -91,5 +123,37 @@ const timbre = (id) => {
 				</div>
 			</template>
 		</Column>
+		<template #expansion="slotProps">
+			<div class="p-1">
+				<DataTable :value="slotProps.data.timbres">
+					<Column header="Fecha">
+						<template #body="{ data }">
+							{{ formatDateWithTime(data.fecha_timbrado) }}
+						</template>
+					</Column>
+					<Column field="uuid" header="UUID"></Column>
+					<Column field="idccp" header="IDCCP"></Column>
+					<Column field="estatus" header="Estatus" headerStyle="width:4rem">
+						<template #body="{ data }">
+							<Tag
+								:severity="severityEstatus(data)"
+								:value="data.estatus"
+							></Tag>
+						</template>
+					</Column>
+					<Column headerStyle="width:4rem">
+						<template #body="{ data }">
+							<div class="flex justify-content-center">
+								<Button
+									icon="pi pi-times"
+									severity="danger"
+									v-if="data.estatus === 'CREADO'"
+								/>
+							</div>
+						</template>
+					</Column>
+				</DataTable>
+			</div>
+		</template>
 	</DataTable>
 </template>
