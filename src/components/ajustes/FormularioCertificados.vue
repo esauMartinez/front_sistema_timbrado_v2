@@ -34,8 +34,8 @@ const password = ref(null);
 			<div class="col-12">
 				<InputText required="true" v-model="passwordCertificado" class="w-full" />
 			</div>
-			<div class="col-2 col-offset-10">
-				<Button type="submit" label="Guardar certificados" />
+			<div class="col-4 col-offset-8">
+				<Button type="submit" class="w-full" icon="fa fa-check" label="Guardar certificados" />
 			</div>
 		</div>
 	</form>

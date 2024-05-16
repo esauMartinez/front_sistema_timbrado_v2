@@ -8,8 +8,8 @@ const { empresa, putEmpresa } = useEmpresa();
 </script>
 
 <template>
-	<div class="m-margin-top">
-		<Card>
+	<div class="grid m-margin-top">
+		<Card class="col-6 col-offset-3">
 			<template #content>
 				<Panel header="Datos de la empresa">
 					<FormularioDatosEmpresa
@@ -20,7 +20,7 @@ const { empresa, putEmpresa } = useEmpresa();
 			</template>
 		</Card>
 
-		<Card class="mt-3">
+		<Card class="col-6 col-offset-3 mt-3">
 			<template #content>
 				<Panel header="Certificados">
 					<FormularioCertificados />
@@ -28,7 +28,7 @@ const { empresa, putEmpresa } = useEmpresa();
 			</template>
 		</Card>
 
-		<Card class="mt-3">
+		<Card class="col-6 col-offset-3 mt-3">
 			<template #content>
 				<Panel header="Logotipo de la empresa">
 					<FormularioLogotipo />

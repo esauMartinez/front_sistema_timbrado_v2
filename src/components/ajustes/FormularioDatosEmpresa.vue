@@ -122,7 +122,7 @@ onMounted(async () => {
 					v-model="empresa.numero_permiso_sct"
 				/>
 			</div>
-			<div class="col-2 col-offset-10">
+			<div class="col-4 col-offset-8">
 				<Button
 					type="submit"
 					icon="pi pi-pencil"
