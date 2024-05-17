@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
 	plugins: [vue()],
 	// base: '/timbrado/',
-	base: '/pruebas/',
+	// base: '/pruebas/',
 	server: {
 		port: 3100,
 		// proxy: {
