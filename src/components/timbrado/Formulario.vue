@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import Operador from './Operador.vue';
-import Emisor from './Emisor.vue';
-import Receptor from './Receptor.vue';
+import Operador from './datos/Operador.vue';
+import Emisor from './datos/Emisor.vue';
+import Receptor from './datos/Receptor.vue';
 import TablaMercancias from './mercancias/Tabla.vue';
 import TablaServicios from './servicios/Tabla.vue';
-import TipoViaje from "./TipoViaje.vue";
-import Tractor from './Tractor.vue';
-import Caja from "./Caja.vue";
-import Permiso from "./Permiso.vue";
-import Datos from "./Datos.vue";
-import Domicilio from "./Domicilio.vue";
+import TipoViaje from "./datos/TipoViaje.vue";
+import Tractor from './datos/Tractor.vue';
+import Caja from "./datos/Caja.vue";
+import Permiso from "./datos/Permiso.vue";
+import Datos from "./datos/Datos.vue";
+import Domicilio from "./datos/Domicilio.vue";
 </script>
 
 <template>

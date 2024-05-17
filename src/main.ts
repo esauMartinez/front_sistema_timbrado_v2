@@ -99,6 +99,8 @@ import ButtonGroup from 'primevue/buttongroup';
 import Textarea from 'primevue/textarea';
 import Chart from 'primevue/chart';
 import SelectButton from 'primevue/selectbutton';
+import Password from 'primevue/password';
+import FloatLabel from 'primevue/floatlabel';
 
 // service toast
 import ToastService from 'primevue/toastservice';
@@ -145,6 +147,8 @@ app.component('ButtonGroup', ButtonGroup);
 app.component('Textarea', Textarea);
 app.component('Chart', Chart);
 app.component('SelectButton', SelectButton);
+app.component('Password', Password);
+app.component('FloatLabel', FloatLabel);
 
 app.use(ToastService);
 app.use(createPinia());

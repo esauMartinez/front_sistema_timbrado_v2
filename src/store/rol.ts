@@ -344,6 +344,12 @@ export const useRolStore = defineStore('roles', {
 						data: 'MODIFICAR',
 						icon: 'fa fa-pencil',
 					},
+					{
+						key: '9-3',
+						label: 'Cancelar',
+						data: 'ELIMINAR',
+						icon: 'fa fa-times',
+					},
 				],
 			},
 			{

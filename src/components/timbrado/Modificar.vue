@@ -59,17 +59,5 @@ const verPdf = async (id: number) => {
 			</ButtonGroup>
 		</template>
 	</Dialog>
-
-	<Dialog
-		v-model:visible="isTimbrando"
-		modal
-		:closable="false"
-		:style="{ width: '25rem' }"
-	>
-		<div class="flex justify-content-center flex-column align-items-center">
-			<ProgressSpinner class="mb-2" />
-			<h2 class="mt-5">Timbrando...</h2>
-		</div>
-	</Dialog>
-	<RouterView />
+	<router-view></router-view>
 </template>

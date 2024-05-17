@@ -61,7 +61,7 @@ const estatusOptions = ref([
 	{ label: 'Programado', value: 'PROGRAMADO' },
 	{ label: 'Transito', value: 'TRANSITO' },
 	{ label: 'Terminado', value: 'TERMINADO' },
-	{ label: 'Ttodos', value: 'TODOS' },
+	{ label: 'Todos', value: 'TODOS' },
 ]);
 </script>
 

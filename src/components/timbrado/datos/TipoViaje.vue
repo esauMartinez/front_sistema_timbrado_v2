@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useTimbrado } from '../../composables/useTimbrado';
-import { formatDateWithTime } from '../../pipes/formatDate';
+import { useTimbrado } from '../../../composables/useTimbrado';
+import { formatDateWithTime } from '../../../pipes/formatDate';
 
 const { trip, putRegimenAduanero } = useTimbrado();
 

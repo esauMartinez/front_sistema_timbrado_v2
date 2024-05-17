@@ -12,10 +12,12 @@ import { Tractor } from '../interfaces/tractor.model';
 import { router } from '../router';
 import { ref } from 'vue';
 import moment from 'moment';
+import { useLoadStore } from '../store/load';
 
 export const useTrip = () => {
 	const tripStore = useTripStore();
 	const patioStore = usePatioStore();
+	const loadStore = useLoadStore();
 	const {
 		trip,
 		trips,
@@ -35,6 +37,7 @@ export const useTrip = () => {
 
 	const getTrips = async (estatus: string) => {
 		try {
+			loadStore.setLoading(true);
 			const formatFromDate = moment(from.value).format('YYYY-MM-DDT00:00:00');
 			const formatToDate = moment(to.value).format('YYYY-MM-DDT23:59:59');
 			const { data } = await instance.get(
@@ -42,7 +45,9 @@ export const useTrip = () => {
 			);
 			tripStore.setTrips(data);
 			estatusTrip.value = estatus;
+			loadStore.setLoading(false);
 		} catch (error) {
+			loadStore.setLoading(false);
 			handleError(error);
 		}
 	};

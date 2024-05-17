@@ -11,6 +11,8 @@ import { useTripStore } from '../store/trip';
 import { Patio } from '../interfaces/patio.model';
 import { usePDFTimbre } from './usePDFTimbre';
 import { Trip } from '../interfaces/trip';
+import { useTrip } from './useTrip';
+import { useLoadStore } from '../store/load';
 
 export const useTimbrado = () => {
 	const timbradoStore = useTimbradoStore();
@@ -37,15 +39,8 @@ export const useTimbrado = () => {
 		isTimbrando,
 	} = storeToRefs(timbradoStore);
 	const toast = useToast();
-
-	const getTripsTimbrado = async () => {
-		try {
-			const { data } = await instance.get(`/trips/todos/timbrado`);
-			tripStore.setTrips(data);
-		} catch (error) {
-			handleError(error);
-		}
-	};
+	const { getTrips } = useTrip();
+	const loadStore = useLoadStore();
 
 	const getDatosTimbre = async (id: number) => {
 		try {
@@ -204,7 +199,7 @@ export const useTimbrado = () => {
 		try {
 			const response = await question('Se timbrara el trip', 'Si');
 			if (response.isConfirmed) {
-				isTimbrando.value = true;
+				loadStore.setLoading(true);
 				const { data } = await instance.get(`/timbrar/${trip_id}`);
 				toast.add({
 					severity: 'success',
@@ -214,13 +209,34 @@ export const useTimbrado = () => {
 				});
 				getDatosTimbre(trip.value.id);
 				setTimeout(() => {
-					isTimbrando.value = false;
+					loadStore.setLoading(false);
 					pdfTimbre(trip.value.id);
-					getTripsTimbrado();
+					getTrips('TODOS');
 				}, 2000);
 			}
 		} catch (error) {
-			isTimbrando.value = false;
+			loadStore.setLoading(false);
+			handleError(error);
+		}
+	};
+
+	const cancelarTimbre = async (id: number) => {
+		try {
+			const response = await question('Se cancelara el timbre', 'Si');
+			if (response.isConfirmed) {
+				loadStore.setLoading(true);
+				const { data } = await instance.get(`/cancelar-timbre/${id}`);
+				toast.add({
+					severity: 'success',
+					summary: 'Trip',
+					detail: data.data,
+					life: 3000,
+				});
+				getTrips('TODOS');
+				loadStore.setLoading(false);
+			}
+		} catch (error) {
+			loadStore.setLoading(false);
 			handleError(error);
 		}
 	};
@@ -305,7 +321,6 @@ export const useTimbrado = () => {
 		timbres,
 		balance,
 		isTimbrando,
-		getTripsTimbrado,
 		mercanciasSat,
 		unidadesPeso,
 		peligrosos,
@@ -321,6 +336,7 @@ export const useTimbrado = () => {
 		obtenerUnidadesPeso,
 		obtenerMercacias,
 		timbrar,
+		cancelarTimbre,
 		putRegimenAduanero,
 		resetFormMercancia,
 		getBalanceTimbres,

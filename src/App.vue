@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import Sidenav from './common/Sidenav.vue';
+import CardLoad from './components/CardLoad.vue';
 import { useAuth } from './composables/useAuth';
 
 const { estatusUsuarioAutenticado } = useAuth();
@@ -19,5 +19,6 @@ const { estatusUsuarioAutenticado } = useAuth();
 	<Sidenav v-if="estatusUsuarioAutenticado" />
 	<router-view></router-view>
 
+	<CardLoad />
 	<Toast position="top-right" />
 </template>

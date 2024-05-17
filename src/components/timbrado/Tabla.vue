@@ -6,11 +6,13 @@ import { formatDateWithTime } from '../../pipes/formatDate';
 import { severityTrip } from '../../pipes/severity';
 import { router } from '../../router';
 import { useAuth } from '../../composables/useAuth';
-import { useTimbrado } from '../../composables/useTimbrado';
 import { Timbre } from '../../interfaces/timbre.model';
+import { useTimbrado } from '../../composables/useTimbrado';
+import { useLoad } from '../../composables/useLoad';
 
-const { trips, estatusTrip, from, to, getTrips } = useTrip();
+const { trips, from, to, getTrips } = useTrip();
 const { getPermiso } = useAuth();
+const { cancelarTimbre } = useTimbrado();
 
 onMounted(async () => {
 	await getTrips('TODOS');
@@ -34,6 +36,15 @@ const severityEstatus = (data: Timbre) => {
 };
 
 const size = ref({ label: 'Small', value: 'small' });
+
+const estatus = ref({ label: 'Todos', value: 'TODOS' });
+const estatusOptions = ref([
+	{ label: 'Creado', value: 'CREADO' },
+	{ label: 'Programado', value: 'PROGRAMADO' },
+	{ label: 'Transito', value: 'TRANSITO' },
+	{ label: 'Terminado', value: 'TERMINADO' },
+	{ label: 'Todos', value: 'TODOS' },
+]);
 </script>
 
 <template>
@@ -65,19 +76,17 @@ const size = ref({ label: 'Small', value: 'small' });
 					</InputIcon>
 					<InputText v-model="filters['global'].value" placeholder="Buscar" />
 				</IconField>
-				<ButtonGroup>
-					<Calendar
-						v-model="from"
-						:manualInput="false"
-						class="mr-2"
-						:update="getTrips('TODOS')"
-					/>
-					<Calendar
-						v-model="to"
-						:manualInput="false"
-						:update="getTrips('TODOS')"
-					/>
-				</ButtonGroup>
+				<div>
+					<Calendar v-model="from" :manualInput="false" class="mr-2" />
+					<Calendar v-model="to" :manualInput="false" />
+				</div>
+				<SelectButton
+					v-model="estatus"
+					:options="estatusOptions"
+					optionLabel="label"
+					dataKey="label"
+					@click="getTrips(estatus.value)"
+				/>
 			</div>
 		</template>
 		<Column expander style="width: 5rem" />
@@ -147,6 +156,7 @@ const size = ref({ label: 'Small', value: 'small' });
 								<Button
 									icon="pi pi-times"
 									severity="danger"
+									@click="cancelarTimbre(data.id)"
 									v-if="data.estatus === 'CREADO'"
 								/>
 							</div>
