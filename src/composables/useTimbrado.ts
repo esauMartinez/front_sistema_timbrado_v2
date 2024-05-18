@@ -284,6 +284,21 @@ export const useTimbrado = () => {
 		}
 	};
 
+	const xmlAcuse = async (trip_id: number) => {
+		try {
+			const { data } = await instance.get(`/get-xml-acuse/${trip_id}`);
+			const a = document.createElement('a');
+			const archivo = new Blob([data.acuse], { type: 'text/plain' });
+			const url = URL.createObjectURL(archivo);
+			a.href = url;
+			a.download = `XML-ACUSE-${trip_id}.xml`;
+			a.click();
+			URL.revokeObjectURL(url);
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
 	const resetFormMercancia = () => {
 		timbradoStore.setMercancia({
 			id: null,
@@ -341,5 +356,6 @@ export const useTimbrado = () => {
 		resetFormMercancia,
 		getBalanceTimbres,
 		xmlTimbre,
+		xmlAcuse,
 	};
 };

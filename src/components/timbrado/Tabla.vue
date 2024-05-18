@@ -12,7 +12,7 @@ import { useLoad } from '../../composables/useLoad';
 
 const { trips, from, to, getTrips } = useTrip();
 const { getPermiso } = useAuth();
-const { cancelarTimbre } = useTimbrado();
+const { cancelarTimbre, xmlAcuse } = useTimbrado();
 
 onMounted(async () => {
 	await getTrips('TODOS');
@@ -153,6 +153,12 @@ const estatusOptions = ref([
 					<Column headerStyle="width:4rem">
 						<template #body="{ data }">
 							<div class="flex justify-content-center">
+								<Button
+									icon="pi pi-download"
+									severity="info"
+									@click="xmlAcuse(data.id)"
+									v-if="data.estatus === 'CANCELADO'"
+								/>
 								<Button
 									icon="pi pi-times"
 									severity="danger"
