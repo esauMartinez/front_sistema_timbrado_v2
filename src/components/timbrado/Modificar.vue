@@ -31,12 +31,12 @@ const verPdf = async (id: number) => {
 		<Formulario />
 		<template #footer>
 			<ButtonGroup>
-				<Button
+				<!-- <Button
 					icon="pi pi-times"
 					label="Cancelar"
 					@click="visible = false"
 					severity="danger"
-				/>
+				/> -->
 				<Button
 					label="XML"
 					icon="fa fa-file-code"

@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { useCliente } from '../../composables/useCliente';
 import { useError } from '../../composables/useError';
+import { router } from '../../router';
 
 const { setErrores } = useError();
 
@@ -135,7 +136,7 @@ const paises = ref([
 			/>
 			<small class="p-error" name="municipio"></small>
 		</div>
-		<div class="mb-3">
+		<div class="mb-3" v-if="cliente.origen === 'extranjero'">
 			<label>Estado</label>
 			<InputText
 				id="estado"
@@ -143,8 +144,11 @@ const paises = ref([
 				class="w-full focus:border-primary mt-2"
 				placeholder="Estado"
 				v-model="cliente.estado"
-				v-if="cliente.origen === 'extranjero'"
 			/>
+			<small class="p-error" name="estado"></small>
+		</div>
+		<div class="mb-3" v-if="cliente.origen !== 'extranjero'">
+			<label>Estado</label>
 			<Dropdown
 				id="estado"
 				name="estado"
@@ -154,7 +158,6 @@ const paises = ref([
 				optionLabel="item"
 				optionValue="item"
 				v-model="cliente.estado"
-				v-if="cliente.origen === 'nacional'"
 			/>
 			<small class="p-error" name="estado"></small>
 		</div>
@@ -215,17 +218,6 @@ const paises = ref([
 				v-model="cliente.rfc"
 			/>
 			<small class="p-error" name="rfc"></small>
-		</div>
-		<div class="mb-3">
-			<label>TAXID</label>
-			<InputText
-				id="tax_id"
-				name="tax_id"
-				class="w-full focus:border-primary mt-2"
-				placeholder="TAX ID"
-				v-model="cliente.tax_id"
-			/>
-			<small class="p-error" name="tax_id"></small>
 		</div>
 		<div class="mb-3">
 			<label>Email</label>

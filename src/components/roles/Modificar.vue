@@ -36,12 +36,12 @@ onMounted(async () => {
 		</div>
 		<template #footer>
 			<ButtonGroup>
-				<Button
+				<!-- <Button
 					label="Cancelar"
 					icon="pi pi-times"
 					@click="visible = false"
 					severity="danger"
-				/>
+				/> -->
 				<Button
 					label="Guardar"
 					icon="pi pi-check"

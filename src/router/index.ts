@@ -60,6 +60,16 @@ const routes: RouteRecordRaw[] = [
 				name: 'ModificarCliente',
 				component: () => import('../components/clientes/Modificar.vue'),
 			},
+			{
+				path: '/bitacora-cliente/:id',
+				name: 'BitacoraCliente',
+				component: () => import('../components/clientes/Bitacora.vue'),
+			},
+			{
+				path: '/contactos-cliente/:id',
+				name: 'ContactosCliente',
+				component: () => import('../components/clientes/contactos/Contactos.vue'),
+			},
 		],
 	},
 	{

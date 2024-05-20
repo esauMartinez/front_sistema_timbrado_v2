@@ -54,12 +54,12 @@ const tipoBoton = () => {
 		<Formulario @submit.prevent="modificar()" id="formulario" />
 		<template #footer>
 			<ButtonGroup>
-				<Button
+				<!-- <Button
 					icon="pi pi-times"
 					label="Cancelar"
 					@click="visible = false"
 					severity="danger"
-				/>
+				/> -->
 				<Button
 					icon="pi pi-file-pdf"
 					label="PDF"

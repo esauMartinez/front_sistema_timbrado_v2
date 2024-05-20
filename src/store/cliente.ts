@@ -7,6 +7,20 @@ import {
 	UsoCfdi,
 } from '../interfaces/cliente.model';
 
+interface Bitacora {
+	comentarios: string;
+	createdAt: string;
+}
+
+export interface Contacto {
+	id: number;
+	nombre: string;
+	telefono: string;
+	email: string;
+	turno: string;
+	cliente_id: number;
+}
+
 interface ClienteStore {
 	clientes: Cliente[];
 	cliente: Cliente;
@@ -14,6 +28,9 @@ interface ClienteStore {
 	metodosPago: MetodosPago[];
 	formasPago: FormasPago[];
 	regimenFiscal: RegimenFiscal[];
+	bitacora: Bitacora[];
+	contacto: Contacto;
+	contactos: Contacto[];
 }
 
 export const useClienteStore = defineStore('cliente', {
@@ -43,6 +60,16 @@ export const useClienteStore = defineStore('cliente', {
 		metodosPago: [],
 		formasPago: [],
 		regimenFiscal: [],
+		bitacora: [],
+		contacto: {
+			id: null,
+			nombre: null,
+			telefono: null,
+			email: null,
+			turno: null,
+			cliente_id: null,
+		},
+		contactos: [],
 	}),
 	actions: {
 		setClientes(clientes: Cliente[]) {
@@ -62,6 +89,15 @@ export const useClienteStore = defineStore('cliente', {
 		},
 		setRegimenFiscal(regimenFiscal: RegimenFiscal[]) {
 			this.regimenFiscal = regimenFiscal;
+		},
+		setBitacora(bitacora: Bitacora[]) {
+			this.bitacora = bitacora;
+		},
+		setContacto(contacto: Contacto) {
+			this.contacto = contacto;
+		},
+		setContactos(contactos: Contacto[]) {
+			this.contactos = contactos;
 		},
 	},
 });

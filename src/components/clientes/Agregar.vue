@@ -20,18 +20,17 @@ onMounted(() => {
 			header="Agregar cliente"
 			:style="{ width: '50vw' }"
 			v-on:after-hide="router.go(-1)"
-			:closable="false"
 		>
 			<Formulario @submit.prevent="postCliente(cliente)" id="formulario" />
 
 			<template #footer>
 				<ButtonGroup>
-					<Button
+					<!-- <Button
 						label="Cancelar"
 						icon="pi pi-times"
 						@click="visible = false"
 						severity="danger"
-					/>
+					/> -->
 					<Button
 						label="Guardar"
 						icon="pi pi-check"

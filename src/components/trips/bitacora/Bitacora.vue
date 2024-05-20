@@ -48,20 +48,21 @@ onMounted(() => {
 		modal
 		header="Bitacora"
 		:style="{ width: '50vw' }"
-		:position="'bottomleft'"
 		v-on:after-hide="router.go(-1)"
 	>
-		<Timeline :value="bitacora" align="right">
-			<template #content="slotProps">
-				{{ slotProps.item.evento }}
-				<p :class="{ 'text-red-500': slotProps.item.usuario === null }">
-					{{
-						slotProps.item.usuario === null
-							? 'No hay registro de usuario'
-							: slotProps.item.usuario
-					}}
-				</p>
-			</template>
-		</Timeline>
+		<DataTable :value="bitacora" showGridlines stripedRows>
+			<Column field="evento" header="Evento"></Column>
+			<Column field="usuario" header="Usuario">
+				<template #body="{ data }">
+					<p :class="{ 'text-red-500': data.usuario === null }">
+						{{
+							data.usuario === null
+								? 'No hay registro de usuario'
+								: data.usuario
+						}}
+					</p>
+				</template>
+			</Column>
+		</DataTable>
 	</Dialog>
 </template>

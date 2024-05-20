@@ -116,3 +116,21 @@ export const handleError = (payload) => {
 			break;
 	}
 };
+
+export const comentarios = () => {
+	return new Promise((resolve, reject) => {
+		Swal.fire({
+			title: 'Comentarios',
+			input: 'text',
+			inputAttributes: {
+				autocapitalize: 'off',
+			},
+			showCancelButton: true,
+			confirmButtonText: 'Aceptar',
+			cancelButtonText: 'Cancelar',
+			showLoaderOnConfirm: false,
+		}).then((result) => {
+			resolve(result);
+		});
+	});
+};

@@ -85,6 +85,7 @@ const estatusOptions = ref([
 					:options="estatusOptions"
 					optionLabel="label"
 					dataKey="label"
+					:unselectable="false"
 					@click="getTrips(estatus.value)"
 				/>
 			</div>

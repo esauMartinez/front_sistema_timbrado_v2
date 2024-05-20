@@ -1,15 +1,24 @@
 import { storeToRefs } from 'pinia';
-import { useClienteStore } from '../store/cliente';
+import { Contacto, useClienteStore } from '../store/cliente';
 import { instance } from '../helpers/axiosInstance';
 import { useToast } from 'primevue/usetoast';
-import { handleError, question } from '../helpers/messages';
+import { comentarios, handleError, question } from '../helpers/messages';
 import { Cliente } from '../interfaces/cliente.model';
 import { router } from '../router';
 
 export const useCliente = () => {
 	const clienteStore = useClienteStore();
-	const { cliente, clientes, usoCfdi, metodosPago, formasPago, regimenFiscal } =
-		storeToRefs(clienteStore);
+	const {
+		cliente,
+		clientes,
+		usoCfdi,
+		metodosPago,
+		formasPago,
+		regimenFiscal,
+		bitacora,
+		contacto,
+		contactos,
+	} = storeToRefs(clienteStore);
 	const toast = useToast();
 
 	const getClientes = async () => {
@@ -49,13 +58,23 @@ export const useCliente = () => {
 
 	const putCliente = async (payload: any) => {
 		try {
-			await instance.put(`/clientes/${payload.id}`, payload);
-			toast.add({
-				severity: 'success',
-				summary: 'Cliente',
-				detail: 'Cliente actualizado correctamente',
-				life: 3000,
-			});
+			if (payload.estatus) {
+				payload.evento = 'ACTIVACION';
+			} else {
+				payload.evento = 'DESACTIVACION';
+			}
+
+			const response_comentarios: any = await comentarios();
+			if (response_comentarios.isConfirmed) {
+				payload.comentarios = response_comentarios.value;
+				await instance.put(`/clientes/${payload.id}`, payload);
+				toast.add({
+					severity: 'success',
+					summary: 'Cliente',
+					detail: 'Cliente actualizado correctamente',
+					life: 3000,
+				});
+			}
 			getClientes();
 			return true;
 		} catch (error) {
@@ -82,6 +101,32 @@ export const useCliente = () => {
 		}
 	};
 
+	const getContactos = async (id: number) => {
+		try {
+			const { data } = await instance.get(`/cliente/contactos/${id}`);
+			clienteStore.setContactos(data);
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
+	const postContacto = async (contacto: Contacto) => {
+		try {
+			const { data } = await instance.post('/cliente/contacto', contacto);
+			toast.add({
+				severity: 'success',
+				summary: 'Cliente',
+				detail: data.data,
+				life: 3000,
+			});
+			resetFormContacto();
+			getContactos(contacto.cliente_id);
+			return data;
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
 	const getUsoCfdi = async () => {
 		const { data } = await instance.get('/uso-cfdi');
 		clienteStore.setUsoCFDI(data);
@@ -100,6 +145,11 @@ export const useCliente = () => {
 	const getRegimenFiscal = async () => {
 		const { data } = await instance.get('/regimen-fiscal');
 		clienteStore.setRegimenFiscal(data);
+	};
+
+	const getBitacoraCliente = async (id: number) => {
+		const { data } = await instance.get(`/cliente/bitacora/${id}`);
+		clienteStore.setBitacora(data);
 	};
 
 	const resetClienteForm = () => {
@@ -125,6 +175,17 @@ export const useCliente = () => {
 		});
 	};
 
+	const resetFormContacto = () => {
+		clienteStore.setContacto({
+			id: null,
+			nombre: null,
+			telefono: null,
+			email: null,
+			turno: null,
+			cliente_id: null,
+		});
+	};
+
 	return {
 		cliente,
 		clientes,
@@ -132,6 +193,9 @@ export const useCliente = () => {
 		metodosPago,
 		formasPago,
 		regimenFiscal,
+		bitacora,
+		contacto,
+		contactos,
 		getClientes,
 		getCliente,
 		postCliente,
@@ -142,5 +206,9 @@ export const useCliente = () => {
 		getFormasPago,
 		getRegimenFiscal,
 		resetClienteForm,
+		resetFormContacto,
+		getBitacoraCliente,
+		getContactos,
+		postContacto,
 	};
 };

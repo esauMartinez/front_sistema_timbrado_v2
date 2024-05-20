@@ -4,18 +4,20 @@ import { instance } from '../helpers/axiosInstance';
 import { handleError } from '../helpers/messages';
 import { Empresa } from '../interfaces/empresa.model';
 import { useToast } from 'primevue/usetoast';
-import Compressor from 'compressorjs';
 import { useUsuarioStore } from '../store/usuario';
 import { Usuario } from '../interfaces/usuario.model';
 import { router } from '../router';
 import { FileUploadSelectEvent } from 'primevue/fileupload';
 import { ref } from 'vue';
+import { useLoad } from './useLoad';
+import { useLoadStore } from '../store/load';
 
 export const useEmpresa = () => {
 	const empresaStore = useEmpresaStore();
 	const usuarioStore = useUsuarioStore();
 	const { empresa, empresas } = storeToRefs(empresaStore);
 	const toast = useToast();
+	const loadStore = useLoadStore();
 
 	const getEmpresas = async () => {
 		try {
@@ -44,39 +46,32 @@ export const useEmpresa = () => {
 		}
 	};
 
-	const uploadLogo = (e) => {
+	const uploadLogo = async (e) => {
 		try {
-			new Compressor(e.files[0], {
-				quality: 0.6,
-				async success(result: any) {
-					const formData = new FormData();
-					formData.append('logo', result, result.name);
-					instance.defaults.headers.common[
-						'Content-Type'
-					] = `multipart/form-data`;
+			loadStore.setLoading(true);
+			const formData = new FormData();
+			formData.append('logo', e.files[0]);
 
-					await instance.post('/empresas/upload/logo', formData);
+			instance.defaults.headers.common['Content-Type'] = `multipart/form-data`;
 
-					toast.add({
-						severity: 'success',
-						summary: 'Logotipo',
-						detail: 'Logotipo subido correctamente',
-						life: 3000,
-					});
-				},
-			});
-		} catch (error) {
+			await instance.post('/empresas/upload/logo', formData);
+
 			toast.add({
-				severity: 'error',
+				severity: 'success',
 				summary: 'Logotipo',
-				detail: 'Error al subir el logotipo',
+				detail: 'Logotipo subido correctamente',
 				life: 3000,
 			});
+			loadStore.setLoading(false);
+		} catch (error) {
+			loadStore.setLoading(false);
+			handleError(error);
 		}
 	};
 
 	const putEmpresa = async (empresa: Empresa) => {
 		try {
+			instance.defaults.headers.common['Content-Type'] = `multipart/form-data`;
 			const { data } = await instance.put(`/empresa`, empresa);
 			toast.add({
 				severity: 'success',
@@ -130,6 +125,7 @@ export const useEmpresa = () => {
 
 	const postCertificados = async () => {
 		try {
+			loadStore.setLoading(true);
 			formCertificados.append('password', passwordCertificado.value);
 			const { data } = await instance.post(
 				`/cargar/certificados`,
@@ -141,8 +137,10 @@ export const useEmpresa = () => {
 				detail: data.data,
 				life: 3000,
 			});
+			loadStore.setLoading(false);
 			return data;
 		} catch (error) {
+			loadStore.setLoading(false);
 			handleError(error);
 		}
 	};

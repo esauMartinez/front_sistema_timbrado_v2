@@ -213,7 +213,7 @@ const agregar = (tipo: string) => {
 				<label>Kilometros</label>
 				<InputNumber
 					name="kilometros"
-					v-model="trip.kilometros"
+					v-model.number="trip.kilometros"
 					class="w-full focus:border-primary mt-2"
 					placeholder="Kilometros"
 					autocomplete="off"
@@ -225,7 +225,7 @@ const agregar = (tipo: string) => {
 				<label>Combustible(lts)</label>
 				<InputNumber
 					name="combustible"
-					v-model="trip.combustible"
+					v-model.number="trip.combustible"
 					class="w-full focus:border-primary mt-2"
 					placeholder="combustible"
 					autocomplete="off"
@@ -237,7 +237,7 @@ const agregar = (tipo: string) => {
 				<label>Viaticos($)</label>
 				<InputNumber
 					name="viaticos"
-					v-model="trip.viaticos"
+					v-model.number="trip.viaticos"
 					class="w-full focus:border-primary mt-2"
 					placeholder="viaticos"
 					autocomplete="off"
@@ -249,7 +249,7 @@ const agregar = (tipo: string) => {
 				<label>Casetas($)</label>
 				<InputNumber
 					name="casetas"
-					v-model="trip.casetas"
+					v-model.number="trip.casetas"
 					class="w-full focus:border-primary mt-2"
 					placeholder="casetas"
 					autocomplete="off"

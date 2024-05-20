@@ -9,7 +9,7 @@ const { empresa, putEmpresa } = useEmpresa();
 
 <template>
 	<div class="grid m-margin-top">
-		<Card class="col-6 col-offset-3">
+		<Card class="col-8 col-offset-2">
 			<template #content>
 				<Panel header="Datos de la empresa">
 					<FormularioDatosEmpresa
@@ -20,7 +20,7 @@ const { empresa, putEmpresa } = useEmpresa();
 			</template>
 		</Card>
 
-		<Card class="col-6 col-offset-3 mt-3">
+		<Card class="col-8 col-offset-2 mt-3">
 			<template #content>
 				<Panel header="Certificados">
 					<FormularioCertificados />
@@ -28,7 +28,7 @@ const { empresa, putEmpresa } = useEmpresa();
 			</template>
 		</Card>
 
-		<Card class="col-6 col-offset-3 mt-3">
+		<Card class="col-8 col-offset-2 mt-3">
 			<template #content>
 				<Panel header="Logotipo de la empresa">
 					<FormularioLogotipo />

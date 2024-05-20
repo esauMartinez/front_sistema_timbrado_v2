@@ -11,7 +11,6 @@ import { useToast } from 'primevue/usetoast';
 const { getPermiso } = useAuth();
 const { clientes, getClientes, putCliente, deleteCliente } = useCliente();
 const { selectCliente } = useTrip();
-const toast = useToast();
 
 const loading = ref(true);
 
@@ -32,6 +31,14 @@ const agregar = () => {
 	router.push({ path: `/agregar-cliente` });
 };
 
+const bitacora = (id) => {
+	router.push({ path: `/bitacora-cliente/${id}` });
+};
+
+const contactos = (id) => {
+	router.push({ path: `/contactos-cliente/${id}` });
+};
+
 const filters = ref({
 	global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 	razon_social: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -40,21 +47,6 @@ const filters = ref({
 	estado: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
 	pais: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
 });
-
-const items = [
-	{
-		label: 'Eliminar',
-		command: (data) => {
-			console.log(data);
-			toast.add({
-				severity: 'warn',
-				summary: 'Delete',
-				detail: data,
-				life: 3000,
-			});
-		},
-	},
-];
 </script>
 
 <template>
@@ -118,6 +110,16 @@ const items = [
 			<template #body="{ data }">
 				<div class="flex justify-content-center">
 					<ButtonGroup>
+						<Button
+							icon="pi pi-book"
+							@click="bitacora(data.id)"
+							severity="info"
+						/>
+						<Button
+							@click="contactos(data.id)"
+							icon="pi pi-phone"
+							severity="info"
+						/>
 						<Button
 							icon="pi pi-pencil"
 							severity="warning"

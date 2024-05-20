@@ -38,6 +38,7 @@ import {
 	faTimes,
 	faFileCode,
 	faTruckFast,
+	faLightbulb,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -62,6 +63,7 @@ library.add(faCircleInfo);
 library.add(faTimes);
 library.add(faFileCode);
 library.add(faTruckFast);
+library.add(faLightbulb);
 
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
@@ -101,6 +103,8 @@ import Chart from 'primevue/chart';
 import SelectButton from 'primevue/selectbutton';
 import Password from 'primevue/password';
 import FloatLabel from 'primevue/floatlabel';
+import InputGroup from 'primevue/inputgroup';
+import InputGroupAddon from 'primevue/inputgroupaddon';
 
 // service toast
 import ToastService from 'primevue/toastservice';
@@ -149,6 +153,8 @@ app.component('Chart', Chart);
 app.component('SelectButton', SelectButton);
 app.component('Password', Password);
 app.component('FloatLabel', FloatLabel);
+app.component('InputGroup', InputGroup);
+app.component('InputGroupAddon', InputGroupAddon);
 
 app.use(ToastService);
 app.use(createPinia());
