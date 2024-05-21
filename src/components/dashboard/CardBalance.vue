@@ -18,7 +18,15 @@ const props = withDefaults(defineProps<PropsCardBalance>(), {
 			<p :class="['text-xl', 'p-0 m-0']">
 				{{ props.title }}
 			</p>
-			<p :class="['text-lg', 'p-0 m-0', color]">
+
+			<ProgressSpinner
+				v-if="!props.balance"
+				style="width: 50px; height: 50px"
+				strokeWidth="8"
+				animationDuration="1s"
+				aria-label="Custom ProgressSpinner"
+			/>
+			<p :class="['text-lg', 'p-0 m-0', color]" v-if="props.balance">
 				{{ props.balance }}
 			</p>
 		</template>

@@ -12,7 +12,7 @@ onMounted(() => {
 
 <template>
 	<div class="grid">
-		<div class="col-4">
+		<div class="col-4">	
 			<CardBalance
 				class="p-3"
 				title="Timbres Usados"

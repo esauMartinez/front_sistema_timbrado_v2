@@ -37,17 +37,21 @@ const verPdf = async (id: number) => {
 					@click="visible = false"
 					severity="danger"
 				/> -->
+
 				<Button
 					label="XML"
 					icon="fa fa-file-code"
 					severity="info"
 					@click="xmlTimbre(trip.id)"
+					v-if="trip.isTimbrado"
 				/>
+
 				<Button
 					label="PDF"
 					icon="pi pi-file-pdf"
 					severity="info"
 					@click="verPdf(trip.id)"
+					v-if="trip.isTimbrado"
 				/>
 				<Button
 					label="Timbrar"

@@ -28,4 +28,5 @@ export interface Trip {
 	referencia: string;
 	observaciones: string;
 	createdAt: Date;
+	isTimbrado: boolean;
 }

@@ -40,6 +40,7 @@ const regimen_aduanero = ref([
 			placeholder="Regimen aduanero"
 			class="w-full focus:border-primary mt-2"
 			@change="putRegimenAduanero(trip)"
+			:disabled="trip?.tipo_viaje === 'NACIONAL'"
 		/>
 	</Panel>
 </template>

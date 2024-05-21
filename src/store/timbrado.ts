@@ -9,6 +9,7 @@ import { Tractor } from '../interfaces/tractor.model';
 import { Caja } from '../interfaces/caja.model';
 import { Balance, Timbre } from '../interfaces/timbre.model';
 import { Patio } from '../interfaces/patio.model';
+import { Acuse } from '../interfaces/acuse.model';
 
 interface TimbreStore {
 	cliente: Cliente;
@@ -187,7 +188,7 @@ export const useTimbradoStore = defineStore('timbrado', {
 			this.empresa = timbre.empresa;
 			this.conceptos = timbre.conceptos;
 			this.mercancias = timbre.mercancias;
-			this.timbres = timbre.timbres;
+			// this.timbres = timbre.timbres;
 			this.movimientos = timbre.movimientos;
 		},
 		setConceptos(conceptos: Concepto[]) {
@@ -213,6 +214,9 @@ export const useTimbradoStore = defineStore('timbrado', {
 		},
 		setBalance(balance: Balance) {
 			this.balance = balance;
+		},
+		setTimbres(timbres: Timbre[]) {
+			this.timbres = timbres;
 		},
 	},
 });

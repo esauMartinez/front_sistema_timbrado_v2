@@ -1,3 +1,5 @@
+import { Acuse } from './acuse.model';
+
 export interface Timbre {
 	id: number;
 	cadena_original_sat: string;
@@ -12,6 +14,7 @@ export interface Timbre {
 	cfdi: string;
 	serie: string;
 	trip_id: number;
+	acuse: Acuse;
 }
 
 export interface Balance {

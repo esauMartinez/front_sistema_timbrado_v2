@@ -12,7 +12,7 @@ import { useLoad } from '../../composables/useLoad';
 
 const { trips, from, to, getTrips } = useTrip();
 const { getPermiso } = useAuth();
-const { cancelarTimbre, xmlAcuse } = useTimbrado();
+const { timbres, cancelarTimbre, xmlAcuse, getAcuses } = useTimbrado();
 
 onMounted(async () => {
 	await getTrips('TODOS');
@@ -45,15 +45,26 @@ const estatusOptions = ref([
 	{ label: 'Terminado', value: 'TERMINADO' },
 	{ label: 'Todos', value: 'TODOS' },
 ]);
+const selectedTrip = ref();
+
+const onRowExpand = async (event) => {
+	expandedRows.value = {};
+	expandedRows.value = { [event.data.id]: true };
+	console.log(event.data.id);
+	await getAcuses(event.data.id);
+};
 </script>
 
 <template>
+	{{ expandedRows }}
 	<DataTable
 		v-model:filters="filters"
 		v-model:expandedRows="expandedRows"
 		:value="trips"
 		showGridlines
 		stripedRows
+		v-model:selection="selectedTrip"
+		@rowExpand="onRowExpand"
 		paginator
 		:size="size.value"
 		:rows="10"
@@ -91,21 +102,26 @@ const estatusOptions = ref([
 			</div>
 		</template>
 		<Column expander style="width: 5rem" />
-		<Column header="Trip">
+		<Column field="numero_trip" header="Trip" sortable>
 			<template #body="data"> TRIP-{{ data.data.numero_trip }} </template>
 		</Column>
-		<Column header="Fecha de creacion">
+		<Column field="createdAt" header="Fecha de creacion" sortable>
 			<template #body="data">
 				{{ formatDateWithTime(data.data.createdAt) }}
 			</template>
 		</Column>
-		<Column field="cliente.razon_social" header="Cliente"></Column>
-		<Column header="Tipo de viaje">
+		<Column field="cliente.razon_social" header="Cliente" sortable></Column>
+		<Column field="tipo_viaje" header="Tipo de viaje" sortable>
 			<template #body="{ data }">
 				{{ data.tipo_viaje }}
 			</template>
 		</Column>
-		<Column header="Etatus timbre" headerStyle="width:10rem">
+		<Column
+			field="isTimbrado"
+			header="Etatus timbre"
+			headerStyle="width:10rem"
+			sortable
+		>
 			<template #body="{ data }">
 				<Tag
 					:severity="data.isTimbrado ? 'success' : 'danger'"
@@ -113,7 +129,12 @@ const estatusOptions = ref([
 				></Tag>
 			</template>
 		</Column>
-		<Column header="Estatus trip" headerStyle="width:4rem">
+		<Column
+			field="estatus"
+			header="Estatus trip"
+			headerStyle="width:4rem"
+			sortable
+		>
 			<template #body="{ data }">
 				<Tag :severity="severityTrip(data.estatus)" :value="data.estatus"></Tag>
 			</template>
@@ -133,21 +154,29 @@ const estatusOptions = ref([
 				</div>
 			</template>
 		</Column>
-		<template #expansion="slotProps">
+		<template #expansion>
 			<div class="p-1">
-				<DataTable :value="slotProps.data.timbres">
+				<DataTable :value="timbres">
 					<Column header="Fecha">
 						<template #body="{ data }">
 							{{ formatDateWithTime(data.fecha_timbrado) }}
 						</template>
 					</Column>
 					<Column field="uuid" header="UUID"></Column>
-					<Column field="idccp" header="IDCCP"></Column>
 					<Column field="estatus" header="Estatus" headerStyle="width:4rem">
 						<template #body="{ data }">
 							<Tag
 								:severity="severityEstatus(data)"
 								:value="data.estatus"
+							></Tag>
+						</template>
+					</Column>
+					<Column header="Codigo estatus cancelacion">
+						<template #body="{ data }">
+							<Tag
+								severity="info"
+								:value="`${data.acuse.codigo_estatus}: ${data.acuse.descripcion_estatus}`"
+								v-if="data.acuse"
 							></Tag>
 						</template>
 					</Column>

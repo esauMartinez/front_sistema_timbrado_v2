@@ -64,6 +64,7 @@ export const useTripStore = defineStore('trip', {
 			referencia: null,
 			observaciones: null,
 			createdAt: null,
+			isTimbrado: false
 		},
 		cliente: {
 			id: null,

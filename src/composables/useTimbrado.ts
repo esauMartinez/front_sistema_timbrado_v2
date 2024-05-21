@@ -268,6 +268,15 @@ export const useTimbrado = () => {
 		}
 	};
 
+	const getAcuses = async (id: number) => {
+		try {
+			const { data } = await instance.get(`/acuses/${id}`);
+			timbradoStore.setTimbres(data);
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
 	const xmlTimbre = async (trip_id: number) => {
 		try {
 			const { data } = await instance.get(`/get-xml/${trip_id}`);
@@ -355,6 +364,7 @@ export const useTimbrado = () => {
 		putRegimenAduanero,
 		resetFormMercancia,
 		getBalanceTimbres,
+		getAcuses,
 		xmlTimbre,
 		xmlAcuse,
 	};
