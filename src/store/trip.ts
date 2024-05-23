@@ -6,7 +6,7 @@ import { Operador } from '../interfaces/operador.model';
 import { Caja } from '../interfaces/caja.model';
 import { Tractor } from '../interfaces/tractor.model';
 import { Mercancia } from '../interfaces/mercancia.model';
-import { Trip } from '../interfaces/trip';
+import { Comentario, Trip } from '../interfaces/trip';
 import { Empresa } from '../interfaces/empresa.model';
 import { Concepto } from '../interfaces/concepto.model';
 
@@ -21,6 +21,8 @@ interface TripStore {
 	conceptos: Concepto[];
 	mercancias: Mercancia[];
 	patios: Patio[];
+	comentario: Comentario;
+	comentarios: Comentario[];
 	nombre_cliente: string;
 	nombre_operador: string;
 	numero_economico_caja: string;
@@ -64,7 +66,7 @@ export const useTripStore = defineStore('trip', {
 			referencia: null,
 			observaciones: null,
 			createdAt: null,
-			isTimbrado: false
+			isTimbrado: false,
 		},
 		cliente: {
 			id: null,
@@ -165,6 +167,15 @@ export const useTripStore = defineStore('trip', {
 		conceptos: [],
 		mercancias: [],
 		patios: [],
+		comentario: {
+			id: null,
+			comentarios: null,
+			createdAt: null,
+			trip_id: null,
+			isMine: false,
+			usuario: null,
+		},
+		comentarios: [],
 		nombre_cliente: null,
 		nombre_operador: null,
 		numero_economico_caja: null,
@@ -220,6 +231,12 @@ export const useTripStore = defineStore('trip', {
 		},
 		setTrips(trips: Trip[]) {
 			this.trips = trips;
+		},
+		setComentario(comentario: Comentario) {
+			this.comentario = comentario;
+		},
+		setComentarios(comentarios: Comentario[]) {
+			this.comentarios = comentarios;
 		},
 		setOrigen(origen: Patio) {
 			this.origen = origen;

@@ -68,7 +68,8 @@ const routes: RouteRecordRaw[] = [
 			{
 				path: '/contactos-cliente/:id',
 				name: 'ContactosCliente',
-				component: () => import('../components/clientes/contactos/Contactos.vue'),
+				component: () =>
+					import('../components/clientes/contactos/Contactos.vue'),
 			},
 		],
 	},
@@ -229,6 +230,7 @@ const routes: RouteRecordRaw[] = [
 						name: 'InformacionPatio',
 						component: () => import('../components/patios/Modificar.vue'),
 					},
+
 					{
 						path: '/pdf-trip/pdf/:id',
 						name: 'PDFTrip',
@@ -240,6 +242,11 @@ const routes: RouteRecordRaw[] = [
 				path: '/bitacora-trip/:id',
 				name: 'BitacoraTrip',
 				component: () => import('../components/trips/bitacora/Bitacora.vue'),
+			},
+			{
+				path: '/comentarios-trip/:id',
+				name: 'ComentariosTrip',
+				component: () => import('../components/trips/comentarios/Comentarios.vue'),
 			},
 		],
 	},

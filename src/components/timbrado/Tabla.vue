@@ -8,7 +8,6 @@ import { router } from '../../router';
 import { useAuth } from '../../composables/useAuth';
 import { Timbre } from '../../interfaces/timbre.model';
 import { useTimbrado } from '../../composables/useTimbrado';
-import { useLoad } from '../../composables/useLoad';
 
 const { trips, from, to, getTrips } = useTrip();
 const { getPermiso } = useAuth();
@@ -66,7 +65,6 @@ const onRowExpand = async (event) => {
 		v-model:selection="selectedTrip"
 		@rowExpand="onRowExpand"
 		paginator
-		:size="size.value"
 		:rows="10"
 		:rowsPerPageOptions="[10, 50, 100]"
 		:class="[{ 'p-datatable-sm': true }]"

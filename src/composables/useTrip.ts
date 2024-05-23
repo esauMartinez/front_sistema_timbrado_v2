@@ -13,6 +13,7 @@ import { router } from '../router';
 import { ref } from 'vue';
 import moment from 'moment';
 import { useLoadStore } from '../store/load';
+import { Comentario } from '../interfaces/trip';
 
 export const useTrip = () => {
 	const tripStore = useTripStore();
@@ -24,6 +25,8 @@ export const useTrip = () => {
 		estatusTrip,
 		movimiento,
 		movimientos,
+		comentario,
+		comentarios,
 		nombre_cliente,
 		nombre_operador,
 		numero_economico_caja,
@@ -163,6 +166,32 @@ export const useTrip = () => {
 		tripStore.setMovimientos(data);
 	};
 
+	const getComentarios = async (id: number) => {
+		try {
+			const { data } = await instance.get(`/comentarios-trip/${id}`);
+			console.log(data);
+			tripStore.setComentarios(data);
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
+	const postComentario = async (comentario: Comentario) => {
+		try {
+			await instance.post(`/agregar-comentario`, comentario);
+			toast.add({
+				severity: 'success',
+				summary: 'Trip',
+				detail: 'Comentario agregado correctamente',
+				life: 3000,
+			});
+			getComentarios(comentario.trip_id);
+			resetFormComentario();
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
 	const agregarMovimiento = async (patio: Patio) => {
 		try {
 			const movimiento = {
@@ -223,6 +252,17 @@ export const useTrip = () => {
 		}
 	};
 
+	const resetFormComentario = () => {
+		tripStore.setComentario({
+			id: null,
+			comentarios: null,
+			trip_id: null,
+			createdAt: null,
+			isMine: false,
+			usuario: null,
+		});
+	};
+
 	return {
 		trip,
 		trips,
@@ -231,6 +271,8 @@ export const useTrip = () => {
 		to,
 		movimiento,
 		movimientos,
+		comentario,
+		comentarios,
 		nombre_cliente,
 		nombre_operador,
 		numero_economico_caja,
@@ -248,5 +290,7 @@ export const useTrip = () => {
 		agregarMovimiento,
 		vaciarMovimientos,
 		eliminarMovimiento,
+		getComentarios,
+		postComentario,
 	};
 };

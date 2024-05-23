@@ -1,3 +1,5 @@
+import { Usuario } from './usuario.model';
+
 export interface Trip {
 	id: number;
 	estatus: string;
@@ -29,4 +31,13 @@ export interface Trip {
 	observaciones: string;
 	createdAt: Date;
 	isTimbrado: boolean;
+}
+
+export interface Comentario {
+	id: number;
+	comentarios: string;
+	trip_id: number;
+	createdAt: string;
+	isMine: boolean;
+	usuario: Usuario;
 }

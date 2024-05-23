@@ -11,7 +11,7 @@ import { useAuth } from '../../composables/useAuth';
 const { getPermiso } = useAuth();
 const toast = useToast();
 const { trips, estatusTrip, from, to, getTrips, postTrip } = useTrip();
-const loading = ref(true);
+const loading = ref(false);
 
 const modificar = (id: number) => {
 	router.push({ path: `/modificar-trip/${id}` });
@@ -43,9 +43,12 @@ const bitacora = (id: number) => {
 	router.push({ path: `/bitacora-trip/${id}` });
 };
 
+const comentarios = (id: number) => {
+	router.push({ path: `/comentarios-trip/${id}` });
+};
+
 onMounted(async () => {
 	await getTrips(estatusTrip.value);
-	loading.value = false;
 });
 
 // const rowStyle = ({ usuario_toma_id }) => {
@@ -54,8 +57,7 @@ onMounted(async () => {
 // 	}
 // };
 
-const size = ref({ label: 'Small', value: 'small' });
-const estatus = ref({label: 'Transito', value: 'TRANSITO'})
+const estatus = ref({ label: 'Transito', value: 'TRANSITO' });
 const estatusOptions = ref([
 	{ label: 'Creado', value: 'CREADO' },
 	{ label: 'Programado', value: 'PROGRAMADO' },
@@ -71,13 +73,13 @@ const estatusOptions = ref([
 		:value="trips"
 		showGridlines
 		stripedRows
+		lazy
 		paginator
 		:rows="10"
-		:size="size.value"
 		:rowsPerPageOptions="[10, 50, 100]"
 		:class="[{ 'p-datatable-sm': true }]"
 		dataKey="id"
-		:loading="false"
+		:loading="loading"
 		:globalFilterFields="[
 			'numero_trip',
 			'cliente.razon_social',
@@ -149,6 +151,11 @@ const estatusOptions = ref([
 							icon="pi pi-book"
 							severity="info"
 							@click="bitacora(data.id)"
+						/>
+						<Button
+							icon="fa fa-comment"
+							severity="success"
+							@click="comentarios(data.id)"
 						/>
 						<Button
 							icon="pi pi-pencil"
