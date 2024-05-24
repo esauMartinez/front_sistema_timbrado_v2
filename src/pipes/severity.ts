@@ -17,6 +17,9 @@ export const severityTrip = (estatus: string) => {
 		case 'TRANSITO':
 			severity = 'success';
 			break;
+		case 'CANCELADO':
+			severity = 'danger';
+			break;
 	}
 	return severity;
 };

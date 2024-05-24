@@ -4,8 +4,10 @@ import { router } from '../../router';
 import Formulario from './Formulario.vue';
 import { useRoute } from 'vue-router';
 import { useTrip } from '../../composables/useTrip';
+import { useAuth } from '../../composables/useAuth';
 
-const { trip, getTrip, putTrip } = useTrip();
+const { trip, getTrip, putTrip, cancelarTrip } = useTrip();
+const { getPermiso } = useAuth();
 
 const visible = ref(true);
 const route = useRoute();
@@ -54,18 +56,23 @@ const tipoBoton = () => {
 		<Formulario @submit.prevent="modificar()" id="formulario" />
 		<template #footer>
 			<ButtonGroup>
-				<!-- <Button
+				<Button
 					icon="pi pi-times"
-					label="Cancelar"
-					@click="visible = false"
+					label="Cancelar Trip"
 					severity="danger"
-				/> -->
+					@click="cancelarTrip(trip)"
+					v-if="
+						trip.estatus !== 'CANCELADO' &&
+						trip.estatus !== 'TERMINADO' &&
+						!getPermiso('TRIPS', 'modificar')
+					"
+				/>
 				<Button
 					icon="pi pi-file-pdf"
 					label="PDF"
 					severity="info"
 					@click="verPdf(trip.id)"
-					v-if="trip.estatus !== 'CREADO'"
+					v-if="trip.estatus !== 'CREADO' && trip.estatus !== 'CANCELADO'"
 				></Button>
 				<Button
 					:icon="`fa fa-${icon}`"
@@ -73,7 +80,7 @@ const tipoBoton = () => {
 					type="submit"
 					form="formulario"
 					severity="success"
-					v-if="trip.estatus !== 'TERMINADO'"
+					v-if="trip.estatus !== 'TERMINADO' && trip.estatus !== 'CANCELADO'"
 				/>
 			</ButtonGroup>
 		</template>

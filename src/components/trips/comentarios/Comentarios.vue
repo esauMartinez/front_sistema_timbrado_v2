@@ -5,15 +5,21 @@ import { useTrip } from '../../../composables/useTrip';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { formatDateWithTime } from '../../../pipes/formatDate';
-import Usuarios from '../../../views/Usuarios.vue';
 
-const { comentario, comentarios, getComentarios, postComentario } = useTrip();
+const {
+	trip,
+	comentario,
+	comentarios,
+	getTrip,
+	getComentarios,
+	postComentario,
+} = useTrip();
 const route = useRoute();
 const visible = ref(true);
 
 onMounted(async () => {
 	const id = +route.params.id;
-	comentario.value.trip_id = id;
+	await getTrip(id);
 	await getComentarios(id);
 });
 </script>
@@ -52,7 +58,7 @@ onMounted(async () => {
 				</li>
 			</ul>
 		</div>
-		<template #footer>
+		<template #footer v-if="trip.estatus !== 'CANCELADO'">
 			<form @submit.prevent="postComentario(comentario)" class="w-full">
 				<InputGroup>
 					<InputText

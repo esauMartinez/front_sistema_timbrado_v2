@@ -13,7 +13,7 @@ import { router } from '../router';
 import { ref } from 'vue';
 import moment from 'moment';
 import { useLoadStore } from '../store/load';
-import { Comentario } from '../interfaces/trip';
+import { Comentario, Trip } from '../interfaces/trip';
 
 export const useTrip = () => {
 	const tripStore = useTripStore();
@@ -132,6 +132,29 @@ export const useTrip = () => {
 		}
 	};
 
+	const cancelarTrip = async (payload: Trip) => {
+		try {
+			const response = await question(
+				'No podras revertir esto!',
+				'Si, cancelar!'
+			);
+			if (response) {
+				const { data } = await instance.put(`/cancelar-trip/${payload.id}`);
+				toast.add({
+					severity: 'success',
+					summary: 'Trip',
+					detail: 'Trip cancelado correctamente',
+					life: 3000,
+				});
+				getTrips(estatusTrip.value);
+				getTrip(payload.id);
+				return data;
+			}
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
 	const selectCliente = (cliente: Cliente) => {
 		nombre_cliente.value = cliente.razon_social;
 		trip.value.cliente_id = cliente.id;
@@ -178,6 +201,7 @@ export const useTrip = () => {
 
 	const postComentario = async (comentario: Comentario) => {
 		try {
+			comentario.trip_id = trip.value.id;
 			await instance.post(`/agregar-comentario`, comentario);
 			toast.add({
 				severity: 'success',
@@ -185,8 +209,8 @@ export const useTrip = () => {
 				detail: 'Comentario agregado correctamente',
 				life: 3000,
 			});
-			getComentarios(comentario.trip_id);
-			resetFormComentario();
+			getComentarios(trip.value.id);
+			comentario.comentarios = null;
 		} catch (error) {
 			handleError(error);
 		}
@@ -281,6 +305,7 @@ export const useTrip = () => {
 		getTrips,
 		postTrip,
 		putTrip,
+		cancelarTrip,
 		deleteTrip,
 		selectCliente,
 		selectOperador,

@@ -51,18 +51,13 @@ onMounted(async () => {
 	await getTrips(estatusTrip.value);
 });
 
-// const rowStyle = ({ usuario_toma_id }) => {
-// 	if (usuario_toma_id !== null) {
-// 		return { background: '#979191' };
-// 	}
-// };
-
 const estatus = ref({ label: 'Transito', value: 'TRANSITO' });
 const estatusOptions = ref([
 	{ label: 'Creado', value: 'CREADO' },
 	{ label: 'Programado', value: 'PROGRAMADO' },
 	{ label: 'Transito', value: 'TRANSITO' },
 	{ label: 'Terminado', value: 'TERMINADO' },
+	{ label: 'Cancelados', value: 'CANCELADO' },
 	{ label: 'Todos', value: 'TODOS' },
 ]);
 </script>

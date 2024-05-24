@@ -42,6 +42,7 @@ const estatusOptions = ref([
 	{ label: 'Programado', value: 'PROGRAMADO' },
 	{ label: 'Transito', value: 'TRANSITO' },
 	{ label: 'Terminado', value: 'TERMINADO' },
+	{ label: 'Cancelados', value: 'CANCELADO' },
 	{ label: 'Todos', value: 'TODOS' },
 ]);
 const selectedTrip = ref();
