@@ -49,7 +49,7 @@ const tipoBoton = () => {
 	<Dialog
 		v-model:visible="visible"
 		modal
-		header="Trip"
+		:header="`Trip ${trip.numero_trip}`"
 		:style="{ width: '50vw' }"
 		v-on:after-hide="router.go(-1)"
 	>
@@ -57,14 +57,14 @@ const tipoBoton = () => {
 		<template #footer>
 			<ButtonGroup>
 				<Button
-					icon="pi pi-times"
+					icon="pi pi-trash"
 					label="Cancelar Trip"
 					severity="danger"
 					@click="cancelarTrip(trip)"
 					v-if="
 						trip.estatus !== 'CANCELADO' &&
 						trip.estatus !== 'TERMINADO' &&
-						!getPermiso('TRIPS', 'modificar')
+						!getPermiso('MODULO_TRIPS_CANCELAR')
 					"
 				/>
 				<Button

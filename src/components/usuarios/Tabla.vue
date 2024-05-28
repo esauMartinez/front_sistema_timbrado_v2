@@ -72,7 +72,7 @@ const filters = ref({
 					severity="success"
 					outlined
 					@click="isModule ? agregar() : agregarSuper()"
-					v-if="!getPermiso('USUARIOS', 'crear')"
+					v-if="!getPermiso('MODULO_USUARIOS_CREAR')"
 				/>
 			</div>
 		</template>
@@ -111,13 +111,13 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="!getPermiso('USUARIOS', 'modificar')"
+							v-if="!getPermiso('MODULO_USUARIOS_MODIFICAR')"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deleteUsuario(data.id)"
-							v-if="!getPermiso('USUARIOS', 'eliminar')"
+							v-if="!getPermiso('MODULO_USUARIOS_ELIMINAR')"
 						/>
 					</ButtonGroup>
 				</div>

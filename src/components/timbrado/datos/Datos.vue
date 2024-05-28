@@ -10,7 +10,7 @@ const { trip, empresa, cliente } = useTimbrado();
 		<Divider />
 		<p class="m-0">Serie: CP</p>
 		<Divider />
-		<p class="m-0">Folio: {{ trip?.id }}</p>
+		<p class="m-0">Folio: {{ trip?.numero_trip }}</p>
 		<Divider />
 		<p class="m-0">Forma de pago: {{ cliente?.forma_pago }}</p>
 		<Divider />

@@ -6,7 +6,6 @@ import { severity } from '../../pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
 import { useTrip } from '../../composables/useTrip';
 import { useAuth } from '../../composables/useAuth';
-import { useToast } from 'primevue/usetoast';
 
 const { getPermiso } = useAuth();
 const { clientes, getClientes, putCliente, deleteCliente } = useCliente();
@@ -83,7 +82,7 @@ const filters = ref({
 					label="Nuevo"
 					outlined
 					@click="agregar"
-					v-if="isModule && !getPermiso('CLIENTES', 'crear')"
+					v-if="isModule && !getPermiso('MODULO_CLIENTES_CREAR')"
 				/>
 			</div>
 		</template>
@@ -95,7 +94,11 @@ const filters = ref({
 		<Column field="pais" header="Pais" sortable />
 		<Column v-if="isModule">
 			<template #body="{ data }">
-				<InputSwitch v-model="data.estatus" @change="putCliente(data)" />
+				<InputSwitch
+					v-model="data.estatus"
+					@change="putCliente(data)"
+					v-if="!getPermiso('MODULO_CLIENTES_MODIFICAR')"
+				/>
 			</template>
 		</Column>
 		<Column header="Estatus">
@@ -106,7 +109,7 @@ const filters = ref({
 				></Tag>
 			</template>
 		</Column>
-		<Column header="Acciones">
+		<Column header="Acciones" style="min-width: 200px">
 			<template #body="{ data }">
 				<div class="flex justify-content-center">
 					<ButtonGroup>
@@ -114,23 +117,25 @@ const filters = ref({
 							icon="pi pi-book"
 							@click="bitacora(data.id)"
 							severity="info"
+							v-if="isModule && !getPermiso('MODULO_CLIENTES_BITACORA')"
 						/>
 						<Button
 							@click="contactos(data.id)"
 							icon="pi pi-phone"
 							severity="info"
+							v-if="isModule && !getPermiso('MODULO_CLIENTES_CONTACTOS_VER')"
 						/>
 						<Button
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="isModule && !getPermiso('CLIENTES', 'modificar')"
+							v-if="isModule && !getPermiso('MODULO_CLIENTES_MODIFICAR')"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deleteCliente(data.id)"
-							v-if="isModule && !getPermiso('CLIENTES', 'eliminar')"
+							v-if="isModule && !getPermiso('MODULO_CLIENTES_ELIMINAR')"
 						/>
 						<Button
 							icon="pi pi-plus"

@@ -18,6 +18,7 @@ export const useAuth = () => {
 				email: auth.email,
 				password: auth.password,
 			});
+			console.log(data);
 			authStore.setToken(data.data);
 			renderizarTipo(data.data.role);
 			// if (data.data.empresa) {
@@ -41,14 +42,12 @@ export const useAuth = () => {
 		localStorage.setItem('rol', rol.nombre);
 	};
 
-	const getPermiso = (permiso, opcion): boolean => {
+	const getPermiso = (permiso): boolean => {
 		const {
 			role: { permisos },
 		} = JSON.parse(localStorage.getItem('usuario'));
 
-		const verificar_permiso = permisos.find(
-			(x) => x.nombre === permiso && x[opcion] === true
-		);
+		const verificar_permiso = permisos.find((x) => x.nombre === permiso);
 		return verificar_permiso === undefined ? true : false;
 	};
 
@@ -89,8 +88,7 @@ export const useAuth = () => {
 
 	const setDarkMode = (darkMode: boolean) => {
 		authStore.setDarkMode(darkMode);
-	}
-
+	};
 
 	const logout = (): void => {
 		// const rol = localStorage.getItem('rol');

@@ -6,10 +6,12 @@ import { useRoute } from 'vue-router';
 import { onMounted } from 'vue';
 import { useCliente } from '../../../composables/useCliente';
 import Formulario from './Formulario.vue';
+import { useAuth } from "../../../composables/useAuth";
 const visible = ref(true);
 
 const { contacto, getContactos } = useCliente();
 const route = useRoute();
+const { getPermiso } = useAuth();
 
 onMounted(async () => {
 	await getContactos(+route.params.id);
@@ -25,7 +27,7 @@ onMounted(async () => {
 		:style="{ width: '50vw' }"
 		v-on:after-hide="router.go(-1)"
 	>
-		<Formulario />
+		<Formulario v-if="!getPermiso('MODULO_CLIENTES_CONTACTOS_CREAR')" />
 		<Tabla />
 	</Dialog>
 </template>

@@ -7,9 +7,8 @@ import { MercanciasSat, Peligroso, UnidadPeso } from '../interfaces/sat.model';
 import { Operador } from '../interfaces/operador.model';
 import { Tractor } from '../interfaces/tractor.model';
 import { Caja } from '../interfaces/caja.model';
-import { Balance, Timbre } from '../interfaces/timbre.model';
+import { Balance, Cancelacion, Timbre } from '../interfaces/timbre.model';
 import { Patio } from '../interfaces/patio.model';
-import { Acuse } from '../interfaces/acuse.model';
 
 interface TimbreStore {
 	cliente: Cliente;
@@ -25,6 +24,7 @@ interface TimbreStore {
 	unidadesPeso: UnidadPeso[];
 	peligrosos: Peligroso[];
 	timbres: Timbre[];
+	cancelacion: Cancelacion;
 	movimientos: Patio[];
 	balance: Balance;
 	pdf: string;
@@ -167,6 +167,11 @@ export const useTimbradoStore = defineStore('timbrado', {
 		peligrosos: [],
 		movimientos: [],
 		timbres: [],
+		cancelacion: {
+			id: null,
+			tipo_cancelacion: null,
+			uuid: null,
+		},
 		balance: {
 			expirationDate: null,
 			idUser: null,
@@ -217,6 +222,9 @@ export const useTimbradoStore = defineStore('timbrado', {
 		},
 		setTimbres(timbres: Timbre[]) {
 			this.timbres = timbres;
+		},
+		setCancelacion(cancelacion: Cancelacion) {
+			this.cancelacion = cancelacion;
 		},
 	},
 });

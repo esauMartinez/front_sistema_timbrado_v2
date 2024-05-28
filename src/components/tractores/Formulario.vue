@@ -77,12 +77,15 @@ onMounted(() => {
 		</div>
 		<div class="mb-3">
 			<label>Modelo</label>
-			<InputText
+			<Calendar
 				id="modelo"
 				name="modelo"
 				class="w-full focus:border-primary mt-2"
 				placeholder="Modelo"
 				v-model="unidad.modelo"
+				view="year"
+				dateFormat="yy"
+				showIcon
 			/>
 			<small class="p-error" name="modelo"></small>
 		</div>

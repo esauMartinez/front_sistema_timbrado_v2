@@ -9,7 +9,6 @@ import Tractor from './datos/Tractor.vue';
 import Caja from "./datos/Caja.vue";
 import Permiso from "./datos/Permiso.vue";
 import Datos from "./datos/Datos.vue";
-import Domicilio from "./datos/Domicilio.vue";
 </script>
 
 <template>

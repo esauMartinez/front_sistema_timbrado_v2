@@ -31,13 +31,6 @@ const verPdf = async (id: number) => {
 		<Formulario />
 		<template #footer>
 			<ButtonGroup>
-				<!-- <Button
-					icon="pi pi-times"
-					label="Cancelar"
-					@click="visible = false"
-					severity="danger"
-				/> -->
-
 				<Button
 					label="XML"
 					icon="fa fa-file-code"
@@ -45,7 +38,6 @@ const verPdf = async (id: number) => {
 					@click="xmlTimbre(trip.id)"
 					v-if="trip.isTimbrado"
 				/>
-
 				<Button
 					label="PDF"
 					icon="pi pi-file-pdf"
@@ -58,7 +50,7 @@ const verPdf = async (id: number) => {
 					icon="pi pi-bell"
 					severity="success"
 					@click="timbrar(trip.id)"
-					v-if="!getPermiso('TIMBRADO', 'crear')"
+					v-if="!getPermiso('MODULO_TIMBRADO_TIMBRAR')"
 				/>
 			</ButtonGroup>
 		</template>

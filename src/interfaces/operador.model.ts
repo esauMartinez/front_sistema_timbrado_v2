@@ -16,6 +16,6 @@ export interface Operador {
   numero_exterior: string;
   numero_interior: string;
   licencia: string;
-  vencimiento_licencia: Date;
+  vencimiento_licencia: string;
   estatus: boolean;
 }

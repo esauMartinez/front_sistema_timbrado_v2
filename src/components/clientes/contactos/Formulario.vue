@@ -62,7 +62,7 @@ onMounted(() => {
 				/>
 			</InputGroup>
 		</div>
-		<div class="col-2 col-offset-10">
+		<div class="col-3 col-offset-9">
 			<Button type="submit" icon="pi pi-check" class="w-full" label="Guardar" />
 		</div>
 	</form>

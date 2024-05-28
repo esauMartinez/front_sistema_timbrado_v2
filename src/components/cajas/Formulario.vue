@@ -71,6 +71,7 @@ onMounted(() => {
 				placeholder="Vencimiento de la poliza"
 				v-model="unidad.vencimiento_poliza"
 				:numberOfMonths="1"
+				dateFormat="dd/mm/yy"
 				showIcon
 			/>
 			<small class="p-error" name="vencimiento_poliza"></small>

@@ -6,6 +6,8 @@ import { Unidad } from '../interfaces/unidad.model';
 import { useToast } from 'primevue/usetoast';
 import { router } from '../router';
 import { Marca } from '../interfaces/marca.model';
+import { Caja } from '../interfaces/caja.model';
+import moment from 'moment';
 
 export const useCaja = () => {
 	const unidadStore = useUnidadStore();
@@ -24,7 +26,11 @@ export const useCaja = () => {
 
 	const getUnidad = async (id: number) => {
 		try {
-			const { data } = await instance.get(`/cajas/${id}`);
+			const { data } = await instance.get<Unidad>(`/cajas/${id}`);
+			data.vencimiento_poliza = moment(data.vencimiento_poliza).format(
+				'DD/MM/yyyy'
+			);
+			data.modelo = moment(data.modelo).format('yyyy');
 			unidadStore.setUnidad(data);
 		} catch (error) {
 			handleError(error);

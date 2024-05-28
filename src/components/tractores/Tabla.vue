@@ -74,7 +74,7 @@ const filters = ref({
 					label="Nuevo"
 					outlined
 					@click="agregar"
-					v-if="isModule && !getPermiso('TRACTORES', 'crear')"
+					v-if="isModule && !getPermiso('MODULO_TRACTORES_CREAR')"
 				/>
 			</div>
 		</template>
@@ -105,7 +105,11 @@ const filters = ref({
 
 		<Column v-if="isModule">
 			<template #body="{ data }">
-				<InputSwitch v-model="data.estatus" @change="putUnidad(data)" />
+				<InputSwitch
+					v-model="data.estatus"
+					@change="putUnidad(data)"
+					v-if="!getPermiso('MODULO_TRACTORES_MODIFICAR')"
+				/>
 			</template>
 		</Column>
 		<Column header="Estatus">
@@ -124,13 +128,13 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="isModule && !getPermiso('TRACTORES', 'modificar')"
+							v-if="isModule && !getPermiso('MODULO_TRACTORES_MODIFICAR')"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deleteUnidad(data.id)"
-							v-if="isModule && !getPermiso('TRACTORES', 'eliminar')"
+							v-if="isModule && !getPermiso('MODULO_TRACTORES_ELIMINAR')"
 						/>
 						<Button
 							icon="pi pi-plus"

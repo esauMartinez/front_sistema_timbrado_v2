@@ -56,7 +56,7 @@ const filters = ref({
 					icon="pi pi-plus"
 					severity="success"
 					@click="agregar"
-					v-if="!getPermiso('ROLES', 'crear')"
+					v-if="!getPermiso('MODULO_ROLES_VER')"
 				/>
 			</div>
 		</template>
@@ -70,13 +70,13 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="!getPermiso('ROLES', 'modificar')"
+							v-if="!getPermiso('MODULO_ROLES_MODIFICAR')"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deleteRol(data.id)"
-							v-if="!getPermiso('ROLES', 'eliminar')"
+							v-if="!getPermiso('MODULO_ROLES_ELIMINAR')"
 						/>
 					</ButtonGroup>
 				</div>

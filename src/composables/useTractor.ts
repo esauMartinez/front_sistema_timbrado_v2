@@ -5,6 +5,7 @@ import { handleError, question } from '../helpers/messages';
 import { Unidad } from '../interfaces/unidad.model';
 import { useToast } from 'primevue/usetoast';
 import { router } from '../router';
+import moment from 'moment';
 
 export const useTractor = () => {
 	const unidadStore = useUnidadStore();
@@ -23,7 +24,11 @@ export const useTractor = () => {
 
 	const getUnidad = async (id: number) => {
 		try {
-			const { data } = await instance.get(`/tractores/${id}`);
+			const { data } = await instance.get<Unidad>(`/tractores/${id}`);
+			data.vencimiento_poliza = moment(data.vencimiento_poliza).format(
+				'DD/MM/yyyy'
+			);
+			data.modelo = moment(data.modelo).format('yyyy');
 			unidadStore.setUnidad(data);
 		} catch (error) {
 			handleError(error);

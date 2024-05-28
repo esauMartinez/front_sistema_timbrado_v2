@@ -17,48 +17,48 @@ const menu = [
 		title: 'Catalogos',
 		icon: 'fa fa-bars',
 		hidden:
-			getPermiso('CLIENTES', 'ver') &&
-			getPermiso('OPERADORES', 'ver') &&
-			getPermiso('TRACTORES', 'ver') &&
-			getPermiso('CAJAS', 'ver') &&
-			getPermiso('PATIOS', 'ver') &&
-			getPermiso('SERVICIOS', 'ver'),
+			getPermiso('MODULO_CLIENTES_VER') &&
+			getPermiso('MODULO_OPERADORES_VER') &&
+			getPermiso('MODULO_TRACTORES_VER') &&
+			getPermiso('MODULO_CAJAS_VER') &&
+			getPermiso('MODULO_PATIOS_VER') &&
+			getPermiso('MODULO_SERVICIOS_VER'),
 		child: [
 			{
 				href: '/clientes',
 				title: 'Clientes',
 				icon: 'fa fa-briefcase',
-				hidden: getPermiso('CLIENTES', 'ver'),
+				hidden: getPermiso('MODULO_CLIENTES_VER'),
 			},
 			{
 				title: 'Operadores',
 				href: '/operadores',
 				icon: 'fa fa-user-astronaut',
-				hidden: getPermiso('OPERADORES', 'ver'),
+				hidden: getPermiso('MODULO_OPERADORES_VER'),
 			},
 			{
 				title: 'Tractores',
 				href: '/tractores',
 				icon: 'fa fa-truck',
-				hidden: getPermiso('TRACTORES', 'ver'),
+				hidden: getPermiso('MODULO_TRACTORES_VER'),
 			},
 			{
 				title: 'Cajas',
 				href: '/Cajas',
 				icon: 'fa fa-trailer',
-				hidden: getPermiso('CAJAS', 'ver'),
+				hidden: getPermiso('MODULO_CAJAS_VER'),
 			},
 			{
 				title: 'Patios',
 				href: '/Patios',
 				icon: 'fa fa-globe',
-				hidden: getPermiso('PATIOS', 'ver'),
+				hidden: getPermiso('MODULO_PATIOS_VER'),
 			},
 			{
 				title: 'Servcicios',
 				href: '/Servicios',
 				icon: 'fa fa-box-open',
-				hidden: getPermiso('SERVICIOS', 'ver'),
+				hidden: getPermiso('MODULO_SERVICIOS_VER'),
 			},
 		],
 	},
@@ -67,42 +67,42 @@ const menu = [
 		title: 'Trips',
 		href: '/Trips',
 		icon: 'fa fa-suitcase',
-		hidden: getPermiso('TRIPS', 'ver'),
+		hidden: getPermiso('MODULO_TRIPS_VER'),
 	},
 	{
 		header: null,
-		title: 'Trimbrado',
+		title: 'Timbrado',
 		href: '/Timbrado',
 		icon: 'fa fa-bell',
-		hidden: getPermiso('TIMBRADO', 'ver'),
+		hidden: getPermiso('MODULO_TIMBRADO_VER'),
 	},
 	{
 		header: null,
 		title: 'Usuarios',
 		href: '/usuarios',
 		icon: 'fa fa-users',
-		hidden: getPermiso('USUARIOS', 'ver'),
+		hidden: getPermiso('MODULO_USUARIOS_VER'),
 	},
 	{
 		header: null,
 		title: 'Empresas',
 		href: '/super',
 		icon: 'fa fa-shield-halved',
-		hidden: getPermiso('EMPRESAS', 'ver'),
+		hidden: getPermiso('MODULO_EMPRESAS_VER'),
 	},
 	{
 		header: null,
 		title: 'Roles',
 		href: '/roles',
 		icon: 'fa fa-address-book',
-		hidden: getPermiso('ROLES', 'ver'),
+		hidden: getPermiso('MODULO_ROLES_VER'),
 	},
 	{
 		header: null,
 		title: 'Ajustes',
 		href: '/ajustes',
 		icon: 'fa fa-gear',
-		hidden: getPermiso('AJUSTES', 'ver'),
+		hidden: getPermiso('MODULO_AJUSTES_VER'),
 	},
 	{
 		header: null,
@@ -138,7 +138,7 @@ const onItemClick = (e, item) => {
 	}
 };
 
-const collapsedLogo = ref(false);
+const collapsedLogo = ref(true);
 
 const onToggleCollapse = (collapsed) => {
 	if (collapsed) {
@@ -163,6 +163,7 @@ onMounted(() => {
 		@update:collapsed="onToggleCollapse"
 		@item-click="onItemClick"
 		:theme="theme_sidenav"
+		collapsed
 	>
 		<template v-slot:header>
 			<Logotipo v-if="!collapsedLogo" />

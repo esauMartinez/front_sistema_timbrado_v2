@@ -13,6 +13,7 @@ import { usePDFTimbre } from './usePDFTimbre';
 import { Trip } from '../interfaces/trip';
 import { useTrip } from './useTrip';
 import { useLoadStore } from '../store/load';
+import { Cancelacion } from '../interfaces/timbre.model';
 
 export const useTimbrado = () => {
 	const timbradoStore = useTimbradoStore();
@@ -32,6 +33,7 @@ export const useTimbrado = () => {
 		mercancias,
 		mercancia,
 		timbres,
+		cancelacion,
 		mercanciasSat,
 		unidadesPeso,
 		peligrosos,
@@ -220,12 +222,15 @@ export const useTimbrado = () => {
 		}
 	};
 
-	const cancelarTimbre = async (id: number) => {
+	const cancelarTimbre = async (payload: Cancelacion) => {
 		try {
 			const response = await question('Se cancelara el timbre', 'Si');
 			if (response.isConfirmed) {
 				loadStore.setLoading(true);
-				const { data } = await instance.get(`/cancelar-timbre/${id}`);
+				const { data } = await instance.put(
+					`/cancelar-timbre/${payload.id}`,
+					payload
+				);
 				toast.add({
 					severity: 'success',
 					summary: 'Trip',
@@ -234,6 +239,7 @@ export const useTimbrado = () => {
 				});
 				getTrips('TODOS');
 				loadStore.setLoading(false);
+				router.go(-1);
 			}
 		} catch (error) {
 			loadStore.setLoading(false);
@@ -331,6 +337,14 @@ export const useTimbrado = () => {
 		});
 	};
 
+	const resetFormCancelacion = (id: number) => {
+		timbradoStore.setCancelacion({
+			id,
+			tipo_cancelacion: null,
+			uuid: null,
+		});
+	};
+
 	return {
 		trip,
 		concepto,
@@ -343,6 +357,7 @@ export const useTimbrado = () => {
 		mercancias,
 		mercancia,
 		timbres,
+		cancelacion,
 		balance,
 		isTimbrando,
 		mercanciasSat,
@@ -353,7 +368,6 @@ export const useTimbrado = () => {
 		getDatosTimbre,
 		postConcepto,
 		eliminarConcepto,
-		resetFormConcepto,
 		postMercancia,
 		deleteMercancia,
 		obtenerMaterialesPeligrosos,
@@ -367,5 +381,7 @@ export const useTimbrado = () => {
 		getAcuses,
 		xmlTimbre,
 		xmlAcuse,
+		resetFormConcepto,
+		resetFormCancelacion,
 	};
 };

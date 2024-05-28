@@ -246,7 +246,8 @@ const routes: RouteRecordRaw[] = [
 			{
 				path: '/comentarios-trip/:id',
 				name: 'ComentariosTrip',
-				component: () => import('../components/trips/comentarios/Comentarios.vue'),
+				component: () =>
+					import('../components/trips/comentarios/Comentarios.vue'),
 			},
 		],
 	},
@@ -278,6 +279,12 @@ const routes: RouteRecordRaw[] = [
 						component: () => import('../components/PDFTimbre.vue'),
 					},
 				],
+			},
+			{
+				path: '/cancelar-timbre/:trip/:id',
+				name: 'CancelarTimbre',
+				component: () =>
+					import('../components/timbrado/cancelacion/Cancelacion.vue'),
 			},
 		],
 	},

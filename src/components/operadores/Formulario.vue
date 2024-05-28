@@ -97,6 +97,7 @@ const paises = ref([
 				class="w-full focus:border-primary mt-2"
 				placeholder="Fecha de nacimiento"
 				v-model="operador.fecha_nacimiento"
+				dateFormat="dd/mm/yy"
 				showIcon
 			/>
 			<small class="p-error" name="fecha_nacimiento"></small>
@@ -109,6 +110,7 @@ const paises = ref([
 				class="w-full focus:border-primary mt-2"
 				placeholder="Fecha de ingreso"
 				v-model="operador.fecha_ingreso"
+				dateFormat="dd/mm/yy"
 				showIcon
 			/>
 			<small class="p-error" name="fecha_ingreso"></small>

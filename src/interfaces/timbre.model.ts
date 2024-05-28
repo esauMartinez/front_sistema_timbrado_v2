@@ -25,4 +25,11 @@ export interface Balance {
 	stampsAssigned: string;
 	stampsBalance: string;
 	stampsUsed: string;
+
+}
+
+export interface Cancelacion {
+	id: number;
+	tipo_cancelacion: string;
+	uuid: string;
 }

@@ -105,7 +105,7 @@ const agregar = (tipo: string) => {
 						placeholder="Cliente"
 						name="cliente_id"
 						v-model="nombre_cliente"
-						disabled
+						:disabled="trip.estatus !== 'CREADO'"
 					/>
 					<Button
 						icon="pi pi-plus"
@@ -127,7 +127,7 @@ const agregar = (tipo: string) => {
 						placeholder="Operador"
 						name="operador_id"
 						v-model="nombre_operador"
-						disabled
+						:disabled="trip.estatus !== 'CREADO'"
 					/>
 					<Button
 						icon="pi pi-plus"
@@ -149,7 +149,7 @@ const agregar = (tipo: string) => {
 						placeholder="Caja"
 						name="caja_id"
 						v-model="numero_economico_caja"
-						disabled
+						:disabled="trip.estatus !== 'CREADO'"
 					/>
 					<Button
 						icon="pi pi-plus"
@@ -171,7 +171,7 @@ const agregar = (tipo: string) => {
 						placeholder="Tractor"
 						name="tractor_id"
 						v-model="numero_economico_tractor"
-						disabled
+						:disabled="trip.estatus !== 'CREADO'"
 					/>
 					<Button
 						icon="pi pi-plus"

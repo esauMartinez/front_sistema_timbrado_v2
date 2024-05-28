@@ -31,7 +31,7 @@ export const useAuthStore = defineStore('auth', {
 			this.estatusUsuarioAutenticado = estatusUsuarioAutenticado;
 			this.darkMode = darkMode;
 			if (this.estatusUsuarioAutenticado) {
-				document.body.style.paddingLeft = '290px';
+				document.body.style.paddingLeft = '65px';
 			} else {
 				document.body.style.paddingLeft = '0px';
 				this.setDarkMode(false);

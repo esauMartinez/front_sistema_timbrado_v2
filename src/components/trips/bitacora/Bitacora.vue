@@ -11,6 +11,7 @@ const bitacora: any = ref([]);
 
 onMounted(() => {
 	const findTrip: any = trips.value.find((x) => +x.id === +route.params.id);
+	console.log(findTrip)
 	bitacora.value.push({
 		evento: 'CREO',
 		usuario:
@@ -38,6 +39,13 @@ onMounted(() => {
 			findTrip.usuarioTermina === null
 				? null
 				: `${findTrip.usuarioTermina?.nombre} ${findTrip.usuarioTermina?.paterno} ${findTrip.usuarioTermina?.materno}`,
+	});
+	bitacora.value.push({
+		evento: 'CANCELO',
+		usuario:
+			findTrip.usuarioCancelo === null
+				? null
+				: `${findTrip.usuarioCancelo?.nombre} ${findTrip.usuarioCancelo?.paterno} ${findTrip.usuarioCancelo?.materno}`,
 	});
 });
 </script>

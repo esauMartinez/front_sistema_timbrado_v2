@@ -69,7 +69,7 @@ const filters = ref({
 					label="Nuevo"
 					outlined
 					@click="agregar"
-					v-if="isModule && !getPermiso('PATIOS', 'crear')"
+					v-if="isModule && !getPermiso('MODULO_PATIOS_CREAR')"
 				/>
 			</div>
 		</template>
@@ -80,7 +80,11 @@ const filters = ref({
 		<Column field="tipo" header="Tipo" sortable />
 		<Column v-if="isModule">
 			<template #body="{ data }">
-				<InputSwitch v-model="data.estatus" @change="putPatio(data)" />
+				<InputSwitch
+					v-model="data.estatus"
+					@change="putPatio(data)"
+					v-if="!getPermiso('MODULO_PATIOS_MODIFICAR')"
+				/>
 			</template>
 		</Column>
 		<Column header="Estatus">
@@ -99,13 +103,13 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="isModule && !getPermiso('PATIOS', 'modificar')"
+							v-if="isModule && !getPermiso('MODULO_PATIOS_MODIFICAR')"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deletePatio(data.id)"
-							v-if="isModule && !getPermiso('PATIOS', 'eliminar')"
+							v-if="isModule && !getPermiso('MODULO_PATIOS_ELIMINAR')"
 						/>
 						<Button
 							icon="pi pi-plus"

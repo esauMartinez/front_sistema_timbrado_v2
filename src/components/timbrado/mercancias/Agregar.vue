@@ -25,13 +25,7 @@ onMounted(() => {
 			id="formulario-mercancia"
 		/>
 		<template #footer>
-			<Button
-				label="Cancelar"
-				icon="pi pi-times"
-				@click="visible = false"
-				outlined
-				severity="danger"
-			/>
+			
 			<Button
 				label="Guardar"
 				icon="pi pi-check"

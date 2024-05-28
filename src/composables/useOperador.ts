@@ -1,10 +1,11 @@
-import { storeToRefs } from "pinia";
-import { instance } from "../helpers/axiosInstance";
-import { handleError, question } from "../helpers/messages";
-import { useOperadorStore } from "../store/operador";
-import { useToast } from "primevue/usetoast";
-import { router } from "../router";
-import { Operador } from "../interfaces/operador.model";
+import { storeToRefs } from 'pinia';
+import { instance } from '../helpers/axiosInstance';
+import { handleError, question } from '../helpers/messages';
+import { useOperadorStore } from '../store/operador';
+import { useToast } from 'primevue/usetoast';
+import { router } from '../router';
+import { Operador } from '../interfaces/operador.model';
+import moment from 'moment';
 
 export const useOperador = () => {
 	const operadorStore = useOperadorStore();
@@ -22,7 +23,14 @@ export const useOperador = () => {
 
 	const getOperador = async (id: number) => {
 		try {
-			const { data } = await instance.get(`/operadores/${id}`);
+			const { data } = await instance.get<Operador>(`/operadores/${id}`);
+			data.fecha_nacimiento = moment(data.fecha_nacimiento).format(
+				'DD/MM/YYYY'
+			);
+			data.fecha_ingreso = moment(data.fecha_ingreso).format('DD/MM/YYYY');
+			data.vencimiento_licencia = moment(data.vencimiento_licencia).format(
+				'DD/MM/YYYY'
+			);
 			operadorStore.setOperador(data);
 		} catch (error) {
 			handleError(error);
@@ -59,7 +67,7 @@ export const useOperador = () => {
 			return true;
 		} catch (error) {
 			handleError(error);
-			return false
+			return false;
 		}
 	};
 
@@ -105,15 +113,14 @@ export const useOperador = () => {
 		});
 	};
 
-
 	return {
-    operador,
-    operadores,
+		operador,
+		operadores,
 		getOperador,
 		getOperadores,
 		postOperador,
 		putOperador,
 		deleteOperador,
-		resetOperadorForm
+		resetOperadorForm,
 	};
 };

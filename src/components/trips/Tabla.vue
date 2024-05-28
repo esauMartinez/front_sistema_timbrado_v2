@@ -7,10 +7,11 @@ import { useTrip } from '../../composables/useTrip';
 import { useToast } from 'primevue/usetoast';
 import { formatDateWithTime } from '../../pipes/formatDate';
 import { useAuth } from '../../composables/useAuth';
+import Agregar from './Agregar.vue';
 
 const { getPermiso } = useAuth();
 const toast = useToast();
-const { trips, estatusTrip, from, to, getTrips, postTrip } = useTrip();
+const { trips, estatusTrip, from, to, getTrips } = useTrip();
 const loading = ref(false);
 
 const modificar = (id: number) => {
@@ -33,10 +34,6 @@ const showTemplate = () => {
 		detail: 'Proceed to confirm',
 		group: 'bc',
 	});
-};
-
-const onReject = () => {
-	toast.removeGroup('bc');
 };
 
 const bitacora = (id: number) => {
@@ -67,14 +64,13 @@ const estatusOptions = ref([
 		v-model:filters="filters"
 		:value="trips"
 		showGridlines
-		stripedRows
-		lazy
 		paginator
-		:rows="10"
-		:rowsPerPageOptions="[10, 50, 100]"
+		:rowHover="true"
+		:rows="20"
+		:rowsPerPageOptions="[20, 50, 100]"
 		:class="[{ 'p-datatable-sm': true }]"
 		dataKey="id"
-		:loading="loading"
+		:loading="false"
 		:globalFilterFields="[
 			'numero_trip',
 			'cliente.razon_social',
@@ -85,45 +81,66 @@ const estatusOptions = ref([
 		]"
 	>
 		<template #header>
-			<div class="flex justify-content-between">
-				<IconField iconPosition="left">
-					<InputIcon>
-						<i class="pi pi-search" />
-					</InputIcon>
-					<InputText v-model="filters['global'].value" placeholder="Buscar" />
-				</IconField>
-				<div>
-					<Calendar v-model="from" :manualInput="false" class="mr-1" />
-					<Calendar v-model="to" :manualInput="false" class="mr-3" />
+			<div class="grid">
+				<div class="col-3">
+					<IconField iconPosition="left">
+						<InputIcon>
+							<i class="pi pi-search" />
+						</InputIcon>
+						<InputText
+							v-model="filters['global'].value"
+							placeholder="Buscar"
+							class="w-full"
+						/>
+					</IconField>
 				</div>
-				<SelectButton
-					v-model="estatus"
-					:options="estatusOptions"
-					optionLabel="label"
-					dataKey="label"
-					:unselectable="false"
-					@click="getTrips(estatus.value)"
-				/>
-				<Button
-					@click="showTemplate"
-					icon="pi pi-plus"
-					label="Nuevo"
-					v-if="!getPermiso('TRIPS', 'crear')"
-				/>
+				<div class="col-3">
+					<Calendar v-model="from" :manualInput="false" class="w-full" />
+				</div>
+				<div class="col-3">
+					<Calendar v-model="to" :manualInput="false" class="w-full" />
+				</div>
+				<div class="col-2">
+					<Dropdown
+						v-model="estatus"
+						:options="estatusOptions"
+						optionLabel="label"
+						placeholder="Estatus"
+						@change="getTrips(estatus.value)"
+						class="w-full"
+					/>
+
+					<!-- <SelectButton
+						v-model="estatus"
+						:options="estatusOptions"
+						optionLabel="label"
+						dataKey="label"
+						:unselectable="false"
+						@click="getTrips(estatus.value)"
+					/> -->
+				</div>
+				<div class="col-1">
+					<Button
+						@click="showTemplate"
+						icon="pi pi-plus"
+						class="w-full"
+						v-if="!getPermiso('MODULO_TRIPS_CREAR')"
+					/>
+				</div>
 			</div>
 		</template>
-		<Column header="Trip">
+		<Column field="numero_trip" header="Trip" sortable>
 			<template #body="data"> TRIP-{{ data.data.numero_trip }} </template>
 		</Column>
-		<Column header="Fecha de creacion">
+		<Column field="createdAt" header="Fecha de creacion" sortable>
 			<template #body="data">
 				{{ formatDateWithTime(data.data.createdAt) }}
 			</template>
 		</Column>
-		<Column field="tipo_viaje" header="Tipo de viaje"></Column>
-		<Column field="moneda" header="Moneda"></Column>
-		<Column field="cliente.razon_social" header="Cliente"></Column>
-		<Column header="Operador">
+		<Column field="tipo_viaje" header="Tipo de viaje" sortable></Column>
+		<Column field="moneda" header="Moneda" sortable></Column>
+		<Column field="cliente.razon_social" header="Cliente" sortable></Column>
+		<Column field="operador.nombre" header="Operador" sortable>
 			<template #body="{ data }">
 				<div v-if="data.operador !== null">
 					{{ data.operador.nombre }} {{ data.operador.paterno }}
@@ -131,14 +148,14 @@ const estatusOptions = ref([
 				</div>
 			</template>
 		</Column>
-		<Column field="tractor.numero_economico" header="Tractor"></Column>
-		<Column field="caja.numero_economico" header="Caja"></Column>
-		<Column header="Estatus">
+		<Column field="tractor.numero_economico" header="Tractor" sortable></Column>
+		<Column field="caja.numero_economico" header="Caja" sortable></Column>
+		<Column field="estatus" header="Estatus" sortable>
 			<template #body="{ data }">
 				<Tag :severity="severityTrip(data.estatus)" :value="data.estatus"></Tag>
 			</template>
 		</Column>
-		<Column header="Acciones">
+		<Column header="Acciones" style="min-width: 200px">
 			<template #body="{ data }">
 				<div class="flex justify-content-center">
 					<ButtonGroup>
@@ -146,11 +163,19 @@ const estatusOptions = ref([
 							icon="pi pi-book"
 							severity="info"
 							@click="bitacora(data.id)"
+							v-if="
+								data.usuario_toma_id === null &&
+								!getPermiso('MODULO_TRIPS_BITACORA')
+							"
 						/>
 						<Button
 							icon="fa fa-comment"
 							severity="success"
 							@click="comentarios(data.id)"
+							v-if="
+								data.usuario_toma_id === null &&
+								!getPermiso('MODULO_TRIPS_COMENTARIOS_VER')
+							"
 						/>
 						<Button
 							icon="pi pi-pencil"
@@ -158,7 +183,7 @@ const estatusOptions = ref([
 							@click="modificar(data.id)"
 							v-if="
 								data.usuario_toma_id === null &&
-								!getPermiso('TRIPS', 'modificar')
+								!getPermiso('MODULO_TRIPS_MODIFICAR')
 							"
 						/>
 					</ButtonGroup>
@@ -167,25 +192,5 @@ const estatusOptions = ref([
 		</Column>
 	</DataTable>
 
-	<Toast position="center" group="bc">
-		<template #message="slotProps">
-			<div class="flex flex-column align-items-center" style="flex: 1">
-				<div class="text-center">
-					<i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
-					<div class="font-bold text-xl my-3">
-						¿ Deseas generar un nuevo trip ?
-					</div>
-				</div>
-				<div class="flex justify-content-center">
-					<Button severity="success" label="Si" @click="postTrip()"></Button>
-					<Button
-						severity="danger"
-						class="ml-3"
-						label="No"
-						@click="onReject()"
-					></Button>
-				</div>
-			</div>
-		</template>
-	</Toast>
+	<Agregar />
 </template>

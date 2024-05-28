@@ -67,7 +67,7 @@ const filters = ref({
 					label="Nuevo"
 					outlined
 					@click="agregar"
-					v-if="isModule && !getPermiso('SERVICIOS', 'crear')"
+					v-if="isModule && !getPermiso('MODULO_SERVICIOS_CREAR')"
 				/>
 			</div>
 		</template>
@@ -75,7 +75,11 @@ const filters = ref({
 		<Column field="descripcion" header="" sortable />
 		<Column v-if="isModule">
 			<template #body="{ data }">
-				<InputSwitch v-model="data.estatus" @change="putServicio(data)" />
+				<InputSwitch
+					v-model="data.estatus"
+					@change="putServicio(data)"
+					v-if="!getPermiso('MODULO_SERVICIOS_MODIFICAR')"
+				/>
 			</template>
 		</Column>
 		<Column header="Estatus">
@@ -94,13 +98,13 @@ const filters = ref({
 							icon="pi pi-pencil"
 							severity="warning"
 							@click="modificar(data.id)"
-							v-if="isModule && !getPermiso('SERVICIOS', 'modificar')"
+							v-if="isModule && !getPermiso('MODULO_SERVICIOS_MODIFICAR')"
 						/>
 						<Button
 							icon="pi pi-trash"
 							severity="danger"
 							@click="deleteServicio(data.id)"
-							v-if="isModule && !getPermiso('SERVICIOS', 'eliminar')"
+							v-if="isModule && !getPermiso('MODULO_SERVICIOS_ELIMINAR')"
 						/>
 					</ButtonGroup>
 				</div>

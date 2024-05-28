@@ -138,7 +138,7 @@ export const useTrip = () => {
 				'No podras revertir esto!',
 				'Si, cancelar!'
 			);
-			if (response) {
+			if (response.isConfirmed) {
 				const { data } = await instance.put(`/cancelar-trip/${payload.id}`);
 				toast.add({
 					severity: 'success',
@@ -261,16 +261,65 @@ export const useTrip = () => {
 
 	const eliminarMovimiento = async (numero_movimiento: number) => {
 		try {
-			const { data } = await instance.delete(
-				`/eliminar-movimiento-trip/${numero_movimiento}`
+			const response = await question();
+			if (response.isConfirmed) {
+				const { data } = await instance.delete(
+					`/eliminar-movimiento-trip/${numero_movimiento}`
+				);
+				toast.add({
+					severity: 'success',
+					summary: 'Trip',
+					detail: data.data,
+					life: 3000,
+				});
+				getMovimientos(trip.value.id);
+			}
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
+	const patioTimbre = async (id: number, estatus: boolean) => {
+		try {
+			const response = await question(
+				!estatus
+					? 'Quieres poner este patio para el timbrado?'
+					: 'Quieres quitar este patio para el timbrado?',
+				'Si'
 			);
-			toast.add({
-				severity: 'success',
-				summary: 'Trip',
-				detail: data.data,
-				life: 3000,
-			});
-			getMovimientos(trip.value.id);
+			if (response.isConfirmed) {
+				const { data } = await instance.put(`/patio-timbre/${id}`, {
+					estatus: !estatus,
+				});
+				toast.add({
+					severity: 'success',
+					summary: 'Trip',
+					detail: data.data,
+					life: 3000,
+				});
+				getMovimientos(trip.value.id);
+			}
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
+	const localizacionCaja = async (id: number) => {
+		try {
+			const response = await question(
+				'Quieres poner este patio para localizar la caja!',
+				'Si'
+			);
+			if (response.isConfirmed) {
+				const { data } = await instance.put(`/localizacion-caja/${id}`);
+				toast.add({
+					severity: 'success',
+					summary: 'Trip',
+					detail: data.data,
+					life: 3000,
+				});
+				getMovimientos(trip.value.id);
+			}
 		} catch (error) {
 			handleError(error);
 		}
@@ -313,6 +362,8 @@ export const useTrip = () => {
 		selectTractor,
 		selectPatio,
 		agregarMovimiento,
+		patioTimbre,
+		localizacionCaja,
 		vaciarMovimientos,
 		eliminarMovimiento,
 		getComentarios,

@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import ArbolDePermisos from './ArbolDePermisos.vue';
 import Formulario from './Formulario.vue';
 import { useRol } from '../../composables/useRol';
 import { router } from '../../router';
 
-const { postRol, selectedKey, nodes, resetRolForm } = useRol();
+const { postRol, getModulos, resetRolForm } = useRol();
 const visible = ref(true);
 
-onMounted(() => {
+onMounted(async () => {
+	await getModulos();
 	resetRolForm();
 });
 </script>
@@ -23,23 +23,11 @@ onMounted(() => {
 	>
 		<div class="row">
 			<div class="col-lg-12 mt-1 div-formulario">
-				<Formulario
-					@submit.prevent="postRol(selectedKey, nodes)"
-					id="formulario"
-				/>
-			</div>
-			<div class="col-lg-12 mt-1">
-				<ArbolDePermisos />
+				<Formulario @submit.prevent="postRol" id="formulario" />
 			</div>
 		</div>
 		<template #footer>
 			<ButtonGroup>
-				<!-- <Button
-					label="Cancelar"
-					icon="pi pi-times"
-					@click="visible = false"
-					severity="danger"
-				/> -->
 				<Button
 					label="Guardar"
 					icon="pi pi-check"
