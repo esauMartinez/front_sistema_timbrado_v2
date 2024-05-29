@@ -17,10 +17,7 @@ const props = defineProps({
 	isModule: Boolean,
 });
 
-onMounted(() => {
-	getClientes();
-	loading.value = false;
-});
+loading.value = false;
 
 const modificar = (id: number) => {
 	router.push({ path: `/modificar-cliente/${id}` });

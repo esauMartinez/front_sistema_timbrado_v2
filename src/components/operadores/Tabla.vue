@@ -19,10 +19,7 @@ const props = defineProps({
 
 const loading = ref(true);
 
-onMounted(() => {
-	getOperadores();
-	loading.value = false;
-});
+getOperadores();
 
 const modificar = (id: number) => {
 	router.push({ path: `/modificar-operador/${id}` });

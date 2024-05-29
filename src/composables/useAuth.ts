@@ -18,7 +18,6 @@ export const useAuth = () => {
 				email: auth.email,
 				password: auth.password,
 			});
-			console.log(data);
 			authStore.setToken(data.data);
 			renderizarTipo(data.data.role);
 			// if (data.data.empresa) {

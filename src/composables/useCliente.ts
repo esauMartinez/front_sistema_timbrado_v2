@@ -5,6 +5,7 @@ import { useToast } from 'primevue/usetoast';
 import { comentarios, handleError, question } from '../helpers/messages';
 import { Cliente } from '../interfaces/cliente.model';
 import { router } from '../router';
+import { onMounted } from 'vue';
 
 export const useCliente = () => {
 	const clienteStore = useClienteStore();
@@ -20,6 +21,10 @@ export const useCliente = () => {
 		contactos,
 	} = storeToRefs(clienteStore);
 	const toast = useToast();
+
+	onMounted(async () => {
+		await getClientes();
+	});
 
 	const getClientes = async () => {
 		try {

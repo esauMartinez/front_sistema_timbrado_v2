@@ -6,11 +6,16 @@ import { useToast } from 'primevue/usetoast';
 import { router } from '../router';
 import { Operador } from '../interfaces/operador.model';
 import moment from 'moment';
+import { onMounted } from 'vue';
 
 export const useOperador = () => {
 	const operadorStore = useOperadorStore();
 	const { operador, operadores } = storeToRefs(operadorStore);
 	const toast = useToast();
+
+	onMounted(() => {
+		getOperadores();
+	});
 
 	const getOperadores = async () => {
 		try {
