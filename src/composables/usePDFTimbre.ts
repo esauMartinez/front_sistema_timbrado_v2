@@ -64,6 +64,7 @@ export const usePDFTimbre = () => {
 
 	const pdfTimbre = async (trip_id: number) => {
 		const timbre = timbres.value[0];
+		console.log(timbre);
 		const origen = movimientos.value[0];
 		const destino = movimientos.value[movimientos.value.length - 1];
 

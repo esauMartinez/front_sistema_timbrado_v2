@@ -52,6 +52,8 @@ export const useTimbradoStore = defineStore('timbrado', {
 			forma_pago: null,
 			uso_cfdi: null,
 			estatus: true,
+			evento: null,
+			comentarios: null,
 		},
 		empresa: {
 			id: null,
@@ -193,7 +195,7 @@ export const useTimbradoStore = defineStore('timbrado', {
 			this.empresa = timbre.empresa;
 			this.conceptos = timbre.conceptos;
 			this.mercancias = timbre.mercancias;
-			// this.timbres = timbre.timbres;
+			this.timbres = timbre.timbres;
 			this.movimientos = timbre.movimientos;
 		},
 		setConceptos(conceptos: Concepto[]) {

@@ -14,7 +14,7 @@ export interface Timbre {
 	cfdi: string;
 	serie: string;
 	trip_id: number;
-	acuse: Acuse;
+	acuse: Acuse | undefined;
 }
 
 export interface Balance {

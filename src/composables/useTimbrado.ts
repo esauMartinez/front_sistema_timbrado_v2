@@ -210,11 +210,9 @@ export const useTimbrado = () => {
 					life: 3000,
 				});
 				getDatosTimbre(trip.value.id);
-				setTimeout(() => {
-					loadStore.setLoading(false);
-					pdfTimbre(trip.value.id);
-					getTrips('TODOS');
-				}, 2000);
+				loadStore.setLoading(false);
+				// pdfTimbre(trip.value.id);
+				getTrips('TODOS');
 			}
 		} catch (error) {
 			loadStore.setLoading(false);

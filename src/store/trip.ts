@@ -9,6 +9,7 @@ import { Mercancia } from '../interfaces/mercancia.model';
 import { Comentario, Trip } from '../interfaces/trip';
 import { Empresa } from '../interfaces/empresa.model';
 import { Concepto } from '../interfaces/concepto.model';
+import { Timbre } from '../interfaces/timbre.model';
 
 interface TripStore {
 	trips: Trip[];
@@ -18,6 +19,7 @@ interface TripStore {
 	operador: Operador;
 	tractor: Tractor;
 	caja: Caja;
+	timbre: Timbre;
 	conceptos: Concepto[];
 	mercancias: Mercancia[];
 	patios: Patio[];
@@ -166,6 +168,22 @@ export const useTripStore = defineStore('trip', {
 			marca_id: null,
 			clase_id: null,
 		},
+		timbre: {
+			id: null,
+			cadena_original_sat: null,
+			numero_certificado_sat: null,
+			numero_certificado_cfdi: null,
+			uuid: null,
+			sello_sat: null,
+			sello_cfdi: null,
+			fecha_timbrado: null,
+			estatus: null,
+			codigo_qr: null,
+			cfdi: null,
+			serie: null,
+			trip_id: null,
+			acuse: undefined,
+		},
 		conceptos: [],
 		mercancias: [],
 		patios: [],
@@ -224,6 +242,9 @@ export const useTripStore = defineStore('trip', {
 		},
 		setMovimientos(movimientos: Movimiento[]) {
 			this.movimientos = movimientos;
+		},
+		setTimbre(timbre: Timbre) {
+			this.timbre = timbre;
 		},
 		setPatios(patios: Patio[]) {
 			this.patios = patios;

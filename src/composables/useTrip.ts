@@ -31,6 +31,7 @@ export const useTrip = () => {
 		nombre_operador,
 		numero_economico_caja,
 		numero_economico_tractor,
+		timbre,
 	} = storeToRefs(tripStore);
 
 	const toast = useToast();
@@ -67,6 +68,7 @@ export const useTrip = () => {
 					tractor,
 					movimientos,
 					mercancias,
+					timbres,
 				},
 			} = await instance.get(`/trips/${id}`);
 			const origen = movimientos[0]?.patio;
@@ -80,6 +82,7 @@ export const useTrip = () => {
 			tripStore.setTractor(tractor);
 			tripStore.setMovimientos(movimientos);
 			tripStore.setMercancias(mercancias);
+			tripStore.setTimbre(timbres[0]);
 		} catch (error) {
 			handleError(error);
 		}
@@ -350,6 +353,7 @@ export const useTrip = () => {
 		nombre_operador,
 		numero_economico_caja,
 		numero_economico_tractor,
+		timbre,
 		getTrip,
 		getTrips,
 		postTrip,
