@@ -13,6 +13,8 @@ onMounted(() => {
 	getConfiguraciones();
 	setErrores([]);
 });
+
+const fecha_minima = new Date();
 </script>
 
 <template>
@@ -71,6 +73,7 @@ onMounted(() => {
 				placeholder="Vencimiento de la poliza"
 				:numberOfMonths="1"
 				showIcon
+				:minDate="fecha_minima"
 				v-model="unidad.vencimiento_poliza"
 			/>
 			<small class="p-error" name="vencimiento_poliza"></small>

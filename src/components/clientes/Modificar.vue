@@ -10,7 +10,7 @@ const visible = ref(true);
 const route = useRoute();
 
 const modificar = async () => {
-	const response = await putCliente(cliente.value);
+	const response = await putCliente(cliente.value, true);
 	if (response) {
 		router.go(-1);
 	}
@@ -32,13 +32,6 @@ onMounted(async () => {
 		<Formulario @submit.prevent="modificar()" id="formulario" />
 		<template #footer>
 			<ButtonGroup>
-				<!-- <Button
-					label="Cancelar"
-					icon="pi pi-times"
-					@click="visible = false"
-					severity="danger"
-				/> -->
-
 				<Button
 					label="Modificar"
 					icon="pi pi-pencil"

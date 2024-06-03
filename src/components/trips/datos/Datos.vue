@@ -2,6 +2,7 @@
 import { useTrip } from '../../../composables/useTrip';
 import { ref } from 'vue';
 import { router } from '../../../router';
+import { watch } from 'vue';
 
 const {
 	trip,
@@ -34,6 +35,15 @@ const agregar = (tipo: string) => {
 	}
 };
 
+watch(
+	() => trip.value,
+	async (x) => {
+		trip.value.kilometros = Number(trip.value.kilometros);
+		trip.value.combustible = Number(trip.value.combustible);
+		trip.value.viaticos = Number(trip.value.viaticos);
+		trip.value.casetas = Number(trip.value.casetas);
+	}
+);
 </script>
 
 <template>

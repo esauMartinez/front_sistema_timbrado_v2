@@ -7,6 +7,7 @@ import { severity } from '../../pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
 import { useTrip } from '../../composables/useTrip';
 import { useAuth } from '../../composables/useAuth';
+import moment from 'moment';
 
 const { getPermiso } = useAuth();
 const { operadores, getOperadores, putOperador, deleteOperador } =
@@ -18,8 +19,6 @@ const props = defineProps({
 });
 
 const loading = ref(true);
-
-getOperadores();
 
 const modificar = (id: number) => {
 	router.push({ path: `/modificar-operador/${id}` });
@@ -88,13 +87,9 @@ const filters = ref({
 		<Column field="rfc" header="RFC" sortable />
 		<Column field="estado" header="Estado" sortable />
 		<Column field="licencia" header="Licencia" sortable />
-		<Column
-			field="vencimiento_licencia"
-			header="Vencimineto de la licencia"
-			:sortable="true"
-		>
+		<Column header="Vencimineto de la licencia">
 			<template #body="{ data }">
-				{{ formatDate(data.vencimiento_licencia) }}
+				{{ data.descripcion_vencimiento }}
 			</template>
 		</Column>
 		<Column v-if="isModule">

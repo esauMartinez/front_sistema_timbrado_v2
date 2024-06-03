@@ -92,13 +92,9 @@ const filters = ref({
 		></Column>
 		<Column field="matricula" header="Matricula" sortable></Column>
 		<Column field="numero_poliza" header="Numero de poliza" sortable></Column>
-		<Column
-			field="vencimiento_poliza"
-			header="Vencimineto de la poliza"
-			:sortable="true"
-		>
+		<Column header="Vencimineto de la poliza">
 			<template #body="{ data }">
-				{{ formatDate(data.vencimiento_poliza) }}
+				{{ data.descripcion_vencimiento }}
 			</template>
 		</Column>
 

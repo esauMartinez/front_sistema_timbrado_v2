@@ -5,7 +5,7 @@ import { useTrip } from '../../../composables/useTrip';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { formatDateWithTime } from '../../../pipes/formatDate';
-import { useAuth } from "../../../composables/useAuth";
+import { useAuth } from '../../../composables/useAuth';
 
 const {
 	trip,
@@ -60,7 +60,13 @@ onMounted(async () => {
 				</li>
 			</ul>
 		</div>
-		<template #footer v-if="trip.estatus !== 'CANCELADO' && !getPermiso('MODULO_TRIPS_COMENTARIOS_CREAR')">
+		<template
+			#footer
+			v-if="
+				trip.estatus !== 'CANCELADO' &&
+				!getPermiso('MODULO_TRIPS_COMENTARIOS_CREAR')
+			"
+		>
 			<form @submit.prevent="postComentario(comentario)" class="w-full">
 				<InputGroup>
 					<InputText

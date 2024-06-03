@@ -57,7 +57,7 @@ const tipoBoton = () => {
 		<template #footer>
 			<ButtonGroup>
 				<Button
-					icon="pi pi-trash"
+					icon="pi pi-times"
 					label="Cancelar Trip"
 					severity="danger"
 					@click="cancelarTrip(trip)"

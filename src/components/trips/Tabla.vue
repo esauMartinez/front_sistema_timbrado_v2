@@ -25,6 +25,7 @@ const filters = ref({
 	paterno: { value: null, matchMode: FilterMatchMode.CONTAINS },
 	materno: { value: null, matchMode: FilterMatchMode.CONTAINS },
 	estatus: { value: null, matchMode: FilterMatchMode.CONTAINS },
+	tipo_viaje: { value: null, matchMode: FilterMatchMode.CONTAINS },
 });
 
 const showTemplate = () => {
@@ -48,7 +49,7 @@ onMounted(async () => {
 	await getTrips(estatusTrip.value);
 });
 
-const estatus = ref({ label: 'Transito', value: 'TRANSITO' });
+const estatus = ref({ label: 'Todos', value: 'TODOS' });
 const estatusOptions = ref([
 	{ label: 'Creado', value: 'CREADO' },
 	{ label: 'Programado', value: 'PROGRAMADO' },
@@ -78,6 +79,7 @@ const estatusOptions = ref([
 			'operador.paterno',
 			'operador.materno',
 			'estatus',
+			'tipo_viaje',
 		]"
 	>
 		<template #header>

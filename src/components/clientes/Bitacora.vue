@@ -24,6 +24,7 @@ onMounted(async () => {
 		v-on:after-hide="router.go(-1)"
 	>
 		<DataTable :value="bitacora" showGridlines stripedRows>
+			<Column field="evento" header="Evento"></Column>
 			<Column field="comentarios" header="Comentarios"></Column>
 			<Column header="fecha">
 				<template #body="{ data }">

@@ -9,6 +9,7 @@ import {
 
 interface Bitacora {
 	comentarios: string;
+	evento: string;
 	createdAt: string;
 }
 
@@ -55,6 +56,8 @@ export const useClienteStore = defineStore('cliente', {
 			forma_pago: null,
 			uso_cfdi: null,
 			estatus: true,
+			evento: null,
+			comentarios: null,
 		},
 		usoCfdi: [],
 		metodosPago: [],

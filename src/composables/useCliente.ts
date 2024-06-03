@@ -61,17 +61,27 @@ export const useCliente = () => {
 		}
 	};
 
-	const putCliente = async (payload: any) => {
+	const putCliente = async (payload: Cliente, formulario: boolean = false) => {
 		try {
-			if (payload.estatus) {
-				payload.evento = 'ACTIVACION';
+			if (!formulario) {
+				if (payload.estatus) {
+					payload.evento = 'ACTIVACION';
+				} else {
+					payload.evento = 'DESACTIVACION';
+				}
+				const response_comentarios: any = await comentarios();
+				if (response_comentarios.isConfirmed) {
+					payload.comentarios = response_comentarios.value;
+					await instance.put(`/clientes/${payload.id}`, payload);
+					toast.add({
+						severity: 'success',
+						summary: 'Cliente',
+						detail: 'Cliente actualizado correctamente',
+						life: 3000,
+					});
+				}
 			} else {
-				payload.evento = 'DESACTIVACION';
-			}
-
-			const response_comentarios: any = await comentarios();
-			if (response_comentarios.isConfirmed) {
-				payload.comentarios = response_comentarios.value;
+				payload.evento = 'MODIFICACION';
 				await instance.put(`/clientes/${payload.id}`, payload);
 				toast.add({
 					severity: 'success',
@@ -80,6 +90,7 @@ export const useCliente = () => {
 					life: 3000,
 				});
 			}
+
 			getClientes();
 			return true;
 		} catch (error) {
@@ -177,6 +188,8 @@ export const useCliente = () => {
 			forma_pago: null,
 			uso_cfdi: null,
 			estatus: true,
+			evento: null,
+			comentarios: null,
 		});
 	};
 

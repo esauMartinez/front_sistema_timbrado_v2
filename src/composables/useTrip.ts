@@ -34,7 +34,7 @@ export const useTrip = () => {
 	} = storeToRefs(tripStore);
 
 	const toast = useToast();
-	const initialDate = moment().subtract(1, 'week').format();
+	const initialDate = moment().subtract(2, 'month').format();
 	const from = ref(new Date(initialDate));
 	const to = ref(new Date());
 

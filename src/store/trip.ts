@@ -87,6 +87,8 @@ export const useTripStore = defineStore('trip', {
 			forma_pago: null,
 			uso_cfdi: null,
 			estatus: true,
+			comentarios: null,
+			evento: null,
 		},
 		empresa: {
 			id: null,
@@ -187,7 +189,7 @@ export const useTripStore = defineStore('trip', {
 			patio_id: null,
 			trip_id: null,
 		},
-		estatusTrip: 'TRANSITO',
+		estatusTrip: 'TODOS',
 		pdf: null,
 	}),
 	actions: {

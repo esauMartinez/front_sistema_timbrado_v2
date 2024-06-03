@@ -53,9 +53,9 @@ const infoPatio = (id) => {
 						<Button
 							size="small"
 							@click="localizacionCaja(slotProps.item.id)"
-							:severity="slotProps.item.localizacion_caja && 'warning'"
+							:severity="slotProps.item.localizacion_caja ? 'warning' : ''"
 							v-tooltip="{
-								value: 'Poner la caja como localzable en este patio',
+								value: 'Poner la caja como localizable en este patio',
 								showDelay: 300,
 								hideDelay: 300,
 							}"
@@ -68,7 +68,7 @@ const infoPatio = (id) => {
 							@click="
 								patioTimbre(slotProps.item.id, slotProps.item.patio_timbre)
 							"
-							:severity="slotProps.item.patio_timbre && 'info'"
+							:severity="slotProps.item.patio_timbre ? 'info' : ''"
 							v-tooltip="{
 								value: 'Agregar patio para timbrado',
 								showDelay: 300,

@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { useOperador } from '../../composables/useOperador';
 import { useError } from '../../composables/useError';
+import moment from 'moment';
 
 const { operador } = useOperador();
 const { setErrores } = useError();
@@ -51,6 +52,8 @@ const paises = ref([
 	{ item: 'ESTADOS UNIDOS' },
 	{ item: 'CANADA' },
 ]);
+
+const fecha_minima = new Date();
 </script>
 
 <template>
@@ -251,6 +254,7 @@ const paises = ref([
 				placeholder="Vencimiento de licencia"
 				v-model="operador.vencimiento_licencia"
 				showIcon
+				:minDate="fecha_minima"
 			/>
 			<small class="p-error" name="vencimiento_licencia"></small>
 		</div>

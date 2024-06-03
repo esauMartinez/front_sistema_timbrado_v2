@@ -18,6 +18,8 @@ export interface Cliente {
   uso_cfdi?: string;
   estatus?: boolean;
   regimen_fiscal?: string;
+  evento: string;
+  comentarios: string;
 }
 
 export interface FormasPago {
