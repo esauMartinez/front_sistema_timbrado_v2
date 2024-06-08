@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { Empresa } from '../interfaces/empresa.model';
+import { Empresa } from '@/interfaces/empresa.model';
 
 interface EmpresaStore {
 	empresas: [];

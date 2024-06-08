@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { router } from '../../router';
+import { router } from '@/router';
 import Formulario from './FormularioEmpresa.vue';
-import { useEmpresa } from '../../composables/useEmpresa';
+import { useEmpresa } from '@/composables/useEmpresa';
 
 const { empresa, postEmpresa } = useEmpresa();
 

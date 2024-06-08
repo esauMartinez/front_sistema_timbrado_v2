@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
-import { router } from '../router';
-import { useError } from '../composables/useError';
+import { router } from '@/router';
+import { useError } from '@/composables/useError';
 
 export const success = (payload) => {
 	Swal.fire({
@@ -58,6 +58,14 @@ export const errorServer = () => {
 	});
 };
 
+export const errorDeleting = (error: ErrorTimbre) => {
+	Swal.fire({
+		icon: 'warning',
+		title: error.messageDetail,
+		text: error.message,
+	});
+};
+
 interface ErrorTimbre {
 	data: string;
 	message: string;
@@ -110,6 +118,9 @@ export const handleError = (payload) => {
 			break;
 		case 403:
 			errorTimbre(payload.response.data);
+			break;
+		case 405:
+			errorDeleting(payload.response.data);
 			break;
 		case 500:
 			errorServer();

@@ -1,12 +1,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../../../router';
-import { usePatio } from '../../../../composables/usePatio';
-import { useTrip } from '../../../../composables/useTrip';
-import Tabla from "../../../patios/Tabla.vue";
+import { router } from '@/router';
+import { usePatio } from '@/composables/usePatio';
+import Tabla from '@/components/patios/Tabla.vue';
 
-const { agregarMovimiento } = useTrip();
-const { patio, patios, resetPatioForm } = usePatio();
+const { patios, resetPatioForm } = usePatio();
 const visible = ref(true);
 
 onMounted(() => {

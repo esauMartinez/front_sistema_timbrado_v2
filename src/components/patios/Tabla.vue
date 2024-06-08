@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
-import { usePatio } from '../../composables/usePatio';
-import { severity } from '../../pipes/severity';
+import { router } from '@/router';
+import { usePatio } from '@/composables/usePatio';
+import { severity } from '@/pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
-import { useTrip } from '../../composables/useTrip';
-import { useAuth } from '../../composables/useAuth';
+import { useTrip } from '@/composables/useTrip';
+import { useAuth } from '@/composables/useAuth';
 
 const { getPermiso } = useAuth();
 

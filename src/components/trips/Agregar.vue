@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useToast } from 'primevue/usetoast';
-import { useTrip } from '../../composables/useTrip';
+import { useTrip } from '@/composables/useTrip';
 
 const { postTrip } = useTrip();
 const toast = useToast();

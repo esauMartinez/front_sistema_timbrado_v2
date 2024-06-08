@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
+import { router } from '@/router';
 import Formulario from './Formulario.vue';
-import { usePatio } from "../../composables/usePatio";
+import { usePatio } from "@/composables/usePatio";
 
 const { patio, postPatio, resetPatioForm } = usePatio();
 

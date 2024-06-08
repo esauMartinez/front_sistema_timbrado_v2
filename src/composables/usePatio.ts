@@ -1,11 +1,10 @@
 import { storeToRefs } from 'pinia';
-import { instance } from '../helpers/axiosInstance';
-import { handleError, question } from '../helpers/messages';
+import { instance } from '@/helpers/axiosInstance';
+import { handleError, question } from '@/helpers/messages';
 import { useToast } from 'primevue/usetoast';
-import { router } from '../router';
-import { usePatioStore } from '../store/patio';
-import { Patio } from '../interfaces/patio.model';
-import axios from 'axios';
+import { router } from '@/router';
+import { usePatioStore } from '@/store/patio';
+import { Patio } from '@/interfaces/patio.model';
 
 export const usePatio = () => {
 	const patioStore = usePatioStore();

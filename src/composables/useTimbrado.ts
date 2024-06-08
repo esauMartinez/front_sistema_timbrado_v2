@@ -1,24 +1,22 @@
 import { storeToRefs } from 'pinia';
-import { handleError, question } from '../helpers/messages';
-import { instance } from '../helpers/axiosInstance';
-import { useTimbradoStore } from '../store/timbrado';
-import { useServicioStore } from '../store/servicio';
-import { Concepto } from '../interfaces/concepto.model';
+import { handleError, question } from '@/helpers/messages';
+import { instance } from '@/helpers/axiosInstance';
+import { useTimbradoStore } from '@/store/timbrado';
+import { useServicioStore } from '@/store/servicio';
+import { Concepto } from '@/interfaces/concepto.model';
 import { useToast } from 'primevue/usetoast';
-import { router } from '../router';
-import { Mercancia } from '../interfaces/mercancia.model';
-import { useTripStore } from '../store/trip';
-import { Patio } from '../interfaces/patio.model';
-import { usePDFTimbre } from './usePDFTimbre';
-import { Trip } from '../interfaces/trip';
+import { router } from '@/router';
+import { Mercancia } from '@/interfaces/mercancia.model';
+import { useTripStore } from '@/store/trip';
+import { Patio } from '@/interfaces/patio.model';
+import { Trip } from '@/interfaces/trip';
 import { useTrip } from './useTrip';
-import { useLoadStore } from '../store/load';
-import { Cancelacion } from '../interfaces/timbre.model';
+import { useLoadStore } from '@/store/load';
+import { Cancelacion } from '@/interfaces/timbre.model';
 
 export const useTimbrado = () => {
 	const timbradoStore = useTimbradoStore();
 	const servicioStore = useServicioStore();
-	const { pdfTimbre } = usePDFTimbre();
 	const tripStore = useTripStore();
 	const { trip } = storeToRefs(tripStore);
 	const { servicios } = storeToRefs(servicioStore);
@@ -48,9 +46,15 @@ export const useTimbrado = () => {
 		try {
 			const { data } = await instance.get(`/getDatosTimbre/${id}`);
 			const patios: Patio[] = [];
-			data.movimientos.forEach((x) => {
-				patios.push(x.patio);
-			});
+			const index_origen = data.movimientos.findIndex((x) => x.patio_timbre);
+			const index_destino = data.movimientos.findLastIndex(
+				(x) => x.patio_timbre
+			);
+			const origen = data.movimientos[index_origen].patio;
+			const destino = data.movimientos[index_destino].patio;
+			patios.push(origen);
+			patios.push(destino);
+;
 			data.movimientos = patios;
 			timbradoStore.setDatosTimbre(data);
 			tripStore.setTrip(data);

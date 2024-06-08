@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useCliente } from '../../../composables/useCliente';
+import { useCliente } from '@/composables/useCliente';
 
 const { contactos } = useCliente();
 </script>

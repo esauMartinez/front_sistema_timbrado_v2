@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { useTimbrado } from '../../../composables/useTimbrado';
-import { Timbre } from '../../../interfaces/timbre.model';
-import { formatDateWithTime } from '../../../pipes/formatDate';
-import { router } from '../../../router';
+import { useTimbrado } from '@/composables/useTimbrado';
+import { Timbre } from '@/interfaces/timbre.model';
+import { formatDateWithTime } from '@/pipes/formatDate';
+import { router } from '@/router';
 
 const { timbres, xmlAcuse } = useTimbrado();
 interface propsTrip {

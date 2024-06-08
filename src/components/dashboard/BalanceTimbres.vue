@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue';
-import { useTimbrado } from '../../composables/useTimbrado';
+import { useTimbrado } from '@/composables/useTimbrado';
 import CardBalance from './CardBalance.vue';
 
 const { balance, getBalanceTimbres } = useTimbrado();

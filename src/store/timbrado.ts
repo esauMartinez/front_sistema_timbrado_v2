@@ -1,14 +1,14 @@
 import { defineStore } from 'pinia';
-import { Cliente } from '../interfaces/cliente.model';
-import { Empresa } from '../interfaces/empresa.model';
-import { Concepto } from '../interfaces/concepto.model';
-import { Mercancia } from '../interfaces/mercancia.model';
-import { MercanciasSat, Peligroso, UnidadPeso } from '../interfaces/sat.model';
-import { Operador } from '../interfaces/operador.model';
-import { Tractor } from '../interfaces/tractor.model';
-import { Caja } from '../interfaces/caja.model';
-import { Balance, Cancelacion, Timbre } from '../interfaces/timbre.model';
-import { Patio } from '../interfaces/patio.model';
+import { Cliente } from '@/interfaces/cliente.model';
+import { Empresa } from '@/interfaces/empresa.model';
+import { Concepto } from '@/interfaces/concepto.model';
+import { Mercancia } from '@/interfaces/mercancia.model';
+import { MercanciasSat, Peligroso, UnidadPeso } from '@/interfaces/sat.model';
+import { Operador } from '@/interfaces/operador.model';
+import { Tractor } from '@/interfaces/tractor.model';
+import { Caja } from '@/interfaces/caja.model';
+import { Balance, Cancelacion, Timbre } from '@/interfaces/timbre.model';
+import { Patio } from '@/interfaces/patio.model';
 
 interface TimbreStore {
 	cliente: Cliente;

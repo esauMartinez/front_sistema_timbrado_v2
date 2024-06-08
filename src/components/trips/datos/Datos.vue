@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useTrip } from '../../../composables/useTrip';
+import { useTrip } from '@/composables/useTrip';
 import { ref } from 'vue';
-import { router } from '../../../router';
+import { router } from '@/router';
 import { watch } from 'vue';
 
 const {

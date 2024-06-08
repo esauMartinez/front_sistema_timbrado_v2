@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { FilterMatchMode } from 'primevue/api';
 import { ref } from 'vue';
-import { router } from '../../../router';
-import { useTimbrado } from '../../../composables/useTimbrado';
+import { router } from '@/router';
+import { useTimbrado } from '@/composables/useTimbrado';
 const { conceptos, eliminarConcepto } = useTimbrado();
 
 const filters = ref({

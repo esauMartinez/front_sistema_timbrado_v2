@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useAuth } from '../composables/useAuth';
+import { useAuth } from '@/composables/useAuth';
 
 const { auth, authUser } = useAuth();
 </script>

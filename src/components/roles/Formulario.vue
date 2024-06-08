@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useRol } from '../../composables/useRol';
+import { useRol } from '@/composables/useRol';
 const { rol, modulos } = useRol();
 </script>
 

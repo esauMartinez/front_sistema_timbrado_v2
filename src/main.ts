@@ -1,6 +1,6 @@
-import App from './App.vue';
+import App from '@/App.vue';
 import { createApp } from 'vue';
-import { router } from './router';
+import { router } from '@/router';
 import { createPinia } from 'pinia';
 import PrimeVue from 'primevue/config';
 import VueSidebarMenu from 'vue-sidebar-menu';
@@ -14,7 +14,7 @@ import 'primevue/resources/primevue.min.css';
 // icons
 import 'primeicons/primeicons.css';
 // my styles
-import '../public/css/style.scss';
+import '/public/css/style.scss';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, computed, ref } from 'vue';
-import { router } from '../../router';
+import { router } from '@/router';
 import Formulario from './Formulario.vue';
-import { useCliente } from '../../composables/useCliente';
+import { useCliente } from '@/composables/useCliente';
 
 const { cliente, postCliente, resetClienteForm } = useCliente();
 const visible = ref(true);

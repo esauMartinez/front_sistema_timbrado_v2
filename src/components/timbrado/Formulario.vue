@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import Operador from './datos/Operador.vue';
-import Emisor from './datos/Emisor.vue';
-import Receptor from './datos/Receptor.vue';
-import TablaMercancias from './mercancias/Tabla.vue';
-import TablaServicios from './servicios/Tabla.vue';
-import TipoViaje from "./datos/TipoViaje.vue";
-import Tractor from './datos/Tractor.vue';
-import Caja from "./datos/Caja.vue";
-import Permiso from "./datos/Permiso.vue";
-import Datos from "./datos/Datos.vue";
+import Operador from '@/components/timbrado/datos/Operador.vue';
+import Emisor from '@/components/timbrado/datos/Emisor.vue';
+import Receptor from '@/components/timbrado/datos/Receptor.vue';
+import TablaMercancias from '@/components/timbrado/mercancias/Tabla.vue';
+import TablaServicios from '@/components/timbrado/servicios/Tabla.vue';
+import TipoViaje from '@/components/timbrado/datos/TipoViaje.vue';
+import Tractor from '@/components/timbrado/datos/Tractor.vue';
+import Caja from '@/components/timbrado/datos/Caja.vue';
+import Permiso from '@/components/timbrado/datos/Permiso.vue';
+import Datos from '@/components/timbrado/datos/Datos.vue';
 </script>
 
 <template>

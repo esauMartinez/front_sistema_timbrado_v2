@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Tabla from '../components/patios/Tabla.vue';
+import Tabla from '@/components/patios/Tabla.vue';
 </script>
 <template>
 	<div class="m-margin-top">

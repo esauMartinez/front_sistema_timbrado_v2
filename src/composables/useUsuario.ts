@@ -1,10 +1,10 @@
 import { storeToRefs } from 'pinia';
-import { instance } from '../helpers/axiosInstance';
-import { handleError, question } from '../helpers/messages';
-import { useUsuarioStore } from '../store/usuario';
+import { instance } from '@/helpers/axiosInstance';
+import { handleError, question } from '@/helpers/messages';
+import { useUsuarioStore } from '@/store/usuario';
 import { useToast } from 'primevue/usetoast';
-import { Usuario } from '../interfaces/usuario.model';
-import { router } from '../router';
+import { Usuario } from '@/interfaces/usuario.model';
+import { router } from '@/router';
 
 export const useUsuario = () => {
 	const usuarioStore = useUsuarioStore();

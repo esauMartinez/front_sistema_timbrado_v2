@@ -1,5 +1,5 @@
 import { Socket, io } from 'socket.io-client';
-import { state } from "../composables/useSocket";
+import { state } from "@/composables/useSocket";
 
 
 class SocketClass {

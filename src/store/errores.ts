@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { Error } from "../interfaces/error";
+import { Error } from "@/interfaces/error";
 
 interface ErroresStore {
   errores: Error[]

@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
-import { instance } from '../helpers/axiosInstance';
-import { Usuario } from '../interfaces/usuario.model';
+import { Usuario } from '@/interfaces/usuario.model';
 
 interface UserStore {
 	usuarios: Usuario[];

@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { useServicio } from '../../../composables/useServicio';
-import { useTrip } from '../../../composables/useTrip';
-import { router } from '../../../router';
-import { useTimbrado } from '../../../composables/useTimbrado';
+import { useServicio } from '@/composables/useServicio';
+import { router } from '@/router';
+import { useTimbrado } from '@/composables/useTimbrado';
 
 const {
 	concepto,
@@ -54,6 +53,7 @@ onMounted(async () => {
 						name="monto"
 						class="w-full focus:border-primary mt-2"
 						v-model="concepto.monto"
+						:useGrouping="false"
 						placeholder="Monto"
 					/>
 					<small class="p-error" name="monto"></small>

@@ -1,10 +1,10 @@
 import { storeToRefs } from 'pinia';
-import { useUnidadStore } from '../store/unidad';
-import { instance } from '../helpers/axiosInstance';
-import { handleError } from '../helpers/messages';
-import { Marca } from '../interfaces/marca.model';
+import { useUnidadStore } from '@/store/unidad';
+import { instance } from '@/helpers/axiosInstance';
+import { handleError } from '@/helpers/messages';
+import { Marca } from '@/interfaces/marca.model';
 import { useToast } from 'primevue/usetoast';
-import { router } from '../router';
+import { router } from '@/router';
 
 export const useMarca = () => {
 	const unidadStore = useUnidadStore();

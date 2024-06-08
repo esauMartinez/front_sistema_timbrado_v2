@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue';
-import Piernas from './datos/piernas/Piernas.vue';
+import Piernas from '@/components/trips/datos/piernas/Piernas.vue';
 import Datos from './datos/Datos.vue';
-import { useError } from '../../composables/useError';
+import { useError } from '@/composables/useError';
 
 const { setErrores } = useError();
 

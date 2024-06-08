@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
-import { Unidad } from '../interfaces/unidad.model';
-import { Marca } from '../interfaces/marca.model';
-import { Configuracion } from '../interfaces/configuracion';
+import { Unidad } from '@/interfaces/unidad.model';
+import { Marca } from '@/interfaces/marca.model';
+import { Configuracion } from '@/interfaces/configuracion';
 
 interface UnidadStore {
 	unidades: Unidad[];
@@ -9,6 +9,16 @@ interface UnidadStore {
 	marcas: Marca[];
 	marca: Marca;
 	configuraciones: Configuracion[];
+	bitacora_caja: BitacoraCaja[];
+}
+
+export interface BitacoraCaja {
+	id: string;
+	numero_trip: string;
+	estatus: string;
+	numero_economico: string;
+	patio: string;
+	patio_clave: string;
 }
 
 export const useUnidadStore = defineStore('unidades', {
@@ -38,6 +48,7 @@ export const useUnidadStore = defineStore('unidades', {
 			empresa_id: null,
 		},
 		configuraciones: [],
+		bitacora_caja: [],
 	}),
 	actions: {
 		setMarca(marca: Marca) {
@@ -54,6 +65,9 @@ export const useUnidadStore = defineStore('unidades', {
 		},
 		setConfiguracions(configuraciones: Configuracion[]) {
 			this.configuraciones = configuraciones;
+		},
+		setBitacora(bitacora: BitacoraCaja[]) {
+			this.bitacora_caja = bitacora;
 		},
 	},
 });

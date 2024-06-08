@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { useTrip } from '../../composables/useTrip';
+import { useTrip } from '@/composables/useTrip';
 import { FilterMatchMode } from 'primevue/api';
-import { formatDateWithTime } from '../../pipes/formatDate';
-import { severityTrip } from '../../pipes/severity';
-import { router } from '../../router';
-import { useAuth } from '../../composables/useAuth';
-import { useTimbrado } from '../../composables/useTimbrado';
+import { formatDateWithTime } from '@/pipes/formatDate';
+import { severityTrip } from '@/pipes/severity';
+import { router } from '@/router';
+import { useAuth } from '@/composables/useAuth';
+import { useTimbrado } from '@/composables/useTimbrado';
 import Tabla from './timbres/Tabla.vue';
 
 const { trips, from, to, getTrips } = useTrip();

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import { Rol } from '../interfaces/rol.model';
-import { Modulo } from '../interfaces/modulos.model';
+import { Rol } from '@/interfaces/rol.model';
+import { Modulo } from '@/interfaces/modulos.model';
 
 interface RolStore {
 	roles: Rol[];

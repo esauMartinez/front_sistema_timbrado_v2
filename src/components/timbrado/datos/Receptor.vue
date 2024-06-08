@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useTimbrado } from '../../../composables/useTimbrado';
+import { useTimbrado } from '@/composables/useTimbrado';
 
 const { cliente } = useTimbrado();
 </script>

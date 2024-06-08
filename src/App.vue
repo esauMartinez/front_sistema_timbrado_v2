@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Sidenav from './common/Sidenav.vue';
-import CardLoad from './components/CardLoad.vue';
-import { useAuth } from './composables/useAuth';
+import Sidenav from '@/common/Sidenav.vue';
+import CardLoad from '@/components/CardLoad.vue';
+import { useAuth } from '@/composables/useAuth';
 
 const { estatusUsuarioAutenticado } = useAuth();
 

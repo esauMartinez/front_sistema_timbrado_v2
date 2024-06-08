@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import { useTrip } from '../../../composables/useTrip';
 import { ref } from 'vue';
-import Tabla from '../../operadores/Tabla.vue';
-import { router } from '../../../router';
+import Tabla from '@/components/operadores/Tabla.vue';
+import { router } from '@/router';
 
 const visible = ref(true);
 </script>

@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { verificarUsuarioAutenticado } from '../guards/verificarUsuarioAutenticado';
-import { useAuthStore } from '../store/auth';
+import { verificarUsuarioAutenticado } from '@/guards/verificarUsuarioAutenticado';
+import { useAuthStore } from '@/store/auth';
 import { storeToRefs } from 'pinia';
-import { useAuth } from '../composables/useAuth';
-import { verificarDarkMode } from '../guards/verificarDarkMode';
+import { useAuth } from '@/composables/useAuth';
+import { verificarDarkMode } from '@/guards/verificarDarkMode';
 
 const routes: RouteRecordRaw[] = [
 	{
@@ -152,6 +152,11 @@ const routes: RouteRecordRaw[] = [
 				path: '/modificar-caja/:id',
 				name: 'ModificarCaja',
 				component: () => import('../components/cajas/Modificar.vue'),
+			},
+			{
+				path: '/bitacora-caja/:numero_economico',
+				name: 'BitacoraCaja',
+				component: () => import('../components/cajas/Bitacora.vue'),
 			},
 		],
 	},

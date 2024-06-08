@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useCliente } from '../../../composables/useCliente';
+import { useCliente } from '@/composables/useCliente';
 import { onMounted } from 'vue';
 
 const { contacto, postContacto, resetFormContacto } = useCliente();

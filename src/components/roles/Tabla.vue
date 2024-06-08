@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
+import { router } from '@/router';
 import { FilterMatchMode } from 'primevue/api';
-import { useRol } from '../../composables/useRol';
-import { useAuth } from '../../composables/useAuth';
+import { useRol } from '@/composables/useRol';
+import { useAuth } from '@/composables/useAuth';
 
 const { getPermiso } = useAuth();
 
-const { roles, getRol, getRoles, deleteRol } = useRol();
+const { roles, getRoles, deleteRol } = useRol();
 
 const loading = ref(true);
 

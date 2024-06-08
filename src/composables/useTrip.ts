@@ -1,19 +1,19 @@
 import { storeToRefs } from 'pinia';
-import { instance } from '../helpers/axiosInstance';
-import { handleError, question } from '../helpers/messages';
+import { instance } from '@/helpers/axiosInstance';
+import { handleError, question } from '@/helpers/messages';
 import { useToast } from 'primevue/usetoast';
-import { useTripStore } from '../store/trip';
-import { Patio } from '../interfaces/patio.model';
-import { usePatioStore } from '../store/patio';
-import { Cliente } from '../interfaces/cliente.model';
-import { Operador } from '../interfaces/operador.model';
-import { Caja } from '../interfaces/caja.model';
-import { Tractor } from '../interfaces/tractor.model';
-import { router } from '../router';
+import { useTripStore } from '@/store/trip';
+import { Patio } from '@/interfaces/patio.model';
+import { usePatioStore } from '@/store/patio';
+import { Cliente } from '@/interfaces/cliente.model';
+import { Operador } from '@/interfaces/operador.model';
+import { Caja } from '@/interfaces/caja.model';
+import { Tractor } from '@/interfaces/tractor.model';
+import { router } from '@/router';
 import { ref } from 'vue';
-import moment from 'moment';
-import { useLoadStore } from '../store/load';
-import { Comentario, Trip } from '../interfaces/trip';
+import * as moment from 'moment';
+import { useLoadStore } from '@/store/load';
+import { Comentario, Trip } from '@/interfaces/trip';
 
 export const useTrip = () => {
 	const tripStore = useTripStore();
@@ -71,11 +71,15 @@ export const useTrip = () => {
 					timbres,
 				},
 			} = await instance.get(`/trips/${id}`);
-			const origen = movimientos[0]?.patio;
-			const destino = movimientos[movimientos.length - 1]?.patio;
+			if (movimientos.length !== 0) {
+				const index_origen = movimientos.findIndex((x) => x.patio_timbre);
+				const index_destino = movimientos.findLastIndex((x) => x.patio_timbre);
+				const origen = movimientos[index_origen].patio;
+				const destino = movimientos[index_destino].patio;
+				tripStore.setPatios([origen, destino]);
+			}
 			tripStore.setTrip(trip);
 			tripStore.setEmpresa(empresa);
-			tripStore.setPatios([origen, destino]);
 			tripStore.setCliente(cliente);
 			tripStore.setOperador(operador);
 			tripStore.setCaja(caja);

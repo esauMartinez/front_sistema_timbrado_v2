@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useTimbrado } from '../../../composables/useTimbrado';
-import { MercanciasSat } from '../../../interfaces/sat.model';
+import { useTimbrado } from '@/composables/useTimbrado';
+import { MercanciasSat } from '@/interfaces/sat.model';
 import { AutoCompleteChangeEvent } from 'primevue/autocomplete';
 
 const {

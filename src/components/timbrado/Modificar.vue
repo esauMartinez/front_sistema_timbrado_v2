@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
+import { router } from '@/router';
 import Formulario from './Formulario.vue';
 import { useRoute } from 'vue-router';
-import { useTimbrado } from '../../composables/useTimbrado';
-import { useAuth } from '../../composables/useAuth';
+import { useTimbrado } from '@/composables/useTimbrado';
+import { useAuth } from '@/composables/useAuth';
 
 const { trip, getDatosTimbre, timbrar, isTimbrando, xmlTimbre } = useTimbrado();
 const { getPermiso } = useAuth();

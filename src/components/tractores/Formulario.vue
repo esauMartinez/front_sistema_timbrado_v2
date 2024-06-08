@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
-import { useTractor } from '../../composables/useTractor';
-import { useError } from '../../composables/useError';
-import { useMarca } from '../../composables/useMarca';
+import { onMounted } from 'vue';
+import { useTractor } from '@/composables/useTractor';
+import { useError } from '@/composables/useError';
+import { useMarca } from '@/composables/useMarca';
 
 const { unidad, configuraciones, getConfiguraciones } = useTractor();
 const { marcas, getMarcas } = useMarca();
@@ -80,15 +80,12 @@ const fecha_minima = new Date();
 		</div>
 		<div class="mb-3">
 			<label>Modelo</label>
-			<Calendar
+			<InputText
 				id="modelo"
 				name="modelo"
 				class="w-full focus:border-primary mt-2"
 				placeholder="Modelo"
 				v-model="unidad.modelo"
-				view="year"
-				dateFormat="yy"
-				showIcon
 			/>
 			<small class="p-error" name="modelo"></small>
 		</div>

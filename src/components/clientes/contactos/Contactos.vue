@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import Tabla from './Tabla.vue';
 import { ref } from 'vue';
-import { router } from '../../../router';
+import { router } from '@/router';
 import { useRoute } from 'vue-router';
 import { onMounted } from 'vue';
-import { useCliente } from '../../../composables/useCliente';
+import { useCliente } from '@/composables/useCliente';
 import Formulario from './Formulario.vue';
-import { useAuth } from "../../../composables/useAuth";
+import { useAuth } from "@/composables/useAuth";
 const visible = ref(true);
 
 const { contacto, getContactos } = useCliente();

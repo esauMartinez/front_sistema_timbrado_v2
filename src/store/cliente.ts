@@ -5,7 +5,7 @@ import {
 	MetodosPago,
 	RegimenFiscal,
 	UsoCfdi,
-} from '../interfaces/cliente.model';
+} from '@/interfaces/cliente.model';
 
 interface Bitacora {
 	comentarios: string;

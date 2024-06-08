@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useLoad } from '../composables/useLoad';
+import { useLoad } from '@/composables/useLoad';
 const { isLoading } = useLoad();
 </script>
 

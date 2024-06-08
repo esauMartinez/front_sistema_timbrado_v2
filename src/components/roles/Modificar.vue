@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 import Formulario from './Formulario.vue';
-import { useRol } from '../../composables/useRol';
-import { router } from '../../router';
+import { useRol } from '@/composables/useRol';
+import { router } from '@/router';
 import { useRoute } from 'vue-router';
 
 const { getRol, getModulos, putRol } = useRol();

@@ -1,4 +1,4 @@
-import { instance } from '../helpers/axiosInstance';
+import { instance } from '@/helpers/axiosInstance';
 
 export const verificarUsuarioAutenticado = () => {
 	const data = JSON.parse(localStorage.getItem('usuario'));

@@ -1,13 +1,9 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
+import { router } from '@/router';
 import Formulario from './Formulario.vue';
-import { useTractor } from '../../composables/useTractor';
-import { Marca } from '../../interfaces/marca.model';
-import { useCaja } from '../../composables/useCaja';
-import { string } from 'yup';
 import { useRoute } from 'vue-router';
-import { useMarca } from '../../composables/useMarca';
+import { useMarca } from '@/composables/useMarca';
 
 const visible = ref(true);
 const route = useRoute();

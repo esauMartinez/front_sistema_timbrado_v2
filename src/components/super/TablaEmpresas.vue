@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
-import { severity } from '../../pipes/severity';
+import { router } from '@/router';
+import { severity } from '@/pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
-import { useEmpresa } from '../../composables/useEmpresa';
+import { useEmpresa } from '@/composables/useEmpresa';
 
 const { empresas, getEmpresas } = useEmpresa();
 

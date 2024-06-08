@@ -1,7 +1,7 @@
 import * as pdfMake from 'pdfmake/build/pdfmake';
-import { useTimbradoStore } from '../store/timbrado';
+import { useTimbradoStore } from '@/store/timbrado';
 import { storeToRefs } from 'pinia';
-import { useTripStore } from '../store/trip';
+import { useTripStore } from '@/store/trip';
 
 export const usePDFTimbre = () => {
 	const timbradoStore = useTimbradoStore();
@@ -64,7 +64,6 @@ export const usePDFTimbre = () => {
 
 	const pdfTimbre = async (trip_id: number) => {
 		const timbre = timbres.value[0];
-		console.log(timbre);
 		const origen = movimientos.value[0];
 		const destino = movimientos.value[movimientos.value.length - 1];
 
@@ -214,7 +213,7 @@ export const usePDFTimbre = () => {
 				},
 				{
 					table: {
-						// widths: ['*', '*', '*', '*'],
+						widths: ['*', '*', '*', '*'],
 						body: [
 							[
 								{
@@ -286,25 +285,60 @@ export const usePDFTimbre = () => {
 								{
 									text: 'CERTIFICADO SAT',
 									fontSize: 7,
+									colSpan: 2,
+									alignment: 'center',
 								},
+								{},
 								{
 									text: 'FOLIO FISCAL',
 									fontSize: 7,
+									colSpan: 2,
+									alignment: 'center',
 								},
+								{},
+							],
+							[
+								{
+									text: timbre.numero_certificado_sat,
+									fontSize: 7,
+									colSpan: 2,
+									alignment: 'center',
+								},
+								{},
+								{
+									text: timbre.uuid,
+									fontSize: 7,
+									colSpan: 2,
+									alignment: 'center',
+								},
+								{},
+							],
+							[
 								{
 									text: 'IDCCP',
 									fontSize: 7,
+									colSpan: 2,
+									alignment: 'center',
 								},
+								{},
 								{
 									text: 'FECHA CERTIFICADO',
 									fontSize: 7,
+									colSpan: 2,
+									alignment: 'center',
 								},
+								{},
 							],
 							[
-								{ text: timbre.numero_certificado_sat, fontSize: 7 },
-								{ text: timbre.uuid, fontSize: 7 },
-								{ text: '', fontSize: 7 },
-								{ text: timbre.fecha_timbrado, fontSize: 7 },
+								{ text: 'test', fontSize: 7, colSpan: 2, alignment: 'center' },
+								{},
+								{
+									text: timbre.fecha_timbrado,
+									fontSize: 7,
+									colSpan: 2,
+									alignment: 'center',
+								},
+								{},
 							],
 						],
 					},

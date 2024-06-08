@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
+import { router } from '@/router';
 import Formulario from './Formulario.vue';
 import { useRoute } from 'vue-router';
-import { useCaja } from '../../composables/useCaja';
+import { useCaja } from '@/composables/useCaja';
 
 const visible = ref(true);
 const { unidad, putUnidad, getUnidad } = useCaja();

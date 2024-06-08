@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
-import { severity } from '../../pipes/severity';
+import { router } from '@/router';
+import { severity } from '@/pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
-import { useServicio } from '../../composables/useServicio';
-import { useAuth } from '../../composables/useAuth';
+import { useServicio } from '@/composables/useServicio';
+import { useAuth } from '@/composables/useAuth';
 
 const { getPermiso } = useAuth();
 

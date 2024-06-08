@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { router } from '../../../router';
+import { router } from '@/router';
 import Formulario from './Formulario.vue';
-import { useTimbrado } from '../../../composables/useTimbrado';
+import { useTimbrado } from '@/composables/useTimbrado';
 import { useRoute } from 'vue-router';
 import { onMounted } from 'vue';
 const visible = ref(true);

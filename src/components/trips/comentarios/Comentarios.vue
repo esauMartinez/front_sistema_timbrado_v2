@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { router } from '../../../router';
-import { useTrip } from '../../../composables/useTrip';
+import { router } from '@/router';
+import { useTrip } from '@/composables/useTrip';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { formatDateWithTime } from '../../../pipes/formatDate';
-import { useAuth } from '../../../composables/useAuth';
+import { formatDateWithTime } from '@/pipes/formatDate';
+import { useAuth } from '@/composables/useAuth';
 
 const {
 	trip,

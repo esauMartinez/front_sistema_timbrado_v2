@@ -1,5 +1,3 @@
-import { MercanciasSat } from "./sat.model";
-
 export interface Mercancia {
 	id: number;
 	producto: string;

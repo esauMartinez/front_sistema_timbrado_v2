@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import { Auth } from '../interfaces/auth.model';
-import { instance } from '../helpers/axiosInstance';
+import { Auth } from '@/interfaces/auth.model';
+import { instance } from '@/helpers/axiosInstance';
 
 interface AuthStore {
 	auth: Auth;

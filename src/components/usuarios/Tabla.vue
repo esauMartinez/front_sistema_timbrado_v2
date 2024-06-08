@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { FilterMatchMode } from 'primevue/api';
-import { useUsuario } from '../../composables/useUsuario';
-import { router } from '../../router';
-import { useAuth } from '../../composables/useAuth';
-import { severity } from '../../pipes/severity';
-import { useEmpresa } from '../../composables/useEmpresa';
+import { useUsuario } from '@/composables/useUsuario';
+import { router } from '@/router';
+import { useAuth } from '@/composables/useAuth';
+import { severity } from '@/pipes/severity';
+import { useEmpresa } from '@/composables/useEmpresa';
 
 const { usuarios, getUsuarios, putUsuario, deleteUsuario } = useUsuario();
 const { empresa } = useEmpresa();

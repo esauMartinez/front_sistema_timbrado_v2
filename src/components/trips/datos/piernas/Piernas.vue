@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useTrip } from '../../../../composables/useTrip';
-import { router } from '../../../../router';
+import { useTrip } from '@/composables/useTrip';
+import { router } from '@/router';
 
 const {
 	trip,

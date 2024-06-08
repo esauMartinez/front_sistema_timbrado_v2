@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { useUsuario } from '../../composables/useUsuario';
-import { useRol } from '../../composables/useRol';
+import { useUsuario } from '@/composables/useUsuario';
+import { useRol } from '@/composables/useRol';
 import { onMounted } from 'vue';
-import { useCliente } from '../../composables/useCliente';
-import { useError } from '../../composables/useError';
+import { useCliente } from '@/composables/useCliente';
+import { useError } from '@/composables/useError';
 
 const { roles, getRoles } = useRol();
 const { usuario } = useUsuario();

@@ -1,11 +1,10 @@
 <script lang="ts" setup>
 import { AutoCompleteChangeEvent } from 'primevue/autocomplete';
-import { usePatio } from '../../composables/usePatio';
+import { usePatio } from '@/composables/usePatio';
 
 const { patio, codigos, buscarCodigoPostal } = usePatio();
 
 const verificarCP = (e: AutoCompleteChangeEvent) => {
-	console.log(e.value);
 	patio.value.c_colonia = e.value.id_asenta_cpcons;
 	patio.value.c_municipio = e.value.c_mnpio;
 	patio.value.c_estado = e.value.abreviatura_estado;

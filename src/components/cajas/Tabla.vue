@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
-import { formatDate } from '../../pipes/formatDate';
-import { severity } from '../../pipes/severity';
-import { useCaja } from '../../composables/useCaja';
+import { router } from '@/router';
+import { severity } from '@/pipes/severity';
+import { useCaja } from '@/composables/useCaja';
 import { FilterMatchMode } from 'primevue/api';
-import { useTrip } from '../../composables/useTrip';
-import { useAuth } from '../../composables/useAuth';
+import { useTrip } from '@/composables/useTrip';
+import { useAuth } from '@/composables/useAuth';
 
 const { getPermiso } = useAuth();
 
-const { unidades, getUnidades, putUnidad, deleteUnidad } = useCaja();
+const { unidades, getUnidades, putUnidad, deleteUnidad } =
+	useCaja();
 const { selectCaja } = useTrip();
 
 const loading = ref(true);
@@ -29,6 +29,10 @@ const modificar = (id: number) => {
 
 const agregar = () => {
 	router.push({ path: `/agregar-caja` });
+};
+
+const bitacora = (numero_economico: string) => {
+	router.push({ path: `/bitacora-caja/${numero_economico}` });
 };
 
 const filters = ref({
@@ -119,6 +123,12 @@ const filters = ref({
 			<template #body="{ data }">
 				<div class="flex justify-content-center">
 					<ButtonGroup>
+						<Button
+							icon="pi pi-book"
+							severity="info"
+							@click="bitacora(data.numero_economico)"
+							v-if="isModule && !getPermiso('MODULO_CAJAS_VER')"
+						/>
 						<Button
 							icon="pi pi-pencil"
 							severity="warning"

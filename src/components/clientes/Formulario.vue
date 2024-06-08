@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { useCliente } from '../../composables/useCliente';
-import { useError } from '../../composables/useError';
-import { router } from '../../router';
+import { useCliente } from '@/composables/useCliente';
+import { useError } from '@/composables/useError';
 
 const { setErrores } = useError();
 

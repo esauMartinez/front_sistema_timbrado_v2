@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { Servicio } from '../interfaces/servicio';
+import { Servicio } from '@/interfaces/servicio';
 
 interface ServicioStore {
 	servicios: Servicio[];

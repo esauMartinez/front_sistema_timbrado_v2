@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useEmpresa } from '../../composables/useEmpresa';
+import { useEmpresa } from '@/composables/useEmpresa';
 
 const { certificado, key, postCertificados, passwordCertificado } = useEmpresa();
-const password = ref(null);
 </script>
 
 <template>

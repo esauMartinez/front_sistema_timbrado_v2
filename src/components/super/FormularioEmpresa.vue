@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useEmpresa } from '../../composables/useEmpresa';
+import { useEmpresa } from '@/composables/useEmpresa';
 
 const { empresa } = useEmpresa();
 </script>

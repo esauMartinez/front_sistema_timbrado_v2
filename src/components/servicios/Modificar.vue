@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
+import { router } from '@/router';
 import Formulario from './Formulario.vue';
-import { useServicio } from '../../composables/useServicio';
+import { useServicio } from '@/composables/useServicio';
 import { useRoute } from 'vue-router';
 
 const { servicio, getServicio, putServicio } = useServicio();

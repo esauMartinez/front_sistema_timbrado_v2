@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { useTrip } from '../../composables/useTrip';
+import { useTrip } from '@/composables/useTrip';
 
 const { trips, getTrips, postTrip } = useTrip();
 

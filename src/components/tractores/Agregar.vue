@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
+import { router } from '@/router';
 import Formulario from './Formulario.vue';
-import { useTractor } from '../../composables/useTractor';
+import { useTractor } from '@/composables/useTractor';
 
 const { unidad, postUnidad, resetUnidadForm } = useTractor();
 

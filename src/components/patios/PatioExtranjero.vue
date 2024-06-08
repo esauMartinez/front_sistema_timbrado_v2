@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { usePatio } from '../../composables/usePatio';
+import { usePatio } from '@/composables/usePatio';
 import { AutoCompleteChangeEvent } from 'primevue/autocomplete';
 
 const { patio } = usePatio();

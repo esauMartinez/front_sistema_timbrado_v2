@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { useTimbrado } from '../../../composables/useTimbrado';
-import { onMounted, onUpdated } from 'vue';
+import { useTimbrado } from '@/composables/useTimbrado';
 
 const { timbres, cancelacion } = useTimbrado();
 

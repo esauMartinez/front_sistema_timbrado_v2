@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { useCaja } from '../../composables/useCaja';
-import { useError } from '../../composables/useError';
-import { useMarca } from '../../composables/useMarca';
+import { useCaja } from '@/composables/useCaja';
+import { useError } from '@/composables/useError';
+import { useMarca } from '@/composables/useMarca';
 
 const { unidad, configuraciones, getConfiguraciones } = useCaja();
 const { marcas, getMarcas } = useMarca();

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { onMounted, ref, defineProps } from 'vue';
-import { useCliente } from '../../composables/useCliente';
-import { router } from '../../router';
-import { severity } from '../../pipes/severity';
+import { useCliente } from '@/composables/useCliente';
+import { router } from '@/router/index';
+import { severity } from '@/pipes/severity';
+import { useTrip } from '@/composables/useTrip';
+import { useAuth } from '@/composables/useAuth';
+import { ref, defineProps } from 'vue';
 import { FilterMatchMode } from 'primevue/api';
-import { useTrip } from '../../composables/useTrip';
-import { useAuth } from '../../composables/useAuth';
 
 const { getPermiso } = useAuth();
 const { clientes, getClientes, putCliente, deleteCliente } = useCliente();

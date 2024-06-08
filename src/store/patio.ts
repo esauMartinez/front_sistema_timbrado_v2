@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
-import { Operador } from '../interfaces/operador.model';
-import { Patio } from '../interfaces/patio.model';
-import { CodigoPostal } from '../interfaces/codigo_postal.model';
+import { Patio } from '@/interfaces/patio.model';
+import { CodigoPostal } from '@/interfaces/codigo_postal.model';
 
 interface PatioStore {
 	patios: Patio[];

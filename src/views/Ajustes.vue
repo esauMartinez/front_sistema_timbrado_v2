@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import FormularioCertificados from '../components/ajustes/FormularioCertificados.vue';
-import FormularioDatosEmpresa from '../components/ajustes/FormularioDatosEmpresa.vue';
-import FormularioLogotipo from '../components/ajustes/FormularioLogo.vue';
-import { useEmpresa } from '../composables/useEmpresa';
+import FormularioCertificados from '@/components/ajustes/FormularioCertificados.vue';
+import FormularioDatosEmpresa from '@/components/ajustes/FormularioDatosEmpresa.vue';
+import FormularioLogotipo from '@/components/ajustes/FormularioLogo.vue';
+import { useEmpresa } from '@/composables/useEmpresa';
 
 const { empresa, putEmpresa } = useEmpresa();
 </script>

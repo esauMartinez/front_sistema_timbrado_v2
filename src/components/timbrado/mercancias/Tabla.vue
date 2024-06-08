@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import { FilterMatchMode } from 'primevue/api';
-import { onMounted, ref } from 'vue';
-import { router } from '../../../router';
-import { useTrip } from '../../../composables/useTrip';
-import { useTimbrado } from '../../../composables/useTimbrado';
+import { ref } from 'vue';
+import { router } from '@/router';
+import { useTimbrado } from '@/composables/useTimbrado';
 
 const { mercancias, deleteMercancia } = useTimbrado();
 

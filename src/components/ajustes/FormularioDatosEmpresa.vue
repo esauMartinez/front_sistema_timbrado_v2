@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue';
-import { useEmpresa } from '../../composables/useEmpresa';
+import { useEmpresa } from '@/composables/useEmpresa';
 
 const { empresa, getEmpresa } = useEmpresa();
 

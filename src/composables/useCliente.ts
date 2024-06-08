@@ -1,10 +1,10 @@
 import { storeToRefs } from 'pinia';
-import { Contacto, useClienteStore } from '../store/cliente';
-import { instance } from '../helpers/axiosInstance';
+import { Contacto, useClienteStore } from '@/store/cliente';
+import { instance } from '@/helpers/axiosInstance';
 import { useToast } from 'primevue/usetoast';
-import { comentarios, handleError, question } from '../helpers/messages';
-import { Cliente } from '../interfaces/cliente.model';
-import { router } from '../router';
+import { comentarios, handleError, question } from '@/helpers/messages';
+import { Cliente } from '@/interfaces/cliente.model';
+import { router } from '@/router';
 import { onMounted } from 'vue';
 
 export const useCliente = () => {

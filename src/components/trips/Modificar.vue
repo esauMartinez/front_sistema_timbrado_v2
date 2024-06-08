@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
+import { router } from '@/router';
 import Formulario from './Formulario.vue';
 import { useRoute } from 'vue-router';
-import { useTrip } from '../../composables/useTrip';
-import { useAuth } from '../../composables/useAuth';
+import { useTrip } from '@/composables/useTrip';
+import { useAuth } from '@/composables/useAuth';
 
 const { trip, getTrip, putTrip, cancelarTrip } = useTrip();
 const { getPermiso } = useAuth();

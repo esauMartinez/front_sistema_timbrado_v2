@@ -1,11 +1,11 @@
 import { storeToRefs } from 'pinia';
-import { useUnidadStore } from '../store/unidad';
-import { instance } from '../helpers/axiosInstance';
-import { handleError, question } from '../helpers/messages';
-import { Unidad } from '../interfaces/unidad.model';
+import { useUnidadStore } from '@/store/unidad';
+import { instance } from '@/helpers/axiosInstance';
+import { handleError, question } from '@/helpers/messages';
+import { Unidad } from '@/interfaces/unidad.model';
 import { useToast } from 'primevue/usetoast';
-import { router } from '../router';
-import moment from 'moment';
+import { router } from '@/router';
+import * as moment from 'moment';
 
 export const useTractor = () => {
 	const unidadStore = useUnidadStore();

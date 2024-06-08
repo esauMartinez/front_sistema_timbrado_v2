@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { router } from '../../../router';
-import { useTrip } from '../../../composables/useTrip';
+import { router } from '@/router';
+import { useTrip } from '@/composables/useTrip';
 
 const { trips } = useTrip();
 const visible = ref(true);

@@ -1,15 +1,15 @@
 import { defineStore } from 'pinia';
-import { Patio } from '../interfaces/patio.model';
-import { Movimiento } from '../interfaces/movimiento.model';
-import { Cliente } from '../interfaces/cliente.model';
-import { Operador } from '../interfaces/operador.model';
-import { Caja } from '../interfaces/caja.model';
-import { Tractor } from '../interfaces/tractor.model';
-import { Mercancia } from '../interfaces/mercancia.model';
-import { Comentario, Trip } from '../interfaces/trip';
-import { Empresa } from '../interfaces/empresa.model';
-import { Concepto } from '../interfaces/concepto.model';
-import { Timbre } from '../interfaces/timbre.model';
+import { Patio } from '@/interfaces/patio.model';
+import { Movimiento } from '@/interfaces/movimiento.model';
+import { Cliente } from '@/interfaces/cliente.model';
+import { Operador } from '@/interfaces/operador.model';
+import { Caja } from '@/interfaces/caja.model';
+import { Tractor } from '@/interfaces/tractor.model';
+import { Mercancia } from '@/interfaces/mercancia.model';
+import { Comentario, Trip } from '@/interfaces/trip';
+import { Empresa } from '@/interfaces/empresa.model';
+import { Concepto } from '@/interfaces/concepto.model';
+import { Timbre } from '@/interfaces/timbre.model';
 
 interface TripStore {
 	trips: Trip[];

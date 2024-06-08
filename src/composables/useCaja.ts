@@ -1,17 +1,15 @@
 import { storeToRefs } from 'pinia';
-import { useUnidadStore } from '../store/unidad';
-import { instance } from '../helpers/axiosInstance';
-import { handleError, question } from '../helpers/messages';
-import { Unidad } from '../interfaces/unidad.model';
+import { BitacoraCaja, useUnidadStore } from '@/store/unidad';
+import { instance } from '@/helpers/axiosInstance';
+import { handleError, question } from '@/helpers/messages';
+import { Unidad } from '@/interfaces/unidad.model';
 import { useToast } from 'primevue/usetoast';
-import { router } from '../router';
-import { Marca } from '../interfaces/marca.model';
-import { Caja } from '../interfaces/caja.model';
-import moment from 'moment';
+import { router } from '@/router';
+import * as moment from 'moment';
 
 export const useCaja = () => {
 	const unidadStore = useUnidadStore();
-	const { unidad, unidades, marca, marcas, configuraciones } =
+	const { unidad, unidades, marca, marcas, configuraciones, bitacora_caja } =
 		storeToRefs(unidadStore);
 	const toast = useToast();
 
@@ -98,6 +96,17 @@ export const useCaja = () => {
 		}
 	};
 
+	const getUbicacionesCaja = async (numero_economico: string) => {
+		try {
+			const { data } = await instance.get<BitacoraCaja[]>(
+				`/cajas/ubicaciones/${numero_economico}`
+			);
+			unidadStore.setBitacora(data);
+		} catch (error) {
+			handleError(error);
+		}
+	};
+
 	const resetUnidadForm = () => {
 		unidadStore.setUnidad({
 			id: null,
@@ -123,6 +132,7 @@ export const useCaja = () => {
 		marca,
 		marcas,
 		configuraciones,
+		bitacora_caja,
 		getUnidades,
 		getUnidad,
 		postUnidad,
@@ -130,5 +140,6 @@ export const useCaja = () => {
 		deleteUnidad,
 		resetUnidadForm,
 		getConfiguraciones,
+		getUbicacionesCaja,
 	};
 };

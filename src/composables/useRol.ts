@@ -1,12 +1,12 @@
 import { storeToRefs } from 'pinia';
-import { instance } from '../helpers/axiosInstance';
-import { handleError, question } from '../helpers/messages';
-import { useRolStore } from '../store/rol';
-import { router } from '../router';
+import { instance } from '@/helpers/axiosInstance';
+import { handleError, question } from '@/helpers/messages';
+import { useRolStore } from '@/store/rol';
+import { router } from '@/router';
 import { useToast } from 'primevue/usetoast';
-import { Rol } from '../interfaces/rol.model';
-import { Modulo, Permiso } from '../interfaces/modulos.model';
-import { useLoadStore } from '../store/load';
+import { Rol } from '@/interfaces/rol.model';
+import { Modulo, Permiso } from '@/interfaces/modulos.model';
+import { useLoadStore } from '@/store/load';
 
 export const useRol = () => {
 	const rolStore = useRolStore();
@@ -87,13 +87,14 @@ export const useRol = () => {
 		try {
 			const response = await question();
 			if (response.isConfirmed) {
-				await instance.delete(`/roles/${id}`);
+				const data = await instance.delete(`/roles/${id}`);
 				toast.add({
 					severity: 'success',
 					summary: 'Unidad',
 					detail: 'Rol eliminado correctamente',
 					life: 3000,
 				});
+				console.log(data);
 				getRoles();
 			}
 		} catch (error) {

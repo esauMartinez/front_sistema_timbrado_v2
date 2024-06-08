@@ -1,5 +1,4 @@
-import { ref } from 'vue';
-import { useLoadStore } from '../store/load';
+import { useLoadStore } from '@/store/load';
 import { storeToRefs } from 'pinia';
 
 export const useLoad = () => {

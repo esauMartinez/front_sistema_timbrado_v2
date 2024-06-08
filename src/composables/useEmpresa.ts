@@ -1,16 +1,15 @@
 import { storeToRefs } from 'pinia';
-import { useEmpresaStore } from '../store/empresa';
-import { instance } from '../helpers/axiosInstance';
-import { handleError } from '../helpers/messages';
-import { Empresa } from '../interfaces/empresa.model';
+import { useEmpresaStore } from '@/store/empresa';
+import { instance } from '@/helpers/axiosInstance';
+import { handleError } from '@/helpers/messages';
+import { Empresa } from '@/interfaces/empresa.model';
 import { useToast } from 'primevue/usetoast';
-import { useUsuarioStore } from '../store/usuario';
-import { Usuario } from '../interfaces/usuario.model';
-import { router } from '../router';
+import { useUsuarioStore } from '@/store/usuario';
+import { Usuario } from '@/interfaces/usuario.model';
+import { router } from '@/router';
 import { FileUploadSelectEvent } from 'primevue/fileupload';
 import { ref } from 'vue';
-import { useLoad } from './useLoad';
-import { useLoadStore } from '../store/load';
+import { useLoadStore } from '@/store/load';
 
 export const useEmpresa = () => {
 	const empresaStore = useEmpresaStore();

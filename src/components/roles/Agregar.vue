@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import Formulario from './Formulario.vue';
-import { useRol } from '../../composables/useRol';
-import { router } from '../../router';
+import { useRol } from '@/composables/useRol';
+import { router } from '@/router';
 
 const { postRol, getModulos, resetRolForm } = useRol();
 const visible = ref(true);

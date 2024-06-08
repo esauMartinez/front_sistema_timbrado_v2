@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
-import Formulario from '../usuarios/Formulario.vue';
-import { useUsuario } from '../../composables/useUsuario';
+import { router } from '@/router';
+import Formulario from '@/components/usuarios/Formulario.vue';
+import { useUsuario } from '@/composables/useUsuario';
 import { useRoute } from 'vue-router';
-import { useEmpresa } from '../../composables/useEmpresa';
+import { useEmpresa } from '@/composables/useEmpresa';
 const visible = ref(true);
 const { usuario } = useUsuario();
 const route = useRoute();

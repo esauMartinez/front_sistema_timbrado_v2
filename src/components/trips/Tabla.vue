@@ -1,18 +1,17 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { router } from '../../router';
-import { severityTrip } from '../../pipes/severity';
+import { router } from '@/router';
+import { severityTrip } from '@/pipes/severity';
 import { FilterMatchMode } from 'primevue/api';
-import { useTrip } from '../../composables/useTrip';
+import { useTrip } from '@/composables/useTrip';
 import { useToast } from 'primevue/usetoast';
-import { formatDateWithTime } from '../../pipes/formatDate';
-import { useAuth } from '../../composables/useAuth';
+import { formatDateWithTime } from '@/pipes/formatDate';
+import { useAuth } from '@/composables/useAuth';
 import Agregar from './Agregar.vue';
 
 const { getPermiso } = useAuth();
 const toast = useToast();
 const { trips, estatusTrip, from, to, getTrips } = useTrip();
-const loading = ref(false);
 
 const modificar = (id: number) => {
 	router.push({ path: `/modificar-trip/${id}` });
@@ -111,15 +110,6 @@ const estatusOptions = ref([
 						@change="getTrips(estatus.value)"
 						class="w-full"
 					/>
-
-					<!-- <SelectButton
-						v-model="estatus"
-						:options="estatusOptions"
-						optionLabel="label"
-						dataKey="label"
-						:unselectable="false"
-						@click="getTrips(estatus.value)"
-					/> -->
 				</div>
 				<div class="col-1">
 					<Button
@@ -150,8 +140,22 @@ const estatusOptions = ref([
 				</div>
 			</template>
 		</Column>
+
 		<Column field="tractor.numero_economico" header="Tractor" sortable></Column>
 		<Column field="caja.numero_economico" header="Caja" sortable></Column>
+		<Column
+			field="isTimbrado"
+			header="Etatus timbre"
+			headerStyle="width:10rem"
+			sortable
+		>
+			<template #body="{ data }">
+				<Tag
+					:severity="data.isTimbrado ? 'success' : 'danger'"
+					:value="data.isTimbrado ? 'Trip timbrado' : 'Trip sin timbre'"
+				></Tag>
+			</template>
+		</Column>
 		<Column field="estatus" header="Estatus" sortable>
 			<template #body="{ data }">
 				<Tag :severity="severityTrip(data.estatus)" :value="data.estatus"></Tag>

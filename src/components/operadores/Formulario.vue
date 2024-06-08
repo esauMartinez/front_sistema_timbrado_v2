@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { useOperador } from '../../composables/useOperador';
-import { useError } from '../../composables/useError';
-import moment from 'moment';
+import { useOperador } from '@/composables/useOperador';
+import { useError } from '@/composables/useError';
 
 const { operador } = useOperador();
 const { setErrores } = useError();

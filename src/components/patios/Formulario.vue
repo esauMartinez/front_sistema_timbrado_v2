@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import { usePatio } from '../../composables/usePatio';
-import { useError } from '../../composables/useError';
+import { usePatio } from '@/composables/usePatio';
+import { useError } from '@/composables/useError';
 import PatioNacional from './PatioNacional.vue';
 import PatioExtranjero from './PatioExtranjero.vue';
 

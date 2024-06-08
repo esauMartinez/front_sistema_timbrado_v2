@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import Tabla from '../../tractores/Tabla.vue';
-import { router } from '../../../router';
+import Tabla from '@/components/tractores/Tabla.vue';
+import { router } from '@/router';
 
 const visible = ref(true);
 </script>

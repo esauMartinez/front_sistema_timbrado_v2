@@ -1,7 +1,7 @@
 import * as pdfMake from 'pdfmake/build/pdfmake';
-import moment from 'moment';
+import * as moment from 'moment';
 import { storeToRefs } from 'pinia';
-import { useTripStore } from '../store/trip';
+import { useTripStore } from '@/store/trip';
 
 export const usePDFTrip = () => {
 	const tripStore = useTripStore();
@@ -459,111 +459,8 @@ export const usePDFTrip = () => {
 						},
 					],
 				},
-				{
-					columns: [
-						{
-							image: `data:image/jpeg;base64,${timbre.value.codigo_qr}`,
-							width: 100,
-						},
-					],
-				},
-				{
-					table: {
-						// widths: ['*', '*', '*', '*'],
-						body: [
-							[
-								{
-									text: 'CADENA ORIGINAL DE COMPLEMENTO DE CERTIFICADO DIGITAL DE SAT',
-									fontSize: 8,
-									alignment: 'center',
-									colSpan: 4,
-								},
-								{},
-								{},
-								{},
-							],
-							[
-								{
-									text: timbre.value.cadena_original_sat,
-									fontSize: 5,
-									alignment: 'left',
-									colSpan: 4,
-								},
-								{},
-								{},
-								{},
-							],
-							[
-								{
-									text: 'SELLO DIGITAL DEL CFDI',
-									fontSize: 8,
-									alignment: 'center',
-									colSpan: 4,
-								},
-								{},
-								{},
-								{},
-							],
-							[
-								{
-									text: timbre.value.sello_cfdi,
-									fontSize: 5,
-									alignment: 'left',
-									colSpan: 4,
-								},
-								{},
-								{},
-								{},
-							],
-							[
-								{
-									text: 'SELLO DEL SAT',
-									fontSize: 8,
-									alignment: 'center',
-									colSpan: 4,
-								},
-								{},
-								{},
-								{},
-							],
-							[
-								{
-									text: timbre.value.sello_sat,
-									fontSize: 5,
-									alignment: 'left',
-									colSpan: 4,
-								},
-								{},
-								{},
-								{},
-							],
-							[
-								{
-									text: 'CERTIFICADO SAT',
-									fontSize: 7,
-								},
-								{
-									text: 'FOLIO FISCAL',
-									fontSize: 7,
-								},
-								{
-									text: 'IDCCP',
-									fontSize: 7,
-								},
-								{
-									text: 'FECHA CERTIFICADO',
-									fontSize: 7,
-								},
-							],
-							[
-								{ text: timbre.value.numero_certificado_sat, fontSize: 7 },
-								{ text: timbre.value.uuid, fontSize: 7 },
-								{ text: '', fontSize: 7 },
-								{ text: timbre.value.fecha_timbrado, fontSize: 7 },
-							],
-						],
-					},
-				},
+				timbre.value !== undefined ? [...datosTimbre()] : '',
+
 				// {
 				// 	text: 'Condiciones de prestación de servicios que ampara la \n CARTA DE PORTE O COMPROBANTE PARA ELTRANSPORTE DE MERCANCÍAS.',
 				// 	fontSize: 14,
@@ -644,6 +541,151 @@ export const usePDFTrip = () => {
 		pdfDocGenerator.getDataUrl(async (dataUrl) => {
 			tripStore.setPDF(dataUrl);
 		});
+	};
+
+	const datosTimbre = () => {
+		return [
+			{
+				columns: [
+					{
+						image: `data:image/jpeg;base64,${timbre.value.codigo_qr}`,
+						width: 100,
+					},
+				],
+			},
+			{
+				table: {
+					// widths: ['*', '*', '*', '*'],
+					body: [
+						[
+							{
+								text: 'CADENA ORIGINAL DE COMPLEMENTO DE CERTIFICADO DIGITAL DE SAT',
+								fontSize: 8,
+								alignment: 'center',
+								colSpan: 4,
+							},
+							{},
+							{},
+							{},
+						],
+						[
+							{
+								text: timbre.value.cadena_original_sat,
+								fontSize: 5,
+								alignment: 'center',
+								colSpan: 4,
+							},
+							{},
+							{},
+							{},
+						],
+						[
+							{
+								text: 'SELLO DIGITAL DEL CFDI',
+								fontSize: 8,
+								alignment: 'center',
+								colSpan: 4,
+							},
+							{},
+							{},
+							{},
+						],
+						[
+							{
+								text: timbre.value.sello_cfdi,
+								fontSize: 5,
+								alignment: 'left',
+								colSpan: 4,
+							},
+							{},
+							{},
+							{},
+						],
+						[
+							{
+								text: 'SELLO DEL SAT',
+								fontSize: 8,
+								alignment: 'center',
+								colSpan: 4,
+							},
+							{},
+							{},
+							{},
+						],
+						[
+							{
+								text: timbre.value.sello_sat,
+								fontSize: 5,
+								alignment: 'left',
+								colSpan: 4,
+							},
+							{},
+							{},
+							{},
+						],
+						[
+							{
+								text: 'CERTIFICADO SAT',
+								fontSize: 7,
+								colSpan: 2,
+								alignment: 'center',
+							},
+							{},
+							{
+								text: 'FOLIO FISCAL',
+								fontSize: 7,
+								colSpan: 2,
+								alignment: 'center',
+							},
+							{},
+						],
+						[
+							{
+								text: timbre.value.numero_certificado_sat,
+								fontSize: 7,
+								colSpan: 2,
+								alignment: 'center',
+							},
+							{},
+							{
+								text: timbre.value.uuid,
+								fontSize: 7,
+								colSpan: 2,
+								alignment: 'center',
+							},
+							{},
+						],
+						[
+							{
+								text: 'IDCCP',
+								fontSize: 7,
+								colSpan: 2,
+								alignment: 'center',
+							},
+							{},
+							{
+								text: 'FECHA CERTIFICADO',
+								fontSize: 7,
+								colSpan: 2,
+								alignment: 'center',
+							},
+							{},
+						],
+						[
+							{ text: 'test', fontSize: 7, colSpan: 2, alignment: 'center' },
+							{},
+							{
+								text: timbre.value.fecha_timbrado,
+								fontSize: 7,
+								colSpan: 2,
+								alignment: 'center',
+							},
+							{},
+						],
+					],
+				},
+			},
+		];
 	};
 
 	return { pdf, pdfTrip };

@@ -1,10 +1,10 @@
 import { storeToRefs } from 'pinia';
-import { instance } from '../helpers/axiosInstance';
-import { router } from '../router';
-import { Rol } from '../interfaces/rol.model';
-import { useAuthStore } from '../store/auth';
-import { Auth } from '../interfaces/auth.model';
-import { handleError } from '../helpers/messages';
+import { instance } from '@/helpers/axiosInstance';
+import { router } from '@/router';
+import { Rol } from '@/interfaces/rol.model';
+import { useAuthStore } from '@/store/auth';
+import { Auth } from '@/interfaces/auth.model';
+import { handleError } from '@/helpers/messages';
 import { useSocket } from './useSocket';
 
 export const useAuth = () => {
