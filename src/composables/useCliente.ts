@@ -22,9 +22,9 @@ export const useCliente = () => {
 	} = storeToRefs(clienteStore);
 	const toast = useToast();
 
-	// onMounted(async () => {
-	// 	await getClientes();
-	// });
+	onMounted(async () => {
+		await getClientes();
+	});
 
 	const getClientes = async () => {
 		try {
