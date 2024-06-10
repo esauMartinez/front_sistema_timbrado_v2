@@ -5,7 +5,7 @@ import { useOperadorStore } from '@/store/operador';
 import { useToast } from 'primevue/usetoast';
 import { router } from '@/router';
 import { Operador } from '@/interfaces/operador.model';
-import * as moment from 'moment';
+import moment from 'moment';
 import { onMounted } from 'vue';
 
 export const useOperador = () => {

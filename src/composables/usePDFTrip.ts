@@ -1,5 +1,5 @@
 import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as moment from 'moment';
+import moment from 'moment';
 import { storeToRefs } from 'pinia';
 import { useTripStore } from '@/store/trip';
 

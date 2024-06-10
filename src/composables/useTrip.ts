@@ -11,7 +11,7 @@ import { Caja } from '@/interfaces/caja.model';
 import { Tractor } from '@/interfaces/tractor.model';
 import { router } from '@/router';
 import { ref } from 'vue';
-import * as moment from 'moment';
+import moment from 'moment';
 import { useLoadStore } from '@/store/load';
 import { Comentario, Trip } from '@/interfaces/trip';
 

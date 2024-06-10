@@ -86,7 +86,7 @@ onMounted(async () => {
 	</Dialog>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .area-comentarios {
 	ul {
 		list-style-type: none;
