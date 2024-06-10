@@ -6,7 +6,7 @@ import Logotipo from './Logotipo.vue';
 
 const { getPermiso, logout, darkMode, setDarkMode } = useAuth();
 
-const menu = [
+const menu = ref([
 	{
 		header: null,
 		title: 'Inicio',
@@ -108,7 +108,7 @@ const menu = [
 		header: null,
 		title: 'Tema',
 		href: null,
-		icon: 'fa fa-sun',
+		icon: 'fa fa-moon',
 		hidden: false,
 	},
 	{
@@ -118,7 +118,7 @@ const menu = [
 		icon: 'fa fa-power-off',
 		hidden: false,
 	},
-];
+]);
 
 const theme_sidenav = ref('white-theme');
 
@@ -130,9 +130,9 @@ const onItemClick = (e, item) => {
 		setDarkMode(darkMode.value);
 		if (darkMode.value) {
 			theme_sidenav.value = null;
-			menu[menu.length - 2].icon = 'fa fa-moon';
+			menu.value[menu.value.length - 2].icon = 'fa fa-sun';
 		} else {
-			menu[menu.length - 2].icon = 'fa fa-sun';
+			menu.value[menu.value.length - 2].icon = 'fa fa-moon';
 			theme_sidenav.value = 'white-theme';
 		}
 	}
@@ -154,6 +154,8 @@ onMounted(() => {
 	if (darkMode.value) {
 		theme_sidenav.value = null;
 	}
+
+	onToggleCollapse(true);
 });
 </script>
 

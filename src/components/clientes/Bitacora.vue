@@ -23,7 +23,10 @@ onMounted(() => {
 		:style="{ width: '50vw' }"
 		v-on:after-hide="router.go(-1)"
 	>
-		<DataTable :value="bitacora" showGridlines stripedRows>
+		<div v-if="bitacora.length == 0">
+			<h2 class="text-center">No hay historial de este cliente</h2>
+		</div>
+		<DataTable :value="bitacora" showGridlines stripedRows v-else>
 			<Column field="evento" header="Evento"></Column>
 			<Column field="comentarios" header="Comentarios"></Column>
 			<Column header="fecha">
