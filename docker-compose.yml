@@ -1,0 +1,7 @@
+services:
+  front_sistema_timbrado_v2:
+    build: .
+    restart: always
+    container_name: front_sistema_timbrado_v2
+    ports: 
+      - 3100:3100
