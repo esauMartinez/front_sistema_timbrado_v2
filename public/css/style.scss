@@ -1,149 +1,155 @@
 @use '/public/css/variables' as v;
 @use '/public/dark-theme/theme.scss' as dark;
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-// $primary-color: #257c5c;
 @import 'vue-sidebar-menu/src/scss/vue-sidebar-menu.scss';
 
-// * {
-// 	font-family: 'Roboto', sans-serif;
-// }
+html {
+  font-size: 14px !important;
+}
+
+.v-sidebar-menu {
+  --vsm-item-font-size: 14px !important;
+}
 
 .p-inputswitch {
-	width: 3rem !important;
-	height: 1.75rem !important;
+  width: 3rem !important;
+  height: 1.75rem !important;
 }
 
 .m-margin-top {
-	margin-top: 15px !important;
+  margin-top: 15px !important;
 }
 
 .logo-and-name {
-	color: #000;
-	margin-bottom: 20px;
+  color: #000;
+  margin-bottom: 20px;
 
-	span img {
-		width: 100px !important;
-		margin-top: 30px;
-	}
+  span img {
+    width: 100px !important;
+    margin-top: 30px;
+  }
 }
 
 .p-autocomplete input {
-	width: 100% !important;
+  width: 100% !important;
 }
 
 .list-container {
-	position: relative;
+  position: relative;
 }
 
 .list {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	position: absolute;
-	z-index: 1001;
-	top: 0;
-	width: 100%;
-	background-color: white;
-	border: 1px solid #80808000;
-	border-radius: 3px;
-	box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-		0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  z-index: 1001;
+  top: 0;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #80808000;
+  border-radius: 3px;
+  box-shadow:
+    0 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
 
-	li {
-		padding: 8px;
-	}
+  li {
+    padding: 8px;
+  }
 
-	li:hover {
-		cursor: pointer;
-		background-color: #e9ecef;
-		color: #495057;
-	}
+  li:hover {
+    cursor: pointer;
+    background-color: #e9ecef;
+    color: #495057;
+  }
 }
 
 .swal2-container {
-	z-index: 3001 !important;
+  z-index: 3001 !important;
 }
 
 @mixin dark-mode {
-	@include dark.dark-mode;
+  @include dark.dark-mode;
 
-	background-color: v.$body-color-dark;
+  background-color: v.$body-color-dark;
 
-	.list {
-		background: #1e1e1e;
-		color: rgba(255, 255, 255, 0.87);
-		border: 1px solid #383838;
-		border-radius: 3px;
-		box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
-			0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  .list {
+    background: #1e1e1e;
+    color: rgba(255, 255, 255, 0.87);
+    border: 1px solid #383838;
+    border-radius: 3px;
+    box-shadow:
+      0 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0 4px 5px 0 rgba(0, 0, 0, 0.14),
+      0 1px 10px 0 rgba(0, 0, 0, 0.12);
 
-		li:hover {
-			color: rgba(255, 255, 255, 0.87);
-			background: rgba(255, 255, 255, 0.03);
-		}
-	}
+    li:hover {
+      color: rgba(255, 255, 255, 0.87);
+      background: rgba(255, 255, 255, 0.03);
+    }
+  }
 
-	.sidenav {
-		background-color: v.$side-nav-dark;
-	}
+  .sidenav {
+    background-color: v.$side-nav-dark;
+  }
 
-	.logo-and-name {
-		color: #fff;
-	}
+  .logo-and-name {
+    color: #fff;
+  }
 
-	.li-link {
-		a {
-			.menu__icon {
-				background-color: #6abd6e;
-				color: #000000;
-			}
-		}
+  .li-link {
+    a {
+      .menu__icon {
+        background-color: #6abd6e;
+        color: #000000;
+      }
+    }
 
-		a:hover {
-			background-color: #ffffff;
-			color: #000000;
-			.menu__icon {
-				background-color: #6abd6e;
-				border-radius: 3px;
-				color: #000000;
-			}
-		}
-	}
+    a:hover {
+      background-color: #ffffff;
+      color: #000000;
+      .menu__icon {
+        background-color: #6abd6e;
+        border-radius: 3px;
+        color: #000000;
+      }
+    }
+  }
 
-	.p-card {
-		background-color: v.$side-nav-dark !important;
-		color: #fff;
-	}
+  .p-card {
+    background-color: v.$side-nav-dark !important;
+    color: #fff;
+  }
 
-	.v-sidebar-menu .vsm--dropdown,
-	.v-sidebar-menu {
-		background-color: #18181b;
-	}
+  .v-sidebar-menu .vsm--dropdown,
+  .v-sidebar-menu {
+    background-color: #18181b;
+  }
 
-	.v-sidebar-menu .vsm--toggle-btn,
-	.v-sidebar-menu .vsm--dropdown {
-		background-color: #212125;
-	}
+  .v-sidebar-menu .vsm--toggle-btn,
+  .v-sidebar-menu .vsm--dropdown {
+    background-color: #212125;
+  }
 
-	.p-toast-detail {
-		color: white;
-	}
+  .p-toast-detail {
+    color: white;
+  }
 }
 
 @mixin light-mode {
-	background-color: v.$body-color-primary;
+  background-color: v.$body-color-primary;
 }
 
 .dark-mode {
-	@include dark-mode;
+  @include dark-mode;
 }
 
 .light-mode {
-	@include light-mode;
+  @include light-mode;
 }
 
 @media (prefers-color-scheme: light) {
-	body {
-		@include light-mode;
-	}
+  body {
+    @include light-mode;
+  }
 }

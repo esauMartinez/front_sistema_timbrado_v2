@@ -1,277 +1,133 @@
-import { defineStore } from 'pinia';
-import { Patio } from '@/interfaces/patio.model';
-import { Movimiento } from '@/interfaces/movimiento.model';
-import { Cliente } from '@/interfaces/cliente.model';
-import { Operador } from '@/interfaces/operador.model';
-import { Caja } from '@/interfaces/caja.model';
-import { Tractor } from '@/interfaces/tractor.model';
-import { Mercancia } from '@/interfaces/mercancia.model';
-import { Comentario, Trip } from '@/interfaces/trip';
-import { Empresa } from '@/interfaces/empresa.model';
-import { Concepto } from '@/interfaces/concepto.model';
-import { Timbre } from '@/interfaces/timbre.model';
+import { defineStore } from 'pinia'
+import type { Patio } from '@/interfaces/patio.model'
+import type { Movimiento } from '@/interfaces/movimiento.model'
+import type { Operador } from '@/modules/operadores/interfaces/operador'
+import type { Caja } from '@/interfaces/caja.model'
+import type { Tractor } from '@/interfaces/tractor.model'
+import type { Mercancia } from '@/interfaces/mercancia.model'
+import type { Comentario, Trip } from '@/interfaces/trip'
+import type { Empresa } from '@/interfaces/empresa.model'
+import type { Concepto } from '@/interfaces/concepto.model'
+import type { Timbre } from '@/interfaces/timbre.model'
+import type { ErrorResponse } from '@/interfaces/errors/error'
+import type { Cliente } from '@/modules/clientes/interfaces/cliente'
 
 interface TripStore {
-	trips: Trip[];
-	trip: Trip;
-	cliente: Cliente;
-	empresa: Empresa;
-	operador: Operador;
-	tractor: Tractor;
-	caja: Caja;
-	timbre: Timbre;
-	conceptos: Concepto[];
-	mercancias: Mercancia[];
-	patios: Patio[];
-	comentario: Comentario;
-	comentarios: Comentario[];
-	nombre_cliente: string;
-	nombre_operador: string;
-	numero_economico_caja: string;
-	numero_economico_tractor: string;
-	movimientos: Movimiento[];
-	movimiento: Movimiento;
-	estatusTrip: string;
-	pdf: string;
+  trips: Trip[]
+  trip: Trip
+  cliente: Cliente
+  empresa: Empresa
+  operador: Operador
+  tractor: Tractor
+  caja: Caja
+  timbre: Timbre
+  conceptos: Concepto[]
+  mercancias: Mercancia[]
+  patios: Patio[]
+  comentario: Comentario
+  comentarios: Comentario[]
+  nombre_cliente: string | null
+  nombre_operador: string | null
+  numero_economico_caja: string | null
+  numero_economico_tractor: string | null
+  movimientos: Movimiento[]
+  movimiento: Movimiento
+  estatusTrip: string
+  pdf: string | null
+  errors: Trip
 }
 
 export const useTripStore = defineStore('trip', {
-	state: (): TripStore => ({
-		trips: [],
-		trip: {
-			id: null,
-			estatus: null,
-			observaciones_cancelacion: null,
-			tipo: null,
-			numero_cotizacion: null,
-			moneda: null,
-			tipo_viaje: null,
-			numero_trip: null,
-			metodo_pago: null,
-			forma_pago: null,
-			uso_CFDI: null,
-			fecha_salida: null,
-			fecha_llegada: null,
-			cliente_id: null,
-			operador_id: null,
-			caja_id: null,
-			tractor_id: null,
-			origen_id: null,
-			destino_id: null,
-			ventana_carga: null,
-			ventana_entrega: null,
-			kilometros: 0,
-			combustible: 0,
-			viaticos: 0,
-			casetas: 0,
-			regimen_aduanero: null,
-			referencia: null,
-			observaciones: null,
-			createdAt: null,
-			isTimbrado: false,
-		},
-		cliente: {
-			id: null,
-			razon_social: null,
-			origen: 'nacional',
-			codigo_postal: null,
-			colonia: null,
-			municipio: null,
-			estado: null,
-			pais: null,
-			calle: null,
-			numero_exterior: null,
-			numero_interior: null,
-			rfc: null,
-			tax_id: null,
-			email: null,
-			metodo_pago: null,
-			forma_pago: null,
-			uso_cfdi: null,
-			estatus: true,
-			comentarios: null,
-			evento: null,
-		},
-		empresa: {
-			id: null,
-			razon_social: null,
-			codigo_postal: null,
-			usuarios: null,
-			rfc: null,
-			email: null,
-			password: null,
-			token: null,
-			certificadoB64: null,
-			keyb64: null,
-			timbres: null,
-			permiso_sct: null,
-			numero_permiso_sct: null,
-			clave_regimen_fiscal: null,
-			descripcion_regimen_fiscal: null,
-			logotipo: null,
-			calle: null,
-			colonia: null,
-			municipio: null,
-			estado: null,
-			pais: null,
-			numero_exterior: null,
-			numero_interior: null,
-			tipo_empresa: null,
-		},
-		operador: {
-			id: null,
-			nombre: null,
-			paterno: null,
-			materno: null,
-			fecha_nacimiento: null,
-			fecha_ingreso: null,
-			curp: null,
-			rfc: null,
-			codigo_postal: null,
-			colonia: null,
-			municipio: null,
-			estado: null,
-			pais: null,
-			calle: null,
-			numero_exterior: null,
-			numero_interior: null,
-			licencia: null,
-			vencimiento_licencia: null,
-			estatus: true,
-		},
-		tractor: {
-			id: null,
-			numero_economico: null,
-			matricula: null,
-			estatus: true,
-			numero_serie: null,
-			numero_poliza: null,
-			vencimiento_poliza: null,
-			modelo: null,
-			aseguradora: null,
-			configuracion: null,
-			marca_id: null,
-			clase_id: null,
-			peso: null,
-		},
-		caja: {
-			id: null,
-			numero_economico: null,
-			matricula: null,
-			estatus: true,
-			numero_serie: null,
-			numero_poliza: null,
-			vencimiento_poliza: null,
-			modelo: null,
-			aseguradora: null,
-			configuracion: null,
-			marca_id: null,
-			clase_id: null,
-		},
-		timbre: {
-			id: null,
-			cadena_original_sat: null,
-			numero_certificado_sat: null,
-			numero_certificado_cfdi: null,
-			uuid: null,
-			sello_sat: null,
-			sello_cfdi: null,
-			fecha_timbrado: null,
-			estatus: null,
-			codigo_qr: null,
-			cfdi: null,
-			serie: null,
-			trip_id: null,
-			acuse: undefined,
-		},
-		conceptos: [],
-		mercancias: [],
-		patios: [],
-		comentario: {
-			id: null,
-			comentarios: null,
-			createdAt: null,
-			trip_id: null,
-			isMine: false,
-			usuario: null,
-		},
-		comentarios: [],
-		nombre_cliente: null,
-		nombre_operador: null,
-		numero_economico_caja: null,
-		numero_economico_tractor: null,
-		movimientos: [],
-		movimiento: {
-			id: null,
-			numero_movimiento: null,
-			patio_id: null,
-			trip_id: null,
-		},
-		estatusTrip: 'TODOS',
-		pdf: null,
-	}),
-	actions: {
-		setEmpresa(empresa: Empresa) {
-			this.empresa = empresa;
-		},
-		setTrip(trip: Trip) {
-			this.trip = trip;
-		},
-		setCliente(cliente: Cliente) {
-			this.cliente = cliente;
-			this.nombre_cliente = cliente?.razon_social;
-		},
-		setOperador(operador: Operador) {
-			this.operador = operador;
-			this.nombre_operador =
-				operador?.nombre === undefined
-					? null
-					: operador?.nombre +
-					  ' ' +
-					  operador?.paterno +
-					  ' ' +
-					  operador?.materno;
-		},
-		setCaja(caja: Caja) {
-			this.caja = caja;
-			this.numero_economico_caja = caja?.numero_economico;
-		},
-		setTractor(tractor: Tractor) {
-			this.tractor = tractor;
-			this.numero_economico_tractor = tractor?.numero_economico;
-		},
-		setMovimientos(movimientos: Movimiento[]) {
-			this.movimientos = movimientos;
-		},
-		setTimbre(timbre: Timbre) {
-			this.timbre = timbre;
-		},
-		setPatios(patios: Patio[]) {
-			this.patios = patios;
-		},
-		setMercancias(mercancias: Mercancia[]) {
-			this.mercancias = mercancias;
-		},
-		setTrips(trips: Trip[]) {
-			this.trips = trips;
-		},
-		setComentario(comentario: Comentario) {
-			this.comentario = comentario;
-		},
-		setComentarios(comentarios: Comentario[]) {
-			this.comentarios = comentarios;
-		},
-		setOrigen(origen: Patio) {
-			this.origen = origen;
-		},
-		setDestino(destino: Patio) {
-			this.destino = destino;
-		},
-		addMovimientoToTrip(patio: Patio) {
-			this.movimientos.push(patio);
-		},
-		setPDF(pdf: string) {
-			this.pdf = pdf;
-		},
-	},
-});
+  state: (): TripStore => ({
+    trips: [],
+    trip: {} as Trip,
+    cliente: {} as Cliente,
+    empresa: {} as Empresa,
+    operador: {} as Operador,
+    tractor: {} as Tractor,
+    caja: {} as Caja,
+    timbre: {} as Timbre,
+    conceptos: [],
+    mercancias: [],
+    patios: [],
+    comentario: {} as Comentario,
+    comentarios: [],
+    nombre_cliente: null,
+    nombre_operador: null,
+    numero_economico_caja: null,
+    numero_economico_tractor: null,
+    movimientos: [],
+    movimiento: {} as Movimiento,
+    estatusTrip: 'TODOS',
+    pdf: null,
+    errors: {} as Trip
+  }),
+  actions: {
+    setEmpresa(empresa: Empresa) {
+      this.empresa = empresa
+    },
+    setTrip(trip: Trip) {
+      this.trip = trip
+    },
+    setCliente(cliente: Cliente) {
+      this.cliente = cliente
+      this.nombre_cliente = cliente?.razon_social
+    },
+    setOperador(operador: Operador) {
+      this.operador = operador
+      this.nombre_operador =
+        operador?.nombre === undefined
+          ? null
+          : operador?.nombre + ' ' + operador?.paterno + ' ' + operador?.materno
+    },
+    setCaja(caja: Caja) {
+      this.caja = caja
+      this.numero_economico_caja = caja?.numero_economico
+    },
+    setTractor(tractor: Tractor) {
+      this.tractor = tractor
+      this.numero_economico_tractor = tractor?.numero_economico
+    },
+    setMovimientos(movimientos: Movimiento[]) {
+      this.movimientos = movimientos
+    },
+    setTimbre(timbre: Timbre) {
+      this.timbre = timbre
+    },
+    setPatios(patios: Patio[]) {
+      this.patios = patios
+    },
+    setMercancias(mercancias: Mercancia[]) {
+      this.mercancias = mercancias
+    },
+    setTrips(trips: Trip[]) {
+      this.trips = trips
+    },
+    setComentario(comentario: Comentario) {
+      this.comentario = comentario
+    },
+    setComentarios(comentarios: Comentario[]) {
+      this.comentarios = comentarios
+    },
+    // setOrigen(origen: Patio) {
+    //   this.origen = origen
+    // },
+    // setDestino(destino: Patio) {
+    //   this.destino = destino
+    // },
+    addMovimientoToTrip(patio: Patio) {
+      this.movimientos.push(patio)
+    },
+    setPDF(pdf: string) {
+      this.pdf = pdf
+    },
+    setErrors(payload: ErrorResponse[]) {
+      payload.forEach((x) => {
+        this.errors[x.field] = x.message
+      })
+    },
+    resetErrors() {
+      this.errors = {} as Trip
+    }
+  }
+})

@@ -1,16 +1,16 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 interface LoadStore {
-	isLoading: boolean;
+  isLoading: boolean
 }
 
 export const useLoadStore = defineStore('load', {
-	state: (): LoadStore => ({
-		isLoading: false,
-	}),
-	actions: {
-		setLoading(load: boolean) {
-			this.isLoading = load;
-		},
-	},
-});
+  state: (): LoadStore => ({
+    isLoading: false
+  }),
+  actions: {
+    setLoading(load: boolean) {
+      this.isLoading = load
+    }
+  }
+})

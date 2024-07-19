@@ -1,4 +1,39 @@
+// {
+//   "include": [
+//     "vite.config.*",
+//     "vitest.config.*",
+//     "cypress.config.*",
+//     "nightwatch.conf.*",
+//     "playwright.config.*"
+//   ],
+//   "compilerOptions": {
+//     "composite": true,
+//     "noEmit": true,
+//     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+//     // "target": "ESNext",
+//     // "jsx": "preserve",
+//     // "module": "ESNext",
+//     // "moduleResolution": "Node",
+//     // "allowSyntheticDefaultImports": true,
+//     "useDefineForClassFields": true,
+//     "strict": false,
+//     "sourceMap": true,
+//     "resolveJsonModule": true,
+//     "isolatedModules": false,
+//     "esModuleInterop": false,
+//     "lib": ["ESNext", "DOM"],
+//     "skipLibCheck": true,
+//     "jsx": "react",
+//     "module": "es6",
+//     "target": "es6",
+//     "moduleResolution": "node",
+//     "allowSyntheticDefaultImports": true
+//   },
+//   "exclude": ["node_modules", "dist"]
+// }
+
 {
+  "extends": "@tsconfig/node20/tsconfig.json",
   "include": [
     "vite.config.*",
     "vitest.config.*",
@@ -10,24 +45,9 @@
     "composite": true,
     "noEmit": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "target": "ESNext",
-    "useDefineForClassFields": true,
+
     "module": "ESNext",
-    "moduleResolution": "Node",
-    "strict": false,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "isolatedModules": false,
-    "esModuleInterop": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
-    "skipLibCheck": true,
-  },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ],
+    "moduleResolution": "Bundler",
+    "types": ["node"]
+  }
 }

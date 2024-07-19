@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-import Tabla from '@/components/operadores/Tabla.vue';
-import { router } from '@/router';
+import { ref } from "vue";
+import Tabla from "@/modules/operadores/components/TablaOperadores.vue";
+import { router } from "@/router";
 
 const visible = ref(true);
 </script>
 
 <template>
-	<Dialog
-		v-model:visible="visible"
-		header=" "
-		modal
-		:style="{ width: '95vw' }"
-		v-on:after-hide="router.go(-1)"
-	>
-		<Tabla :isModule="false" />
-	</Dialog>
+  <Dialog
+    v-model:visible="visible"
+    header=" "
+    modal
+    :style="{ width: '95vw' }"
+    v-on:after-hide="router.go(-1)"
+  >
+    <Tabla :isModule="false" />
+  </Dialog>
 </template>

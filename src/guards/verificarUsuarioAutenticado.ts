@@ -1,12 +1,12 @@
-import { instance } from '@/helpers/axiosInstance';
+import timbradoApi from '@/api/timbrado-api'
 
-export const verificarUsuarioAutenticado = () => {
-	const data = JSON.parse(localStorage.getItem('usuario'));
+export const verifyLocalStorageUser = () => {
+  const data = JSON.parse(localStorage.getItem('usuario')!)
 
-	if (data === null || data === undefined) {
-		return false;
-	} else {
-		instance.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
-		return true;
-	}
-};
+  if (data === null || data === undefined) {
+    return false
+  } else {
+    timbradoApi.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+    return true
+  }
+}
