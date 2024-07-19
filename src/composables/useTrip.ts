@@ -61,12 +61,11 @@ export const useTrip = () => {
         data: trip,
         data: { empresa, cliente, operador, caja, tractor, movimientos, mercancias, timbres }
       } = await timbradoApi.get(`/trips/${id}`)
-      console.log(movimientos)
       if (movimientos.length !== 0) {
         const index_origen = movimientos.findIndex((x) => x.patio_timbre)
         const index_destino = movimientos.findLastIndex((x) => x.patio_timbre)
-        const origen = movimientos[index_origen].patio
-        const destino = movimientos[index_destino].patio
+        const origen = movimientos[index_origen]?.patio
+        const destino = movimientos[index_destino]?.patio
         tripStore.setPatios([origen, destino])
       }
       tripStore.setTrip(trip)
@@ -78,8 +77,8 @@ export const useTrip = () => {
       tripStore.setMovimientos(movimientos)
       tripStore.setMercancias(mercancias)
       tripStore.setTimbre(timbres[0])
-      console.log(movimientos)
     } catch (error) {
+      console.log(error)
       handleError(error)
     }
   }
