@@ -5,10 +5,7 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
 export const useSessionStore = defineStore('session', () => {
-  const user = ref<Auth>({
-    email: 'pruebas@gmail.com',
-    password: 'pruebas'
-  })
+  const user = ref<Auth>({} as Auth)
   const isUserAuthenticated = ref<boolean>(false)
   const theme_sidenav = ref<string | null>('white-theme')
   const collapsedLogo = ref<boolean>(true)
