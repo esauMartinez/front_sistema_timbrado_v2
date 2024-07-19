@@ -6,10 +6,12 @@ import { useAuth } from '@/auth/composables/useAuth'
 import { usePatios } from '@/modules/patios/composables/usePatios'
 import { question } from '@/helpers/messages'
 import { useEliminar } from '@/modules/patios/composables/useEliminar'
+import { useTrip } from '@/composables/useTrip'
 
 const { verificarPermiso } = useAuth()
 const { isLoading, patios } = usePatios()
 const { deleteMutation } = useEliminar()
+const { agregarMovimiento } = useTrip()
 
 interface Props {
   isModule: Boolean
@@ -100,7 +102,11 @@ const filters = ref({
             @click="deletePatio(data.id)"
           />
 
-          <!-- <Button icon="pi pi-plus" v-if="!isModule && data.estatus" @click="selectCaja(data)" /> -->
+          <Button
+            icon="pi pi-plus"
+            v-if="!isModule && data.estatus"
+            @click="agregarMovimiento(data)"
+          />
         </div>
       </template>
     </Column>
