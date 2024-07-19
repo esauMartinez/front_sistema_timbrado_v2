@@ -1,16 +1,8 @@
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
-import { router } from "@/router";
-import { usePatio } from "@/composables/usePatio";
-import Tabla from "@/components/patios/Tabla.vue";
-
-const { patios, resetPatioForm } = usePatio();
-const visible = ref(true);
-
-onMounted(() => {
-  resetPatioForm();
-  patios.value = [];
-});
+import { ref } from 'vue'
+import { router } from '@/router'
+import Tabla from '@/modules/patios/components/TablaPatios.vue'
+const visible = ref(true)
 </script>
 
 <template>

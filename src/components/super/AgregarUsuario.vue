@@ -1,18 +1,18 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { router } from '@/router';
-import Formulario from '@/components/usuarios/Formulario.vue';
-import { useUsuario } from '@/composables/useUsuario';
+// import Formulario from '@/components/usuarios/Formulario.vue';
+// import { useUsuario } from '@/composables/useUsuario';
 import { useRoute } from 'vue-router';
 import { useEmpresa } from '@/composables/useEmpresa';
 const visible = ref(true);
-const { usuario } = useUsuario();
+// const { usuario } = useUsuario();
 const route = useRoute();
 
 const { postUsuarioEmpresa } = useEmpresa();
 
 onMounted(() => {
-	usuario.value.empresa_id = +route.params.id;
+	// usuario.value.empresa_id = +route.params.id;
 });
 </script>
 
@@ -25,11 +25,11 @@ onMounted(() => {
 		v-on:after-hide="router.go(-1)"
 		:closable="true"
 	>
-		<Formulario
+		<!-- <Formulario
 			@submit.prevent="postUsuarioEmpresa(usuario)"
 			id="formulario"
 			:isModule="false"
-		/>
+		/> -->
 		<template #footer>
 			<Button
 				label="Cancelar"

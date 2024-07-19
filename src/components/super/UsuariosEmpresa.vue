@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { router } from '@/router';
-import Tabla from '@/components/usuarios/Tabla.vue';
+// import Tabla from '@/components/usuarios/Tabla.vue';
 import { useRoute } from 'vue-router';
 import { useEmpresa } from '@/composables/useEmpresa';
 const visible = ref(true);
@@ -23,7 +23,7 @@ onMounted(async () => {
 		v-on:after-hide="router.go(-1)"
 		:closable="true"
 	>
-		<Tabla :isModule="false" />
+		<!-- <Tabla :isModule="false" /> -->
 	</Dialog>
 	<RouterView />
 </template>
