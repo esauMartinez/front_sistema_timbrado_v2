@@ -3,9 +3,10 @@ import { auth } from '@/auth/helpers/auth'
 import { computed, watch } from 'vue'
 import { useSessionStore } from '@/stores/session'
 import { storeToRefs } from 'pinia'
-import type { Permiso } from '../interfaces/permiso'
 import { nombreUsuario } from '@/guards/nombreUsuario'
 import { logotipo } from '@/guards/logotipo'
+import { router } from '@/router'
+import type { Permiso } from '@/modules/roles/interfaces/permiso'
 
 export const useAuth = () => {
   const sessionStore = useSessionStore()

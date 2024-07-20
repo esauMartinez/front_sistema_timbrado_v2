@@ -7,18 +7,28 @@ import { useOperadores } from '@/modules/operadores/composables/useOperadores'
 import { useEliminar } from '@/modules/operadores/composables/useEliminar'
 import { question } from '@/helpers/messages'
 import { useAuth } from '@/auth/composables/useAuth'
+import { useModificar } from '@/modules/operadores/composables/useModifiar'
+import type { Operador } from '../interfaces/operador'
 
 const { verificarPermiso } = useAuth()
 const { selectOperador } = useTrip()
 
 const { operadores, isLoading } = useOperadores()
 const { eliminarMutation } = useEliminar()
+const { updateMutation } = useModificar()
 
 const deleteOperador = async (id: number) => {
   const response = await question()
   if (response.isConfirmed) {
     eliminarMutation.mutate(id)
   }
+}
+
+const updateOperador = (operador: Operador) => {
+  operador.estatus = operador.estatus ? false : true
+  const formData = new FormData()
+  formData.append('operador', JSON.stringify(operador))
+  updateMutation.mutate(formData)
 }
 
 interface Props {
@@ -96,6 +106,7 @@ const filters = ref({
       <template #body="{ data }">
         <InputSwitch
           v-model="data.estatus"
+          @click="updateOperador(data)"
           v-if="!verificarPermiso('MODULO_OPERADORES_MODIFICAR')"
         />
       </template>

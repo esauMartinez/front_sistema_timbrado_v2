@@ -32,7 +32,7 @@ watch(isSuccess, (payload) => {
     v-model:visible="visible"
     modal
     header="Modificar operador"
-    :style="{ width: '50vw' }"
+    :style="{ width: '60vw' }"
     v-on:after-hide="router.push({ path: '/operadores' })"
   >
     <Formulario @submit.prevent="updateOperador" id="formulario" />

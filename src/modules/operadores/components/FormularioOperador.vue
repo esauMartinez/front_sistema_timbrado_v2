@@ -18,7 +18,7 @@ const setGafete = (e: FileUploadSelectEvent) => {
 <template>
   <form class="formulario p-2">
     <div class="grid">
-      <div class="col-4 mt-5">
+      <div class="col-5 mt-5 flex flex-column align-items-center">
         <Image
           :src="`https://recawi.mx/timbrado_v2_ftp/${operador.gafete === undefined ? 'user-default.png' : operador.gafete}`"
           alt="Image"
@@ -30,13 +30,13 @@ const setGafete = (e: FileUploadSelectEvent) => {
         <FileUpload
           mode="basic"
           name="demo[]"
-          class="w-full"
+          class="mt-3"
           chooseLabel="Gafete unico"
           customUpload
           @select="setGafete"
         />
       </div>
-      <div class="col-8">
+      <div class="col-7">
         <div class="mb-3">
           <label>Nombre</label>
           <InputText

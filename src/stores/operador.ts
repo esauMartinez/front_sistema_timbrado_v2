@@ -8,7 +8,7 @@ export const useOperadorStore = defineStore('operadores', () => {
   const operadores = ref<Operador[]>([])
   const operador = ref<Operador>({} as Operador)
   const errors = ref({} as FormErrorOperador)
-  const gafete = ref<File>()
+  const gafete = ref()
 
   return {
     //state

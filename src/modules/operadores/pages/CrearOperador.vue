@@ -31,10 +31,9 @@ watch(isSuccess, (payload) => {
     v-model:visible="visible"
     modal
     header="Agregar operador"
-    :style="{ width: '50vw' }"
+    :style="{ width: '60vw' }"
     v-on:after-hide="router.push({ path: '/operadores' })"
   >
-    {{ gafete }}
     <Formulario @submit.prevent="postOperador" id="formulario" />
     <template #footer>
       <ButtonGroup>
