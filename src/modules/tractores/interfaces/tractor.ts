@@ -9,7 +9,7 @@ export interface Tractor {
   modelo: string
   aseguradora: string
   configuracion: string
-  marca_id: number
+  marca: string
   clase_id: number
   peso: string
 }

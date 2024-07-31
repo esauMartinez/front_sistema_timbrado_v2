@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { severity } from '@/pipes/severity'
 import { FilterMatchMode } from 'primevue/api'
 import { useCajas } from '@/modules/cajas/composables/useCajas'
-import { useTrip } from '@/composables/useTrip'
+// import { useTrip } from '@/composables/useTrip'
 import { question } from '@/helpers/messages'
 import { useEliminar } from '@/modules/cajas/composables/useEliminar'
 import { useAuth } from '@/auth/composables/useAuth'
@@ -11,7 +11,7 @@ import { useModificar } from '@/modules/cajas/composables/useModificar'
 import type { Caja } from '@/modules/cajas/interfaces/caja'
 
 const { verificarPermiso } = useAuth()
-const { selectCaja } = useTrip()
+// const { selectCaja } = useTrip()
 const { cajas, isLoading } = useCajas()
 const { deleteMutation } = useEliminar()
 const { updateMutation } = useModificar()
@@ -85,12 +85,12 @@ const filters = ref({
     </Column>
     <Column field="numero_economico" header="Numero economico" sortable></Column>
     <Column field="matricula" header="Matricula" sortable></Column>
-    <Column field="numero_poliza" header="Numero de poliza" sortable></Column>
+    <!-- <Column field="numero_poliza" header="Numero de poliza" sortable></Column>
     <Column header="Vencimineto de la poliza">
       <template #body="{ data }">
         {{ data.descripcion_vencimiento }}
       </template>
-    </Column>
+    </Column> -->
 
     <Column v-if="isModule">
       <template #body="{ data }">
@@ -142,12 +142,12 @@ const filters = ref({
         </div>
       </template>
     </Column>
-    <Column>
+    <!-- <Column>
       <template #body="{ data }">
         <div class="flex justify-content-center">
           <Button icon="pi pi-plus" v-if="!isModule && data.estatus" @click="selectCaja(data)" />
         </div>
       </template>
-    </Column>
+    </Column> -->
   </DataTable>
 </template>

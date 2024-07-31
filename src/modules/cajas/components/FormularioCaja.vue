@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { useMarcas } from '@/modules/marcas/composables/useMarcas'
+// import { useMarcas } from '@/modules/marcas/composables/useMarcas'
 import { storeToRefs } from 'pinia'
 import { useConfiguracion } from '@/modules/cajas/composables/useConfiguracion'
 import { useCajaStore } from '@/stores/caja'
 
 const cajaStore = useCajaStore()
 const { caja, errors } = storeToRefs(cajaStore)
-const { marcas } = useMarcas('CAJA')
+// const { marcas } = useMarcas('CAJA')
 const { configuracion } = useConfiguracion()
 </script>
 
@@ -150,7 +150,21 @@ const { configuracion } = useConfiguracion()
         {{ errors.configuracion }}
       </small>
     </div>
-    <div class="grid">
+    <div class="mb-3">
+      <label>Marca</label>
+      <InputText
+        id="marca"
+        name="marca"
+        class="w-full focus:border-primary mt-2"
+        placeholder="Marca"
+        v-model="caja.marca"
+        :invalid="errors.marca !== undefined"
+      />
+      <small class="p-error" v-if="errors.marca">
+        {{ errors.marca }}
+      </small>
+    </div>
+    <!-- <div class="grid">
       <div class="col-11 mb-3">
         <label>Marca</label>
         <Dropdown
@@ -178,7 +192,7 @@ const { configuracion } = useConfiguracion()
           <Button class="mt-1 w-full" icon="pi pi-plus" />
         </router-link>
       </div>
-    </div>
+    </div> -->
     <router-view></router-view>
   </form>
 </template>

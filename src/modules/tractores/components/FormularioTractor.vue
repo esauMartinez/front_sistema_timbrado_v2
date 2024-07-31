@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { useMarcas } from '@/modules/marcas/composables/useMarcas'
+// import { useMarcas } from '@/modules/marcas/composables/useMarcas'
 import { useTractorStore } from '@/stores/tractor'
 import { storeToRefs } from 'pinia'
 import { useConfiguracion } from '@/modules/tractores/composables/useConfiguracion'
 
 const tractorStore = useTractorStore()
 const { tractor, errors } = storeToRefs(tractorStore)
-const { marcas } = useMarcas('TRACTOR')
+// const { marcas } = useMarcas('TRACTOR')
 const { configuracion } = useConfiguracion()
 
 const fecha_minima = new Date()
@@ -153,7 +153,21 @@ const fecha_minima = new Date()
         {{ errors.peso }}
       </small>
     </div>
-    <div class="grid">
+    <div class="mb-3">
+      <label>Marca</label>
+      <InputText
+        id="marca"
+        name="marca"
+        class="w-full focus:border-primary mt-2"
+        placeholder="Marca"
+        v-model="tractor.marca"
+        :invalid="errors.marca !== undefined"
+      />
+      <small class="p-error" v-if="errors.marca">
+        {{ errors.marca }}
+      </small>
+    </div>
+    <!-- <div class="grid">
       <div class="col-11 mb-3">
         <label>Marca</label>
         <Dropdown
@@ -177,7 +191,7 @@ const fecha_minima = new Date()
           <Button class="mt-1 w-full" icon="pi pi-plus" />
         </router-link>
       </div>
-    </div>
+    </div> -->
     <router-view></router-view>
   </form>
 </template>

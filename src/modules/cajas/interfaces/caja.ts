@@ -10,6 +10,6 @@ export interface Caja {
   // aseguradora: string
   linea: string
   configuracion: string
-  marca_id: number
+  marca: string
   clase_id: number
 }

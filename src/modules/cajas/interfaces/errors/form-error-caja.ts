@@ -8,6 +8,6 @@ export interface FormErrorCaja {
   aseguradora: string
   configuracion: string
   linea: string
-  marca_id: string
+  marca: string
   clase_id: string
 }

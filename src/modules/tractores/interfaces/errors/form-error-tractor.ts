@@ -7,7 +7,7 @@ export interface FormErrorTractor {
   modelo: string
   aseguradora: string
   configuracion: string
-  marca_id: string
+  marca: string
   clase_id: string
   peso: string
 }
