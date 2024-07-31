@@ -2,29 +2,29 @@ import { useMutation, useQueryClient } from '@tanstack/vue-query'
 import { computed, watch } from 'vue'
 import { useToast } from 'primevue/usetoast'
 import { storeToRefs } from 'pinia'
-import { usePatioStore } from '@/stores/patio'
 import { createMarca } from '@/modules/marcas/helpers/post-marca'
+import { useMarcaStore } from '@/stores/marca'
 
 export const useCrear = () => {
   const queryClient = useQueryClient()
-  const patioStore = usePatioStore()
-  const { patio } = storeToRefs(patioStore)
+  const marcaStore = useMarcaStore()
+  const { marca } = storeToRefs(marcaStore)
   const toast = useToast()
 
   const crearMutation = useMutation({
     mutationFn: createMarca,
     onMutate: () => {
-      patioStore.resetErrors()
+      marcaStore.resetErrors()
     },
     onError: (error: any) => {
-      patioStore.setErrors(error.response.data.errors)
+      marcaStore.setErrors(error.response.data.errors)
     }
   })
 
   watch(crearMutation.isSuccess, (isSuccess) => {
     if (isSuccess) {
       queryClient.invalidateQueries({
-        queryKey: ['patios']
+        queryKey: ['marcas']
       })
     }
   })
@@ -41,7 +41,7 @@ export const useCrear = () => {
   })
 
   return {
-    patio,
+    marca,
 
     isPending: computed(() => crearMutation.isPending.value),
     isSuccess: computed(() => crearMutation.isSuccess.value),

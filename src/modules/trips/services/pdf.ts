@@ -142,7 +142,7 @@ export const pdfTrip = async (
             text: [
               { text: 'CAJA \n', fontSize: 10 },
               {
-                text: `${caja.numero_economico}/${caja.marca_id} \n`,
+                text: `${caja.numero_economico}/${caja.marca} \n`,
                 fontSize: 9
               }
             ]
