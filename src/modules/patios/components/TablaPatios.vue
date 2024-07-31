@@ -6,18 +6,25 @@ import { useAuth } from '@/auth/composables/useAuth'
 import { usePatios } from '@/modules/patios/composables/usePatios'
 import { question } from '@/helpers/messages'
 import { useEliminar } from '@/modules/patios/composables/useEliminar'
-import { useTrip } from '@/composables/useTrip'
+import type { Patio } from '@/modules/patios/interfaces/patio'
+import { useModificar } from '@/modules/patios/composables/useModifiar'
+// import { useTrip } from '@/composables/useTrip'
 
 const { verificarPermiso } = useAuth()
 const { isLoading, patios } = usePatios()
 const { deleteMutation } = useEliminar()
-const { agregarMovimiento } = useTrip()
+const { updateMutation } = useModificar()
+// const { agregarMovimiento } = useTrip()
 
 interface Props {
   isModule: Boolean
 }
 
 defineProps<Props>()
+
+const modificar = async (caja: Patio) => {
+  updateMutation.mutate(caja)
+}
 
 const deletePatio = async (id: number) => {
   const response = await question()
@@ -76,7 +83,11 @@ const filters = ref({
     <Column field="tipo" header="Tipo" sortable />
     <Column v-if="isModule">
       <template #body="{ data }">
-        <InputSwitch v-model="data.estatus" v-if="!verificarPermiso('MODULO_PATIOS_MODIFICAR')" />
+        <InputSwitch
+          v-model="data.estatus"
+          @change="modificar(data)"
+          v-if="!verificarPermiso('MODULO_PATIOS_MODIFICAR')"
+        />
       </template>
     </Column>
     <Column header="Estatus">
@@ -84,24 +95,33 @@ const filters = ref({
         <Tag :severity="severity(data.estatus)" :value="data.estatus ? 'Activo' : 'Inactivo'"></Tag>
       </template>
     </Column>
-    <Column header="Acciones">
+    <Column>
       <template #body="{ data }">
         <div class="flex justify-content-center">
           <router-link
             :to="{ name: `modificar-patio`, params: { id: data.id } }"
             v-if="isModule && !verificarPermiso('MODULO_PATIOS_MODIFICAR')"
           >
-            <Button icon="pi pi-pencil" severity="warning" class="mr-2" />
+            <Button icon="pi pi-pencil" severity="warning" />
           </router-link>
-
+        </div>
+      </template>
+    </Column>
+    <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
           <Button
             icon="pi pi-trash"
-            severity="danger "
-            class="mr-2"
+            severity="danger"
             v-if="isModule && !verificarPermiso('MODULO_PATIOS_ELIMINAR')"
             @click="deletePatio(data.id)"
           />
-
+        </div>
+      </template>
+    </Column>
+    <!-- <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
           <Button
             icon="pi pi-plus"
             v-if="!isModule && data.estatus"
@@ -109,6 +129,6 @@ const filters = ref({
           />
         </div>
       </template>
-    </Column>
+    </Column> -->
   </DataTable>
 </template>

@@ -2,7 +2,7 @@ import { storeToRefs } from 'pinia'
 import { getClientesPorNombre } from '@/modules/clientes/helpers/get-by-nombre'
 import { useClienteStore } from '@/stores/cliente'
 import { useQuery } from '@tanstack/vue-query'
-import { watch } from 'vue'
+import { computed, watch } from 'vue'
 
 const useClientesByName = () => {
   const clienteStore = useClienteStore()
@@ -14,7 +14,8 @@ const useClientesByName = () => {
     refetch: refetchClientes
   } = useQuery({
     queryKey: ['clientesByName', cliente.value.razon_social],
-    queryFn: () => getClientesPorNombre(cliente.value.razon_social)
+    queryFn: () => getClientesPorNombre(cliente.value.razon_social),
+    enabled: false
   })
 
   watch(
@@ -30,9 +31,7 @@ const useClientesByName = () => {
   return {
     cliente,
     clientes,
-
-    isLoading: isLoading,
-
+    isLoading: computed(() => isLoading.value),
     refetchClientes
   }
 }

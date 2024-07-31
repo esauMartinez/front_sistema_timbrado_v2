@@ -11,7 +11,7 @@ const { usuario, errors } = storeToRefs(usuarioStore)
 </script>
 
 <template>
-  <form class="formulario p-2">
+  <form>
     <div class="mb-3">
       <label>Nombre usuario</label>
       <InputText

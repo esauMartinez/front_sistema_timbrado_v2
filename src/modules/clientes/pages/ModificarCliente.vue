@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useRoute } from "vue-router";
-import FormularioCliente from "@/modules/clientes/components/FormularioCliente.vue";
-import useCliente from "@/modules/clientes/composables/clientes/useCliente";
-import { router } from "@/router";
-import useModificar from "@/modules/clientes/composables/clientes/useModificar";
-import { watch } from "vue";
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import FormularioCliente from '@/modules/clientes/components/FormularioCliente.vue'
+import useCliente from '@/modules/clientes/composables/clientes/useCliente'
+import { router } from '@/router'
+import useModificar from '@/modules/clientes/composables/clientes/useModificar'
+import { watch } from 'vue'
 
-const visible = ref(true);
-const route = useRoute();
-const { cliente } = useCliente(+route.params.id);
-const { isLoading, isCreated, modificar } = useModificar();
+const visible = ref(true)
+const route = useRoute()
+const { cliente } = useCliente(+route.params.id)
+const { isLoading, isCreated, modificar } = useModificar()
 
 watch(isCreated, () => {
-  visible.value = false;
-});
+  visible.value = false
+})
 </script>
 
 <template>
@@ -30,12 +30,9 @@ watch(isCreated, () => {
     <FormularioCliente id="form" @submit.prevent="modificar(cliente, true)" />
 
     <template #footer>
-      <Button
-        type="submit"
-        form="form"
-        :loading="isLoading"
-        label="Guardar cliente"
-      />
+      <div class="pr-3 pl-3">
+        <Button type="submit" form="form" :loading="isLoading" label="Guardar cliente" />
+      </div>
     </template>
   </Dialog>
 </template>

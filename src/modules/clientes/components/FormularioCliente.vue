@@ -1,26 +1,25 @@
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
-import { useClienteStore } from "@/stores/cliente";
-import { pais } from "@/data/pais";
-import { origen } from "@/data/origen";
-import { estado } from "@/data/estado";
+import { storeToRefs } from 'pinia'
+import { useClienteStore } from '@/stores/cliente'
+import { pais } from '@/data/pais'
+import { origen } from '@/data/origen'
+import { estado } from '@/data/estado'
 
-const clienteStore = useClienteStore();
+const clienteStore = useClienteStore()
 const {
   cliente,
   usoCfdi,
   metodoPago,
   formaPago,
   regimenFiscal,
-  errorsCliente: errors,
-} = storeToRefs(clienteStore);
+  errorsCliente: errors
+} = storeToRefs(clienteStore)
 
-
-clienteStore.resetErros();
+clienteStore.resetErros()
 </script>
 
 <template>
-  <form class="p-2">
+  <form>
     <div class="mb-3">
       <label>Razon social</label>
       <InputText
@@ -273,9 +272,8 @@ clienteStore.resetErros();
         {{ errors.forma_pago }}
       </span>
     </div>
-    <div class="mb-3">
+    <div>
       <label>Regimen fiscal</label>
-
       <Dropdown
         id="regimen_fiscal"
         name="regimen_fiscal"

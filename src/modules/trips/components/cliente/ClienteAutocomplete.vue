@@ -17,6 +17,7 @@ const verificarEstatus = (e: AutoCompleteItemSelectEvent) => {
     clienteStore.setCliente({} as Cliente)
   } else {
     trip.value.cliente_id = e.value.id
+    clienteStore.setClientes([])
   }
 }
 </script>
@@ -34,6 +35,8 @@ const verificarEstatus = (e: AutoCompleteItemSelectEvent) => {
         class="w-full focus:border-primary mt-2"
         @item-select="verificarEstatus"
         @complete="refetchClientes()"
+        :invalid="errors.cliente_id !== undefined"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       >
         <template #option="slotProps">
           <div class="flex justify-content-between">
@@ -45,13 +48,13 @@ const verificarEstatus = (e: AutoCompleteItemSelectEvent) => {
           </div>
         </template>
       </AutoComplete>
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
       <!-- <Button icon="pi pi-plus" @click="agregar('cliente')" v-if="trip.estatus === 'CREADO'" /> -->
     </div>
     <small class="p-error" v-if="errors.cliente_id">
       {{ errors.cliente_id }}
     </small>
   </div>
+  <!-- <pre>{{ clientes }}</pre> -->
 </template>
 
 <style scoped></style>

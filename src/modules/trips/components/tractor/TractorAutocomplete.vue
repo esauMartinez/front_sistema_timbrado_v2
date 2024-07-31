@@ -18,6 +18,7 @@ const verificarEstatus = (e: AutoCompleteItemSelectEvent) => {
     tractorStore.setTractor({} as Tractor)
   } else {
     trip.value.tractor_id = e.value.id
+    tractorStore.setTractores([])
   }
 }
 </script>
@@ -35,6 +36,8 @@ const verificarEstatus = (e: AutoCompleteItemSelectEvent) => {
         class="w-full focus:border-primary mt-2"
         @item-select="verificarEstatus"
         @complete="refetchTractores()"
+        :invalid="errors.tractor_id !== undefined"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       >
         <template #option="slotProps">
           <div class="flex justify-content-between">
@@ -50,7 +53,6 @@ const verificarEstatus = (e: AutoCompleteItemSelectEvent) => {
           </div>
         </template>
       </AutoComplete>
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
       <!-- <Button icon="pi pi-plus" @click="agregar('caja')" v-if="trip.estatus === 'CREADO'" /> -->
     </div>
     <small class="p-error" v-if="errors.tractor_id">

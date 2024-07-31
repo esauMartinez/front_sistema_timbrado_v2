@@ -30,16 +30,14 @@ watch(isSuccess, (payload) => {
   >
     <Formulario @submit.prevent="crearMutation.mutate(usuario)" id="formulario" />
     <template #footer>
-      <ButtonGroup>
-        <Button
-          label="Modificar"
-          icon="pi pi-pencil"
-          type="submit"
-          form="formulario"
-          severity="warning"
-          :loading="isPending"
-        />
-      </ButtonGroup>
+      <Button
+        label="Modificar"
+        icon="pi pi-pencil"
+        type="submit"
+        form="formulario"
+        severity="warning"
+        :loading="isPending"
+      />
     </template>
   </Dialog>
 </template>

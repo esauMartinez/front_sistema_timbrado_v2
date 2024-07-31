@@ -3,6 +3,7 @@ import { computed, watch } from 'vue'
 import { useToast } from 'primevue/usetoast'
 import { updateTractor } from '../helpers/update-tractor'
 import { useTractorStore } from '@/stores/tractor'
+import type { Tractor } from '../interfaces/tractor'
 
 export const useModificar = () => {
   const toast = useToast()

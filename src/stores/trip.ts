@@ -1,53 +1,60 @@
-import type { Concepto } from '@/interfaces/concepto.model'
-import type { Empresa } from '@/interfaces/empresa.model'
 import type { ErrorResponse } from '@/interfaces/errors/error'
-import type { Mercancia } from '@/interfaces/mercancia.model'
-import type { Movimiento } from '@/interfaces/movimiento.model'
-import type { Timbre } from '@/interfaces/timbre.model'
-import type { Comentario } from '@/interfaces/trip'
-import type { Caja } from '@/modules/cajas/interfaces/caja'
-import type { Cliente } from '@/modules/clientes/interfaces/cliente'
-import type { Operador } from '@/modules/operadores/interfaces/operador'
 import type { Patio } from '@/modules/patios/interfaces/patio'
-import type { Tractor } from '@/modules/tractores/interfaces/tractor'
+import type { Bitacora } from '@/modules/trips/interfaces/bitacora'
+import type { Comentario } from '@/modules/trips/interfaces/comentario'
+import type { Concepto } from '@/modules/trips/interfaces/concepto'
+import type { FormErrorConcepto } from '@/modules/trips/interfaces/errors/form-error-concepto'
+import type { FormErrorMercancia } from '@/modules/trips/interfaces/errors/form-error-mercancia'
 import type { FormErrorTrip } from '@/modules/trips/interfaces/errors/form-error-trip'
-import type { Trip } from '@/modules/trips/interfaces/trips'
+import type { Mercancia } from '@/modules/trips/interfaces/mercancia'
+import type { Movimiento } from '@/modules/trips/interfaces/movimiento'
+import type { Timbre } from '@/modules/trips/interfaces/timbre'
+import type { Trip } from '@/modules/trips/interfaces/trip'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const useTripStore = defineStore('trips', () => {
   const trip = ref<Trip>({} as Trip)
   const trips = ref<Trip[]>([])
-  // datos extra del trip
-  const cliente = ref<Cliente>({} as Cliente)
-  const operador = ref<Operador>({} as Operador)
-  const tractor = ref<Tractor>({} as Tractor)
-  const caja = ref<Caja>({} as Caja)
-  const empresa = ref<Empresa>({} as Empresa)
-  const timbre = ref<Timbre>({} as Timbre)
-  const conceptos = ref<Concepto>({} as Concepto)
-  const mercancias = ref<Mercancia>({} as Mercancia)
-  const patios = ref<Patio>({} as Patio)
-  const movimiento = ref<Movimiento>({} as Movimiento)
-  const moviemientos = ref<Movimiento[]>([])
+  // bitacora del trip
+  const bitacora = ref<Bitacora[]>([])
   // comentarios para el trip
   const comentario = ref<Comentario>({} as Comentario)
   const comentarios = ref<Comentario[]>([])
-
-  // const nombre_cliente = ref<string>('')
-  // const nombre_operador = ref<string>('')
-  // const numero_economico_caja = ref<string>('')
-  // const numero_economico_tractor = ref<string>('')
-
+  // mercancias del trip
+  const mercancia = ref<Mercancia>({} as Mercancia)
+  const mercancias = ref<Mercancia[]>([])
+  // conceptos del trip
+  const concepto = ref<Concepto>({} as Concepto)
+  const conceptos = ref<Concepto[]>([])
+  // timbres del trip
+  const timbres = ref<Timbre[]>([])
+  // estatus para traer todos los trips
   const estatus_trips = ref<string>('TODOS')
-
-  const pdf = ref<string | null>(null)
+  // variable para meter la informacion del trip y generar un pdf
+  const pdf = ref<string>('')
   const errors = ref({} as FormErrorTrip)
+  const errorsMercancia = ref({} as FormErrorMercancia)
+  const errorsConcepto = ref({} as FormErrorConcepto)
+  
 
   return {
+    estatus_trips,
+    pdf,
     trip,
     trips,
     errors,
+    bitacora,
+    comentario,
+    comentarios,
+    mercancia,
+    mercancias,
+    errorsMercancia,
+    concepto,
+    conceptos,
+    errorsConcepto,
+    timbres,
+    
 
     setTrip(payload: Trip) {
       trip.value = payload
@@ -55,13 +62,85 @@ export const useTripStore = defineStore('trips', () => {
     setTrips(payload: Trip[]) {
       trips.value = payload
     },
+    setPdf(payload: string) {
+      pdf.value = payload
+    },
+    setBitacora(payload: Bitacora[]) {
+      bitacora.value = payload
+    },
+    setMercancia(payload: Mercancia) {
+      mercancia.value = payload
+    },
+    setConcepto(payload: Concepto) {
+      concepto.value = payload
+    },
+    setComentarios(payload: Comentario[]) {
+      comentarios.value = payload
+    },
+    setTimbres(payload: Timbre[]) {
+      timbres.value = payload
+    },
+    addMovimiento(payload: Patio) {
+      if (trip.value.movimientos === undefined) {
+        trip.value.movimientos = []
+      }
+      const a: Movimiento = {
+        id: trip.value.movimientos === undefined ? 1 : trip.value.movimientos.length + 1,
+        numero_movimiento:
+          trip.value.movimientos === undefined ? 1 : trip.value.movimientos.length + 1,
+        patio_id: payload.id,
+        localizacion_caja: false,
+        patio_timbre: false,
+        trip_id: 0,
+        patio: payload
+      }
+      trip.value.movimientos.push(a)
+    },
+    removeMovimiento(id: number) {
+      trip.value.movimientos = trip.value.movimientos.filter((x) => x.id !== id)
+    },
+    setMovimientoTimbre(id: number) {
+      trip.value.movimientos = trip.value.movimientos.map((x) => {
+        if (x.id === id) {
+          x.patio_timbre = !x.patio_timbre
+        }
+
+        return x
+      })
+    },
+    setMovimientoLocalizacionCaja(id: number) {
+      trip.value.movimientos = trip.value.movimientos.map((x) => {
+        if (x.id !== id) {
+          x.localizacion_caja = false
+        } else {
+          x.localizacion_caja = !x.localizacion_caja
+        }
+
+        return x
+      })
+    },
     resetErrors() {
       errors.value = {} as FormErrorTrip
     },
+    resetErrorsMercancia() {
+      errorsMercancia.value = {} as FormErrorMercancia
+    },
+    resetErrorsConcepto() {
+      errorsConcepto.value = {} as FormErrorConcepto
+    },
     setErrors(payload: ErrorResponse[]) {
-      console.log(payload)
       payload.forEach((x: any) => {
         errors.value[x.field as keyof FormErrorTrip] = x.message
+      })
+    },
+    setErrorsMercancia(payload: ErrorResponse[]) {
+      payload.forEach((x: any) => {
+        errorsMercancia.value[x.field as keyof FormErrorMercancia] = x.message
+      })
+    },
+    setErrorsConcepto(payload: ErrorResponse[]) {
+      payload.forEach((x: any) => {
+        errorsConcepto.value[x.field as keyof FormErrorConcepto] = x.message
       })
     }
   }

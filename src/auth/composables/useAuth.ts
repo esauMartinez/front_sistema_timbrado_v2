@@ -5,7 +5,6 @@ import { useSessionStore } from '@/stores/session'
 import { storeToRefs } from 'pinia'
 import { nombreUsuario } from '@/guards/nombreUsuario'
 import { logotipo } from '@/guards/logotipo'
-import { router } from '@/router'
 import type { Permiso } from '@/modules/roles/interfaces/permiso'
 
 export const useAuth = () => {

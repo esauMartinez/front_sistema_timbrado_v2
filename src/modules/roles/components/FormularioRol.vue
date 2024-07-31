@@ -10,13 +10,13 @@ const { rol, modulos } = storeToRefs(rolStore)
   <form>
     <div class="grid">
       <div class="col-12">
-        <InputText v-model="rol.nombre" placeholder="Nombre rol" class="w-full" required />
+        <InputText v-model="rol.nombre" placeholder="Nombre rol" class="w-full mt-3" required />
       </div>
       <div class="col-12">
         <Panel
           toggleable
           collapsed
-          class="mt-3"
+          class="mt-"
           v-for="modulo in modulos"
           :key="modulo.id"
           :header="`${modulo.nombre}`"

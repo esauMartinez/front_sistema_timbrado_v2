@@ -120,6 +120,8 @@ import InputGroup from 'primevue/inputgroup'
 import InputGroupAddon from 'primevue/inputgroupaddon'
 import Tooltip from 'primevue/tooltip'
 import Menubar from 'primevue/menubar'
+import Fieldset from 'primevue/fieldset'
+import Checkbox from 'primevue/checkbox'
 
 // service toast
 import ToastService from 'primevue/toastservice'
@@ -170,6 +172,8 @@ app.component('InputGroup', InputGroup)
 app.component('InputGroupAddon', InputGroupAddon)
 app.component('Menubar', Menubar)
 app.component('Image', Image)
+app.component('Fieldset', Fieldset)
+app.component('Checkbox', Checkbox)
 
 app.directive('tooltip', Tooltip)
 

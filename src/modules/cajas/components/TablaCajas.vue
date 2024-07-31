@@ -5,19 +5,26 @@ import { FilterMatchMode } from 'primevue/api'
 import { useCajas } from '@/modules/cajas/composables/useCajas'
 import { useTrip } from '@/composables/useTrip'
 import { question } from '@/helpers/messages'
-import { useEliminar } from '../composables/useEliminar'
+import { useEliminar } from '@/modules/cajas/composables/useEliminar'
 import { useAuth } from '@/auth/composables/useAuth'
+import { useModificar } from '@/modules/cajas/composables/useModificar'
+import type { Caja } from '@/modules/cajas/interfaces/caja'
 
 const { verificarPermiso } = useAuth()
 const { selectCaja } = useTrip()
 const { cajas, isLoading } = useCajas()
 const { deleteMutation } = useEliminar()
+const { updateMutation } = useModificar()
 
 interface Props {
   isModule: Boolean
 }
 
 defineProps<Props>()
+
+const modificar = async (caja: Caja) => {
+  updateMutation.mutate(caja)
+}
 
 const deleteCaja = async (id: number) => {
   const response = await question()
@@ -87,7 +94,11 @@ const filters = ref({
 
     <Column v-if="isModule">
       <template #body="{ data }">
-        <InputSwitch v-model="data.estatus" v-if="!verificarPermiso('MODULO_CAJAS_MODIFICAR')" />
+        <InputSwitch
+          v-model="data.estatus"
+          @change="modificar(data)"
+          v-if="!verificarPermiso('MODULO_CAJAS_MODIFICAR')"
+        />
       </template>
     </Column>
     <Column header="Estatus">
@@ -95,31 +106,45 @@ const filters = ref({
         <Tag :severity="severity(data.estatus)" :value="data.estatus ? 'Activo' : 'Inactivo'"></Tag>
       </template>
     </Column>
-    <Column header="Acciones">
+    <Column>
       <template #body="{ data }">
         <div class="flex justify-content-center">
           <router-link
             :to="{ name: `bitacora-caja`, params: { id: data.numero_economico } }"
             v-if="isModule && !verificarPermiso('MODULO_CAJAS_VER')"
           >
-            <Button icon="pi pi-book" severity="info" class="mr-2" />
+            <Button icon="pi pi-book" severity="info" />
           </router-link>
-
+        </div>
+      </template>
+    </Column>
+    <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
           <router-link
             :to="{ name: `modificar-caja`, params: { id: data.id } }"
             v-if="isModule && !verificarPermiso('MODULO_CAJAS_MODIFICAR')"
           >
-            <Button icon="pi pi-pencil" severity="warning" class="mr-2" />
+            <Button icon="pi pi-pencil" severity="warning" />
           </router-link>
-
+        </div>
+      </template>
+    </Column>
+    <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
           <Button
             icon="pi pi-trash"
             severity="danger "
-            class="mr-2"
             v-if="isModule && !verificarPermiso('MODULO_CAJAS_ELIMINAR')"
             @click="deleteCaja(data.id)"
           />
-
+        </div>
+      </template>
+    </Column>
+    <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
           <Button icon="pi pi-plus" v-if="!isModule && data.estatus" @click="selectCaja(data)" />
         </div>
       </template>

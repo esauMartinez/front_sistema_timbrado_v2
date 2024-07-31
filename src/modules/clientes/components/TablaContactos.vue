@@ -55,6 +55,13 @@ const filters = ref({
     <Column>
       <template #body="{ data }">
         <div class="flex justify-content-center">
+          <!-- <router-link
+            to=""
+            @click="deleteContacto(data.id)"
+            class="no-underline text-red-500 hover:text-700"
+          >
+            ELIMINAR
+          </router-link> -->
           <Button icon="pi pi-trash" severity="danger" @click="deleteContacto(data.id)" />
         </div>
       </template>

@@ -80,20 +80,24 @@ const filters = ref({
         <Tag :severity="severity(data.activo)" :value="data.activo ? 'Activo' : 'Inactivo'"></Tag>
       </template>
     </Column>
-    <Column header="Acciones">
+    <Column>
       <template #body="{ data }">
         <div class="flex justify-content-center">
           <router-link
             :to="{ name: `modificar-usuario`, params: { id: data.id } }"
             v-if="!verificarPermiso('MODULO_USUARIOS_MODIFICAR')"
           >
-            <Button icon="pi pi-pencil" severity="warning" class="mr-2" />
+            <Button icon="pi pi-pencil" severity="warning" />
           </router-link>
-
+        </div>
+      </template>
+    </Column>
+    <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
           <Button
             icon="pi pi-trash"
-            severity="danger "
-            class="mr-2"
+            severity="danger"
             v-if="!verificarPermiso('MODULO_USUARIOS_ELIMINAR')"
             @click="deleteUsuario(data.id)"
           />

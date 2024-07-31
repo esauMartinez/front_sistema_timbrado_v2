@@ -11,6 +11,7 @@ patioStore.setPatio({} as Patio)
 const visible = ref(true)
 
 const { patio, crearMutation, isPending, isSuccess } = useCrear()
+patio.value.tipo = 'nacional'
 
 patioStore.resetErrors()
 
@@ -31,7 +32,7 @@ watch(isSuccess, (payload) => {
   >
     <Formulario id="formulario" @submit.prevent="crearMutation.mutate(patio)" />
     <template #footer>
-      <ButtonGroup>
+      <div class="pr-3 pl-3">
         <Button
           label="Guardar"
           icon="pi pi-check"
@@ -40,7 +41,7 @@ watch(isSuccess, (payload) => {
           severity="success"
           :loading="isPending"
         />
-      </ButtonGroup>
+      </div>
     </template>
   </Dialog>
 </template>

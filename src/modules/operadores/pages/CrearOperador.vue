@@ -36,16 +36,16 @@ watch(isSuccess, (payload) => {
   >
     <Formulario @submit.prevent="postOperador" id="formulario" />
     <template #footer>
-      <ButtonGroup>
+      <div class="pr-3 pl-3">
         <Button
           label="Guardar"
           icon="pi pi-check"
           type="submit"
           form="formulario"
-          severity="success"
+          severity="primary"
           :loading="isPending"
         />
-      </ButtonGroup>
+      </div>
     </template>
   </Dialog>
 </template>

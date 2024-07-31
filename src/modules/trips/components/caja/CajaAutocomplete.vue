@@ -17,6 +17,7 @@ const verificarEstatus = (e: AutoCompleteItemSelectEvent) => {
     cajaStore.setCaja({} as Caja)
   } else {
     trip.value.caja_id = e.value.id
+    cajaStore.setCajas([])
   }
 }
 </script>
@@ -24,34 +25,32 @@ const verificarEstatus = (e: AutoCompleteItemSelectEvent) => {
 <template>
   <div class="mb-3">
     <label>Caja</label>
-    <div class="p-inputgroup flex-1">
-      <AutoComplete
-        v-model="caja.numero_economico"
-        :suggestions="cajas"
-        optionLabel="numero_economico"
-        placeholder="Caja"
-        name="numero_economico"
-        class="w-full focus:border-primary mt-2"
-        @item-select="verificarEstatus"
-        @complete="refetchCajas()"
-      >
-        <template #option="slotProps">
-          <div class="flex justify-content-between">
-            {{ slotProps.option.numero_economico }}
-            -
-            {{ slotProps.option.matricula }}
-            -
-            {{ slotProps.option.numero_serie }}
-            <Tag
-              :severity="slotProps.option.estatus ? 'success' : 'danger'"
-              :value="slotProps.option.estatus ? 'Activo' : 'Desactivado'"
-            ></Tag>
-          </div>
-        </template>
-      </AutoComplete>
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
-      <!-- <Button icon="pi pi-plus" @click="agregar('caja')" v-if="trip.estatus === 'CREADO'" /> -->
-    </div>
+    <AutoComplete
+      v-model="caja.numero_economico"
+      :suggestions="cajas"
+      optionLabel="numero_economico"
+      placeholder="Caja"
+      name="numero_economico"
+      class="w-full focus:border-primary mt-2"
+      @item-select="verificarEstatus"
+      @complete="refetchCajas()"
+      :invalid="errors.caja_id !== undefined"
+      :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
+    >
+      <template #option="slotProps">
+        <div class="flex justify-content-between">
+          {{ slotProps.option.numero_economico }}
+          -
+          {{ slotProps.option.matricula }}
+          -
+          {{ slotProps.option.numero_serie }}
+          <Tag
+            :severity="slotProps.option.estatus ? 'success' : 'danger'"
+            :value="slotProps.option.estatus ? 'Activo' : 'Desactivado'"
+          ></Tag>
+        </div>
+      </template>
+    </AutoComplete>
     <small class="p-error" v-if="errors.caja_id">
       {{ errors.caja_id }}
     </small>

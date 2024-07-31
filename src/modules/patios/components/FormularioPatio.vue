@@ -14,10 +14,11 @@ const tipo_patio = ref([{ tipo: 'nacional' }, { tipo: 'extranjero' }])
 const selectPais = (pais: string) => {
   patio.value.c_pais = pais
 }
+
 </script>
 
 <template>
-  <form class="formulario">
+  <form>
     <div class="mb-3">
       <label>Nombre patio</label>
       <InputText

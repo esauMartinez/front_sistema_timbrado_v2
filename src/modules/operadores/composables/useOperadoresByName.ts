@@ -1,8 +1,8 @@
 import { storeToRefs } from 'pinia'
-import { useQuery } from '@tanstack/vue-query'
-import { watch } from 'vue'
 import { useOperadorStore } from '@/stores/operador'
 import { getOperadoresPorNombre } from '@/modules/operadores/helpers/get-by-nombre'
+import { useQuery } from '@tanstack/vue-query'
+import { computed, watch } from 'vue'
 
 const useOperadoresByName = () => {
   const operadorStore = useOperadorStore()
@@ -11,10 +11,12 @@ const useOperadoresByName = () => {
   const {
     data,
     isLoading,
+    isSuccess,
     refetch: refetchOperadores
   } = useQuery({
     queryKey: ['operadoresByName', operador.value.nombre],
-    queryFn: () => getOperadoresPorNombre(operador.value.nombre)
+    queryFn: () => getOperadoresPorNombre(operador.value.nombre),
+    enabled: false
   })
 
   watch(
@@ -30,9 +32,8 @@ const useOperadoresByName = () => {
   return {
     operador,
     operadores,
-
-    isLoading: isLoading,
-
+    isLoading: computed(() => isLoading.value),
+    isSuccess: computed(() => isSuccess.value),
     refetchOperadores
   }
 }

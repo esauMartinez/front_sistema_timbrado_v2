@@ -10,7 +10,7 @@ const { verificarPermiso } = useAuth()
 const { roles, isLoading } = useRoles()
 const { deleteMutation } = useEliminar()
 
-const deletePatio = async (id: number) => {
+const deleteRol = async (id: number) => {
   const response = await question()
   if (response.isConfirmed) {
     deleteMutation.mutate(id)
@@ -58,22 +58,26 @@ const filters = ref({
     </template>
 
     <Column field="nombre" header="Nombre" sortable></Column>
-    <Column header="Acciones">
+    <Column>
       <template #body="{ data }">
-        <div class="flex justify-content-center">
+        <div class="flex justify-content-center gap-1">
           <router-link
             :to="{ name: `modificar-rol`, params: { id: data.id } }"
             v-if="!verificarPermiso('MODULO_ROLES_MODIFICAR')"
           >
-            <Button icon="pi pi-pencil" severity="warning" class="mr-2" />
+            <Button icon="pi pi-pencil" severity="warning" />
           </router-link>
-
+        </div>
+      </template>
+    </Column>
+    <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
           <Button
             icon="pi pi-trash"
             severity="danger "
-            class="mr-2"
             v-if="!verificarPermiso('MODULO_ROLES_ELIMINAR')"
-            @click="deletePatio(data.id)"
+            @click="deleteRol(data.id)"
           />
         </div>
       </template>

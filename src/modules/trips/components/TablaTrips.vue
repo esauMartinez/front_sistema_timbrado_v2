@@ -4,15 +4,9 @@ import { FilterMatchMode } from 'primevue/api'
 import { formatDateWithTime } from '@/pipes/formatDate'
 import { useAuth } from '@/auth/composables/useAuth'
 import { useTrips } from '@/modules/trips/composables/useTrips'
-import moment from 'moment'
+import { router } from '@/router'
 
 const { verificarPermiso } = useAuth()
-
-const { trips } = useTrips(
-  'TODOS',
-  moment().subtract(5, 'months').format('YYYY-MM-DD'),
-  moment().format('YYYY-MM-DD')
-)
 
 const severityTrip = (estatus: string) => {
   let severity = null
@@ -33,16 +27,16 @@ const severityTrip = (estatus: string) => {
   return severity
 }
 
-const estatus = ref({ label: 'Todos', value: 'TODOS' })
+const { trips, estatus, estatusOptions, fromDate, toDate, isLoading, fetchTrips } = useTrips()
+fetchTrips()
 
-const estatusOptions = ref([
-  { label: 'Creado', value: 'CREADO' },
-  { label: 'Programado', value: 'PROGRAMADO' },
-  { label: 'Transito', value: 'TRANSITO' },
-  { label: 'Terminado', value: 'TERMINADO' },
-  { label: 'Cancelados', value: 'CANCELADO' },
-  { label: 'Todos', value: 'TODOS' }
-])
+const numero_trip = ref(null)
+
+const buscarTrip = (e: any) => {
+  if (e.key === 'Enter') {
+    router.push({ name: 'modificar-trip', params: { id: numero_trip.value } })
+  }
+}
 
 const filters = ref({
   global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -62,11 +56,11 @@ const filters = ref({
     showGridlines
     paginator
     :rowHover="true"
-    :rows="20"
-    :rowsPerPageOptions="[20, 50, 100]"
+    :rows="10"
+    :rowsPerPageOptions="[10, 20, 50, 100]"
     :class="[{ 'p-datatable-sm': true }]"
     dataKey="id"
-    :loading="false"
+    :loading="isLoading"
     :globalFilterFields="[
       'numero_trip',
       'cliente.razon_social',
@@ -79,16 +73,26 @@ const filters = ref({
   >
     <template #header>
       <div class="grid">
-        <div class="col-1">
+        <div class="col-2">
           <router-link :to="{ name: 'crear-trip' }" v-if="!verificarPermiso('MODULO_TRIPS_CREAR')">
-            <Button label="Nuevo trip" severity="success" outlined class="w-full" />
+            <Button label="Nuevo trip" icon="pi pi-plus" outlined class="w-full" />
           </router-link>
         </div>
-        <div class="col-3">
-          <Calendar :manualInput="false" class="w-full" />
+        <div class="col-2">
+          <Calendar
+            v-model="fromDate"
+            :manualInput="false"
+            class="w-full"
+            @date-select="fetchTrips()"
+          />
         </div>
-        <div class="col-3">
-          <Calendar :manualInput="false" class="w-full" />
+        <div class="col-2">
+          <Calendar
+            v-model="toDate"
+            :manualInput="false"
+            class="w-full"
+            @date-select="fetchTrips()"
+          />
         </div>
         <div class="col-2">
           <Dropdown
@@ -97,14 +101,27 @@ const filters = ref({
             optionLabel="label"
             placeholder="Estatus"
             class="w-full"
+            @change="fetchTrips()"
           />
         </div>
-        <div class="col-3">
+        <div class="col-2">
+          <InputText
+            v-model="numero_trip"
+            class="w-full"
+            placeholder="Buscar trip"
+            @keyup="buscarTrip"
+          />
+        </div>
+        <div class="col-2">
           <IconField iconPosition="left">
             <InputIcon>
               <i class="pi pi-search" />
             </InputIcon>
-            <InputText v-model="filters['global'].value" placeholder="Buscar" class="w-full" />
+            <InputText
+              v-model="filters['global'].value"
+              placeholder="Buscar en tabla"
+              class="w-full"
+            />
           </IconField>
         </div>
       </div>
@@ -143,35 +160,50 @@ const filters = ref({
         <Tag :severity="severityTrip(data.estatus)!" :value="data.estatus" class="w-full"></Tag>
       </template>
     </Column>
-    <Column header="Acciones" style="min-width: 200px">
-      <!-- <template #body="{ data }">
+    <Column>
+      <template #body="{ data }">
         <div class="flex justify-content-center">
-          <ButtonGroup>
-            <Button
-              icon="pi pi-book"
-              severity="info"
-              @click="bitacora(data.id)"
-              v-if="data.usuario_toma_id === null && !verificarPermiso('MODULO_TRIPS_BITACORA')"
-            />
-            <Button
-              icon="fa fa-comment"
-              severity="success"
-              @click="comentarios(data.id)"
-              v-if="
-                data.usuario_toma_id === null && !verificarPermiso('MODULO_TRIPS_COMENTARIOS_VER')
-              "
-            />
-            <Button
-              icon="pi pi-pencil"
-              severity="warning"
-              @click="modificar(data.id)"
-              v-if="data.usuario_toma_id === null && !verificarPermiso('MODULO_TRIPS_MODIFICAR')"
-            />
-          </ButtonGroup>
+          <router-link
+            :to="{ name: 'bitacora-trip', params: { id: data.id } }"
+            v-if="!verificarPermiso('MODULO_TRIPS_BITACORA')"
+          >
+            <Button icon="pi pi-bars" severity="info" />
+          </router-link>
         </div>
-      </template> -->
+      </template>
+    </Column>
+    <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
+          <router-link
+            :to="{ name: 'comentarios-trip', params: { id: data.id } }"
+            v-if="!verificarPermiso('MODULO_TRIPS_COMENTARIOS_VER')"
+          >
+            <Button icon="pi pi-comment" severity="success" />
+          </router-link>
+        </div>
+      </template>
+    </Column>
+    <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
+          <router-link
+            :to="{ name: 'modificar-trip', params: { id: data.id } }"
+            v-if="!verificarPermiso('MODULO_TRIPS_MODIFICAR')"
+          >
+            <Button icon="pi pi-pencil" severity="warning" />
+          </router-link>
+        </div>
+      </template>
+    </Column>
+    <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
+          <router-link :to="{ name: 'pdf-trip', params: { id: data.id } }" v-if="data.isTimbrado">
+            <Button icon="pi pi-file-pdf" severity="danger" />
+          </router-link>
+        </div>
+      </template>
     </Column>
   </DataTable>
-
-  <!-- <Agregar /> -->
 </template>

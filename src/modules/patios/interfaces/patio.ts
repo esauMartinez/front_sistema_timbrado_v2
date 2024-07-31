@@ -17,5 +17,6 @@ export interface Patio {
   localidad: string
   estatus: boolean
   tipo: string
+  numero_regimen_id_tributario: string
   rfc: string
 }

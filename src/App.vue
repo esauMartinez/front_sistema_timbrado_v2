@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import SideNav from '@/common/layout/SideNav.vue'
-import CardLoad from '@/components/CardLoad.vue'
 import { useSessionStore } from './stores/session'
 import { storeToRefs } from 'pinia'
 
@@ -21,6 +20,5 @@ const { isUserAuthenticated } = storeToRefs(sessionStore)
 
   <router-view></router-view>
 
-  <CardLoad />
   <Toast position="top-right" />
 </template>

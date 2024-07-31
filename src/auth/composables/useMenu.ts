@@ -68,14 +68,14 @@ export const useMenu = () => {
     {
       header: null,
       title: 'Trips',
-      href: '/Trips',
+      href: '/trips',
       icon: 'fa fa-suitcase',
       hidden: verificarPermiso('MODULO_TRIPS_VER')
     },
     {
       header: null,
       title: 'Timbrado',
-      href: '/Timbrado',
+      href: '/timbrado',
       icon: 'fa fa-bell',
       hidden: verificarPermiso('MODULO_TIMBRADO_VER')
     },

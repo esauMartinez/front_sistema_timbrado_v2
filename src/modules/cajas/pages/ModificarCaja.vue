@@ -33,16 +33,14 @@ watch(isSuccess, (payload) => {
   >
     <Formulario id="formulario" @submit.prevent="updateMutation.mutate(caja)" />
     <template #footer>
-      <ButtonGroup>
-        <Button
-          label="Guardar"
-          icon="pi pi-check"
-          type="submit"
-          form="formulario"
-          severity="success"
-          :loading="isPending"
-        />
-      </ButtonGroup>
+      <Button
+        label="Guardar"
+        icon="pi pi-check"
+        type="submit"
+        form="formulario"
+        severity="success"
+        :loading="isPending"
+      />
     </template>
   </Dialog>
 </template>

@@ -5,19 +5,24 @@ import { FilterMatchMode } from 'primevue/api'
 import { useTractores } from '@/modules/tractores/composables/useTractores'
 import { question } from '@/helpers/messages'
 import { useEliminar } from '@/modules/tractores/composables/useEliminar'
-import { useTrip } from '@/composables/useTrip'
 import { useAuth } from '@/auth/composables/useAuth'
+import { useModificar } from '@/modules/tractores/composables/useModificar'
+import type { Tractor } from '@/modules/tractores/interfaces/tractor'
 
 const { verificarPermiso } = useAuth()
 const { tractores, isLoading } = useTractores()
 const { deleteMutation } = useEliminar()
-const { selectTractor } = useTrip()
+const { updateMutation } = useModificar()
 
 interface Props {
   isModule: Boolean
 }
 
 defineProps<Props>()
+
+const modificar = async (tractor: Tractor) => {
+  updateMutation.mutate(tractor)
+}
 
 const deleteTractor = async (id: number) => {
   const response = await question()
@@ -89,6 +94,7 @@ const filters = ref({
       <template #body="{ data }">
         <InputSwitch
           v-model="data.estatus"
+          @change="modificar(data)"
           v-if="!verificarPermiso('MODULO_TRACTORES_MODIFICAR')"
         />
       </template>
@@ -98,27 +104,36 @@ const filters = ref({
         <Tag :severity="severity(data.estatus)" :value="data.estatus ? 'Activo' : 'Inactivo'"></Tag>
       </template>
     </Column>
-    <Column header="Acciones">
+    <Column>
       <template #body="{ data }">
         <div class="flex justify-content-center">
           <router-link
             :to="{ name: `modificar-tractor`, params: { id: data.id } }"
             v-if="isModule && !verificarPermiso('MODULO_TRACTORES_MODIFICAR')"
           >
-            <Button icon="pi pi-pencil" severity="warning" class="mr-2" />
+            <Button icon="pi pi-pencil" severity="warning" />
           </router-link>
-
-          <Button
-            icon="pi pi-trash"
-            severity="danger "
-            class="mr-2"
-            v-if="isModule && !verificarPermiso('MODULO_TRACTORES_ELIMINAR')"
-            @click="deleteTractor(data.id)"
-          />
-
-          <Button icon="pi pi-plus" v-if="!isModule && data.estatus" @click="selectTractor(data)" />
         </div>
       </template>
     </Column>
+    <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
+          <Button
+            icon="pi pi-trash"
+            severity="danger"
+            v-if="isModule && !verificarPermiso('MODULO_TRACTORES_ELIMINAR')"
+            @click="deleteTractor(data.id)"
+          />
+        </div>
+      </template>
+    </Column>
+    <!-- <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
+          <Button icon="pi pi-plus" v-if="!isModule && data.estatus" @click="selectTractor(data)" />
+        </div>
+      </template>
+    </Column> -->
   </DataTable>
 </template>

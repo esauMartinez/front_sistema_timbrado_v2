@@ -1,8 +1,8 @@
 import { storeToRefs } from 'pinia'
-import { useQuery } from '@tanstack/vue-query'
-import { watch } from 'vue'
 import { useCajaStore } from '@/stores/caja'
 import { getCajasPorNumeroEconomico } from '@/modules/cajas/helpers/get-by-economico'
+import { useQuery } from '@tanstack/vue-query'
+import { computed, watch } from 'vue'
 
 const useCajasByNumeroEconomico = () => {
   const cajaStore = useCajaStore()
@@ -11,10 +11,12 @@ const useCajasByNumeroEconomico = () => {
   const {
     data,
     isLoading,
+    isSuccess,
     refetch: refetchCajas
   } = useQuery({
     queryKey: ['cajasByNumeroEconomico', caja.value.numero_economico],
-    queryFn: () => getCajasPorNumeroEconomico(caja.value.numero_economico)
+    queryFn: () => getCajasPorNumeroEconomico(caja.value.numero_economico),
+    enabled: false
   })
 
   watch(
@@ -30,9 +32,8 @@ const useCajasByNumeroEconomico = () => {
   return {
     caja,
     cajas,
-
-    isLoading: isLoading,
-
+    isLoading: computed(() => isLoading.value),
+    isSuccess: computed(() => isSuccess.value),
     refetchCajas
   }
 }

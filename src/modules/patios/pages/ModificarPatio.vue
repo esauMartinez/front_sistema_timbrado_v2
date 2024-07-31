@@ -33,7 +33,7 @@ watch(isSuccess, (payload) => {
   >
     <Formulario id="formulario" @submit.prevent="updateMutation.mutate(patio)" />
     <template #footer>
-      <ButtonGroup>
+      <div class="pr-3 pl-3">
         <Button
           label="Guardar"
           icon="pi pi-check"
@@ -42,7 +42,7 @@ watch(isSuccess, (payload) => {
           severity="success"
           :loading="isPending"
         />
-      </ButtonGroup>
+      </div>
     </template>
   </Dialog>
 </template>

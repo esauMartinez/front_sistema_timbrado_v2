@@ -1,8 +1,8 @@
 import { storeToRefs } from 'pinia'
-import { useQuery } from '@tanstack/vue-query'
-import { watch } from 'vue'
 import { useTractorStore } from '@/stores/tractor'
 import { getTractoresPorNumeroEconomico } from '@/modules/tractores/helpers/get-by-economico'
+import { useQuery } from '@tanstack/vue-query'
+import { computed, watch } from 'vue'
 
 const useTractoresByNumeroEconomico = () => {
   const tractorStore = useTractorStore()
@@ -11,10 +11,12 @@ const useTractoresByNumeroEconomico = () => {
   const {
     data,
     isLoading,
+    isSuccess,
     refetch: refetchTractores
   } = useQuery({
     queryKey: ['tractoresByNumeroEconomico', tractor.value.numero_economico],
-    queryFn: () => getTractoresPorNumeroEconomico(tractor.value.numero_economico)
+    queryFn: () => getTractoresPorNumeroEconomico(tractor.value.numero_economico),
+    enabled: false
   })
 
   watch(
@@ -30,9 +32,8 @@ const useTractoresByNumeroEconomico = () => {
   return {
     tractor,
     tractores,
-
-    isLoading: isLoading,
-
+    isLoading: computed(() => isLoading.value),
+    isSuccess: computed(() => isSuccess.value),
     refetchTractores
   }
 }

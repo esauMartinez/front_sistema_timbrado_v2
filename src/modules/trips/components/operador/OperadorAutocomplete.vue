@@ -18,6 +18,7 @@ const verificarEstatus = (e: AutoCompleteItemSelectEvent) => {
     operadorStore.setOperador({} as Operador)
   } else {
     trip.value.operador_id = e.value.id
+    operadorStore.setOperadores([])
   }
 }
 </script>
@@ -35,6 +36,8 @@ const verificarEstatus = (e: AutoCompleteItemSelectEvent) => {
         class="w-full focus:border-primary mt-2"
         @item-select="verificarEstatus"
         @complete="refetchOperadores()"
+        :invalid="errors.operador_id !== undefined"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       >
         <template #option="slotProps">
           <div class="flex justify-content-between">
@@ -48,7 +51,6 @@ const verificarEstatus = (e: AutoCompleteItemSelectEvent) => {
           </div>
         </template>
       </AutoComplete>
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
       <!-- <Button icon="pi pi-plus" @click="agregar('operador')" v-if="trip.estatus === 'CREADO'" /> -->
     </div>
     <small class="p-error" v-if="errors.operador_id">

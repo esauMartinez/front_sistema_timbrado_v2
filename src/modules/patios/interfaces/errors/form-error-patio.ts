@@ -15,5 +15,6 @@ export interface FormErrorPatio {
   numero_interior: string
   localidad: string
   tipo: string
+  numero_regimen_id_tributario: string
   rfc: string
 }

@@ -7,7 +7,7 @@ useFiscales()
 <template>
   <NavBar :modulo="'Clientes'" />
 
-  <Card class="mt-4">
+  <Card class="col-10 col-offset-1 mt-4">
     <template #content>
       <router-view></router-view>
     </template>

@@ -5,11 +5,13 @@ import { useServicioStore } from '@/stores/servicio'
 import { useCrear } from '@/modules/servicios/composables/useCrear'
 import { watch } from 'vue'
 import Formulario from '@/modules/servicios/components/FormularioServicio.vue'
+import type { Servicio } from '@/modules/servicios/interfaces/servicio'
 
 const servicioStore = useServicioStore()
 const { servicio, isPending, isSuccess, crearMutation } = useCrear()
 const visible = ref(true)
 
+servicioStore.setServicio({} as Servicio)
 servicioStore.resetErrors()
 
 watch(isSuccess, (payload) => {
@@ -30,16 +32,14 @@ watch(isSuccess, (payload) => {
     <Formulario @submit.prevent="crearMutation.mutate(servicio)" id="formulario" />
 
     <template #footer>
-      <ButtonGroup>
-        <Button
-          label="Guardar"
-          icon="pi pi-check"
-          type="submit"
-          form="formulario"
-          severity="success"
-          :loading="isPending"
-        />
-      </ButtonGroup>
+      <Button
+        label="Guardar"
+        icon="pi pi-check"
+        type="submit"
+        form="formulario"
+        severity="success"
+        :loading="isPending"
+      />
     </template>
   </Dialog>
 </template>

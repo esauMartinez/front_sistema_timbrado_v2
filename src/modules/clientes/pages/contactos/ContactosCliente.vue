@@ -16,7 +16,7 @@ const visible = ref(true);
     v-model:visible="visible"
     modal
     header="Contactos del cliente"
-    :style="{ width: '70%' }"
+    :style="{ width: '60%' }"
     v-on:after-hide="router.push({ path: '/clientes' })"
     :position="'top'"
     pt:mask:class="backdrop-blur-sm"

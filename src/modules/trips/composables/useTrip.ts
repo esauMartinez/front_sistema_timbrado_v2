@@ -17,7 +17,9 @@ export const useTrip = (id: number) => {
   watch(
     data,
     (payload) => {
-      if (payload) tripStore.setTrip({ ...payload })
+      if (payload) {
+        tripStore.setTrip({ ...payload, movimientos: payload?.movimientos.map((x) => ({ ...x })) })
+      }
     },
     { immediate: true }
   )

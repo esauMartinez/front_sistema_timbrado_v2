@@ -16,7 +16,7 @@ const setGafete = (e: FileUploadSelectEvent) => {
 </script>
 
 <template>
-  <form class="formulario p-2">
+  <form>
     <div class="grid">
       <div class="col-5 mt-5 flex flex-column align-items-center">
         <Image

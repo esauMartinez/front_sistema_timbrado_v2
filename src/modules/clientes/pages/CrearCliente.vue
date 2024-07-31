@@ -31,7 +31,9 @@ watch(isCreated, () => {
     <FormularioCliente id="form" @submit.prevent="crearMutation.mutate(cliente)" />
 
     <template #footer>
-      <Button type="submit" form="form" :loading="isLoading" label="Guardar cliente" />
+      <div class="pr-3 pl-3">
+        <Button type="submit" form="form" :loading="isLoading" label="Guardar cliente" />
+      </div>
     </template>
   </Dialog>
 </template>

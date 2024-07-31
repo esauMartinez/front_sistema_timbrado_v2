@@ -5,11 +5,13 @@ import NavBar from '@/common/layout/NavBar.vue'
 <template>
   <NavBar :modulo="'Patios'" />
 
-  <Card class="mt-4">
-    <template #content>
-      <router-view></router-view>
-    </template>
-  </Card>
+  <div class="col-10 col-offset-1 mt-4">
+    <Card>
+      <template #content>
+        <router-view></router-view>
+      </template>
+    </Card>
+  </div>
 </template>
 
 <style scoped></style>

@@ -1,9 +1,8 @@
 import timbradoApi from '@/api/timbrado-api'
-import type { Movimiento } from '@/interfaces/movimiento.model'
-import type { Trip } from '@/modules/trips/interfaces/trips'
+import type { Trip } from '@/modules/trips/interfaces/trip'
 
-export const updateTrip = async (trip: Trip, movimientos: Movimiento[]) => {
-  const { data } = await timbradoApi.put(`/trips/${trip.id}`, { ...trip, movimientos })
+export const updateTrip = async (trip: Trip) => {
+  const { data } = await timbradoApi.put(`/trips/${trip.id}`, trip)
 
   return data
 }

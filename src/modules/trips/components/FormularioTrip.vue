@@ -7,13 +7,34 @@ import ClienteAutocomplete from '@/modules/trips/components/cliente/ClienteAutoc
 import OperadorAutocomplete from './operador/OperadorAutocomplete.vue'
 import CajaAutocomplete from './caja/CajaAutocomplete.vue'
 import TractorAutocomplete from './tractor/TractorAutocomplete.vue'
+import MovimentosTrip from './movimientos/MovimientosTrip.vue'
+import { watch } from 'vue'
+import { useClienteStore } from '@/stores/cliente'
+import { useOperadorStore } from '@/stores/operador'
+import { useCajaStore } from '@/stores/caja'
+import { useTractorStore } from '@/stores/tractor'
 
 const tripStore = useTripStore()
+const clienteStore = useClienteStore()
+const operadorStore = useOperadorStore()
+const cajaStore = useCajaStore()
+const tractorStore = useTractorStore()
 const { trip, errors } = storeToRefs(tripStore)
+
+watch(
+  trip,
+  (payload) => {
+    clienteStore.setCliente({ ...payload.cliente })
+    operadorStore.setOperador({ ...payload.operador })
+    cajaStore.setCaja({ ...payload.caja })
+    tractorStore.setTractor({ ...payload.tractor })
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
-  <div class="p-2">
+  <form>
     <div class="mb-3">
       <label>Tipo de viaje</label>
       <Dropdown
@@ -26,8 +47,8 @@ const { trip, errors } = storeToRefs(tripStore)
         optionValue="clave"
         v-model="trip.tipo_viaje"
         :invalid="errors.tipo_viaje !== undefined"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       />
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
       <small class="p-error" v-if="errors.tipo_viaje">
         {{ errors.tipo_viaje }}
       </small>
@@ -44,8 +65,8 @@ const { trip, errors } = storeToRefs(tripStore)
         optionValue="clave"
         v-model="trip.moneda"
         :invalid="errors.moneda !== undefined"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       >
-        <!-- :disabled="trip.estatus !== 'CREADO'" -->
         <template #option="slotProps">
           {{ slotProps.option.clave }} -
           {{ slotProps.option.descripcion }}
@@ -64,8 +85,8 @@ const { trip, errors } = storeToRefs(tripStore)
         placeholder="Referencia"
         autocomplete="off"
         :invalid="errors.referencia !== undefined"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       />
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
       <small class="p-error" v-if="errors.referencia">
         {{ errors.referencia }}
       </small>
@@ -79,8 +100,8 @@ const { trip, errors } = storeToRefs(tripStore)
         placeholder="Observaciones"
         rows="10"
         :invalid="errors.observaciones !== undefined"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       />
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
       <small class="p-error" v-if="errors.observaciones">
         {{ errors.observaciones }}
       </small>
@@ -102,8 +123,8 @@ const { trip, errors } = storeToRefs(tripStore)
         showTime
         hourFormat="24"
         :invalid="errors.ventana_carga !== undefined"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       />
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
       <small class="p-error" v-if="errors.ventana_carga">
         {{ errors.ventana_carga }}
       </small>
@@ -119,8 +140,8 @@ const { trip, errors } = storeToRefs(tripStore)
         showTime
         hourFormat="24"
         :invalid="errors.ventana_entrega !== undefined"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       />
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
       <small class="p-error" v-if="errors.ventana_entrega">
         {{ errors.ventana_entrega }}
       </small>
@@ -130,12 +151,13 @@ const { trip, errors } = storeToRefs(tripStore)
       <InputNumber
         name="kilometros"
         v-model.number="trip.kilometros"
+        type="number"
         class="w-full focus:border-primary mt-2"
         placeholder="Kilometros"
         autocomplete="off"
         :invalid="errors.kilometros !== undefined"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       />
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
       <small class="p-error" v-if="errors.kilometros">
         {{ errors.kilometros }}
       </small>
@@ -145,38 +167,39 @@ const { trip, errors } = storeToRefs(tripStore)
       <InputNumber
         name="combustible"
         v-model.number="trip.combustible"
+        type="number"
         class="w-full focus:border-primary mt-2"
         placeholder="combustible"
         autocomplete="off"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       />
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
-      <!-- <small class="p-error" name="combustible"></small> -->
     </div>
     <div class="mb-3">
       <label>Viaticos($)</label>
       <InputNumber
         name="viaticos"
         v-model.number="trip.viaticos"
+        type="number"
         class="w-full focus:border-primary mt-2"
         placeholder="viaticos"
         autocomplete="off"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       />
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
-      <!-- <small class="p-error" name="viaticos"></small> -->
     </div>
     <div class="mb-3">
       <label>Casetas($)</label>
       <InputNumber
         name="casetas"
         v-model.number="trip.casetas"
+        type="number"
         class="w-full focus:border-primary mt-2"
         placeholder="casetas"
         autocomplete="off"
+        :disabled="trip.estatus === 'TERMINADO' || trip.estatus === 'CANCELADO'"
       />
-      <!-- :disabled="trip.estatus !== 'CREADO'" -->
-      <!-- <small class="p-error" name="casetas"></small> -->
     </div>
-  </div>
+    <MovimentosTrip />
+  </form>
 </template>
 
 <style scoped></style>

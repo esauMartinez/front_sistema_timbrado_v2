@@ -86,6 +86,23 @@ const verificarEstado = (e: AutoCompleteChangeEvent) => {
   </div>
   <div class="grid">
     <div class="col-12 mb-3">
+      <label>Numero regimen ID tributario</label>
+      <InputText
+        id="colonia"
+        name="colonia"
+        class="w-full focus:border-primary mt-2"
+        placeholder="Numero regimen ID tributario"
+        autocomplete="off"
+        v-model="patio.numero_regimen_id_tributario"
+        :invalid="errors.numero_regimen_id_tributario !== undefined"
+      />
+      <small class="p-error" v-if="errors.numero_regimen_id_tributario">
+        {{ errors.numero_regimen_id_tributario }}
+      </small>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col-12 mb-3">
       <label>Colonia</label>
       <InputText
         id="colonia"

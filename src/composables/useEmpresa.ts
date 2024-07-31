@@ -8,7 +8,6 @@ import type { Usuario } from '@/modules/usuarios/interfaces/usuarios'
 import { router } from '@/router'
 import type { FileUploadSelectEvent } from 'primevue/fileupload'
 import { ref } from 'vue'
-import { useLoadStore } from '@/store/load'
 import timbradoApi from '@/api/timbrado-api'
 
 export const useEmpresa = () => {
@@ -16,7 +15,6 @@ export const useEmpresa = () => {
   const usuarioStore = useUsuarioStore()
   const { empresa, empresas } = storeToRefs(empresaStore)
   const toast = useToast()
-  const loadStore = useLoadStore()
 
   const getEmpresas = async () => {
     try {
@@ -47,7 +45,6 @@ export const useEmpresa = () => {
 
   const uploadLogo = async (e: FileUploadSelectEvent) => {
     try {
-      loadStore.setLoading(true)
       const formData = new FormData()
       formData.append('logo', e.files[0])
 
@@ -61,9 +58,7 @@ export const useEmpresa = () => {
         detail: 'Logotipo subido correctamente',
         life: 3000
       })
-      loadStore.setLoading(false)
     } catch (error) {
-      loadStore.setLoading(false)
       handleError(error)
     }
   }
@@ -124,7 +119,6 @@ export const useEmpresa = () => {
 
   const postCertificados = async () => {
     try {
-      loadStore.setLoading(true)
       formCertificados.append('password', passwordCertificado.value!)
       const { data } = await timbradoApi.post(`/cargar/certificados`, formCertificados)
       toast.add({
@@ -133,10 +127,9 @@ export const useEmpresa = () => {
         detail: data.data,
         life: 3000
       })
-      loadStore.setLoading(false)
+
       return data
     } catch (error) {
-      loadStore.setLoading(false)
       handleError(error)
     }
   }

@@ -116,24 +116,33 @@ const filters = ref({
         <Tag :severity="severity(data.estatus)" :value="data.estatus ? 'Activo' : 'Inactivo'"></Tag>
       </template>
     </Column>
-    <Column header="Acciones">
+    <Column>
       <template #body="{ data }">
         <div class="flex justify-content-center">
           <router-link
             :to="{ name: `modificar-operador`, params: { id: data.id } }"
             v-if="isModule && !verificarPermiso('MODULO_OPERADORES_MODIFICAR')"
           >
-            <Button icon="pi pi-pencil" severity="warning" class="mr-2" />
+            <Button icon="pi pi-pencil" severity="warning" />
           </router-link>
-
+        </div>
+      </template>
+    </Column>
+    <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
           <Button
             icon="pi pi-trash"
             severity="danger "
             @click="deleteOperador(data.id)"
-            class="mr-2"
             v-if="isModule && !verificarPermiso('MODULO_OPERADORES_ELIMINAR')"
           />
-
+        </div>
+      </template>
+    </Column>
+    <!-- <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
           <Button
             icon="pi pi-plus"
             v-if="!isModule && data.estatus"
@@ -141,6 +150,6 @@ const filters = ref({
           />
         </div>
       </template>
-    </Column>
+    </Column> -->
   </DataTable>
 </template>

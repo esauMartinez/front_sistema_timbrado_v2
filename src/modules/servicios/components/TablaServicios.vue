@@ -6,16 +6,23 @@ import { useAuth } from '@/auth/composables/useAuth'
 import { useServicios } from '@/modules/servicios/composables/useServicios'
 import { question } from '@/helpers/messages'
 import { useEliminar } from '@/modules/servicios/composables/useEliminar'
+import type { Servicio } from '@/modules/servicios/interfaces/servicio'
+import { useModificar } from '@/modules/servicios/composables/useModificar'
 
 const { verificarPermiso } = useAuth()
 const { servicios, isLoading } = useServicios()
 const { deleteMutation } = useEliminar()
+const { updateMutation } = useModificar()
 
 interface Props {
   isModule: boolean
 }
 
 defineProps<Props>()
+
+const modificar = async (servicio: Servicio) => {
+  updateMutation.mutate(servicio)
+}
 
 const deleteservicio = async (id: number) => {
   const response = await question()
@@ -70,6 +77,7 @@ const filters = ref({
       <template #body="{ data }">
         <InputSwitch
           v-model="data.estatus"
+          @change="modificar(data)"
           v-if="!verificarPermiso('MODULO_SERVICIOS_MODIFICAR')"
         />
       </template>
@@ -79,20 +87,24 @@ const filters = ref({
         <Tag :severity="severity(data.estatus)" :value="data.estatus ? 'Activo' : 'Inactivo'"></Tag>
       </template>
     </Column>
-    <Column header="Acciones">
+    <Column>
       <template #body="{ data }">
-        <div class="flex justify-content-center" v-if="data.estatus">
+        <div class="flex justify-content-center">
           <router-link
             :to="{ name: `modificar-servicio`, params: { id: data.id } }"
             v-if="isModule && !verificarPermiso('MODULO_SERVICIOS_MODIFICAR')"
           >
-            <Button icon="pi pi-pencil" severity="warning" class="mr-2" />
+            <Button icon="pi pi-pencil" severity="warning" />
           </router-link>
-
+        </div>
+      </template>
+    </Column>
+    <Column>
+      <template #body="{ data }">
+        <div class="flex justify-content-center">
           <Button
             icon="pi pi-trash"
-            severity="danger "
-            class="mr-2"
+            severity="danger"
             v-if="isModule && !verificarPermiso('MODULO_SERVICIOS_ELIMINAR')"
             @click="deleteservicio(data.id)"
           />

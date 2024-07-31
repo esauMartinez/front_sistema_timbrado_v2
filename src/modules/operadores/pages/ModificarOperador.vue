@@ -1,30 +1,30 @@
 <script lang="ts" setup>
-import { ref, watch } from "vue";
-import { router } from "@/router";
-import { useRoute } from "vue-router";
-import { useOperador } from "@/modules/operadores/composables/useOperador";
-import Formulario from "@/modules/operadores/components/FormularioOperador.vue";
-import { useModificar } from "@/modules/operadores/composables/useModifiar";
+import { ref, watch } from 'vue'
+import { router } from '@/router'
+import { useRoute } from 'vue-router'
+import { useOperador } from '@/modules/operadores/composables/useOperador'
+import Formulario from '@/modules/operadores/components/FormularioOperador.vue'
+import { useModificar } from '@/modules/operadores/composables/useModifiar'
 
-const visible = ref(true);
-const route = useRoute();
+const visible = ref(true)
+const route = useRoute()
 
-const { operador, gafete } = useOperador(+route.params.id);
+const { operador, gafete } = useOperador(+route.params.id)
 
-const { isPending, isSuccess, updateMutation } = useModificar();
+const { isPending, isSuccess, updateMutation } = useModificar()
 
 const updateOperador = () => {
-  const formData = new FormData();
-  formData.append("gafete", gafete.value);
-  formData.append("operador", JSON.stringify(operador.value));
-  updateMutation.mutate(formData);
-};
+  const formData = new FormData()
+  formData.append('gafete', gafete.value)
+  formData.append('operador', JSON.stringify(operador.value))
+  updateMutation.mutate(formData)
+}
 
 watch(isSuccess, (payload) => {
   if (payload) {
-    visible.value = false;
+    visible.value = false
   }
-});
+})
 </script>
 
 <template>
@@ -37,7 +37,7 @@ watch(isSuccess, (payload) => {
   >
     <Formulario @submit.prevent="updateOperador" id="formulario" />
     <template #footer>
-      <ButtonGroup>
+      <div class="pr-3 pl-3">
         <Button
           label="Modificar"
           icon="pi pi-pencil"
@@ -46,7 +46,7 @@ watch(isSuccess, (payload) => {
           severity="warning"
           :loading="isPending"
         />
-      </ButtonGroup>
+      </div>
     </template>
   </Dialog>
 </template>

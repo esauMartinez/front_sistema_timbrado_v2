@@ -1,5 +1,3 @@
-import { storeToRefs } from 'pinia'
-import { useUnidadStore } from '@/store/unidad'
 import { handleError } from '@/helpers/messages'
 import type { Marca } from '@/interfaces/marca.model'
 import { useToast } from 'primevue/usetoast'
@@ -7,15 +5,12 @@ import { router } from '@/router'
 import timbradoApi from '@/api/timbrado-api'
 
 export const useMarca = () => {
-  const unidadStore = useUnidadStore()
-
-  const { marca, marcas } = storeToRefs(unidadStore)
+  // const { marca, marcas } = storeToRefs()
   const toast = useToast()
 
   const getMarcas = async (tipo: string) => {
     try {
-      const { data } = await timbradoApi.get(`/marcas/${tipo}`)
-      unidadStore.setMarcas(data)
+      await timbradoApi.get(`/marcas/${tipo}`)
     } catch (error) {
       handleError(error)
     }
@@ -31,7 +26,6 @@ export const useMarca = () => {
         life: 3000
       })
       router.go(-1)
-      getMarcas(marca.value.tipo)
     } catch (error) {
       handleError(error)
     }
@@ -51,9 +45,5 @@ export const useMarca = () => {
     }
   }
 
-  const resetMarcaForm = () => {
-    unidadStore.setMarca({} as Marca)
-  }
-
-  return { marca, marcas, getMarcas, postMarca, deleteMarca, resetMarcaForm }
+  return { getMarcas, postMarca, deleteMarca }
 }

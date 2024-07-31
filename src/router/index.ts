@@ -10,6 +10,7 @@ import { serviciosRoute } from '@/modules/servicios/router'
 import { usuariosRoute } from '@/modules/usuarios/router'
 import { rolesRoute } from '@/modules/roles/router'
 import { tripsRoute } from '@/modules/trips/router'
+import { timbradoRoute } from '@/modules/timbrado/router'
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,7 +27,7 @@ export const router = createRouter({
     {
       path: '/home',
       name: 'Home',
-      component: () => import('../views/Home.vue')
+      component: () => import('../views/HomeView.vue')
     },
     {
       ...clientesRoute,
@@ -62,99 +63,12 @@ export const router = createRouter({
       path: '/roles'
     },
     {
-      // ...tripsRoute,
-      path: '/trips',
-      name: 'Trips',
-      component: () => import('../views/Trips.vue'),
-      children: [
-        {
-          path: '/modificar-trip/:id',
-          name: 'ModificarTrip',
-          component: () => import('../components/trips/Modificar.vue'),
-          children: [
-            {
-              path: '/agregar-cliente-trip/:id',
-              name: 'AgregarClienteTrip',
-              component: () => import('../components/trips/datos/Cliente.vue')
-            },
-            {
-              path: '/agregar-operador-trip/:id',
-              name: 'AgregarOperadorTrip',
-              component: () => import('../components/trips/datos/Operador.vue')
-            },
-            {
-              path: '/agregar-caja-trip/:id',
-              name: 'AgregarCajaTrip',
-              component: () => import('../components/trips/datos/Caja.vue')
-            },
-            {
-              path: '/agregar-tractor-trip/:id',
-              name: 'AgregarTractorTrip',
-              component: () => import('../components/trips/datos/Tractor.vue')
-            },
-            {
-              path: '/agregar-movimiento/:id',
-              name: 'AgregarMovimiento',
-              component: () => import('../components/trips/datos/piernas/AgregarMovimiento.vue')
-            },
-            // {
-            //   path: '/informacion-patio/:id/:type',
-            //   name: 'InformacionPatio',
-            //   component: () => import('../components/patios/Modificar.vue')
-            // },
-
-            {
-              path: '/pdf-trip/pdf/:id',
-              name: 'PDFTrip',
-              component: () => import('../components/PDFTrip.vue')
-            }
-          ]
-        },
-        {
-          path: '/bitacora-trip/:id',
-          name: 'BitacoraTrip',
-          component: () => import('../components/trips/bitacora/Bitacora.vue')
-        },
-        {
-          path: '/comentarios-trip/:id',
-          name: 'ComentariosTrip',
-          component: () => import('../components/trips/comentarios/Comentarios.vue')
-        }
-      ]
+      ...tripsRoute,
+      path: '/trips'
     },
     {
-      path: '/timbrado',
-      name: 'Timbrado',
-      component: () => import('../views/Timbrado.vue'),
-      children: [
-        {
-          path: '/timbrar-trip/:id',
-          name: 'TimbrarTrip',
-          component: () => import('../components/timbrado/Modificar.vue'),
-          children: [
-            {
-              path: '/timbre-agregar-servicio-trip/:id',
-              name: 'TimbreAgregarServicio',
-              component: () => import('../components/timbrado/servicios/AgregarServicio.vue')
-            },
-            {
-              path: '/agregar-mercancia-trip/:id',
-              name: 'AgregarMercanciaTrip',
-              component: () => import('../components/timbrado/mercancias/Agregar.vue')
-            },
-            {
-              path: '/pdf-timbre/pdf/:id',
-              name: 'PDFTimbre',
-              component: () => import('../components/PDFTimbre.vue')
-            }
-          ]
-        },
-        {
-          path: '/cancelar-timbre/:trip/:id',
-          name: 'CancelarTimbre',
-          component: () => import('../components/timbrado/cancelacion/Cancelacion.vue')
-        }
-      ]
+      ...timbradoRoute,
+      path: '/timbrado'
     },
     {
       path: '/super',
@@ -188,7 +102,7 @@ export const router = createRouter({
     {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
-      component: () => import('../views/Home.vue')
+      component: () => import('../views/HomeView.vue')
     }
   ]
 })
