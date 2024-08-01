@@ -11,6 +11,8 @@ import { usuariosRoute } from '@/modules/usuarios/router'
 import { rolesRoute } from '@/modules/roles/router'
 import { tripsRoute } from '@/modules/trips/router'
 import { timbradoRoute } from '@/modules/timbrado/router'
+import { useSocket } from '@/composables/useSocket'
+import { verifyLocalStorageUser } from '@/guards/verificarUsuarioAutenticado'
 
 export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -109,10 +111,14 @@ export const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const sessionStore = useSessionStore()
-  const authenticated = sessionStore.verifyUserAuthenticated
+  const { state, connect } = useSocket()
+  const authenticated = verifyLocalStorageUser()
 
   if (authenticated) {
     sessionStore.setAuthenticated(true)
+    if (!state.connected) {
+      connect(sessionStore.namespace.replace(/ /g, '').trim().toLowerCase())
+    }
   }
 
   if (!authenticated && to.name !== 'login') {

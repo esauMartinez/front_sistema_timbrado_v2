@@ -1,6 +1,5 @@
 import { reactive } from 'vue'
-import { useTrip } from './useTrip'
-import { Socket, io } from 'socket.io-client'
+import { io } from 'socket.io-client'
 import { useToast } from 'primevue/usetoast'
 
 export const state = reactive({
@@ -10,47 +9,34 @@ export const state = reactive({
   socket: null
 })
 
+const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:3200'
+
 export const useSocket = () => {
-  const { getTrips } = useTrip()
   const toast = useToast()
 
-  const connect = (namespace, usuario) => {
-    state.socket = io(`http://localhost:3200/${namespace}`)
-
-    state.socket.on('connect', () => {
+  const connect = (namespace: string) => {
+    const socket = io(`${URL}/${namespace}`)
+    
+    socket.on('connect', () => {
       state.connected = true
-      state.socket.emit('setuser', { usuario, socket: state.socket.id })
     })
 
-    state.socket.on('trip', (data) => {
+    socket.on('trip', (nombre_usuario: string) => {
       toast.add({
         severity: 'success',
         summary: 'Trip',
-        detail: data,
-        life: 5000
+        detail: `Un nuevo trip ha sido generado por el usuario ${nombre_usuario}`,
+        life: 3000
       })
-      // getTrips();
-    })
-
-    state.socket.on('take trip', (data) => {
-      if (data) {
-        toast.add({
-          severity: 'success',
-          summary: 'Trip',
-          detail: data,
-          life: 5000
-        })
-      }
-      // getTrips();
     })
   }
 
   const disconnect = () => {
-    state.socket.close()
     state.connected = false
   }
 
   return {
+    state,
     connect,
     disconnect
   }

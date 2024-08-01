@@ -1,5 +1,6 @@
 import type { Auth } from '@/auth/interfaces/auth'
 import { darkMode } from '@/guards/darkMode'
+import { nombreEmpresa } from '@/guards/nombreEmpresa'
 import { verifyLocalStorageUser } from '@/guards/verificarUsuarioAutenticado'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
@@ -21,6 +22,7 @@ export const useSessionStore = defineStore('session', () => {
     iconTheme,
 
     verifyUserAuthenticated: computed(() => verifyLocalStorageUser()),
+    namespace: computed(() => nombreEmpresa()),
 
     setAuthenticated(payload: boolean) {
       isUserAuthenticated.value = payload

@@ -24,10 +24,8 @@ export const useAuth = () => {
   watch(authMutation.isSuccess, (isSuccess) => {
     if (isSuccess) {
       localStorage.setItem('usuario', JSON.stringify(authMutation.data.value.data))
-
-      // sessionStore.setAuthenticated(true)
-
-      window.location.reload()
+      sessionStore.setAuthenticated(true)
+      // window.location.reload()
     }
   })
 

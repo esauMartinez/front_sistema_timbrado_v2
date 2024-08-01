@@ -5,14 +5,6 @@ import { storeToRefs } from 'pinia'
 
 const sessionStore = useSessionStore()
 const { isUserAuthenticated } = storeToRefs(sessionStore)
-
-// const data = JSON.parse(localStorage.getItem('usuario'));
-// const rol = localStorage.getItem('rol');
-// if (data !== null && rol !== 'USER_SUPER_ADMIN') {
-// 	connect(`empresa_${data.empresa.id}`, data.id);
-// }
-// import { state, useSocket } from './composables/useSocket';
-// const { connect } = useSocket();
 </script>
 
 <template>

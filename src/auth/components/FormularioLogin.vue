@@ -1,7 +1,15 @@
 <script lang="ts" setup>
 import { useAuth } from '@/auth/composables/useAuth'
+import { router } from '@/router'
+import { watch } from 'vue'
 
-const { user, isLoading, isError, authMutation } = useAuth()
+const { user, isUserAuthenticated, isLoading, isSuccess, isError, authMutation } = useAuth()
+
+watch(isSuccess, (payload) => {
+  if (payload && isUserAuthenticated.value) {
+    router.push({ name: 'Home' })
+  }
+})
 </script>
 
 <template>
