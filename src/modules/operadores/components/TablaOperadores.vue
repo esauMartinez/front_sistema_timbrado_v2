@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { severity } from '@/pipes/severity'
 import { FilterMatchMode } from 'primevue/api'
-import { useTrip } from '@/composables/useTrip'
+// import { useTrip } from '@/composables/useTrip'
 import { useOperadores } from '@/modules/operadores/composables/useOperadores'
 import { useEliminar } from '@/modules/operadores/composables/useEliminar'
 import { question } from '@/helpers/messages'
@@ -11,7 +11,7 @@ import { useModificar } from '@/modules/operadores/composables/useModifiar'
 import type { Operador } from '../interfaces/operador'
 
 const { verificarPermiso } = useAuth()
-const { selectOperador } = useTrip()
+// const { selectOperador } = useTrip()
 
 const { operadores, isLoading } = useOperadores()
 const { eliminarMutation } = useEliminar()
